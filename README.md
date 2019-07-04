@@ -8,6 +8,7 @@ Booth location can be highlight with hash('#') on the link.
 # 2019
 - [CAFKL6](http://milvagox.github.io/map/2019/CAFKL6)
 - [TAGCC2019](http://milvagox.github.io/map/2019/TAGCC2019)
+- [ILAMY2019](http://milvagox.github.io/map/2019/ILAMY2019)
 - [AMGchan2019](http://milvagox.github.io/map/2019/AMGchan2019) 
 
 # 2018
@@ -16,6 +17,7 @@ Booth location can be highlight with hash('#') on the link.
 - [AMGchan2018](http://milvagox.github.io/map/2018/AMGchan2018)
 
 # 2017
+- [CF2017](http://milvagox.github.io/map/2017/CF2017)
 - [CAFKL4](http://milvagox.github.io/map/2017/CAFKL4)
 
 # 2016
