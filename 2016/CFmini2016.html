@@ -1,0 +1,107 @@
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CFmini2016 Map++</title>
+  <style> 
+  .area { 
+    border: 1px solid red; 
+    background-color: aqua;
+    display: block; 
+    opacity: 0;
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+  }
+  
+  .area::selection {
+    color: #555555;
+  }
+  
+  .area:hover { opacity: 0.3; }
+  .area:hover+.box { opacity: 1; }
+  .box:hover { opacity: 1; }
+  .box {
+    border: 3px dotted aqua;
+    display: block;
+    position: absolute;
+    opacity: 0;
+  }
+  
+  
+  </style>
+  <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      obj = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      console.log(obj.style.top + ", " + obj.style.top);
+      obj.style.top = (parseInt(obj.style.top, 10) - 3) + "px";
+      obj.style.left = (parseInt(obj.style.left, 10) - 3) + "px";
+      obj.style.opacity = 0.7;
+      obj.style.border = '5px solid red';
+      obj.previousSibling.style.opacity = 0.5;
+      
+    }
+    
+    function box_mouseover(obj) {
+      obj.previousSibling.style.opacity = 0.3;
+      
+    }
+    
+    function box_mouseleave(obj) {
+      obj.previousSibling.style.opacity = '';
+      obj.nextSibling.src = '';
+    }
+    
+    
+    
+  </script>
+  </head>
+<body onload='highlight_by_anchor()'>
+
+    <div><img src="./CFmini2016/CFmini2016.png" onerror="this.src = './CFmini2016/CFmini2016.jpg'" />
+
+<a class='area' style='top: 264px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=*%20HARUKATSU%20*.'>* HARUKATSU *.</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 263px; top: 673px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=*%20HARUKATSU%20*.' id='E7'></a>
+<a class='area' style='top: 291px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Abam%20Apam'>Abam Apam</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 623px; top: 673px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Abam%20Apam' id='E1'></a>
+<a class='area' style='top: 319px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Almost%20Derp%20Guild'>Almost Derp Guild</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 325px; top: 404px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Almost%20Derp%20Guild' id='B6'></a>
+<a class='area' style='top: 346px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Asia%20Full%20House'>Asia Full House</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 204px; top: 732px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Asia%20Full%20House' id='F7'></a>
+<a class='area' style='top: 373px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Bloom%20Artwork'>Bloom Artwork</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 204px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Bloom%20Artwork' id='A8'></a>
+<a class='area' style='top: 401px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Bluepeppermints'>Bluepeppermints</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 620px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Bluepeppermints' id='A1'></a>
+<a class='area' style='top: 428px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Break%20Pieces'>Break Pieces</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Break%20Pieces' id='A9'></a>
+<a class='area' style='top: 455px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Chapter#1'>Chapter#1</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 561px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Chapter#1' id='F2'></a>
+<a class='area' style='top: 483px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Chineko%20is%20Here'>Chineko is Here</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 325px; top: 509px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Chineko%20is%20Here' id='C6'></a>
+<a class='area' style='top: 510px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Cyborg%2025'>Cyborg 25</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 502px; top: 404px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Cyborg%2025' id='B2'></a>
+<a class='area' style='top: 537px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=DREAMING%20DREAMS'>DREAMING DREAMS</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 568px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=DREAMING%20DREAMS' id='D8'></a>
+<a class='area' style='top: 565px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=ET%20WORLD'>ET WORLD</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 263px; top: 345px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=ET%20WORLD' id='A6'></a>
+<a class='area' style='top: 592px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Ethereal%20Heaven'>Ethereal Heaven</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 384px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Ethereal%20Heaven' id='A5'></a>
+<a class='area' style='top: 619px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Fukurou'>Fukurou</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 564px; top: 509px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Fukurou' id='C3'></a>
+<a class='area' style='top: 647px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Hairy%20Penguin'>Hairy Penguin</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 204px; top: 509px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Hairy%20Penguin' id='C7'></a>
+<a class='area' style='top: 674px; left: 778px; width:275px; height: 27px; '  href='https://fb.me/WorldsOfHammu'>Hammu</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 673px;  width:48px; height: 45px' href='https://fb.me/WorldsOfHammu' id='E9'></a>
+<a class='area' style='top: 701px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Ink雄联盟'>Ink雄联盟</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 443px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Ink雄联盟' id='F4'></a>
+<a class='area' style='top: 729px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Irodqori'>Irodqori</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 502px; top: 673px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Irodqori' id='E2'></a>
+<a class='area' style='top: 756px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=JustBuy'>JustBuy</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 204px; top: 404px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=JustBuy' id='B7'></a>
+<a class='area' style='top: 783px; left: 778px; width:275px; height: 28px; '  href='http://duckduckgo.com/?q=Kamcao'>Kamcao</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 623px; top: 509px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Kamcao' id='C1'></a>
+<a class='area' style='top: 811px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=KBP%20Lord%20Helix'>KBP Lord Helix</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 266px; top: 568px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=KBP%20Lord%20Helix' id='D7'></a>
+<a class='area' style='top: 838px; left: 778px; width:275px; height: 27px; '  href='http://duckduckgo.com/?q=Lea莉雅%26Mikki蜜琪'>Lea莉雅&Mikki蜜琪</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 204px; top: 673px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Lea莉雅%26Mikki蜜琪' id='E8'></a>
+<a class='area' style='top: 264px; left: 1068px; width:285px; height: 27px; '  href='https://twitter.com/LemonsOnSticks'>Lemonsonsticks</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 404px;  width:48px; height: 45px' href='https://twitter.com/LemonsOnSticks' id='B9'></a>
+<a class='area' style='top: 291px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=MY.%20Memories'>MY. Memories</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 322px; top: 673px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=MY.%20Memories' id='E6'></a>
+<a class='area' style='top: 319px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Makinggimmick'>Makinggimmick</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 381px; top: 673px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Makinggimmick' id='E4'></a>
+<a class='area' style='top: 346px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Moemono%20萌之物'>Moemono 萌之物</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 502px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Moemono%20萌之物' id='F3'></a>
+<a class='area' style='top: 373px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=Paraetto%20Dé%20Casa'>Paraetto Dé Casa</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 384px; top: 568px;  width:106px; height: 45px' href='http://duckduckgo.com/?q=Paraetto%20Dé%20Casa' id='D4'></a>
+<a class='area' style='top: 401px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Pink%20Milk'>Pink Milk</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 623px; top: 568px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Pink%20Milk' id='D1'></a>
+<a class='area' style='top: 428px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Please%20Buy%20I%20Cry'>Please Buy I Cry</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 384px; top: 509px;  width:107px; height: 45px' href='http://duckduckgo.com/?q=Please%20Buy%20I%20Cry' id='C4'></a>
+<a class='area' style='top: 455px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=Prime%20Mirage'>Prime Mirage</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 509px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Prime%20Mirage' id='C9'></a>
+<a class='area' style='top: 483px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Rait%20Visual%20Works'>Rait Visual Works</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 384px; top: 404px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Rait%20Visual%20Works' id='B5'></a>
+<a class='area' style='top: 510px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=ReikoCubicles'>ReikoCubicles</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 145px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=ReikoCubicles' id='F9'></a>
+<a class='area' style='top: 537px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=SO%20BEAT!'>SO BEAT!</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 505px; top: 509px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=SO%20BEAT!' id='C2'></a>
+<a class='area' style='top: 565px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=StrawberryDaifuku'>StrawberryDaifuku</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 325px; top: 568px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=StrawberryDaifuku' id='D6'></a>
+<a class='area' style='top: 592px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=SweetOblivion%20甘い忘却'>SweetOblivion 甘い忘却</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 443px; top: 404px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=SweetOblivion%20甘い忘却' id='B4'></a>
+<a class='area' style='top: 619px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=TauEw%20Merchandise'>TauEw Merchandise</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 384px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=TauEw%20Merchandise' id='F5'></a>
+<a class='area' style='top: 647px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Toa's%20Wildscape'>Toa's Wildscape</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 443px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Toa's%20Wildscape' id='A4'></a>
+<a class='area' style='top: 674px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=Tomodachi'>Tomodachi</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 620px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=Tomodachi' id='F1'></a>
+<a class='area' style='top: 701px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=什么鬼福利社%20WTG'>什么鬼福利社 WTG</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 561px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=什么鬼福利社%20WTG' id='A2'></a>
+<a class='area' style='top: 729px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=媽的智障'>媽的智障</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 503px; top: 568px;  width:106px; height: 45px' href='http://duckduckgo.com/?q=媽的智障' id='D2'></a>
+<a class='area' style='top: 756px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=猜中有奖'>猜中有奖</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 502px; top: 345px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=猜中有奖' id='A3'></a>
+<a class='area' style='top: 783px; left: 1068px; width:285px; height: 28px; '  href='http://duckduckgo.com/?q=白い夢%20Shiroi%20yume'>白い夢 Shiroi yume</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 325px; top: 732px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=白い夢%20Shiroi%20yume' id='F6'></a>
+<a class='area' style='top: 811px; left: 1068px; width:285px; height: 27px; '  href='http://duckduckgo.com/?q=葡萄米店铺%20GrapeRice'>葡萄米店铺 GrapeRice</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 622px; top: 404px;  width:48px; height: 45px' href='http://duckduckgo.com/?q=葡萄米店铺%20GrapeRice' id='B1'></a>  
+</div></body></html>
