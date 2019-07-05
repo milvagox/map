@@ -15,14 +15,15 @@ Booth location can be highlight with hash('#') on the link.
 - [CF2018](http://milvagox.github.io/map/2018/CF2018) 
 - [CFmini2018](http://milvagox.github.io/map/2018/CFmini2018) 
 - [AMG2018](http://milvagox.github.io/map/2018/AMG2018)
-- [CAFKL5](http://milvagox.github.io/map/2018/CAFKL5) 
+- [VAX2018](http://milvagox.github.io/map/2018/VAX2018) 
+- [CAFKL5](http://milvagox.github.io/map/2018/CAFKL5)
 - [AMGchan2018](http://milvagox.github.io/map/2018/AMGchan2018)
 
 # 2017
 - [CF2017](http://milvagox.github.io/map/2017/CF2017)
 - [AMG2017](http://milvagox.github.io/map/2017/AMG2017)
-- [AMGchan2017](http://milvagox.github.io/map/2017/AMGchan2017)
 - [CAFKL4](http://milvagox.github.io/map/2017/CAFKL4)
+- [AMGchan2017](http://milvagox.github.io/map/2017/AMGchan2017)
 
 # 2016
 - [CAFKL3](http://milvagox.github.io/map/2016/CAFKL3)
