@@ -56,30 +56,28 @@
     // very bad glob var
     glob_box_selector = ""; 
     stop_img = false;
-    function box_mouseover(obj) {
+    function box_mover(obj) {
       obj.previousSibling.style.opacity = 0.3;
       obj.nextSibling.src='CAFKL6/artist/' + obj.id + '.jpg';
     }
     
-    function box_mouseleave(obj) {
+    function box_mout(obj) {
       obj.previousSibling.style.opacity = '';
       if(!stop_img) { obj.nextSibling.src = ''; }
     }
     
     function link_click(box) {
-     // alert(link);
       glob_box_selector = box;
       glob_box_selector.style.zIndex = 200;
       glob_box_selector.style.opacity = 1;
       glob_box_selector.nextSibling.nextSibling.style.display = 'block';
       glob_box_selector.nextSibling.nextSibling.style.zIndex = 150;
-      stop_img = true
-      box.nextSibling.src='CAFKL6/artist/' + box.id + '.jpg'
+      stop_img = true;
+      box.nextSibling.src='CAFKL6/artist/' + box.id + '.jpg';
       glob_box_selector.nextSibling.style.zIndex = 200;
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.6;
       coverbox.style.zIndex = 100;
-     //location.href = link
     }
     
     function coverbox_click() {
