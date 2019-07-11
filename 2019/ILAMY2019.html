@@ -1,94 +1,69 @@
-  <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>ILAMY2019 Map++</title>
-  <style> 
+<!DOCTYPE html>
+<html><head>
+ <meta charset="UTF-8">
+ <title>ILAMY2019 Map++</title>
+ <style> 
+  .booth { opacity: 0; }
+  .booth:hover { opacity: 1; }
   .area { 
     border: 1px solid red; 
-    background-color: aqua;
-    display: block; 
-    opacity: 0;
+    background-color: rgba(0, 255, 255, 0.3);
     position: absolute;
     text-align: right;
     color: rgba(0, 0, 0, 0);
   }
-  
-  .area::selection {
-    color: #555555;
-  }
-  
-  .area:hover { opacity: 0.3; }
-  .area:hover+.box { opacity: 1; }
-  .box:hover { opacity: 1; }
   .box {
     border: 3px dotted aqua;
-    display: block;
     position: absolute;
-    opacity: 0;
+    z-index : 200;
   }
-  
-  
-  </style>
-  <script>
+ </style>
+ <script>
     function highlight_by_anchor() {
       if(!window.location.hash) { return }
-      obj = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      console.log(obj.style.top + ", " + obj.style.top);
-      obj.style.top = (parseInt(obj.style.top, 10) - 3) + "px";
-      obj.style.left = (parseInt(obj.style.left, 10) - 3) + "px";
-      obj.style.opacity = 0.7;
-      obj.style.border = '5px solid red';
-      obj.previousSibling.style.opacity = 0.5;
-      
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.top = (parseInt(box.style.top, 10) - 3) + "px";
+      box.style.left = (parseInt(box.style.left, 10) - 3) + "px";
+      box.style.border = '5px solid red';
+      booth.style.opacity = 1;
     }
-    
-    function box_mouseover(obj) {
-      obj.previousSibling.style.opacity = 0.3;
-      
-    }
-    
-    function box_mouseleave(obj) {
-      obj.previousSibling.style.opacity = '';
-      obj.nextSibling.src = '';
-    }
-    
-    
-    
-  </script>
-  </head>
-<body onload='highlight_by_anchor()'>
-
-    <div><img src="./ILAMY2019/ILAMY2019.png" onerror="this.src = './ILAMY2019/ILAMY2019.jpg'" />
-
-<a class='area' style='top: 808px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=AFA%20SHOP'>AFA SHOP</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 337px; top: 523px;  width:38px; height: 22px' href='http://duckduckgo.com/?q=AFA%20SHOP' id='A01'></a>
-<a class='area' style='top: 832px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=POP%20TEAM%20EPIC'>POP TEAM EPIC</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 357px; top: 458px;  width:130px; height: 15px' href='http://duckduckgo.com/?q=POP%20TEAM%20EPIC' id='A02'></a>
-<a class='area' style='top: 856px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=Sony%20Cosplay%20graphy'>Sony Cosplay graphy</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 280px; top: 380px;  width:17px; height: 33px' href='http://duckduckgo.com/?q=Sony%20Cosplay%20graphy' id='A03'></a>
-<a class='area' style='top: 880px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=J-POP%20Culture%20Shop%20AKIBAJAYA'>J-POP Culture Shop AKIBAJAYA</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 281px; top: 349px;  width:15px; height: 18px' href='http://duckduckgo.com/?q=J-POP%20Culture%20Shop%20AKIBAJAYA' id='A04'></a>
-<a class='area' style='top: 904px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=AF%20Hobby'>AF Hobby</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 281px; top: 310px;  width:15px; height: 36px' href='http://duckduckgo.com/?q=AF%20Hobby' id='A05'></a>
-<a class='area' style='top: 928px; left: 22px; width:195px; height: 24px; '  href='http://duckduckgo.com/?q=ACCEL%20DRIVE%20TOKU%20MALAYSIA'>ACCEL DRIVE TOKU MALAYSIA</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 281px; top: 289px;  width:15px; height: 18px' href='http://duckduckgo.com/?q=ACCEL%20DRIVE%20TOKU%20MALAYSIA' id='A06'></a>
-<a class='area' style='top: 808px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=6%20Toy'>6 Toy</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 281px; top: 269px;  width:15px; height: 17px' href='http://duckduckgo.com/?q=6%20Toy' id='A07'></a>
-<a class='area' style='top: 832px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=LUMICA%20CORPORATION'>LUMICA CORPORATION</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 290px; top: 209px;  width:64px; height: 34px' href='http://duckduckgo.com/?q=LUMICA%20CORPORATION' id='A08'></a>
-<a class='area' style='top: 856px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=E.%20X.%20X'>E. X. X</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 349px; top: 279px;  width:17px; height: 33px' href='http://duckduckgo.com/?q=E.%20X.%20X' id='A09'></a>
-<a class='area' style='top: 880px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=Tomodachi'>Tomodachi</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 349px; top: 315px;  width:17px; height: 17px' href='http://duckduckgo.com/?q=Tomodachi' id='A10'></a>
-<a class='area' style='top: 904px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=Oh!%20Gatcha'>Oh! Gatcha</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 350px; top: 359px;  width:14px; height: 56px' href='http://duckduckgo.com/?q=Oh!%20Gatcha' id='A11'></a>
-<a class='area' style='top: 928px; left: 233px; width:155px; height: 24px; '  href='http://duckduckgo.com/?q=KOTOBUKIYA'>KOTOBUKIYA</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 332px; top: 427px;  width:33px; height: 15px' href='http://duckduckgo.com/?q=KOTOBUKIYA' id='A12'></a>
-<a class='area' style='top: 808px; left: 404px; width:80px; height: 24px; '  href='http://duckduckgo.com/?q=E.%20X.%20X'>E. X. X</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 602px; top: 296px;  width:15px; height: 15px' href='http://duckduckgo.com/?q=E.%20X.%20X' id='A13'></a>
-<a class='area' style='top: 832px; left: 404px; width:80px; height: 24px; '  href='http://duckduckgo.com/?q=E.%20X.%20X'>E. X. X</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 626px; top: 244px;  width:33px; height: 15px' href='http://duckduckgo.com/?q=E.%20X.%20X' id='A14'></a>
-<a class='area' style='top: 856px; left: 404px; width:80px; height: 24px; '  href='http://duckduckgo.com/?q=农夫山泉'>农夫山泉</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 656px; top: 424px;  width:15px; height: 15px' href='http://duckduckgo.com/?q=农夫山泉' id='A15'></a>
-<a class='area' style='top: 808px; left: 495px; width:170px; height: 24px; '  href='http://duckduckgo.com/?q=ANIMUGEN%20ID'>ANIMUGEN ID</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 409px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=ANIMUGEN%20ID' id='B01'></a>
-<a class='area' style='top: 832px; left: 495px; width:170px; height: 24px; '  href='http://duckduckgo.com/?q=RAIT%20Visualworks'>RAIT Visualworks</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 396px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=RAIT%20Visualworks' id='B02'></a>
-<a class='area' style='top: 856px; left: 495px; width:170px; height: 24px; '  href='http://duckduckgo.com/?q=KUHL%20NOTES'>KUHL NOTES</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 383px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=KUHL%20NOTES' id='B03'></a>
-<a class='area' style='top: 880px; left: 495px; width:170px; height: 24px; '  href='https://fb.me/ETHERandNETHER'>ETHER & NETHER 蒼空幽境</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 370px;  width:10px; height: 10px' href='https://fb.me/ETHERandNETHER' id='B04'></a>
-<a class='area' style='top: 904px; left: 495px; width:170px; height: 24px; '  href='http://duckduckgo.com/?q=FPSMOE'>FPSMOE</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 357px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=FPSMOE' id='B05'></a>
-<a class='area' style='top: 928px; left: 495px; width:170px; height: 24px; '  href='https://twitter.com/spoon_butter'>BUTTERSPOON</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 344px;  width:10px; height: 10px' href='https://twitter.com/spoon_butter' id='B06'></a>
-<a class='area' style='top: 808px; left: 673px; width:125px; height: 24px; '  href='http://duckduckgo.com/?q=MONO-Land'>MONO-Land</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 616px; top: 328px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=MONO-Land' id='B07'></a>
-<a class='area' style='top: 832px; left: 673px; width:125px; height: 24px; '  href='http://duckduckgo.com/?q=Secret-Garden'>Secret-Garden</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 629px; top: 328px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=Secret-Garden' id='B08'></a>
-<a class='area' style='top: 856px; left: 673px; width:125px; height: 24px; '  href='http://duckduckgo.com/?q=Le%20Fluffy%20Kitsune'>Le Fluffy Kitsune</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 642px; top: 328px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=Le%20Fluffy%20Kitsune' id='B09'></a>
-<a class='area' style='top: 880px; left: 673px; width:125px; height: 24px; '  href='http://duckduckgo.com/?q=DOUJIN%20TENKA!!'>DOUJIN TENKA!!</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 655px; top: 328px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=DOUJIN%20TENKA!!' id='B10'></a>
-<a class='area' style='top: 904px; left: 673px; width:125px; height: 24px; '  href='http://duckduckgo.com/?q=AzarashiMaru'>AzarashiMaru</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 583px; top: 274px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=AzarashiMaru' id='B11'></a>
-<a class='area' style='top: 928px; left: 673px; width:125px; height: 24px; '  href='https://instagram.com/Artfurry'>ArtFurry</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 574px; top: 265px;  width:10px; height: 10px' href='https://instagram.com/Artfurry' id='B12'></a>
-<a class='area' style='top: 808px; left: 808px; width:130px; height: 24px; '  href='http://duckduckgo.com/?q=D*Sign%20Underground'>D*Sign Underground</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 565px; top: 256px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=D*Sign%20Underground' id='B13'></a>
-<a class='area' style='top: 832px; left: 808px; width:130px; height: 24px; '  href='http://duckduckgo.com/?q=KBP%20Lord%20Helix'>KBP Lord Helix</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 555px; top: 247px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=KBP%20Lord%20Helix' id='B14'></a>
-<a class='area' style='top: 856px; left: 808px; width:130px; height: 24px; '  href='http://duckduckgo.com/?q=LY-3K'>LY-3K</a><a class='box' onmouseover='box_mouseover(this)' onmouseleave='box_mouseleave(this)'  style='left: 546px; top: 237px;  width:10px; height: 10px' href='http://duckduckgo.com/?q=LY-3K' id='B15'></a>  
+ </script>
+</head>
+<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<div><img src="./ILAMY2019/ILAMY2019.png" onerror="this.src = './ILAMY2019/ILAMY2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<a class='booth' id='A01' href='http://duckduckgo.com/?q=AFA%20SHOP'><div class='area' style='top: 808px; left: 22px; width:195px; height: 24px'>AFA SHOP</div><div class='box' style='left: 337px; top: 523px;  width:38px; height: 22px'></div>
+</a><a class='booth' id='A02' href='http://duckduckgo.com/?q=POP%20TEAM%20EPIC'><div class='area' style='top: 832px; left: 22px; width:195px; height: 24px'>POP TEAM EPIC</div><div class='box' style='left: 357px; top: 458px;  width:130px; height: 15px'></div>
+</a><a class='booth' id='A03' href='http://duckduckgo.com/?q=Sony%20Cosplay%20graphy'><div class='area' style='top: 856px; left: 22px; width:195px; height: 24px'>Sony Cosplay graphy</div><div class='box' style='left: 280px; top: 380px;  width:17px; height: 33px'></div>
+</a><a class='booth' id='A04' href='http://duckduckgo.com/?q=J-POP%20Culture%20Shop%20AKIBAJAYA'><div class='area' style='top: 880px; left: 22px; width:195px; height: 24px'>J-POP Culture Shop AKIBAJAYA</div><div class='box' style='left: 281px; top: 349px;  width:15px; height: 18px'></div>
+</a><a class='booth' id='A05' href='http://duckduckgo.com/?q=AF%20Hobby'><div class='area' style='top: 904px; left: 22px; width:195px; height: 24px'>AF Hobby</div><div class='box' style='left: 281px; top: 310px;  width:15px; height: 36px'></div>
+</a><a class='booth' id='A06' href='http://duckduckgo.com/?q=ACCEL%20DRIVE%20TOKU%20MALAYSIA'><div class='area' style='top: 928px; left: 22px; width:195px; height: 24px'>ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left: 281px; top: 289px;  width:15px; height: 18px'></div>
+</a><a class='booth' id='A07' href='http://duckduckgo.com/?q=6%20Toy'><div class='area' style='top: 808px; left: 233px; width:155px; height: 24px'>6 Toy</div><div class='box' style='left: 281px; top: 269px;  width:15px; height: 17px'></div>
+</a><a class='booth' id='A08' href='http://duckduckgo.com/?q=LUMICA%20CORPORATION'><div class='area' style='top: 832px; left: 233px; width:155px; height: 24px'>LUMICA CORPORATION</div><div class='box' style='left: 290px; top: 209px;  width:64px; height: 34px'></div>
+</a><a class='booth' id='A09' href='http://duckduckgo.com/?q=E.%20X.%20X'><div class='area' style='top: 856px; left: 233px; width:155px; height: 24px'>E. X. X</div><div class='box' style='left: 349px; top: 279px;  width:17px; height: 33px'></div>
+</a><a class='booth' id='A10' href='http://duckduckgo.com/?q=Tomodachi'><div class='area' style='top: 880px; left: 233px; width:155px; height: 24px'>Tomodachi</div><div class='box' style='left: 349px; top: 315px;  width:17px; height: 17px'></div>
+</a><a class='booth' id='A11' href='http://duckduckgo.com/?q=Oh%21%20Gatcha'><div class='area' style='top: 904px; left: 233px; width:155px; height: 24px'>Oh! Gatcha</div><div class='box' style='left: 350px; top: 359px;  width:14px; height: 56px'></div>
+</a><a class='booth' id='A12' href='http://duckduckgo.com/?q=KOTOBUKIYA'><div class='area' style='top: 928px; left: 233px; width:155px; height: 24px'>KOTOBUKIYA</div><div class='box' style='left: 332px; top: 427px;  width:33px; height: 15px'></div>
+</a><a class='booth' id='A13' href='http://duckduckgo.com/?q=E.%20X.%20X'><div class='area' style='top: 808px; left: 404px; width:80px; height: 24px'>E. X. X</div><div class='box' style='left: 602px; top: 296px;  width:15px; height: 15px'></div>
+</a><a class='booth' id='A14' href='http://duckduckgo.com/?q=E.%20X.%20X'><div class='area' style='top: 832px; left: 404px; width:80px; height: 24px'>E. X. X</div><div class='box' style='left: 626px; top: 244px;  width:33px; height: 15px'></div>
+</a><a class='booth' id='A15' href='http://duckduckgo.com/?q=%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89'><div class='area' style='top: 856px; left: 404px; width:80px; height: 24px'>农夫山泉</div><div class='box' style='left: 656px; top: 424px;  width:15px; height: 15px'></div>
+</a><a class='booth' id='B01' href='http://duckduckgo.com/?q=ANIMUGEN%20ID'><div class='area' style='top: 808px; left: 495px; width:170px; height: 24px'>ANIMUGEN ID</div><div class='box' style='left: 655px; top: 409px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B02' href='http://duckduckgo.com/?q=RAIT%20Visualworks'><div class='area' style='top: 832px; left: 495px; width:170px; height: 24px'>RAIT Visualworks</div><div class='box' style='left: 655px; top: 396px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B03' href='http://duckduckgo.com/?q=KUHL%20NOTES'><div class='area' style='top: 856px; left: 495px; width:170px; height: 24px'>KUHL NOTES</div><div class='box' style='left: 655px; top: 383px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B04' href='http://fb.me/ETHERandNETHER'><div class='area' style='top: 880px; left: 495px; width:170px; height: 24px'>ETHER &amp; NETHER 蒼空幽境</div><div class='box' style='left: 655px; top: 370px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B05' href='http://duckduckgo.com/?q=FPSMOE'><div class='area' style='top: 904px; left: 495px; width:170px; height: 24px'>FPSMOE</div><div class='box' style='left: 655px; top: 357px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B06' href='http://twitter.com/spoon_butter'><div class='area' style='top: 928px; left: 495px; width:170px; height: 24px'>BUTTERSPOON</div><div class='box' style='left: 655px; top: 344px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B07' href='http://twitter.com/monoland27'><div class='area' style='top: 808px; left: 673px; width:125px; height: 24px'>MONO-Land</div><div class='box' style='left: 655px; top: 328px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B08' href='http://duckduckgo.com/?q=Secret-Garden'><div class='area' style='top: 832px; left: 673px; width:125px; height: 24px'>Secret-Garden</div><div class='box' style='left: 642px; top: 328px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B09' href='http://duckduckgo.com/?q=Le%20Fluffy%20Kitsune'><div class='area' style='top: 856px; left: 673px; width:125px; height: 24px'>Le Fluffy Kitsune</div><div class='box' style='left: 629px; top: 328px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B10' href='http://duckduckgo.com/?q=DOUJIN%20TENKA%21%21'><div class='area' style='top: 880px; left: 673px; width:125px; height: 24px'>DOUJIN TENKA!!</div><div class='box' style='left: 616px; top: 328px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B11' href='http://duckduckgo.com/?q=AzarashiMaru'><div class='area' style='top: 904px; left: 673px; width:125px; height: 24px'>AzarashiMaru</div><div class='box' style='left: 583px; top: 274px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B12' href='http://instagram.com/Artfurry'><div class='area' style='top: 928px; left: 673px; width:125px; height: 24px'>ArtFurry</div><div class='box' style='left: 574px; top: 265px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B13' href='http://duckduckgo.com/?q=D%2ASign%20Underground'><div class='area' style='top: 808px; left: 808px; width:130px; height: 24px'>D*Sign Underground</div><div class='box' style='left: 565px; top: 256px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B14' href='http://duckduckgo.com/?q=KBP%20Lord%20Helix'><div class='area' style='top: 832px; left: 808px; width:130px; height: 24px'>KBP Lord Helix</div><div class='box' style='left: 555px; top: 247px;  width:10px; height: 10px'></div>
+</a><a class='booth' id='B15' href='http://duckduckgo.com/?q=LY-3K'><div class='area' style='top: 856px; left: 808px; width:130px; height: 24px'>LY-3K</div><div class='box' style='left: 546px; top: 237px;  width:10px; height: 10px'></div>
+</a>
 </div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to ILAMY2019 artists and organizer.-->
