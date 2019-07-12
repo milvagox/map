@@ -17,10 +17,8 @@
     position: absolute;
     z-index : 200;
   }
-  .banner { 
-    position: absolute; 
-    z-index: 200;
-  }
+  .banner { position: absolute; }
+  .banner:hover {opacity: 1; }
   .desc {
     padding: 10px 10px 10px 210px;
     min-width: 280px; 
@@ -52,7 +50,9 @@
       glob_box_selector = booth;
       booth.style.opacity = 1;
       booth.getElementsByClassName('desc')[0].style.display = 'block';
-      booth.getElementsByClassName('banner')[0].src='CAFKL6/artist/' + booth.id + '.jpg';
+      banner = booth.getElementsByClassName('banner')[0]
+      banner.src = 'CAFKL6/artist/' + booth.id + '.jpg';
+      banner.style.zIndex = 200;
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.5;
       coverbox.style.zIndex = 100;
@@ -64,8 +64,9 @@
       
       glob_box_selector.getElementsByClassName('desc')[0].style.display = 'none';
       glob_box_selector.style.opacity = "";
-      glob_box_selector.getElementsByClassName('banner')[0].src='';
-      
+      banner = glob_box_selector.getElementsByClassName('banner')[0]
+      banner.src = '';
+      banner.style.zIndex = 200;
       coverbox.style.opacity = 0;
       coverbox.style.zIndex = 0;
       //glob_box_selector = ""; // empty the selector
@@ -89,8 +90,8 @@
  </script>
 </head>
 <body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
-<div><img src="./CAFKL6/CAFKL6.png" onerror="this.src = './CAFKL6/CAFKL6.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div>
+<img src='./CAFKL6/CAFKL6.png' style='width:960px; height:960px;' onerror="this.src = './CAFKL6/CAFKL6.jpg'"><div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='area' style='top: 734px; left: 54px; width:180px; height: 13px;'>Picks &amp; Pins</div><div class='box' style='left: 303px; top: 147px;  width:18px; height: 10px'></div><img class='banner' style='left: 323px; top: 159px'><div class='desc' style='left: 323px; top: 159px;'><h1>A1</h1><a href='http://twitter.com/tishawish_'>twitter.com/tishawish_</a><br><a href='http://tishawish.tumblr.com'>tishawish.tumblr.com</a><br><a href='http://instagram.com/tishawish_'>instagram.com/tishawish_</a><br><a href='http://piknu.com/u/tishawish_'>piknu.com/u/tishawish_</a><br><a href='http://twitter.com/buttooti'>twitter.com/buttooti</a><br><a href='http://buttooti.tumblr.com'>buttooti.tumblr.com</a><br><a href='http://instagram.com/buttooti'>instagram.com/buttooti</a><br><a href='http://piknu.com/u/buttooti'>piknu.com/u/buttooti</a><br></div>
 </div><div class='booth' id='A3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='area' style='top: 747px; left: 54px; width:180px; height: 13px;'>The Final Chaos</div><div class='box' style='left: 323px; top: 147px;  width:9px; height: 10px'></div><img class='banner' style='left: 334px; top: 159px'><div class='desc' style='left: 334px; top: 159px;'><h1>A3</h1><a href='http://fb.me/thefinalchaos'>fb.me/thefinalchaos</a><br></div>
 </div><div class='booth' id='A4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='area' style='top: 760px; left: 54px; width:180px; height: 13px;'>Wallace Destiny</div><div class='box' style='left: 333px; top: 147px;  width:9px; height: 10px'></div><img class='banner' style='left: 344px; top: 159px'><div class='desc' style='left: 344px; top: 159px;'><h1>A4</h1><a href='http://fb.me/TheArtofwallacedestiny'>fb.me/TheArtofwallacedestiny</a><br><a href='http://facebook.com/Art-of-Winnie-Wonder-1687411141523632'>facebook.com/Art-of-Winnie-Wonder-1687411141523632</a><br></div>
