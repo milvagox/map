@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head>
+ <meta charset="UTF-8">
+ <title>CFminiJB2018 Map++</title>
+ <style> 
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+  }
+  .box {
+    border: 3px dotted aqua;
+    position: absolute;
+    z-index : 200;
+    opacity: inherit;
+  }
+ </style>
+ <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.marginTop = "-3px";
+      box.style.marginLeft = "-3px";
+      box.style.border = '5px solid red';
+      booth.style.opacity = 1;
+    }
+ </script>
+</head>
+<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<div>
+<img src='./CFminiJB2018/CFminiJB2018.png' onerror="this.src = './CFminiJB2018/CFminiJB2018.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<a class='booth' id='A01' href='http://duckduckgo.com/?q=ATO'><div class='area' style='left:48px;top:538px;width:300px;height:24px;'>ATO</div><div class='box' style='left:644px;top:250px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A03' href='http://duckduckgo.com/?q=SIRRUS%20ENTERPRISE'><div class='area' style='left:48px;top:562px;width:300px;height:24px;'>SIRRUS ENTERPRISE</div><div class='box' style='left:585px;top:250px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A04' href='http://duckduckgo.com/?q=KUHL%20NOTES'><div class='area' style='left:48px;top:586px;width:300px;height:24px;'>KUHL NOTES</div><div class='box' style='left:526px;top:250px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A05' href='http://duckduckgo.com/?q=KUMI'><div class='area' style='left:48px;top:610px;width:300px;height:24px;'>KUMI</div><div class='box' style='left:467px;top:250px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A06' href='http://fb.me/dsignunderground'><div class='area' style='left:48px;top:634px;width:300px;height:48px;'>D*SIGN UNDERGROUND</div><div class='box' style='left:408px;top:250px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A07' href='http://duckduckgo.com/?q=BREAK%20PIECES'><div class='area' style='left:48px;top:706px;width:300px;height:24px;'>BREAK PIECES</div><div class='box' style='left:335px;top:250px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A08' href='http://instagram.com/kellychong2333'><div class='area' style='left:48px;top:730px;width:300px;height:24px;'>TAOHUAWU</div><div class='box' style='left:217px;top:250px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A10' href='http://duckduckgo.com/?q=COSMIZER%20EVA'><div class='area' style='left:48px;top:754px;width:300px;height:24px;'>COSMIZER EVA</div><div class='box' style='left:99px;top:250px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B01' href='http://duckduckgo.com/?q=CLAZ%27ROOM%20ACADEMY%20JB'><div class='area' style='left:355px;top:538px;width:310px;height:24px;'>CLAZ&#39;ROOM ACADEMY JB</div><div class='box' style='left:644px;top:296px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B03' href='http://duckduckgo.com/?q=CHERLYE%20X%20MAGI.KART'><div class='area' style='left:355px;top:562px;width:310px;height:24px;'>CHERLYE X MAGI.KART</div><div class='box' style='left:585px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B04' href='http://duckduckgo.com/?q=DOUJIN%20TENKA%21%21'><div class='area' style='left:355px;top:586px;width:310px;height:24px;'>DOUJIN TENKA!!</div><div class='box' style='left:526px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B05' href='http://duckduckgo.com/?q=LABIRI'><div class='area' style='left:355px;top:610px;width:310px;height:24px;'>LABIRI</div><div class='box' style='left:467px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B06' href='http://duckduckgo.com/?q=FRUITCAKES'><div class='area' style='left:355px;top:634px;width:310px;height:24px;'>FRUITCAKES</div><div class='box' style='left:408px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B07' href='http://duckduckgo.com/?q=MONORABBIT'><div class='area' style='left:355px;top:706px;width:310px;height:24px;'>MONORABBIT</div><div class='box' style='left:336px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B08' href='http://fb.me/animugenindonesia'><div class='area' style='left:355px;top:730px;width:310px;height:24px;'>ANIMUGEN ID</div><div class='box' style='left:277px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B09' href='http://duckduckgo.com/?q=RAIT%20VISUALWORKS'><div class='area' style='left:355px;top:754px;width:310px;height:24px;'>RAIT VISUALWORKS</div><div class='box' style='left:218px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B10' href='http://duckduckgo.com/?q=WABADABA-DUB-DUB'><div class='area' style='left:355px;top:778px;width:310px;height:24px;'>WABADABA-DUB-DUB</div><div class='box' style='left:159px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B11' href='http://duckduckgo.com/?q=PUMPKIN%20COFFEE'><div class='area' style='left:355px;top:802px;width:310px;height:24px;'>PUMPKIN COFFEE</div><div class='box' style='left:100px;top:296px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C01' href='http://duckduckgo.com/?q=%E5%B0%8F%E5%B9%BB%E3%81%AE%E6%B6%82%E9%B8%A5%E6%97%A5%E5%BF%97'><div class='area' style='left:691px;top:538px;width:250px;height:48px;'>小幻の涂鸥日志</div><div class='box' style='left:644px;top:363px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C03' href='http://duckduckgo.com/?q=%26BEN%20WONG'><div class='area' style='left:691px;top:586px;width:250px;height:24px;'>&amp;BEN WONG</div><div class='box' style='left:585px;top:363px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C04' href='http://duckduckgo.com/?q=FLAVERRI'><div class='area' style='left:691px;top:610px;width:250px;height:24px;'>FLAVERRI</div><div class='box' style='left:526px;top:363px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C05' href='http://duckduckgo.com/?q=AKIKO%E7%A7%8B%E9%9B%A8'><div class='area' style='left:691px;top:634px;width:250px;height:48px;'>AKIKO秋雨</div><div class='box' style='left:408px;top:363px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D01' href='http://duckduckgo.com/?q=MARCH'><div class='area' style='left:691px;top:706px;width:250px;height:24px;'>MARCH</div><div class='box' style='left:644px;top:409px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D03' href='http://duckduckgo.com/?q=MEISTERWERKE'><div class='area' style='left:691px;top:730px;width:250px;height:48px;'>MEISTERWERKE</div><div class='box' style='left:585px;top:409px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D04' href='http://rynisyou.com'><div class='area' style='left:691px;top:778px;width:250px;height:24px;'>RYNISYOU</div><div class='box' style='left:526px;top:409px;width:49px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D05' href='http://duckduckgo.com/?q=LYNNAMALINA'><div class='area' style='left:691px;top:802px;width:250px;height:24px;'>LYNNAMALINA</div><div class='box' style='left:408px;top:409px;width:108px;height:18px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to CFminiJB2018 artists and organizer.-->
