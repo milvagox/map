@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html><head>
+ <meta charset="UTF-8">
+ <title>CFminiJB2019 Map++</title>
+ <style> 
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+  }
+  .box {
+    border: 3px dotted aqua;
+    position: absolute;
+    z-index : 200;
+    opacity: inherit;
+  }
+ </style>
+ <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.marginTop = "-3px";
+      box.style.marginLeft = "-3px";
+      box.style.border = '5px solid red';
+      booth.style.opacity = 1;
+    }
+ </script>
+</head>
+<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<div>
+<img src='./CFminiJB2019/CFminiJB2019.png' onerror="this.src = './CFminiJB2019/CFminiJB2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<a class='booth' id='A1' href='http://rynisyou.com'><div class='area' style='left:573px;top:316px;width:360px;height:31px;'>RYNISYOU</div><div class='box' style='left:393px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A2' href='http://duckduckgo.com/?q=HiBiscuits'><div class='area' style='left:573px;top:347px;width:360px;height:30px;'>HiBiscuits</div><div class='box' style='left:393px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A3' href='http://twitter.com/spoon_butter'><div class='area' style='left:573px;top:377px;width:360px;height:31px;'>BUTTERSPOON</div><div class='box' style='left:393px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A4' href='http://duckduckgo.com/?q=%E5%96%B5%26%F0%A6%8D%8C'><div class='area' style='left:573px;top:408px;width:360px;height:30px;'>喵&amp;𦍌</div><div class='box' style='left:393px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B1' href='http://duckduckgo.com/?q=Raisins%20%26%20Berry'><div class='area' style='left:573px;top:469px;width:360px;height:30px;'>Raisins &amp; Berry</div><div class='box' style='left:328px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B2' href='http://duckduckgo.com/?q=KBP%20Lord%20Helix'><div class='area' style='left:573px;top:499px;width:360px;height:31px;'>KBP Lord Helix</div><div class='box' style='left:328px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Commander%20Mittens'><div class='area' style='left:573px;top:530px;width:360px;height:30px;'>Commander Mittens</div><div class='box' style='left:328px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B4' href='http://duckduckgo.com/?q=Yuz%27Ki'><div class='area' style='left:573px;top:560px;width:360px;height:31px;'>Yuz&#39;Ki</div><div class='box' style='left:328px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C1' href='http://duckduckgo.com/?q=%E7%9C%A0%E7%8C%AB'><div class='area' style='left:573px;top:621px;width:360px;height:31px;'>眠猫</div><div class='box' style='left:202px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C2' href='http://duckduckgo.com/?q=Hisapyon'><div class='area' style='left:573px;top:652px;width:360px;height:30px;'>Hisapyon</div><div class='box' style='left:202px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C3' href='http://duckduckgo.com/?q=HEAVEN%2A'><div class='area' style='left:573px;top:682px;width:360px;height:31px;'>HEAVEN*</div><div class='box' style='left:202px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C4' href='http://duckduckgo.com/?q=Monorabbit'><div class='area' style='left:573px;top:713px;width:360px;height:30px;'>Monorabbit</div><div class='box' style='left:202px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D1' href='http://duckduckgo.com/?q=TAROKUMA%20ZAKKATEN'><div class='area' style='left:573px;top:774px;width:360px;height:30px;'>TAROKUMA ZAKKATEN</div><div class='box' style='left:137px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D2' href='http://duckduckgo.com/?q=Nineteen2'><div class='area' style='left:573px;top:804px;width:360px;height:31px;'>Nineteen2</div><div class='box' style='left:137px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D3' href='http://duckduckgo.com/?q=Minami'><div class='area' style='left:573px;top:835px;width:360px;height:30px;'>Minami</div><div class='box' style='left:137px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D4' href='http://duckduckgo.com/?q=Shuu'><div class='area' style='left:573px;top:865px;width:360px;height:31px;'>Shuu</div><div class='box' style='left:137px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to CFminiJB2019 artists and organizer.-->
