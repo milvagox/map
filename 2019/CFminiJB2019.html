@@ -63,6 +63,11 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      console.log(booth.nextSibling)
+      if (booth.nextSibling.classList.contains("custimg")) {
+        booth.nextSibling.style.display = 'block'
+        console.log(booth.nextSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -102,6 +107,9 @@
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.5;
       coverbox.style.zIndex = 100;
+      if (booth.nextSibling.classList.contains("custimg")) {
+        booth.nextSibling.style.display = 'block'
+      }
     }
     
     function coverbox_click() {
@@ -117,6 +125,9 @@
       coverbox.style.opacity = 0;
       coverbox.style.zIndex = 0;
       //glob_box_selector = ""; // empty the selector
+      if (booth.nextSibling.classList.contains("custimg")) {
+        booth.nextSibling.style.display = 'none'
+      }
     }
 
     function map_navigate(event) {
@@ -142,29 +153,25 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CFminiJB2019/CFminiJB2019.png' onerror="this.src = './CFminiJB2019/CFminiJB2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:422px;top:519px;'><h1>A1</h1><a href='http://rynisyou.com'>rynisyou.com</a><br><a href='http://fb.me/rynisyou'>fb.me/rynisyou</a><br><a href='http://instagram.com/rynisyou'>instagram.com/rynisyou</a><br><a href='http://rynisyou.tumblr.com'>rynisyou.tumblr.com</a><br><a href='http://twitter.com/rynisyou'>twitter.com/rynisyou</a><br></div><div class='area' style='left:573px;top:316px;width:360px;height:31px;'>A1 RYNISYOU</div><div class='box' style='left:393px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:422px;top:601px;'><h1>A2</h1><a href='http://fb.me/hibiscuits/'>fb.me/hibiscuits/</a><br></div><div class='area' style='opacity:0;left:573px;top:347px;width:360px;height:30px;'>A2 HIBISCUITS</div><div class='box' style='left:393px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div>
-<img src="./CFminiJB2019/A2.png" class='custimg'>
+</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:422px;top:601px;'><h1>A2</h1><a href='http://fb.me/hibiscuits/'>fb.me/hibiscuits/</a><br></div><div class='area' style='opacity:0;left:573px;top:347px;width:360px;height:30px;'>A2 HIBISCUITS</div><div class='box' style='opacity:0;left:393px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><img src="./CFminiJB2019/A2.png" onclick="this.style.display=''" class='custimg'>
 <div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:422px;top:683px;'><h1>A3</h1><a href='http://twitter.com/spoon_butter'>twitter.com/spoon_butter</a><br><a href='http://fb.me/butterspoonofficial'>fb.me/butterspoonofficial</a><br></div><div class='area' style='left:573px;top:377px;width:360px;height:31px;'>A3 BUTTERSPOON</div><div class='box' style='left:393px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:422px;top:765px;'><h1>A4</h1><a href='http://fb.me/HANDMADEBYYY'>fb.me/HANDMADEBYYY</a><br></div><div class='area' style='left:573px;top:408px;width:360px;height:30px;'>A4 喵&AMP;𦍌</div><div class='box' style='left:393px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div>
-<img src="./CFminiJB2019/A4.png" class='custimg'>
+</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:422px;top:765px;'><h1>A4</h1><a href='http://fb.me/HANDMADEBYYY'>fb.me/HANDMADEBYYY</a><br></div><div class='area' style='left:573px;top:408px;width:360px;height:30px;'>A4 喵&AMP;𦍌</div><div class='box' style='opacity:0;left:393px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><img src="./CFminiJB2019/A4.png" onclick="this.style.display=''" class='custimg'>
 <div class='booth' id='B1' onclick='link_click(this)'><div class='desc' style='left:357px;top:519px;'><h1>B1</h1><a href='http://fb.me/RaisinsBerry'>fb.me/RaisinsBerry</a><br></div><div class='area' style='left:573px;top:469px;width:360px;height:30px;'>B1 RAISINS &AMP; BERRY</div><div class='box' style='left:328px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='B2' onclick='link_click(this)'><div class='desc' style='left:357px;top:601px;'><h1>B2</h1><a href='http://fb.me/KBPLordHelix'>fb.me/KBPLordHelix</a><br></div><div class='area' style='left:573px;top:499px;width:360px;height:31px;'>B2 KBP LORD HELIX</div><div class='box' style='left:328px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:357px;top:683px;'><h1>B3</h1><a href='http://etsy.com/shop/CommanderMittensCo'>etsy.com/shop/CommanderMittensCo</a><br></div><div class='area' style='left:573px;top:530px;width:360px;height:30px;'>B3 COMMANDER MITTENS</div><div class='box' style='left:328px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='B4' onclick='link_click(this)'><div class='desc' style='left:357px;top:765px;'><h1>B4</h1><a href='http://instagram.com/pancat.yuzki'>instagram.com/pancat.yuzki</a><br><a href='http://linktr.ee/pancat.yuzki'>linktr.ee/pancat.yuzki</a><br></div><div class='area' style='left:573px;top:560px;width:360px;height:31px;'>B4 YUZ&#39;KI</div><div class='box' style='left:328px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:231px;top:519px;'><h1>C1</h1><a href='http://fb.me/chenxidiary'>fb.me/chenxidiary</a><br></div><div class='area' style='opacity:0;left:573px;top:621px;width:360px;height:31px;'>C1 眠猫</div><div class='box' style='left:202px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div>
-<img src="./CFminiJB2019/C1.png" class='custimg'>
+</div><img src="./CFminiJB2019/C1.png" onclick="this.style.display=''" class='custimg'>
 <div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:231px;top:601px;'><h1>C2</h1><a href='http://fb.me/hisaruu'>fb.me/hisaruu</a><br></div><div class='area' style='left:573px;top:652px;width:360px;height:30px;'>C2 HISAPYON</div><div class='box' style='left:202px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='C3' onclick='link_click(this)'><div class='desc' style='left:231px;top:683px;'><h1>C3</h1><a href='http://fb.me/etherealheaveeen'>fb.me/etherealheaveeen</a><br></div><div class='area' style='left:573px;top:682px;width:360px;height:31px;'>C3 HEAVEN*</div><div class='box' style='left:202px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='C4' onclick='link_click(this)'><div class='desc' style='left:231px;top:765px;'><h1>C4</h1><a href='http://fb.me/monorabbitWondershop'>fb.me/monorabbitWondershop</a><br></div><div class='area' style='left:573px;top:713px;width:360px;height:30px;'>C4 MONORABBIT</div><div class='box' style='left:202px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='D1' onclick='link_click(this)'><div class='desc' style='left:166px;top:519px;'><h1>D1</h1><a href='http://fb.me/tarokuma.craftshop'>fb.me/tarokuma.craftshop</a><br></div><div class='area' style='left:573px;top:774px;width:360px;height:30px;'>D1 TAROKUMA ZAKKATEN</div><div class='box' style='left:137px;top:446px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='D2' onclick='link_click(this)'><div class='desc' style='left:166px;top:601px;'><h1>D2</h1><a href='http://drive.google.com/file/d/1Z2Ld-YxBB0jtwhlpZa_egGqcldkgEUG5/view'>drive.google.com/file/d/1Z2Ld-YxBB0jtwhlpZa_egGqcldkgEUG5/view</a><br></div><div class='area' style='left:573px;top:804px;width:360px;height:31px;'>D2 NINETEEN2</div><div class='box' style='left:137px;top:528px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:166px;top:683px;'><h1>D3</h1><a href='http://drive.google.com/drive/folders/1ZryWZEYC1Y3DGHxL07LvbLS3uFSGyq2y'>drive.google.com/drive/folders/1ZryWZEYC1Y3DGHxL07LvbLS3uFSGyq2y</a><br></div><div class='area' style='left:573px;top:835px;width:360px;height:30px;'>D3 MINAMI</div><div class='box' style='left:137px;top:610px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='D4' onclick='link_click(this)'><div class='desc' style='left:166px;top:765px;'><h1>D4</h1><a href='http://fb.me/shuucos'>fb.me/shuucos</a><br></div><div class='area' style='left:573px;top:865px;width:360px;height:31px;'>D4 SHUU</div><div class='box' style='left:137px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div>
-<img src="./CFminiJB2019/D4.png" class='custimg'>
+</div><div class='booth' id='D4' onclick='link_click(this)'><div class='desc' style='left:166px;top:765px;'><h1>D4</h1><a href='http://fb.me/shuucos'>fb.me/shuucos</a><br></div><div class='area' style='left:573px;top:865px;width:360px;height:31px;'>D4 SHUU</div><div class='box' style='opacity:0;left:137px;top:692px;width:27px;height:71px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><img src="./CFminiJB2019/D4.png" onclick="this.style.display=''" class='custimg'>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->
 <!--Map and banners are belong to CFminiJB2019 artists and organizer.-->
