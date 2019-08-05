@@ -4,11 +4,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>AMGchan2018 Map++</title>
  <style> 
+  
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
+  .booth img { opacity: 0; }
+  .booth:hover img { opacity: 1;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -61,6 +64,7 @@
         item.src='';
       });
     }
+    
  </script>
 </head>
 <body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
@@ -80,7 +84,7 @@
 </a><a class='booth' id='A10' href='http://duckduckgo.com/?q=Random%20People'><div class='area' style='left:33px;top:853px;width:120px;height:10px;'>A10 RANDOM PEOPLE</div><div class='box' style='left:620px;top:286px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B1' href='http://duckduckgo.com/?q=Kinoko'><div class='area' style='left:163px;top:763px;width:120px;height:10px;'>B1 KINOKO</div><div class='box' style='left:75px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B2' href='http://duckduckgo.com/?q=Moemono%20%E8%90%8C%E4%B9%8B%E7%89%A9'><div class='area' style='left:163px;top:773px;width:120px;height:10px;'>B2 MOEMONO 萌之物</div><div class='box' style='left:132px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Fatfairy'><div class='area' style='left:163px;top:783px;width:120px;height:10px;'>B3 FATFAIRY</div><div class='box' style='left:189px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B3' href='http://twitter.com/whitevoix'><div class='area' style='left:163px;top:783px;width:120px;height:10px;'>B3 FATFAIRY</div><div class='box' style='left:189px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B4' href='http://duckduckgo.com/?q=SPUD'><div class='area' style='left:163px;top:793px;width:120px;height:10px;'>B4 SPUD</div><div class='box' style='left:246px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B5' href='http://duckduckgo.com/?q=TAPE%20CRAFT%20STORE'><div class='area' style='left:163px;top:803px;width:120px;height:10px;'>B5 TAPE CRAFT STORE</div><div class='box' style='left:303px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B6' href='http://duckduckgo.com/?q=CurFae'><div class='area' style='left:163px;top:813px;width:120px;height:10px;'>B6 CURFAE</div><div class='box' style='left:392px;top:356px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
@@ -111,7 +115,7 @@
 </a><a class='booth' id='E1' href='http://duckduckgo.com/?q=Cosplay%20Corner'><div class='area' style='left:560px;top:763px;width:115px;height:10px;'>E1 COSPLAY CORNER</div><div class='box' style='left:75px;top:599px;width:114px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E3' href='http://duckduckgo.com/?q=Artsyhooman'><div class='area' style='left:560px;top:773px;width:115px;height:10px;'>E3 ARTSYHOOMAN</div><div class='box' style='left:189px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E4' href='http://duckduckgo.com/?q=ACLightsabers'><div class='area' style='left:560px;top:783px;width:115px;height:10px;'>E4 ACLIGHTSABERS</div><div class='box' style='left:246px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='E5' href='http://duckduckgo.com/?q=KBP%20Lord%20Helix'><div class='area' style='left:560px;top:793px;width:115px;height:10px;'>E5 KBP LORD HELIX</div><div class='box' style='left:303px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='E5' href='http://fb.me/KBPLordHelix'><div class='area' style='left:560px;top:793px;width:115px;height:10px;'>E5 KBP LORD HELIX</div><div class='box' style='left:303px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E6' href='http://duckduckgo.com/?q=The%20Magic%20Rain'><div class='area' style='left:560px;top:803px;width:115px;height:10px;'>E6 THE MAGIC RAIN</div><div class='box' style='left:392px;top:599px;width:114px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E8' href='http://duckduckgo.com/?q=Kendylife'><div class='area' style='left:560px;top:813px;width:115px;height:10px;'>E8 KENDYLIFE</div><div class='box' style='left:506px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E9' href='http://duckduckgo.com/?q=Hara'><div class='area' style='left:560px;top:823px;width:115px;height:10px;'>E9 HARA</div><div class='box' style='left:563px;top:599px;width:57px;height:57px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

@@ -4,11 +4,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CAFKL1 Map++</title>
  <style> 
+  
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
+  .booth img { opacity: 0; }
+  .booth:hover img { opacity: 1;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -61,6 +64,7 @@
         item.src='';
       });
     }
+    
  </script>
 </head>
 <body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
@@ -70,7 +74,7 @@
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://duckduckgo.com/?q=Pandabaka'><div class='area' style='left:1343px;top:345px;width:320px;height:22px;'>A1 PANDABAKA</div><div class='box' style='left:600px;top:975px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A2' href='http://duckduckgo.com/?q=Honey%20Hachi'><div class='area' style='left:1343px;top:367px;width:320px;height:22px;'>A2 HONEY HACHI</div><div class='box' style='left:628px;top:972px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='A3' href='http://duckduckgo.com/?q=Fat%20Fairy'><div class='area' style='left:1343px;top:389px;width:320px;height:22px;'>A3 FAT FAIRY</div><div class='box' style='left:656px;top:969px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A3' href='http://twitter.com/whitevoix'><div class='area' style='left:1343px;top:389px;width:320px;height:22px;'>A3 FAT FAIRY</div><div class='box' style='left:656px;top:969px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A4' href='http://duckduckgo.com/?q=Picnic'><div class='area' style='left:1343px;top:411px;width:320px;height:22px;'>A4 PICNIC</div><div class='box' style='left:684px;top:966px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A5' href='http://duckduckgo.com/?q=Pieces%20of%20FREEdom'><div class='area' style='left:1343px;top:433px;width:320px;height:22px;'>A5 PIECES OF FREEDOM</div><div class='box' style='left:712px;top:963px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A6' href='http://duckduckgo.com/?q=veleries%2Bfairsky'><div class='area' style='left:1343px;top:455px;width:320px;height:22px;'>A6 VELERIES+FAIRSKY</div><div class='box' style='left:740px;top:960px;width:25px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

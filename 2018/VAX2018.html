@@ -4,11 +4,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>VAX2018 Map++</title>
  <style> 
+  
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
+  .booth img { opacity: 0; }
+  .booth:hover img { opacity: 1;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -61,6 +64,7 @@
         item.src='';
       });
     }
+    
  </script>
 </head>
 <body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
