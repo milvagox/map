@@ -1,5 +1,4 @@
 User-agent: *
 Disallow: /ico/
-Disallow: /twt/
 
 Sitemap: https://milvagox.netlify.com/sitemap.txt
