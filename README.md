@@ -1,5 +1,6 @@
 Interative Event Map [milvagox.github.io/map](http://milvagox.github.io/map)
 ----
+[Collective booths list](http://milvagox.github.io/map/booths)
 A simple repo for event map navigation 
 
 Booth location can be highlight with hash('#') on the link.
