@@ -15,6 +15,7 @@ Booth location can be highlight with hash('#') on the link.
 - [TAGCC2019](http://milvagox.github.io/map/2019/TAGCC2019)
 - [ILAMY2019](http://milvagox.github.io/map/2019/ILAMY2019)
 - [AMGchan2019](http://milvagox.github.io/map/2019/AMGchan2019)
+- [S4O2019](http://milvagox.github.io/map/2019/S4O2019)
 
 # 2018
 - [CF2018](http://milvagox.github.io/map/2018/CF2018)
