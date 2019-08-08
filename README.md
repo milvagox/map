@@ -27,6 +27,7 @@ Booth location can be highlight with hash('#') on the link.
 - [CAFKL5](http://milvagox.github.io/map/2018/CAFKL5)
 - [AMGchan2018](http://milvagox.github.io/map/2018/AMGchan2018)
 - [TAGCC2018](http://milvagox.github.io/map/2018/TAGCC2018)
+- [S4O2018](http://milvagox.github.io/map/2018/S4O2018)
 
 # 2017
 - [CF2017](http://milvagox.github.io/map/2017/CF2017)
