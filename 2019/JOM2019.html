@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html><head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="twitter:card" content="summary" />
+ <meta name="twitter:site" content="@milvagox" />
+ <meta property="og:type" content="website" />
+ <meta property="og:title" content="JOM2019 Interactive Map" />
+ <meta property="og:description" content="JOM2019 with artists' SNS links." />
+ <meta property="og:url" content="http://milvagox.netlify.com/JOM2019" />
+ <meta property="og:image" content="http://milvagox.netlify.com/twt/JOM2019.png" />
+ <title>JOM2019 Map++</title>
+ <style> 
+  .banner { position: absolute; }
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { opacity: 0; }
+  .booth:hover img { opacity: 1;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+  }
+  .box {
+    border: 3px dotted aqua;
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .booth_highlight { opacity: 1; }
+  .booth_highlight img { opacity: 0; }
+  .booth_highlight:hover img {opacity: 1}
+  .desc {
+    padding: 10px 10px 10px 210px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h1 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.marginTop = "-3px";
+      box.style.marginLeft = "-3px";
+      box.style.border = '5px solid red';
+      link_click(booth);
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
+        item.src='';
+      });
+    }
+function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='JOM2019/artist/' + booth.id + '.jpg' }    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      glob_box_selector = booth;
+      booth.style.opacity = 1;
+      booth.getElementsByClassName('desc')[0].style.display = 'block';
+       banner = booth.getElementsByClassName('banner')[0]
+       banner.src = 'JOM2019/artist/' + booth.id + '.jpg';
+       banner.style.zIndex = 200;
+       banner.style.opacity = 1;
+      coverbox = document.getElementById('coverbox');
+      coverbox.style.opacity = 0.5;
+      coverbox.style.zIndex = 100;
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) { return; }
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = 'none';
+      glob_box_selector.style.opacity = "";
+       banner = glob_box_selector.getElementsByClassName('banner')[0]
+       banner.src = '';
+       banner.style.zIndex = 200;
+       banner.style.opacity = 0;
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      //glob_box_selector = ""; // empty the selector
+    }
+
+    function map_navigate(event) {
+      var key_pressed = event.which || event.keyCode;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") {  temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousSibling } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextSibling }
+        }
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click()
+          link_click(temp_box) 
+        }
+      }
+    }
+ </script>
+</head>
+<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<div>
+
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./JOM2019/JOM2019.png' onerror="this.src = './JOM2019/JOM2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:388px;'><h1>A1</h1><a href='http://duckduckgo.com/?q=Fantasy%20craftworks'>Search for Fantasy craftworks</a><br></div><img class='banner' style='left:863px;top:388px;'><div class='area' style='left:48px;top:665px;width:215px;height:19px;'>A1 FANTASY CRAFTWORKS</div><div class='box' style='left:838px;top:344px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:435px;'><h1>A2</h1><ul>
+<a href='http://fb.me/yuganasenshi'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:863px;top:435px;'><div class='area' style='left:48px;top:684px;width:215px;height:19px;'>A2 YUGANA SENSHI UON</div><div class='box' style='left:838px;top:391px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:496px;'><h1>A3</h1><ul>
+<a href='http://fb.me/rosenopallos'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:863px;top:496px;'><div class='area' style='left:48px;top:703px;width:215px;height:19px;'>A3 ROSEN OPALLOS</div><div class='box' style='left:838px;top:452px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:543px;'><h1>A4</h1><a href='http://duckduckgo.com/?q=SkullzxBonez'>Search for SkullzxBonez</a><br></div><img class='banner' style='left:863px;top:543px;'><div class='area' style='left:48px;top:722px;width:215px;height:19px;'>A4 SKULLZXBONEZ</div><div class='box' style='left:838px;top:499px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:605px;'><h1>A5</h1><a href='http://duckduckgo.com/?q=MM%20HANDMADE%20SOUVENIR'>Search for MM HANDMADE SOUVENIR</a><br></div><img class='banner' style='left:863px;top:605px;'><div class='area' style='left:48px;top:741px;width:215px;height:19px;'>A5 MM HANDMADE SOUVENIR</div><div class='box' style='left:838px;top:561px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:388px;'><h1>B1</h1><a href='http://duckduckgo.com/?q=KING%20CHEST'>Search for KING CHEST</a><br></div><img class='banner' style='left:816px;top:388px;'><div class='area' style='left:48px;top:779px;width:215px;height:19px;'>B1 KING CHEST</div><div class='box' style='left:791px;top:344px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:435px;'><h1>B2</h1><a href='http://duckduckgo.com/?q=Maycrs'>Search for Maycrs</a><br></div><img class='banner' style='left:816px;top:435px;'><div class='area' style='left:48px;top:798px;width:215px;height:19px;'>B2 MAYCRS</div><div class='box' style='left:791px;top:391px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:496px;'><h1>B3</h1><a href='http://duckduckgo.com/?q=Zinmato'>Search for Zinmato</a><br></div><img class='banner' style='left:816px;top:496px;'><div class='area' style='left:48px;top:817px;width:215px;height:19px;'>B3 ZINMATO</div><div class='box' style='left:791px;top:452px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:543px;'><h1>B4</h1><a href='http://duckduckgo.com/?q=Kak%20Bunga%20ft%20Saakira%20Izumi'>Search for Kak Bunga ft Saakira Izumi</a><br></div><img class='banner' style='left:816px;top:543px;'><div class='area' style='left:48px;top:836px;width:215px;height:19px;'>B4 KAK BUNGA FT SAAKIRA IZUMI</div><div class='box' style='left:791px;top:499px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:605px;'><h1>B5</h1><a href='http://duckduckgo.com/?q=PaperBlank'>Search for PaperBlank</a><br></div><img class='banner' style='left:816px;top:605px;'><div class='area' style='left:48px;top:855px;width:215px;height:19px;'>B5 PAPERBLANK</div><div class='box' style='left:791px;top:561px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='C1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:687px;top:421px;'><h1>C1</h1><ul>
+<a href='http://fb.me/cosdreamersjapan'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:687px;top:421px;'><div class='area' style='left:285px;top:665px;width:200px;height:19px;'>C1 COS DREAMERS JAPAN</div><div class='box' style='left:642px;top:347px;width:43px;height:72px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='C2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:747px;top:421px;'><h1>C2</h1><a href='http://duckduckgo.com/?q=ASL%20QUEEN'>Search for ASL QUEEN</a><br></div><img class='banner' style='left:747px;top:421px;'><div class='area' style='left:285px;top:684px;width:200px;height:19px;'>C2 ASL QUEEN</div><div class='box' style='left:702px;top:347px;width:43px;height:72px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='D1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:506px;top:421px;'><h1>D1</h1><a href='http://duckduckgo.com/?q=University%20Kuala%20Lumpur'>Search for University Kuala Lumpur</a><br></div><img class='banner' style='left:506px;top:421px;'><div class='area' style='left:285px;top:722px;width:200px;height:19px;'>D1 UNIVERSITY KUALA LUMPUR</div><div class='box' style='left:461px;top:347px;width:43px;height:72px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='D2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:566px;top:421px;'><h1>D2</h1><ul>
+<a href='http://fb.me/japanhobbyclubJHC'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:566px;top:421px;'><div class='area' style='left:285px;top:741px;width:200px;height:19px;'>D2 JAPAN HOBBY CLUB</div><div class='box' style='left:521px;top:347px;width:43px;height:72px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='E1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:207px;top:327px;'><h1>E1</h1><a href='http://duckduckgo.com/?q=Kiss%20Marry%20Kill'>Search for Kiss Marry Kill</a><br></div><img class='banner' style='left:207px;top:327px;'><div class='area' style='left:284px;top:779px;width:160px;height:19px;'>E1 KISS MARRY KILL</div><div class='box' style='left:165px;top:304px;width:40px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='E2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:257px;top:327px;'><h1>E2</h1><ul>
+<a href='http://instagram.com/abudoracosplay'><span class='ins'></span></a>
+</ul></div><img class='banner' style='left:257px;top:327px;'><div class='area' style='left:284px;top:798px;width:160px;height:19px;'>E2 ABUDORA COSPLAY</div><div class='box' style='left:215px;top:304px;width:40px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='E3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:309px;top:327px;'><h1>E3</h1><a href='http://duckduckgo.com/?q=Ookami%20Ouji'>Search for Ookami Ouji</a><br></div><img class='banner' style='left:309px;top:327px;'><div class='area' style='left:284px;top:817px;width:160px;height:19px;'>E3 OOKAMI OUJI</div><div class='box' style='left:267px;top:304px;width:40px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='E4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:360px;top:327px;'><h1>E4</h1><ul>
+<a href='http://fb.me/mychineko'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:360px;top:327px;'><div class='area' style='left:284px;top:836px;width:160px;height:19px;'>E4 CHINEKO</div><div class='box' style='left:318px;top:304px;width:40px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='E5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:413px;top:327px;'><h1>E5</h1><a href='http://duckduckgo.com/?q=Forever'>Search for Forever</a><br></div><img class='banner' style='left:413px;top:327px;'><div class='area' style='left:284px;top:855px;width:160px;height:19px;'>E5 FOREVER</div><div class='box' style='left:371px;top:304px;width:40px;height:21px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='F1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:128px;top:372px;'><h1>F1</h1><ul>
+<a href='http://fb.me/animubundleshirts'><span class='fbk'></span></a>
+</ul></div><img class='banner' style='left:128px;top:372px;'><div class='area' style='left:497px;top:665px;width:200px;height:19px;'>F1 ANIVINTEJ</div><div class='box' style='left:52px;top:304px;width:74px;height:66px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='F2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:422px;'><h1>F2</h1><ul>
+<a href='http://instagram.com/greennnpandacraft'><span class='ins'></span></a>
+</ul></div><img class='banner' style='left:129px;top:422px;'><div class='area' style='left:497px;top:684px;width:200px;height:19px;'>F2 GREENNNPANDA CRAFT</div><div class='box' style='left:104px;top:378px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='F3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:469px;'><h1>F3</h1><a href='http://duckduckgo.com/?q=May%20ART'>Search for May ART</a><br></div><img class='banner' style='left:129px;top:469px;'><div class='area' style='left:497px;top:703px;width:200px;height:19px;'>F3 MAY ART</div><div class='box' style='left:104px;top:425px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='F4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:516px;'><h1>F4</h1><ul>
+<a href='http://twitter.com/animangaki'><span class='twt'></span></a>
+<a href='http://fb.me/animangaki'><span class='fbk'></span></a>
+  <li><a href='http://animangaki.com'>animangaki.com</a></li>
+</ul></div><img class='banner' style='left:129px;top:516px;'><div class='area' style='left:497px;top:722px;width:200px;height:19px;'>F4 ANIMANGAKI</div><div class='box' style='left:104px;top:472px;width:23px;height:42px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='STUDIO' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:893px;top:315px;'><h1>STUDIO</h1><a href='http://duckduckgo.com/?q=Melody%20Studio'>Search for Melody Studio</a><br></div><img class='banner' style='left:893px;top:315px;'><div class='area' style='left:497px;top:759px;width:200px;height:19px;'>STUDIO MELODY STUDIO</div><div class='box' style='left:802px;top:217px;width:89px;height:96px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to JOM2019 artists and organizer.-->
