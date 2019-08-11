@@ -2,6 +2,13 @@
 <html><head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="twitter:card" content="summary" />
+ <meta name="twitter:site" content="@milvagox" />
+ <meta property="og:type" content="website" />
+ <meta property="og:title" content="AMG2019 Interactive Map" />
+ <meta property="og:description" content="AMG2019 with artists' SNS links." />
+ <meta property="og:url" content="http://milvagox.netlify.com/AMG2019" />
+ <meta property="og:image" content="http://milvagox.netlify.com/twt/AMG2019.png" />
  <title>AMG2019 Map++</title>
  <style>
   body {
@@ -17,156 +24,165 @@
     }
     .boothlist tr:hover { background-color: ghostwhite }
     td ul { margin: 0 }
-.twt { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//twt.png'); }
-.ins { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//ins.png'); }
-.fbk { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//fbk.png'); }
-.tmb { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//tmb.png'); }
-.dar { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//dar.png'); }
-.tps { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//tps.png'); }
-.sen { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//sen.png'); }
-.lkt { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//lkt.png'); }
-.wix { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//wix.png'); }
-.wbl { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//wbl.png'); }
-.ast { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//ast.png'); }
-.pki { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//pki.png'); }
-.ets { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//ets.png'); }
-.gdr { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//gdr.png'); }
-.pkn { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//pkn.png'); }
-.pxv { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//pxv.png'); }
-.s12 { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//s12.png'); }
-.bcl { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//bcl.png'); }
-.abm { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//abm.png'); }
-.crd { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//crd.png'); }
-.kof { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//kof.png'); }
-.rbb { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//rbb.png'); }
-.inp { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//inp.png'); }
-.crs { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//crs.png'); }
-.ptr { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//ptr.png'); }
-.bhc { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//bhc.png'); }
-.cct { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//cct.png'); }
-.wdp { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//wdp.png'); }
-.lft { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//lft.png'); }
-.aks { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//aks.png'); }
-.cgc { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//cgc.png'); }
-.sqs { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//sqs.png'); }
-.unk { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//unk.png'); }
-.nieniekoto { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//nieniekoto.png'); }
-.cottonwings { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//cottonwings.png'); }
-.imtxm { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//imtxm.png'); }
-.elanorchuah { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//elanorchuah.png'); }
-.nadhirnor { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//nadhirnor.png'); }
-.charsiewspace { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//charsiewspace.png'); }
-.annuendo { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//annuendo.png'); }
-.susannelow { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//susannelow.png'); }
-.jiwosophy { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//jiwosophy.png'); }
-.elonethart { width: 32px; height: 32px; display: inline-block; margin: 2px; background: url('../ico//elonethart.png'); }
+ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
  </style>
  </head><body><h1>Temparory page for AMG2019</h1><table class="boothlist">
 <tr><td>A28</td>
 <td><ul>
-<a href='http://twitter.com/crispuart'><li class='twt'></li></a>
+<a href='http://twitter.com/crispuart'><span class='twt'></span></a>
 </ul></td></tr><tr><td>A39</td>
 <td><ul>
-<a href='http://twitter.com/relxion_kunp'><li class='twt'></li></a>
+<a href='http://twitter.com/relxion_kunp'><span class='twt'></span></a>
 </ul></td></tr><tr><td>B16</td>
 <td><ul>
-<a href='http://twitter.com/Wamirul'><li class='twt'></li></a>
+<a href='http://twitter.com/Wamirul'><span class='twt'></span></a>
 </ul></td></tr><tr><td>B22</td>
 <td><ul>
-<a href='http://twitter.com/exhaustedkaichu'><li class='twt'></li></a>
+<a href='http://twitter.com/exhaustedkaichu'><span class='twt'></span></a>
 </ul></td></tr><tr><td>C6</td>
 <td><ul>
-<a href='http://twitter.com/erebun11'><li class='twt'></li></a>
+<a href='http://twitter.com/erebun11'><span class='twt'></span></a>
 </ul></td></tr><tr><td>C7</td>
 <td><ul>
-<a href='http://twitter.com/baroquegothik'><li class='twt'></li></a>
+<a href='http://twitter.com/baroquegothik'><span class='twt'></span></a>
 </ul></td></tr><tr><td>C12</td>
 <td><ul>
-<a href='http://twitter.com/xhisa12'><li class='twt'></li></a>
+<a href='http://twitter.com/xhisa12'><span class='twt'></span></a>
 </ul></td></tr><tr><td>C32</td>
 <td><ul>
-<a href='http://twitter.com/aldreichd'><li class='twt'></li></a>
+<a href='http://twitter.com/aldreichd'><span class='twt'></span></a>
 </ul></td></tr><tr><td>C33</td>
 <td><ul>
-<a href='http://twitter.com/kurogareki'><li class='twt'></li></a>
+<a href='http://twitter.com/kurogareki'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D9</td>
 <td><ul>
-<a href='http://twitter.com/VanillaTea_er'><li class='twt'></li></a>
+<a href='http://twitter.com/VanillaTea_er'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D11</td>
 <td><ul>
-<a href='http://twitter.com/DatSketcher'><li class='twt'></li></a>
+<a href='http://twitter.com/DatSketcher'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D13</td>
 <td><ul>
-<a href='http://twitter.com/WiznArt'><li class='twt'></li></a>
+<a href='http://twitter.com/WiznArt'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D16</td>
 <td><ul>
-<a href='http://twitter.com/RedK_is_broke'><li class='twt'></li></a>
+<a href='http://twitter.com/RedK_is_broke'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D21</td>
 <td><ul>
-<a href='http://twitter.com/tamatanz'><li class='twt'></li></a>
+<a href='http://twitter.com/tamatanz'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D29</td>
 <td><ul>
-<a href='http://twitter.com/nijinoji'><li class='twt'></li></a>
+<a href='http://twitter.com/nijinoji'><span class='twt'></span></a>
 </ul></td></tr><tr><td>D36</td>
 <td><ul>
-<a href='http://twitter.com/Shinner_CXI'><li class='twt'></li></a>
+<a href='http://twitter.com/Shinner_CXI'><span class='twt'></span></a>
 </ul></td></tr><tr><td>E10</td>
 <td><ul>
-<a href='http://twitter.com/isacchili'><li class='twt'></li></a>
+<a href='http://twitter.com/isacchili'><span class='twt'></span></a>
 </ul></td></tr><tr><td>AyaTashax</td>
 <td><ul>
-<a href='http://twitter.com/AyaTashax'><li class='twt'></li></a>
+<a href='http://twitter.com/AyaTashax'><span class='twt'></span></a>
 </ul></td></tr><tr><td>airawr_</td>
 <td><ul>
-<a href='http://twitter.com/airawr_'><li class='twt'></li></a>
+<a href='http://twitter.com/airawr_'><span class='twt'></span></a>
 </ul></td></tr><tr><td>aishasoup</td>
 <td><ul>
-<a href='http://twitter.com/aishasoup'><li class='twt'></li></a>
+<a href='http://twitter.com/aishasoup'><span class='twt'></span></a>
 </ul></td></tr><tr><td>BlueHawaiichan</td>
 <td><ul>
-<a href='http://twitter.com/BlueHawaiichan'><li class='twt'></li></a>
+<a href='http://twitter.com/BlueHawaiichan'><span class='twt'></span></a>
 </ul></td></tr><tr><td>celestiakitsune</td>
 <td><ul>
-<a href='http://twitter.com/celestiakitsune'><li class='twt'></li></a>
+<a href='http://twitter.com/celestiakitsune'><span class='twt'></span></a>
 </ul></td></tr><tr><td>cloffart</td>
 <td><ul>
-<a href='http://twitter.com/cloffart'><li class='twt'></li></a>
+<a href='http://twitter.com/cloffart'><span class='twt'></span></a>
 </ul></td></tr><tr><td>envy4hearts</td>
 <td><ul>
-<a href='http://twitter.com/envy4hearts'><li class='twt'></li></a>
+<a href='http://twitter.com/envy4hearts'><span class='twt'></span></a>
 </ul></td></tr><tr><td>izham_zk9</td>
 <td><ul>
-<a href='http://twitter.com/izham_zk9'><li class='twt'></li></a>
+<a href='http://twitter.com/izham_zk9'><span class='twt'></span></a>
 </ul></td></tr><tr><td>Joellol0209</td>
 <td><ul>
-<a href='http://twitter.com/Joellol0209'><li class='twt'></li></a>
+<a href='http://twitter.com/Joellol0209'><span class='twt'></span></a>
 </ul></td></tr><tr><td>junnyanlovestea</td>
 <td><ul>
-<a href='http://twitter.com/junnyanlovestea'><li class='twt'></li></a>
+<a href='http://twitter.com/junnyanlovestea'><span class='twt'></span></a>
 </ul></td></tr><tr><td>KiribakaSiaoWeN</td>
 <td><ul>
-<a href='http://twitter.com/KiribakaSiaoWeN'><li class='twt'></li></a>
+<a href='http://twitter.com/KiribakaSiaoWeN'><span class='twt'></span></a>
 </ul></td></tr><tr><td>kur1012</td>
 <td><ul>
-<a href='http://twitter.com/kur1012'><li class='twt'></li></a>
+<a href='http://twitter.com/kur1012'><span class='twt'></span></a>
 </ul></td></tr><tr><td>littlemay528</td>
 <td><ul>
-<a href='http://twitter.com/littlemay528'><li class='twt'></li></a>
+<a href='http://twitter.com/littlemay528'><span class='twt'></span></a>
 </ul></td></tr><tr><td>LeeyanahKay</td>
 <td><ul>
-<a href='http://twitter.com/LeeyanahKay'><li class='twt'></li></a>
+<a href='http://twitter.com/LeeyanahKay'><span class='twt'></span></a>
 </ul></td></tr><tr><td>SarahWarao</td>
 <td><ul>
-<a href='http://twitter.com/SarahWarao'><li class='twt'></li></a>
+<a href='http://twitter.com/SarahWarao'><span class='twt'></span></a>
 </ul></td></tr><tr><td>spoon_butter</td>
 <td><ul>
-<a href='http://twitter.com/spoon_butter'><li class='twt'></li></a>
+<a href='http://twitter.com/spoon_butter'><span class='twt'></span></a>
 </ul></td></tr><tr><td>VinshotaJ</td>
 <td><ul>
-<a href='http://twitter.com/VinshotaJ'><li class='twt'></li></a>
+<a href='http://twitter.com/VinshotaJ'><span class='twt'></span></a>
 </ul></td></tr><tr><td>xiaoyukikoryo</td>
 <td><ul>
-<a href='http://twitter.com/xiaoyukikoryo'><li class='twt'></li></a>
+<a href='http://twitter.com/xiaoyukikoryo'><span class='twt'></span></a>
 </ul></td></tr></table>
 <hr>
 <p>! All the images is belongs to the original creators and right holders.</p>
