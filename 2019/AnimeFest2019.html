@@ -11,7 +11,7 @@
  <meta property="og:image" content="http://milvagox.netlify.com/twt/AnimeFest2019.png" />
  <title>AnimeFest2019 Map++</title>
  <style> 
-  
+  .banner { position: absolute; }
   .booth { 
     opacity: 0;
     cursor: pointer;
@@ -26,6 +26,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -37,7 +38,7 @@
   .booth_highlight img { opacity: 0; }
   .booth_highlight:hover img {opacity: 1}
   .desc {
-    padding: 10px 10px 10px 10px ;
+    padding: 10px 10px 10px 210px ;
     min-width: 280px; 
     min-height: 250px; 
     background-color: white;
@@ -50,6 +51,15 @@
     font-family: monospace;
     text-decoration: underline;
   }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 960px;
+    height: 960px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
 ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
@@ -78,6 +88,7 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .kof { background: url('../ico/kof.png'); }
 .lft { background: url('../ico/lft.png'); }
 .lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
@@ -116,7 +127,11 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
       box.style.marginTop = "-3px";
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
-      booth.style.opacity = 1;
+      link_click(booth);
+      if (booth.nextSibling.classList.contains("custimg")) {
+        booth.nextSibling.style.display = 'block'
+        console.log(booth.nextSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -142,20 +157,23 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
         item.src='';
       });
     }
-    
+function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AnimeFest2019/artist/' + booth.id + '.jpg' }    
     // very bad glob var
     glob_box_selector = "";
     function link_click(booth) {
       glob_box_selector = booth;
       booth.style.opacity = 1;
       booth.getElementsByClassName('desc')[0].style.display = 'block';
-      // banner = booth.getElementsByClassName('banner')[0]
-      // banner.src = 'AnimeFest2019/artist/' + booth.id + '.jpg';
-      // banner.style.zIndex = 200;
-      // banner.style.opacity = 1;
+       banner = booth.getElementsByClassName('banner')[0]
+       banner.src = 'AnimeFest2019/artist/' + booth.id + '.jpg';
+       banner.style.zIndex = 200;
+       banner.style.opacity = 1;
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.5;
       coverbox.style.zIndex = 100;
+      if (booth.nextSibling.classList.contains("custimg")) {
+        booth.nextSibling.style.display = 'block'
+      }
     }
     
     function coverbox_click() {
@@ -164,13 +182,16 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
       
       glob_box_selector.getElementsByClassName('desc')[0].style.display = 'none';
       glob_box_selector.style.opacity = "";
-      // banner = glob_box_selector.getElementsByClassName('banner')[0]
-      // banner.src = '';
-      // banner.style.zIndex = 200;
-      // banner.style.opacity = 0;
+       banner = glob_box_selector.getElementsByClassName('banner')[0]
+       banner.src = '';
+       banner.style.zIndex = 200;
+       banner.style.opacity = 0;
       coverbox.style.opacity = 0;
       coverbox.style.zIndex = 0;
       //glob_box_selector = ""; // empty the selector
+      if (glob_box_selector.nextSibling.classList.contains("custimg")) {
+        glob_box_selector.nextSibling.style.display = ''
+      }
     }
 
     function map_navigate(event) {
@@ -181,6 +202,12 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
         else { // switch box will be better...
           if (key_pressed == 37) { temp_box = glob_box_selector.previousSibling } 
           else if (key_pressed == 39) { temp_box = glob_box_selector.nextSibling }
+          else { temp_box = glob_box_selector }
+          
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousSibling } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextSibling }
+          }
         }
         if (temp_box.classList.contains("booth")) {
           coverbox_click()
@@ -195,43 +222,43 @@ ul a span{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./AnimeFest2019/AnimeFest2019.png' onerror="this.src = './AnimeFest2019/AnimeFest2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
-<div class='booth' id='C3' onclick='link_click(this)'><div class='desc' style='left:244px;top:93px;'><h1>C3</h1><a href='http://duckduckgo.com/?q=Alpha%20Kards'>Search for Alpha Kards</a><br></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C3 ALPHA KARDS</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:298px;top:93px;'><h1>C2</h1><ul>
+<div class='booth' id='C3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:244px;top:93px;'><h1>C3 Alpha Kards</h1><a href='http://duckduckgo.com/?q=Alpha%20Kards'>Search for Alpha Kards</a><br></div><img class='banner' style='left:244px;top:93px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C3 ALPHA KARDS</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='C2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:298px;top:93px;'><h1>C2 BUTTERSPOON</h1><ul>
 <a href='http://twitter.com/spoon_butter'><span class='twt'></span></a>
 <a href='http://fb.me/butterspoonofficial'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:352px;top:93px;'><h1>C1</h1><ul>
-  <li><a href='http://lelong.com.my/store/mmhandmade'>lelong.com.my/store/mmhandmade</a></li>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B7' onclick='link_click(this)'><div class='desc' style='left:300px;top:201px;'><h1>B7</h1><ul>
+</ul></div><img class='banner' style='left:298px;top:93px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='C1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:352px;top:93px;'><h1>C1 MM HANDMADE SOUVENIR</h1><ul>
+<a href='http://lelong.com.my/store/mmhandmade'><span class='llo'></span></a>
+</ul></div><img class='banner' style='left:352px;top:93px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:201px;'><h1>B7 ZinMaTo</h1><ul>
 <a href='http://fb.me/zinmato88'><span class='fbk'></span></a>
 <a href='http://shopee.com/zinmato88'><span class='shp'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B6' onclick='link_click(this)'><div class='desc' style='left:300px;top:255px;'><h1>B6</h1><ul>
+</ul></div><img class='banner' style='left:300px;top:201px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:255px;'><h1>B6 HOBILITY</h1><ul>
 <a href='http://fb.me/Hobility'><span class='fbk'></span></a>
   <li><a href='http://hobility.com'>hobility.com</a></li>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B5' onclick='link_click(this)'><div class='desc' style='left:353px;top:254px;'><h1>B5</h1><ul>
+</ul></div><img class='banner' style='left:300px;top:255px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:254px;'><h1>B5 CHIBI'S COSPLAY SHOPPIE</h1><ul>
 <a href='http://fb.me/ChibiCosplayShoppie'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:299px;top:348px;'><h1>B3</h1><ul>
+</ul></div><img class='banner' style='left:353px;top:254px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:348px;'><h1>B3 My Stylesz</h1><ul>
 <a href='http://fb.me/MyStylesz.Trading'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B4' onclick='link_click(this)'><div class='desc' style='left:353px;top:348px;'><h1>B4</h1><ul>
+</ul></div><img class='banner' style='left:299px;top:348px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:348px;'><h1>B4 Artist Hub</h1><ul>
 <a href='http://fb.me/ArtistHubMalaysia'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B2' onclick='link_click(this)'><div class='desc' style='left:299px;top:404px;'><h1>B2</h1><ul>
+</ul></div><img class='banner' style='left:353px;top:348px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:404px;'><h1>B2 Shota & Lolita Shop</h1><ul>
 <a href='http://fb.me/shotalolitashop'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:248px;top:352px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='B1' onclick='link_click(this)'><div class='desc' style='left:353px;top:404px;'><h1>B1</h1><ul>
+</ul></div><img class='banner' style='left:299px;top:404px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:248px;top:352px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:404px;'><h1>B1 XD SHOP</h1><ul>
 <a href='http://fb.me/XD.AnimeShop'><span class='fbk'></span></a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:489px;top:250px;'><h1>A1</h1><ul>
+</ul></div><img class='banner' style='left:353px;top:404px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:250px;'><h1>A1 ケムスー万事屋 Kemusuu Yorozuya</h1><ul>
 <a href='mailto://siriusyun@hotmail.com'>email: siriusyun@hotmail.com</a>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='OH!Gatcha' onclick='link_click(this)'><div class='desc' style='left:489px;top:356px;'><h1>OH!Gatcha</h1><ul>
+</ul></div><img class='banner' style='left:489px;top:250px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:356px;'><h1>A2 OH! GATCHA</h1><ul>
   <li><a href='http://ohgatcha.com'>ohgatcha.com</a></li>
-</ul></div><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>OH!GATCHA OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</ul></div><img class='banner' style='left:489px;top:356px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A2 OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->
