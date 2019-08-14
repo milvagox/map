@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>AMGchan2017 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./AMGchan2017/AMGchan2017.png' onerror="this.src = './AMGchan2017/AMGchan2017.jpg'">
@@ -77,7 +81,7 @@
 </a><a class='booth' id='A3' href='http://instagram.com/uecreativeworld_handmade_dolls'><div class='area' style='left:1349px;top:359px;width:260px;height:22px;'>A3 UE CREATIVE WORLD</div><div class='box' style='left:392px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A4' href='http://instagram.com/kazel_'><div class='area' style='left:1349px;top:381px;width:260px;height:22px;'>A4 KAZEL LIM</div><div class='box' style='left:507px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A5' href='http://duckduckgo.com/?q=sakiai'><div class='area' style='left:1349px;top:403px;width:260px;height:22px;'>A5 SAKIAI</div><div class='box' style='left:622px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='A6' href='http://duckduckgo.com/?q=Shota%20%26%20Lolita%20SHOP'><div class='area' style='left:1349px;top:425px;width:260px;height:22px;'>A6 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:737px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A6' href='http://fb.me/shotalolitashop'><div class='area' style='left:1349px;top:425px;width:260px;height:22px;'>A6 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:737px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A7' href='http://duckduckgo.com/?q=Oyster%20The%20Cat'><div class='area' style='left:1349px;top:447px;width:260px;height:22px;'>A7 OYSTER THE CAT</div><div class='box' style='left:852px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A8' href='http://duckduckgo.com/?q=ACT%20B'><div class='area' style='left:1349px;top:469px;width:260px;height:22px;'>A8 ACT B</div><div class='box' style='left:967px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A9' href='http://duckduckgo.com/?q=Ristelle'><div class='area' style='left:1349px;top:491px;width:260px;height:22px;'>A9 RISTELLE</div><div class='box' style='left:1082px;top:201px;width:110px;height:142px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>S4O2016 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,19 +71,19 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./S4O2016/S4O2016.png' onerror="this.src = './S4O2016/S4O2016.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
-<a class='booth' id='1' href='http://duckduckgo.com/?q=Gundam%20Toy%20Shop'><div class='area' style='left:54px;top:910px;width:400px;height:32px;'>1 GUNDAM TOY SHOP</div><div class='box' style='left:397px;top:103px;width:277px;height:110px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+<a class='booth' id='1' href='http://instagram.com/gundamts'><div class='area' style='left:54px;top:910px;width:400px;height:32px;'>1 GUNDAM TOY SHOP</div><div class='box' style='left:397px;top:103px;width:277px;height:110px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='2' href='http://duckduckgo.com/?q=Vzoid'><div class='area' style='left:54px;top:942px;width:400px;height:32px;'>2 VZOID</div><div class='box' style='left:784px;top:223px;width:110px;height:277px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='3' href='http://duckduckgo.com/?q=Toyzable'><div class='area' style='left:54px;top:974px;width:400px;height:32px;'>3 TOYZABLE</div><div class='box' style='left:568px;top:478px;width:187px;height:148px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='3' href='http://fb.me/Toyzable'><div class='area' style='left:54px;top:974px;width:400px;height:32px;'>3 TOYZABLE</div><div class='box' style='left:568px;top:478px;width:187px;height:148px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='4' href='http://duckduckgo.com/?q=Moe%20Space'><div class='area' style='left:54px;top:1006px;width:400px;height:32px;'>4 MOE SPACE</div><div class='box' style='left:390px;top:512px;width:162px;height:117px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='5' href='http://duckduckgo.com/?q=Kawaiibrilliant'><div class='area' style='left:54px;top:1038px;width:400px;height:32px;'>5 KAWAIIBRILLIANT</div><div class='box' style='left:396px;top:246px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='6' href='http://fb.me/rubynocos'><div class='area' style='left:54px;top:1070px;width:400px;height:32px;'>6 RUBY COSPLAY SHOP</div><div class='box' style='left:464px;top:246px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='7' href='http://duckduckgo.com/?q=Asia%20Full%20House'><div class='area' style='left:54px;top:1102px;width:400px;height:32px;'>7 ASIA FULL HOUSE</div><div class='box' style='left:539px;top:246px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='8' href='http://duckduckgo.com/?q=Sakura%20No%20Sekai'><div class='area' style='left:54px;top:1134px;width:400px;height:32px;'>8 SAKURA NO SEKAI</div><div class='box' style='left:607px;top:246px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='7' href='http://fb.me/asiafullhouse'><div class='area' style='left:54px;top:1102px;width:400px;height:32px;'>7 ASIA FULL HOUSE</div><div class='box' style='left:539px;top:246px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='8' href='http://fb.me/sakuranosekai05052014'><div class='area' style='left:54px;top:1134px;width:400px;height:32px;'>8 SAKURA NO SEKAI</div><div class='box' style='left:607px;top:246px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='9' href='http://duckduckgo.com/?q=Summer%20Breeze'><div class='area' style='left:54px;top:1166px;width:400px;height:32px;'>9 SUMMER BREEZE</div><div class='box' style='left:675px;top:246px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='10' href='http://fb.me/dsignunderground'><div class='area' style='left:54px;top:1198px;width:400px;height:32px;'>10 D*SIGN UNDERGROUND</div><div class='box' style='left:396px;top:301px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='11' href='http://duckduckgo.com/?q=Bean%27s%20Art'><div class='area' style='left:54px;top:1230px;width:400px;height:32px;'>11 BEAN&#39;S ART</div><div class='box' style='left:464px;top:301px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
@@ -88,14 +92,14 @@
 </a><a class='booth' id='14' href='http://duckduckgo.com/?q=Yume%20Cheese'><div class='area' style='left:500px;top:942px;width:400px;height:32px;'>14 YUME CHEESE</div><div class='box' style='left:675px;top:301px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='15' href='http://duckduckgo.com/?q=Moeco%20Designs'><div class='area' style='left:500px;top:974px;width:400px;height:32px;'>15 MOECO DESIGNS</div><div class='box' style='left:396px;top:368px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='16' href='http://duckduckgo.com/?q=Valkyrie%20Creative%20Solutions'><div class='area' style='left:500px;top:1006px;width:400px;height:32px;'>16 VALKYRIE CREATIVE SOLUTIONS</div><div class='box' style='left:464px;top:368px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='17' href='http://duckduckgo.com/?q=ComradeSouls'><div class='area' style='left:500px;top:1038px;width:400px;height:32px;'>17 COMRADESOULS</div><div class='box' style='left:539px;top:368px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='18' href='http://duckduckgo.com/?q=ComradeSouls'><div class='area' style='left:500px;top:1070px;width:400px;height:32px;'>18 COMRADESOULS</div><div class='box' style='left:607px;top:368px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='17' href='http://fb.me/comradesouls'><div class='area' style='left:500px;top:1038px;width:400px;height:32px;'>17 COMRADESOULS</div><div class='box' style='left:539px;top:368px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='18' href='http://fb.me/comradesouls'><div class='area' style='left:500px;top:1070px;width:400px;height:32px;'>18 COMRADESOULS</div><div class='box' style='left:607px;top:368px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='19' href='http://duckduckgo.com/?q=Jawzie'><div class='area' style='left:500px;top:1102px;width:400px;height:32px;'>19 JAWZIE</div><div class='box' style='left:675px;top:368px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='20' href='http://duckduckgo.com/?q=Youth%20Association%20of%20Ichiraku'><div class='area' style='left:500px;top:1134px;width:400px;height:32px;'>20 YOUTH ASSOCIATION OF ICHIRAKU</div><div class='box' style='left:396px;top:421px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='21' href='http://duckduckgo.com/?q=Moemono'><div class='area' style='left:500px;top:1166px;width:400px;height:32px;'>21 MOEMONO</div><div class='box' style='left:464px;top:421px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='22' href='http://duckduckgo.com/?q=Unbalance'><div class='area' style='left:500px;top:1198px;width:400px;height:32px;'>22 UNBALANCE</div><div class='box' style='left:539px;top:421px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='23' href='http://duckduckgo.com/?q=Monochrome%20Rainbow'><div class='area' style='left:500px;top:1230px;width:400px;height:32px;'>23 MONOCHROME RAINBOW</div><div class='box' style='left:607px;top:421px;width:65px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='24' href='http://duckduckgo.com/?q=Play%20Toys%20Trading'><div class='area' style='left:500px;top:1262px;width:400px;height:32px;'>24 PLAY TOYS TRADING</div><div class='box' style='left:675px;top:421px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='24' href='http://fb.me/playtoystrading'><div class='area' style='left:500px;top:1262px;width:400px;height:32px;'>24 PLAY TOYS TRADING</div><div class='box' style='left:675px;top:421px;width:72px;height:34px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

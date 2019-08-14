@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CF2017 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CF2017/CF2017.png' onerror="this.src = './CF2017/CF2017.jpg'">
@@ -131,7 +135,7 @@
 </a><a class='booth' id='E08' href='http://duckduckgo.com/?q=Ein%20Lee'><div class='area' style='left:479px;top:878px;width:340px;height:18px;'>E08 EIN LEE</div><div class='box' style='left:815px;top:452px;width:64px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A08' href='http://duckduckgo.com/?q=EkusuFate'><div class='area' style='left:479px;top:896px;width:340px;height:19px;'>A08 EKUSUFATE</div><div class='box' style='left:926px;top:219px;width:32px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='G22' href='http://duckduckgo.com/?q=Empyrean%20Wings'><div class='area' style='left:479px;top:915px;width:340px;height:19px;'>G22 EMPYREAN WINGS</div><div class='box' style='left:1333px;top:565px;width:32px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='D28' href='http://duckduckgo.com/?q=END'><div class='area' style='left:479px;top:934px;width:340px;height:19px;'>D28 END</div><div class='box' style='left:1599px;top:376px;width:64px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='D28' href='http://tohdraws.artstation.com'><div class='area' style='left:479px;top:934px;width:340px;height:19px;'>D28 END</div><div class='box' style='left:1599px;top:376px;width:64px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='F30' href='http://duckduckgo.com/?q=Erkoa%20%26%20Syok%20Art'><div class='area' style='left:479px;top:953px;width:340px;height:19px;'>F30 ERKOA &AMP; SYOK ART</div><div class='box' style='left:1673px;top:492px;width:32px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C25' href='http://duckduckgo.com/?q=estheryu%E5%99%AC%20%26%20Kazel'><div class='area' style='left:479px;top:972px;width:340px;height:18px;'>C25 ESTHERYU噬 &AMP; KAZEL</div><div class='box' style='left:1488px;top:334px;width:32px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C08' href='http://twitter.com/whitevoix'><div class='area' style='left:479px;top:1009px;width:340px;height:19px;'>C08 FAT FAIRY</div><div class='box' style='left:815px;top:334px;width:64px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

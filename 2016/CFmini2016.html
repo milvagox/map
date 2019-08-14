@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CFmini2016 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CFmini2016/CFmini2016.png' onerror="this.src = './CFmini2016/CFmini2016.jpg'">
@@ -75,12 +79,12 @@
 <a class='booth' id='E7' href='http://duckduckgo.com/?q=%2A%20HARUKATSU%20%2A.'><div class='area' style='left:778px;top:264px;width:275px;height:27px;'>E7 * HARUKATSU *.</div><div class='box' style='left:263px;top:673px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E1' href='http://duckduckgo.com/?q=Abam%20Apam'><div class='area' style='left:778px;top:291px;width:275px;height:28px;'>E1 ABAM APAM</div><div class='box' style='left:623px;top:673px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B6' href='http://duckduckgo.com/?q=Almost%20Derp%20Guild'><div class='area' style='left:778px;top:319px;width:275px;height:27px;'>B6 ALMOST DERP GUILD</div><div class='box' style='left:325px;top:404px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='F7' href='http://duckduckgo.com/?q=Asia%20Full%20House'><div class='area' style='left:778px;top:346px;width:275px;height:27px;'>F7 ASIA FULL HOUSE</div><div class='box' style='left:204px;top:732px;width:107px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='F7' href='http://fb.me/asiafullhouse'><div class='area' style='left:778px;top:346px;width:275px;height:27px;'>F7 ASIA FULL HOUSE</div><div class='box' style='left:204px;top:732px;width:107px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A8' href='http://duckduckgo.com/?q=Bloom%20Artwork'><div class='area' style='left:778px;top:373px;width:275px;height:28px;'>A8 BLOOM ARTWORK</div><div class='box' style='left:204px;top:345px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A1' href='http://duckduckgo.com/?q=Bluepeppermints'><div class='area' style='left:778px;top:401px;width:275px;height:27px;'>A1 BLUEPEPPERMINTS</div><div class='box' style='left:620px;top:345px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A9' href='http://instagram.com/chiwayu.icefish'><div class='area' style='left:778px;top:428px;width:275px;height:27px;'>A9 BREAK PIECES</div><div class='box' style='left:145px;top:345px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='F2' href='http://duckduckgo.com/?q=Chapter%231'><div class='area' style='left:778px;top:455px;width:275px;height:28px;'>F2 CHAPTER#1</div><div class='box' style='left:561px;top:732px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='C6' href='http://fb.me/mychineko'><div class='area' style='left:778px;top:483px;width:275px;height:27px;'>C6 CHINEKO IS HERE</div><div class='box' style='left:325px;top:509px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C6' href='http://instagram.com/mychineko'><div class='area' style='left:778px;top:483px;width:275px;height:27px;'>C6 CHINEKO IS HERE</div><div class='box' style='left:325px;top:509px;width:48px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B2' href='http://duckduckgo.com/?q=Cyborg%2025'><div class='area' style='left:778px;top:510px;width:275px;height:27px;'>B2 CYBORG 25</div><div class='box' style='left:502px;top:404px;width:107px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='D8' href='http://duckduckgo.com/?q=DREAMING%20DREAMS'><div class='area' style='left:778px;top:537px;width:275px;height:28px;'>D8 DREAMING DREAMS</div><div class='box' style='left:145px;top:568px;width:107px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A6' href='http://duckduckgo.com/?q=ET%20WORLD'><div class='area' style='left:778px;top:565px;width:275px;height:27px;'>A6 ET WORLD</div><div class='box' style='left:263px;top:345px;width:107px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CFmini2018 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CFmini2018/CFmini2018.png' onerror="this.src = './CFmini2018/CFmini2018.jpg'">
@@ -78,9 +82,9 @@
 </a><a class='booth' id='B6' href='http://instagram.com/azreenchan'><div class='area' style='left:60px;top:723px;width:300px;height:19px;'>B6 AZREENCHAN</div><div class='box' style='left:703px;top:350px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C2' href='http://duckduckgo.com/?q=Bibuhanson'><div class='area' style='left:60px;top:760px;width:300px;height:19px;'>C2 BIBUHANSON</div><div class='box' style='left:455px;top:411px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A7' href='http://duckduckgo.com/?q=BlueMoon%20x%20error%20era'><div class='area' style='left:60px;top:779px;width:300px;height:19px;'>A7 BLUEMOON X ERROR ERA</div><div class='box' style='left:757px;top:303px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='B1' href='http://duckduckgo.com/?q=ButterSpoon'><div class='area' style='left:60px;top:798px;width:300px;height:18px;'>B1 BUTTERSPOON</div><div class='box' style='left:401px;top:350px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B1' href='http://twitter.com/spoon_butter'><div class='area' style='left:60px;top:798px;width:300px;height:18px;'>B1 BUTTERSPOON</div><div class='box' style='left:401px;top:350px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C8' href='http://duckduckgo.com/?q=Caramello'><div class='area' style='left:60px;top:835px;width:300px;height:19px;'>C8 CARAMELLO</div><div class='box' style='left:811px;top:411px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='F1' href='http://fb.me/mychineko'><div class='area' style='left:60px;top:854px;width:300px;height:18px;'>F1 CHINEKO X NIKKI</div><div class='box' style='left:401px;top:565px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='F1' href='http://instagram.com/mychineko'><div class='area' style='left:60px;top:854px;width:300px;height:18px;'>F1 CHINEKO X NIKKI</div><div class='box' style='left:401px;top:565px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A6' href='http://twitter.com/CloverAureate'><div class='area' style='left:60px;top:872px;width:300px;height:19px;'>A6 CLOVER AUREATE</div><div class='box' style='left:703px;top:303px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='D9' href='http://duckduckgo.com/?q=Con%20Artists'><div class='area' style='left:60px;top:891px;width:300px;height:19px;'>D9 CON ARTISTS</div><div class='box' style='left:865px;top:457px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B4' href='http://duckduckgo.com/?q=DOUJIN%20TENKA%21%21'><div class='area' style='left:60px;top:928px;width:300px;height:19px;'>B4 DOUJIN TENKA!!</div><div class='box' style='left:563px;top:350px;width:42px;height:28px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

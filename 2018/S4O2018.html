@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>S4O2018 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./S4O2018/S4O2018.png' onerror="this.src = './S4O2018/S4O2018.jpg'">
@@ -76,8 +80,8 @@
 </a><a class='booth' id='N02' href='http://fb.me/rubynocos'><div class='area' style='left:42px;top:943px;width:260px;height:22px;'>N02 RUBY&#39;S COSPLAY SHOP</div><div class='box' style='left:184px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N03' href='http://duckduckgo.com/?q=Accel%20Drive%20Toku%20Malaysia'><div class='area' style='left:42px;top:965px;width:260px;height:22px;'>N03 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:290px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N04' href='http://duckduckgo.com/?q=Accel%20Drive%20Toku%20Malaysia'><div class='area' style='left:42px;top:987px;width:260px;height:22px;'>N04 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:351px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='N05' href='http://mmhandmadesouvenir.blogspot.com'><div class='area' style='left:42px;top:1009px;width:260px;height:22px;'>N05 MM HANDMADE SOUVENIR</div><div class='box' style='left:457px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='N06' href='http://mmhandmadesouvenir.blogspot.com'><div class='area' style='left:42px;top:1031px;width:260px;height:22px;'>N06 MM HANDMADE SOUVENIR</div><div class='box' style='left:518px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='N05' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:42px;top:1009px;width:260px;height:22px;'>N05 MM HANDMADE SOUVENIR</div><div class='box' style='left:457px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='N06' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:42px;top:1031px;width:260px;height:22px;'>N06 MM HANDMADE SOUVENIR</div><div class='box' style='left:518px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N07' href='http://duckduckgo.com/?q=Akari%20Mall'><div class='area' style='left:42px;top:1053px;width:260px;height:22px;'>N07 AKARI MALL</div><div class='box' style='left:624px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N08' href='http://duckduckgo.com/?q=De%27Moon%20Trail'><div class='area' style='left:42px;top:1075px;width:260px;height:22px;'>N08 DE&#39;MOON TRAIL</div><div class='box' style='left:685px;top:258px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N09' href='http://duckduckgo.com/?q=Comic%20Holic'><div class='area' style='left:42px;top:1097px;width:260px;height:22px;'>N09 COMIC HOLIC</div><div class='box' style='left:123px;top:311px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
@@ -92,7 +96,7 @@
 </a><a class='booth' id='N18' href='http://duckduckgo.com/?q=%E4%BD%9B%E7%B3%BB%E9%B9%B9%E9%AD%9A'><div class='area' style='left:42px;top:1295px;width:260px;height:22px;'>N18 佛系鹹魚</div><div class='box' style='left:184px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N19' href='http://fb.me/CarmenLimRui'><div class='area' style='left:42px;top:1317px;width:260px;height:22px;'>N19 RUI</div><div class='box' style='left:290px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N20' href='http://duckduckgo.com/?q=D%2A.SIGN%20underground'><div class='area' style='left:42px;top:1339px;width:260px;height:22px;'>N20 D*.SIGN UNDERGROUND</div><div class='box' style='left:351px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='N21' href='http://duckduckgo.com/?q=My%20Stylesz'><div class='area' style='left:42px;top:1361px;width:260px;height:22px;'>N21 MY STYLESZ</div><div class='box' style='left:457px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='N21' href='http://fb.me/MyStylesz.Trading'><div class='area' style='left:42px;top:1361px;width:260px;height:22px;'>N21 MY STYLESZ</div><div class='box' style='left:457px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N22' href='http://duckduckgo.com/?q=CTCharlieCollectibles%26%20Toys'><div class='area' style='left:42px;top:1383px;width:260px;height:22px;'>N22 CTCHARLIECOLLECTIBLES&AMP; TOYS</div><div class='box' style='left:518px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N23' href='http://duckduckgo.com/?q=GIII%20GIII'><div class='area' style='left:320px;top:921px;width:260px;height:22px;'>N23 GIII GIII</div><div class='box' style='left:624px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N24' href='http://duckduckgo.com/?q=Bad%20Cat%20Treasure%20Box'><div class='area' style='left:320px;top:943px;width:260px;height:22px;'>N24 BAD CAT TREASURE BOX</div><div class='box' style='left:685px;top:366px;width:57px;height:20px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

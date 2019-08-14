@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>TAGCC2019 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./TAGCC2019/TAGCC2019.png' onerror="this.src = './TAGCC2019/TAGCC2019.jpg'">
@@ -109,7 +113,7 @@
 </a><a class='booth' id='E1' href='http://twitter.com/derpykaichu'><div class='area' style='left:295px;top:649px;width:175px;height:14px;'>E1 DERPY KAICHU</div><div class='box' style='left:391px;top:243px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E2' href='http://duckduckgo.com/?q=Fun%20Fun%20Handcraft'><div class='area' style='left:295px;top:663px;width:175px;height:14px;'>E2 FUN FUN HANDCRAFT</div><div class='box' style='left:391px;top:269px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E3' href='http://twitter.com/HayateKonno'><div class='area' style='left:295px;top:677px;width:175px;height:14px;'>E3 HAYATE COSPLAYER</div><div class='box' style='left:391px;top:295px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='E4' href='http://duckduckgo.com/?q=MAY%20ART'><div class='area' style='left:295px;top:691px;width:175px;height:14px;'>E4 MAY ART</div><div class='box' style='left:391px;top:321px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='E4' href='http://fb.me/MayArtPixel'><div class='area' style='left:295px;top:691px;width:175px;height:14px;'>E4 MAY ART</div><div class='box' style='left:391px;top:321px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E5' href='http://duckduckgo.com/?q=Space%20Buns'><div class='area' style='left:295px;top:705px;width:175px;height:14px;'>E5 SPACE BUNS</div><div class='box' style='left:391px;top:347px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E6' href='http://instagram.com/bluebean.angela'><div class='area' style='left:295px;top:719px;width:175px;height:14px;'>E6 BLUEBEAN 藍豆</div><div class='box' style='left:391px;top:373px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E7' href='http://instagram.com/wizk'><div class='area' style='left:295px;top:733px;width:175px;height:14px;'>E7 WIZKIT</div><div class='box' style='left:391px;top:399px;width:10px;height:22px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

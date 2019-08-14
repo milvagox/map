@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>AnimeFest2018 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,15 +71,15 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./AnimeFest2018/AnimeFest2018.png' onerror="this.src = './AnimeFest2018/AnimeFest2018.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A01' href='http://duckduckgo.com/?q=SUNCOMICS'><div class='area' style='left:237px;top:583px;width:250px;height:23px;'>A01 SUNCOMICS</div><div class='box' style='left:191px;top:328px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='A02' href='http://duckduckgo.com/?q=MM%20HANDMADE'><div class='area' style='left:237px;top:606px;width:250px;height:23px;'>A02 MM HANDMADE</div><div class='box' style='left:191px;top:376px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A02' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:237px;top:606px;width:250px;height:23px;'>A02 MM HANDMADE</div><div class='box' style='left:191px;top:376px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A03' href='http://duckduckgo.com/?q=KEMUSU%20YOROZUYA'><div class='area' style='left:237px;top:629px;width:250px;height:23px;'>A03 KEMUSU YOROZUYA</div><div class='box' style='left:143px;top:328px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='A04' href='http://duckduckgo.com/?q=HOBILITY'><div class='area' style='left:237px;top:652px;width:250px;height:23px;'>A04 HOBILITY</div><div class='box' style='left:143px;top:376px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='A04' href='http://fb.me/Hobility'><div class='area' style='left:237px;top:652px;width:250px;height:23px;'>A04 HOBILITY</div><div class='box' style='left:143px;top:376px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B01' href='http://duckduckgo.com/?q=OH%21%20GATCHA%2025C%20ART%20%26%20HOBBIES'><div class='area' style='left:501px;top:583px;width:250px;height:46px;'>B01 OH! GATCHA 25C ART &AMP; HOBBIES</div><div class='box' style='left:285px;top:307px;width:80px;height:122px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C01' href='http://duckduckgo.com/?q=HOBBY%20LEGEND'><div class='area' style='left:501px;top:629px;width:250px;height:23px;'>C01 HOBBY LEGEND</div><div class='box' style='left:710px;top:324px;width:38px;height:84px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='D01' href='http://duckduckgo.com/?q=SHOTA%20%26%20LOLITA%20SHOP'><div class='area' style='left:501px;top:652px;width:250px;height:23px;'>D01 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:795px;top:324px;width:38px;height:38px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

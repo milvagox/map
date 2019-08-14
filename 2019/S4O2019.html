@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>S4O2019 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./S4O2019/S4O2019.png' onerror="this.src = './S4O2019/S4O2019.jpg'">
@@ -88,8 +92,8 @@
 </a><a class='booth' id='N14' href='http://duckduckgo.com/?q=CWD%20%2B%20Jiaoxin'><div class='area' style='left:82px;top:743px;width:223px;height:19px;'>N14 CWD + JIAOXIN</div><div class='box' style='left:239px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N15' href='http://duckduckgo.com/?q=Jinlicious%20MY'><div class='area' style='left:82px;top:762px;width:223px;height:19px;'>N15 JINLICIOUS MY</div><div class='box' style='left:301px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N16' href='http://duckduckgo.com/?q=Erukus%27Art%20%26%20Lynsartchemist'><div class='area' style='left:82px;top:781px;width:223px;height:19px;'>N16 ERUKUS&#39;ART &AMP; LYNSARTCHEMIST</div><div class='box' style='left:342px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='N17' href='http://mmhandmadesouvenir.blogspot.com'><div class='area' style='left:315px;top:496px;width:223px;height:19px;'>N17 MM HANDMADE SOUVENIR</div><div class='box' style='left:399px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='N18' href='http://mmhandmadesouvenir.blogspot.com'><div class='area' style='left:315px;top:515px;width:223px;height:19px;'>N18 MM HANDMADE SOUVENIR</div><div class='box' style='left:440px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='N17' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:315px;top:496px;width:223px;height:19px;'>N17 MM HANDMADE SOUVENIR</div><div class='box' style='left:399px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='N18' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:315px;top:515px;width:223px;height:19px;'>N18 MM HANDMADE SOUVENIR</div><div class='box' style='left:440px;top:246px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N19' href='http://duckduckgo.com/?q=CK%20TAKOYAK%21'><div class='area' style='left:315px;top:534px;width:223px;height:19px;'>N19 CK TAKOYAK!</div><div class='box' style='left:198px;top:280px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N20' href='http://fb.me/CarmenLimRui'><div class='area' style='left:315px;top:553px;width:223px;height:19px;'>N20 RUI</div><div class='box' style='left:239px;top:280px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='N21' href='http://duckduckgo.com/?q=Moemono'><div class='area' style='left:315px;top:572px;width:223px;height:19px;'>N21 MOEMONO</div><div class='box' style='left:301px;top:280px;width:37px;height:16px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

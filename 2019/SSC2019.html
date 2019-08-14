@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>SSC2019 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,16 +71,16 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./SSC2019/SSC2019.png' onerror="this.src = './SSC2019/SSC2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
-<a class='booth' id='M35' href='http://duckduckgo.com/?q=%E3%82%B1%E3%83%A0%E3%82%B9%E3%83%BC%E4%B8%87%E4%BA%8B%E5%B1%8B%20Kemusuu%20Yorozuya'><div class='area' style='left:170px;top:728px;width:210px;height:32px;'>M35 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:461px;top:331px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+<a class='booth' id='M35' href='http://siriusyun@hotmail.com'><div class='area' style='left:170px;top:728px;width:210px;height:32px;'>M35 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:461px;top:331px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M36' href='http://duckduckgo.com/?q=Comic%20%26%20Hobby%20Island'><div class='area' style='left:170px;top:760px;width:210px;height:16px;'>M36 COMIC &AMP; HOBBY ISLAND</div><div class='box' style='left:461px;top:391px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M37' href='http://duckduckgo.com/?q=Bohomys'><div class='area' style='left:170px;top:776px;width:210px;height:16px;'>M37 BOHOMYS</div><div class='box' style='left:402px;top:331px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M38' href='http://duckduckgo.com/?q=Artisit%20Hub'><div class='area' style='left:170px;top:792px;width:210px;height:16px;'>M38 ARTISIT HUB</div><div class='box' style='left:402px;top:391px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='M39' href='http://duckduckgo.com/?q=MyStylesz'><div class='area' style='left:170px;top:808px;width:210px;height:16px;'>M39 MYSTYLESZ</div><div class='box' style='left:462px;top:503px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='M39' href='http://fb.me/MyStylesz.Trading'><div class='area' style='left:170px;top:808px;width:210px;height:16px;'>M39 MYSTYLESZ</div><div class='box' style='left:462px;top:503px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M40' href='http://duckduckgo.com/?q=Genkimono'><div class='area' style='left:170px;top:824px;width:210px;height:16px;'>M40 GENKIMONO</div><div class='box' style='left:462px;top:563px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M41' href='http://duckduckgo.com/?q=SWIMIN12'><div class='area' style='left:170px;top:840px;width:210px;height:16px;'>M41 SWIMIN12</div><div class='box' style='left:402px;top:503px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='M42' href='http://duckduckgo.com/?q=Crux%20Hobby%20Store'><div class='area' style='left:170px;top:856px;width:210px;height:16px;'>M42 CRUX HOBBY STORE</div><div class='box' style='left:402px;top:563px;width:54px;height:54px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
@@ -104,7 +108,7 @@
 </a><a class='booth' id='B04' href='http://duckduckgo.com/?q=DUCI%20Collection'><div class='area' style='left:630px;top:775px;width:210px;height:16px;'>B04 DUCI COLLECTION</div><div class='box' style='left:765px;top:338px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B05' href='http://duckduckgo.com/?q=FunFun%20Handcraft'><div class='area' style='left:630px;top:791px;width:210px;height:16px;'>B05 FUNFUN HANDCRAFT</div><div class='box' style='left:708px;top:338px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='B06' href='http://duckduckgo.com/?q=Hakucho%20x%20Kimiko'><div class='area' style='left:630px;top:807px;width:210px;height:16px;'>B06 HAKUCHO X KIMIKO</div><div class='box' style='left:651px;top:338px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='B07' href='http://duckduckgo.com/?q=May%20Art'><div class='area' style='left:630px;top:823px;width:210px;height:16px;'>B07 MAY ART</div><div class='box' style='left:594px;top:338px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='B07' href='http://fb.me/MayArtPixel'><div class='area' style='left:630px;top:823px;width:210px;height:16px;'>B07 MAY ART</div><div class='box' style='left:594px;top:338px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E01' href='http://fb.me/twilightgrace'><div class='area' style='left:630px;top:878px;width:210px;height:16px;'>E01 TWILIGHT GRACE</div><div class='box' style='left:936px;top:489px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E02' href='http://instagram.com/uecreativeworld_handmade_dolls'><div class='area' style='left:630px;top:894px;width:210px;height:16px;'>E02 UE CREATIVE WORLD</div><div class='box' style='left:879px;top:489px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='E03' href='http://twitter.com/vanillatea_er'><div class='area' style='left:630px;top:910px;width:210px;height:16px;'>E03 VANILLA TEA WORKS</div><div class='box' style='left:822px;top:489px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
@@ -115,8 +119,8 @@
 </a><a class='booth' id='C01' href='http://fb.me/lefluffykitsune'><div class='area' style='left:848px;top:727px;width:250px;height:16px;'>C01 LE FLUFFY KITSUNE</div><div class='box' style='left:936px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C02' href='http://fb.me/lefluffykitsune'><div class='area' style='left:848px;top:743px;width:250px;height:16px;'>C02 LE FLUFFY KITSUNE</div><div class='box' style='left:879px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C03' href='http://duckduckgo.com/?q=MiyabiMaru'><div class='area' style='left:848px;top:759px;width:250px;height:16px;'>C03 MIYABIMARU</div><div class='box' style='left:822px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='C04' href='http://duckduckgo.com/?q=MM%20Handmade%20%26%20Souvenir'><div class='area' style='left:848px;top:775px;width:250px;height:16px;'>C04 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:765px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='C05' href='http://duckduckgo.com/?q=MM%20Handmade%20%26%20Souvenir'><div class='area' style='left:848px;top:791px;width:250px;height:16px;'>C05 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:708px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C04' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:848px;top:775px;width:250px;height:16px;'>C04 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:765px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C05' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:848px;top:791px;width:250px;height:16px;'>C05 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:708px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C06' href='http://instagram.com/eg.xy'><div class='area' style='left:848px;top:807px;width:250px;height:16px;'>C06 SITHSENSUI &AMP; EGXY</div><div class='box' style='left:651px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C07' href='http://fb.me/nitez.creative'><div class='area' style='left:848px;top:823px;width:250px;height:16px;'>C07 NITEZ CREATIVE HOUSE</div><div class='box' style='left:594px;top:398px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='F01' href='http://duckduckgo.com/?q=Forever%2038'><div class='area' style='left:848px;top:878px;width:210px;height:16px;'>F01 FOREVER 38</div><div class='box' style='left:936px;top:520px;width:28px;height:27px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

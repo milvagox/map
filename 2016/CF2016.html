@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CF2016 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CF2016/CF2016.png' onerror="this.src = './CF2016/CF2016.jpg'">
@@ -231,7 +235,7 @@
 </a><a class='booth' id='E29' href='http://rynisyou.com'><div class='area' style='left:829px;top:1506px;width:230px;height:16px;'>E29 RYNISYOU</div><div class='box' style='left:1165px;top:563px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='F32' href='http://duckduckgo.com/?q=SAIKO'><div class='area' style='left:829px;top:1522px;width:230px;height:15px;'>F32 SAIKO</div><div class='box' style='left:1264px;top:606px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='H15' href='http://duckduckgo.com/?q=Saito%20College%20-%20Anizone'><div class='area' style='left:829px;top:1537px;width:230px;height:16px;'>H15 SAITO COLLEGE - ANIZONE</div><div class='box' style='left:666px;top:729px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='C28' href='http://duckduckgo.com/?q=Sakura%20no%20Sekai'><div class='area' style='left:829px;top:1553px;width:230px;height:15px;'>C28 SAKURA NO SEKAI</div><div class='box' style='left:1132px;top:441px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C28' href='http://fb.me/sakuranosekai05052014'><div class='area' style='left:829px;top:1553px;width:230px;height:15px;'>C28 SAKURA NO SEKAI</div><div class='box' style='left:1132px;top:441px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='D5' href='http://duckduckgo.com/?q=SampaHty'><div class='area' style='left:1098px;top:836px;width:210px;height:16px;'>D5 SAMPAHTY</div><div class='box' style='left:298px;top:483px;width:54px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='G31' href='http://duckduckgo.com/?q=scarfs%20%26%20frost'><div class='area' style='left:1098px;top:852px;width:210px;height:15px;'>G31 SCARFS &AMP; FROST</div><div class='box' style='left:1231px;top:685px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='A29' href='http://duckduckgo.com/?q=Scattered%20Sand'><div class='area' style='left:1098px;top:867px;width:210px;height:16px;'>A29 SCATTERED SAND</div><div class='box' style='left:1165px;top:318px;width:27px;height:26px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>

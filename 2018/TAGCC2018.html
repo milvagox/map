@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>TAGCC2018 Map++</title>
- <style> 
-  
+ <style>
   .booth { 
     opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { opacity: 0; }
-  .booth:hover img { opacity: 1;}
+  .booth img { display: inherit; }
+  .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
     background-color: rgba(0, 255, 255, 0.3);
@@ -19,6 +18,7 @@
     text-align: right;
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
+    z-index:  20;
   }
   .box {
     border: 3px dotted aqua;
@@ -39,6 +39,10 @@
       box.style.marginLeft = "-3px";
       box.style.border = '5px solid red';
       booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
     }
     
     function highlight_booths(booths) {
@@ -48,7 +52,7 @@
     }
     
     function highlight_booths_off(booths) {
-      booths.forEach(function(item, index, array) {
+      booths.forEach(function(item, index, array) { 
         item.classList.add("booth_highlight");
       });
     }
@@ -67,7 +71,7 @@
     
  </script>
 </head>
-<body onload='highlight_by_anchor();' onkeypress='map_navigate(event);' autofocus>
+<body onload='highlight_by_anchor();' autofocus>
 <div>
 
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./TAGCC2018/TAGCC2018.png' onerror="this.src = './TAGCC2018/TAGCC2018.jpg'">
@@ -90,7 +94,7 @@
 </a><a class='booth' id='C2' href='http://duckduckgo.com/?q=STARDUST%20MILKSHAKE'><div class='area' style='left:496px;top:615px;width:200px;height:18px;'>C2 STARDUST MILKSHAKE</div><div class='box' style='left:365px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C3' href='http://duckduckgo.com/?q=STARDUST%20CREATIONS'><div class='area' style='left:496px;top:633px;width:200px;height:18px;'>C3 STARDUST CREATIONS</div><div class='box' style='left:415px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C4' href='http://duckduckgo.com/?q=Artsyhooman'><div class='area' style='left:496px;top:651px;width:200px;height:18px;'>C4 ARTSYHOOMAN</div><div class='box' style='left:465px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</a><a class='booth' id='C5' href='http://duckduckgo.com/?q=Shota%20%26%20Lolita%20SHOP'><div class='area' style='left:496px;top:669px;width:200px;height:18px;'>C5 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:515px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</a><a class='booth' id='C5' href='http://fb.me/shotalolitashop'><div class='area' style='left:496px;top:669px;width:200px;height:18px;'>C5 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:515px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C6' href='http://duckduckgo.com/?q=4%20Birds%201%20Stall'><div class='area' style='left:496px;top:687px;width:200px;height:18px;'>C6 4 BIRDS 1 STALL</div><div class='box' style='left:565px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C7' href='http://duckduckgo.com/?q=No16_workshop'><div class='area' style='left:496px;top:705px;width:200px;height:18px;'>C7 NO16_WORKSHOP</div><div class='box' style='left:615px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </a><a class='booth' id='C8' href='http://fb.me/BlissLibertyHandcrafts'><div class='area' style='left:496px;top:723px;width:200px;height:18px;'>C8 BLISS LIBERTY</div><div class='box' style='left:665px;top:435px;width:43px;height:43px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
