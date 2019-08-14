@@ -17,7 +17,7 @@
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { display: inherit; }
+  .booth img { display: none; }
   .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
@@ -166,6 +166,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='JOM
       booth.getElementsByClassName('desc')[0].style.display = 'block';
       banner = booth.getElementsByClassName('banner')[0];
       banner.src = 'JOM2019/artist/' + booth.id + '.jpg';
+      banner.style.display = 'block'; 
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.5;
       coverbox.style.zIndex = 100;
@@ -177,7 +178,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='JOM
     function coverbox_click() {
       coverbox = document.getElementById('coverbox');
       if(coverbox.style.opacity == 0) {return;}
-      
+      glob_box_selector.getElementsByClassName('banner')[0].style.display = '';
       glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
       glob_box_selector.style.opacity = "";
       coverbox.style.opacity = 0;

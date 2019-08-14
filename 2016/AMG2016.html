@@ -17,7 +17,7 @@
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
-  .booth img { display: inherit; }
+  .booth img { display: none; }
   .booth:hover img { display: block;}
   .area { 
     border: 1px solid red; 
@@ -166,6 +166,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG
       booth.getElementsByClassName('desc')[0].style.display = 'block';
       banner = booth.getElementsByClassName('banner')[0];
       banner.src = 'AMG2016/artist/' + booth.id + '.jpg';
+      banner.style.display = 'block'; 
       coverbox = document.getElementById('coverbox');
       coverbox.style.opacity = 0.5;
       coverbox.style.zIndex = 100;
@@ -177,7 +178,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG
     function coverbox_click() {
       coverbox = document.getElementById('coverbox');
       if(coverbox.style.opacity == 0) {return;}
-      
+      glob_box_selector.getElementsByClassName('banner')[0].style.display = '';
       glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
       glob_box_selector.style.opacity = "";
       coverbox.style.opacity = 0;
@@ -230,7 +231,8 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG
 </div><div class='booth' id='A10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1018px;top:252px;'><h2>A10 Wengy Studio</h2><a href='http://duckduckgo.com/?q=Wengy%20Studio'>Search for Wengy Studio</a></div><img class='banner' style='left:1018px;top:252px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A10 WENGY STUDIO</div><div class='box' style='left:944px;top:205px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='A11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1096px;top:252px;'><h2>A11 Just Buy</h2><a href='http://duckduckgo.com/?q=Just%20Buy'>Search for Just Buy</a></div><img class='banner' style='left:1096px;top:252px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A11 JUST BUY</div><div class='box' style='left:1022px;top:205px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='A12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1174px;top:252px;'><h2>A12 Paw Prints</h2><a href='http://duckduckgo.com/?q=Paw%20Prints'>Search for Paw Prints</a></div><img class='banner' style='left:1174px;top:252px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A12 PAW PRINTS</div><div class='box' style='left:1100px;top:205px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
-</div><div class='booth' id='A13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1252px;top:252px;'><h2>A13 Rachelhofs</h2><a href='http://duckduckgo.com/?q=Rachelhofs'>Search for Rachelhofs</a></div><img class='banner' style='left:1252px;top:252px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A13 RACHELHOFS</div><div class='box' style='left:1178px;top:205px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='A13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1252px;top:252px;'><h2>A13 Rachelhofs</h2><ul>
+<a href='http://instagram.com/rachelhofs' class='ins'></a><a href='http://behance.net/rachelhofs' class='bhc'></a><a href='http://artstation.com/rachelhofs' class='ast'></a></ul></div><img class='banner' style='left:1252px;top:252px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A13 RACHELHOFS</div><div class='box' style='left:1178px;top:205px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='A14' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1370px;top:253px;'><h2>A14 Touken Ranbu Buy Buy Buy</h2><a href='http://duckduckgo.com/?q=Touken%20Ranbu%20Buy%20Buy%20Buy'>Search for Touken Ranbu Buy Buy Buy</a></div><img class='banner' style='left:1370px;top:253px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A14 TOUKEN RANBU BUY BUY BUY</div><div class='box' style='left:1296px;top:206px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='A15' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1448px;top:253px;'><h2>A15 Bluepeppermints</h2><a href='http://duckduckgo.com/?q=Bluepeppermints'>Search for Bluepeppermints</a></div><img class='banner' style='left:1448px;top:253px;'><div class='area' style='left:0px;top:0px;width:0px;height:0px;'>A15 BLUEPEPPERMINTS</div><div class='box' style='left:1374px;top:206px;width:72px;height:45px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
 </div><div class='booth' id='A16' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1526px;top:253px;'><h2>A16 FNStudio</h2><ul>
