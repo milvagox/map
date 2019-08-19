@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AMG2019 Interactive Map">
+<meta property="og:description" content="AMG2019 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="http://milvagox.netlify.com/AMG2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/AMG2019.png">
+ <title>AMG2019 Map++</title>
+ <style>
+  .banner { position: absolute; z-index: 200; }
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .booth_highlight { opacity: 1; }
+  .booth_highlight img { opacity: 0; }
+  .booth_highlight:hover img {opacity: 1}
+  .desc {
+    padding: 10px 10px 10px 100px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+ul a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+ul li a{ width: auto; height: auto; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.marginTop = "-3px";
+      box.style.marginLeft = "-3px";
+      box.style.border = '5px solid red';
+      link_click(booth);
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
+        item.src='';
+      });
+    }
+function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG2019/artist/' + booth.id + '.jpg' }    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      glob_box_selector = booth;
+      booth.style.opacity = 1;
+      booth.getElementsByClassName('desc')[0].style.display = 'block';
+      banner = booth.getElementsByClassName('banner')[0];
+      banner.src = 'AMG2019/artist/' + booth.id + '.jpg';
+      banner.style.display = 'block'; 
+      coverbox = document.getElementById('coverbox');
+      coverbox.style.opacity = 0.5;
+      coverbox.style.zIndex = 100;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block';
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      glob_box_selector.getElementsByClassName('banner')[0].style.display = '';
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./AMG2019/AMG2019C.png' onerror="this.src = './AMG2019/AMG2019C.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='CA22' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:496px;top:439px;'><h2>CA22 02 PRO</h2><ul>
+<a href='http://fb.me/02production' class='fbk'></a></ul></div><img class='banner' style='left:496px;top:439px;'><div class='area' style='left:144px;top:728px;width:350px;height:26px;'>CA22 02 PRO</div><div class='box' style='left:361px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:765px;top:636px;'><h2>CA4 95dap8</h2><ul>
+<a href='http://fb.me/Miraii.12' class='fbk'></a></ul></div><img class='banner' style='left:765px;top:636px;'><div class='area' style='left:144px;top:754px;width:350px;height:26px;'>CA4 95DAP8</div><div class='box' style='left:630px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA9' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1440px;top:636px;'><h2>CA9 Aestus Domus Aurea</h2><ul>
+<a href='http://fb.me/KowalXMiel' class='fbk'></a></ul></div><img class='banner' style='left:1440px;top:636px;'><div class='area' style='left:144px;top:832px;width:350px;height:26px;'>CA9 AESTUS DOMUS AUREA</div><div class='box' style='left:1305px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1575px;top:538px;'><h2>CA11 Amelia Khor</h2><ul>
+<a href='http://instagram.com/ameliakhor0116' class='ins'></a><a href='http://fb.me/ameliakhor0116' class='fbk'></a></ul></div><img class='banner' style='left:1575px;top:538px;'><div class='area' style='left:144px;top:858px;width:350px;height:26px;'>CA11 AMELIA KHOR</div><div class='box' style='left:1440px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1575px;top:636px;'><h2>CA10 AngieO_O</h2><ul>
+<a href='http://fb.me/Angie7099' class='fbk'></a></ul></div><img class='banner' style='left:1575px;top:636px;'><div class='area' style='left:144px;top:884px;width:350px;height:26px;'>CA10 ANGIEO_O</div><div class='box' style='left:1440px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1305px;top:538px;'><h2>CA13 Belle Angel 奥利奥</h2><ul>
+<a href='http://fb.me/belleangel210' class='fbk'></a></ul></div><img class='banner' style='left:1305px;top:538px;'><div class='area' style='left:144px;top:962px;width:350px;height:26px;'>CA13 BELLE ANGEL 奥利奥</div><div class='box' style='left:1170px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA23' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:631px;top:439px;'><h2>CA23 Dova X Foamdesu</h2><ul>
+<a href='http://fb.me/dovaxregrets' class='fbk'></a></ul></div><img class='banner' style='left:631px;top:439px;'><div class='area' style='left:144px;top:1040px;width:350px;height:26px;'>CA23 DOVA X FOAMDESU</div><div class='box' style='left:496px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA26' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1036px;top:439px;'><h2>CA26 Eevon x Yuii</h2><ul>
+<a href='http://fb.me/eevoncosplayer' class='fbk'></a><a href='http://fb.me/YuuweeYuicchi' class='fbk'></a></ul></div><img class='banner' style='left:1036px;top:439px;'><div class='area' style='left:504px;top:732px;width:350px;height:26px;'>CA26 EEVON X YUII</div><div class='box' style='left:901px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1035px;top:636px;'><h2>CA6 Haruko</h2><ul>
+<a href='http://fb.me/148Haruko' class='fbk'></a></ul></div><img class='banner' style='left:1035px;top:636px;'><div class='area' style='left:504px;top:810px;width:350px;height:26px;'>CA6 HARUKO</div><div class='box' style='left:900px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1440px;top:538px;'><h2>CA12 Karyan/Miya</h2><ul>
+<a href='http://fb.me/karyannn.milktea' class='fbk'></a><a href='http://fb.me/miyamin22' class='fbk'></a></ul></div><img class='banner' style='left:1440px;top:538px;'><div class='area' style='left:504px;top:888px;width:350px;height:26px;'>CA12 KARYAN/MIYA</div><div class='box' style='left:1305px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:900px;top:636px;'><h2>CA5 KING ANGEL</h2><ul>
+<a href='http://fb.me/ALLHAILKINGANGEL' class='fbk'></a></ul></div><img class='banner' style='left:900px;top:636px;'><div class='area' style='left:504px;top:914px;width:350px;height:26px;'>CA5 KING ANGEL</div><div class='box' style='left:765px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA27' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1171px;top:439px;'><h2>CA27 Kino MIkii_希</h2><ul>
+<a href='http://instagram.com/mikiikino_' class='ins'></a><a href='http://fb.me/KinoMikiiCosplayandGravure' class='fbk'></a></ul></div><img class='banner' style='left:1171px;top:439px;'><div class='area' style='left:504px;top:940px;width:350px;height:26px;'>CA27 KINO MIKII_希</div><div class='box' style='left:1036px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1170px;top:636px;'><h2>CA7 Lizzy リジー</h2><ul>
+<a href='http://fb.me/lizzyylz' class='fbk'></a></ul></div><img class='banner' style='left:1170px;top:636px;'><div class='area' style='left:504px;top:1018px;width:350px;height:26px;'>CA7 LIZZY リジー</div><div class='box' style='left:1035px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA14' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1170px;top:538px;'><h2>CA14 MingTao Cosplayer</h2><ul>
+<a href='http://fb.me/vmingtao' class='fbk'></a></ul></div><img class='banner' style='left:1170px;top:538px;'><div class='area' style='left:504px;top:1096px;width:350px;height:26px;'>CA14 MINGTAO COSPLAYER</div><div class='box' style='left:1035px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:630px;top:636px;'><h2>CA3 Nessarose x Ebi</h2><ul>
+<a href='http://fb.me/coser.nessarose' class='fbk'></a></ul></div><img class='banner' style='left:630px;top:636px;'><div class='area' style='left:868px;top:743px;width:380px;height:26px;'>CA3 NESSAROSE X EBI</div><div class='box' style='left:495px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA21' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:361px;top:439px;'><h2>CA21 Nikki &amp; Kappy</h2><ul>
+<a href='http://fb.me/kappy0315' class='fbk'></a></ul></div><img class='banner' style='left:361px;top:439px;'><div class='area' style='left:868px;top:769px;width:380px;height:26px;'>CA21 NIKKI &AMP; KAPPY</div><div class='box' style='left:226px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA24' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:766px;top:439px;'><h2>CA24 Reiko喵儿</h2><ul>
+<a href='http://fb.me/ReikoMiiao' class='fbk'></a></ul></div><img class='banner' style='left:766px;top:439px;'><div class='area' style='left:868px;top:835px;width:380px;height:26px;'>CA24 REIKO喵儿</div><div class='box' style='left:631px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA25' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:901px;top:439px;'><h2>CA25 ReTurN-Circus- and Stove</h2><ul>
+<a href='http://fb.me/returnnn3' class='fbk'></a><a href='http://fb.me/danrostove' class='fbk'></a></ul></div><img class='banner' style='left:901px;top:439px;'><div class='area' style='left:868px;top:861px;width:380px;height:26px;'>CA25 RETURN-CIRCUS- AND STOVE</div><div class='box' style='left:766px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA18' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:630px;top:538px;'><h2>CA18 RingoSama</h2><ul>
+<a href='http://fb.me/Green.Ringo' class='fbk'></a></ul></div><img class='banner' style='left:630px;top:538px;'><div class='area' style='left:868px;top:887px;width:380px;height:26px;'>CA18 RINGOSAMA</div><div class='box' style='left:495px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA19' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:495px;top:538px;'><h2>CA19 Ristelle</h2><ul>
+<a href='http://fb.me/0ristelle0' class='fbk'></a></ul></div><img class='banner' style='left:495px;top:538px;'><div class='area' style='left:868px;top:913px;width:380px;height:26px;'>CA19 RISTELLE</div><div class='box' style='left:360px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:495px;top:636px;'><h2>CA2 Rynna遴兒</h2><ul>
+<a href='http://instagram.com/rynna0809' class='ins'></a><a href='http://fb.me/rynna0809' class='fbk'></a></ul></div><img class='banner' style='left:495px;top:636px;'><div class='area' style='left:868px;top:939px;width:380px;height:26px;'>CA2 RYNNA遴兒</div><div class='box' style='left:360px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:360px;top:636px;'><h2>CA1 SAIDA (Guest)</h2><ul>
+<a href='http://fb.me/OfficialPage.Saida' class='fbk'></a></ul></div><img class='banner' style='left:360px;top:636px;'><div class='area' style='left:868px;top:1019px;width:380px;height:26px;'>CA1 SAIDA (GUEST)</div><div class='box' style='left:225px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA29' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1441px;top:439px;'><h2>CA29 Shinku_真红</h2><ul>
+<a href='http://fb.me/shinku.zh' class='fbk'></a></ul></div><img class='banner' style='left:1441px;top:439px;'><div class='area' style='left:868px;top:1045px;width:380px;height:26px;'>CA29 SHINKU_真红</div><div class='box' style='left:1306px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA16' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:900px;top:538px;'><h2>CA16 SHUU</h2><ul>
+<a href='http://fb.me/shuucos' class='fbk'></a></ul></div><img class='banner' style='left:900px;top:538px;'><div class='area' style='left:868px;top:1071px;width:380px;height:26px;'>CA16 SHUU</div><div class='box' style='left:765px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA8' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1305px;top:636px;'><h2>CA8 Sushii Cosplayer</h2><ul>
+<a href='http://fb.me/sushiicosplayer' class='fbk'></a></ul></div><img class='banner' style='left:1305px;top:636px;'><div class='area' style='left:868px;top:1097px;width:380px;height:26px;'>CA8 SUSHII COSPLAYER</div><div class='box' style='left:1170px;top:597px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA15' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1035px;top:538px;'><h2>CA15 Tako</h2><ul>
+<a href='http://fb.me/takomiranda' class='fbk'></a></ul></div><img class='banner' style='left:1035px;top:538px;'><div class='area' style='left:1313px;top:752px;width:370px;height:26px;'>CA15 TAKO</div><div class='box' style='left:900px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA28' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1306px;top:439px;'><h2>CA28 XuanZii 璇子 x Emiize 小美</h2><ul>
+<a href='http://fb.me/imxuanzii520' class='fbk'></a><a href='http://fb.me/emiize' class='fbk'></a></ul></div><img class='banner' style='left:1306px;top:439px;'><div class='area' style='left:1313px;top:815px;width:370px;height:26px;'>CA28 XUANZII 璇子 X EMIIZE 小美</div><div class='box' style='left:1171px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA20' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:360px;top:538px;'><h2>CA20 小鱼KIKO - Cosplayer</h2><ul>
+<a href='http://fb.me/xiaoyukiko' class='fbk'></a></ul></div><img class='banner' style='left:360px;top:538px;'><div class='area' style='left:1313px;top:841px;width:370px;height:26px;'>CA20 小鱼KIKO - COSPLAYER</div><div class='box' style='left:225px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA30' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1576px;top:439px;'><h2>CA30 YingTze</h2><ul>
+<a href='http://fb.me/YingTze1206' class='fbk'></a></ul></div><img class='banner' style='left:1576px;top:439px;'><div class='area' style='left:1313px;top:906px;width:370px;height:26px;'>CA30 YINGTZE</div><div class='box' style='left:1441px;top:400px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div><div class='booth' id='CA17' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:765px;top:538px;'><h2>CA17 +Yonnie芋泥 &gt;w0+</h2><ul>
+<a href='http://fb.me/Elfography' class='fbk'></a></ul></div><img class='banner' style='left:765px;top:538px;'><div class='area' style='left:1313px;top:932px;width:370px;height:26px;'>CA17 +YONNIE芋泥 &GT;W0+</div><div class='box' style='left:630px;top:499px;width:133px;height:37px;'></div><div class='box' style='left:px; top:px; width:px; height:px'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to AMG2019 artists and organizer.-->
