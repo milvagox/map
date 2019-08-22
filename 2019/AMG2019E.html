@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AMG2019 Interactive Map DEV">
+<meta property="og:description" content="AMG2019 map development page">
+<meta property="og:url" content="http://milvagox.netlify.com/AMG2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/AMG2019X.png">
+ <title>AMG2019 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.5);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .booth_highlight { opacity: 1; }
+  .booth_highlight img { opacity: 0; }
+  .booth_highlight:hover img {opacity: 1}
+ </style>
+ <script>
+    function highlight_by_anchor() {
+      if(!window.location.hash) { return }
+      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
+      box = booth.getElementsByClassName("box")[0];
+      box.style.marginTop = "-3px";
+      box.style.marginLeft = "-3px";
+      box.style.border = '5px solid red';
+      booth.style.opacity = 1;
+      if (booth.nextElementSibling.classList.contains("custimg")) {
+        booth.nextElementSibling.style.display = 'block'
+        //console.log(booth.nextElementSibling)
+      }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
+        item.src='';
+      });
+    }
+    
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./AMG2019/AMG2019E.png' onerror="this.src = './AMG2019/AMG2019E.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<a class='booth' id='01' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:195px;width:250px;height:42px; color: red; background-color: salmon'>01 </div><div class='box' style='left:1081px;top:1032px;width:42px;height:42px;'></div>
+</a><a class='booth' id='02' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:237px;width:250px;height:42px; color: red; background-color: salmon'>02 </div><div class='box' style='left:1125px;top:1032px;width:42px;height:42px;'></div>
+</a><a class='booth' id='03' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:279px;width:250px;height:42px; color: red; background-color: salmon'>03 </div><div class='box' style='left:1080px;top:1121px;width:84px;height:42px;'></div>
+</a><a class='booth' id='04' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:321px;width:250px;height:42px; color: red; background-color: salmon'>04 </div><div class='box' style='left:1211px;top:782px;width:84px;height:42px;'></div>
+</a><a class='booth' id='05' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:363px;width:250px;height:42px; color: red; background-color: salmon'>05 </div><div class='box' style='left:1253px;top:830px;width:42px;height:42px;'></div>
+</a><a class='booth' id='06' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:405px;width:250px;height:42px; color: red; background-color: salmon'>06 </div><div class='box' style='left:1210px;top:906px;width:84px;height:42px;'></div>
+</a><a class='booth' id='07' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:447px;width:250px;height:42px; color: red; background-color: salmon'>07 </div><div class='box' style='left:1211px;top:955px;width:42px;height:42px;'></div>
+</a><a class='booth' id='08' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:489px;width:250px;height:42px; color: red; background-color: salmon'>08 </div><div class='box' style='left:1255px;top:955px;width:42px;height:42px;'></div>
+</a><a class='booth' id='09' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:531px;width:250px;height:42px; color: red; background-color: salmon'>09 </div><div class='box' style='left:1341px;top:782px;width:84px;height:84px;'></div>
+</a><a class='booth' id='10' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:573px;width:250px;height:42px; color: red; background-color: salmon'>10 </div><div class='box' style='left:1338px;top:909px;width:84px;height:84px;'></div>
+</a><a class='booth' id='11' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:615px;width:250px;height:42px; color: red; background-color: salmon'>11 </div><div class='box' style='left:1334px;top:1041px;width:84px;height:84px;'></div>
+</a><a class='booth' id='12' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:657px;width:250px;height:42px; color: red; background-color: salmon'>12 </div><div class='box' style='left:1470px;top:788px;width:84px;height:42px;'></div>
+</a><a class='booth' id='13' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:699px;width:250px;height:42px; color: red; background-color: salmon'>13 </div><div class='box' style='left:1470px;top:834px;width:42px;height:42px;'></div>
+</a><a class='booth' id='14' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:741px;width:250px;height:42px; color: red; background-color: salmon'>14 </div><div class='box' style='left:1514px;top:834px;width:42px;height:42px;'></div>
+</a><a class='booth' id='15' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:783px;width:250px;height:42px; color: red; background-color: salmon'>15 </div><div class='box' style='left:1469px;top:906px;width:84px;height:84px;'></div>
+</a><a class='booth' id='16' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:825px;width:250px;height:42px; color: red; background-color: salmon'>16 </div><div class='box' style='left:1461px;top:1039px;width:42px;height:84px;'></div>
+</a><a class='booth' id='17' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:867px;width:250px;height:42px; color: red; background-color: salmon'>17 </div><div class='box' style='left:1505px;top:1039px;width:42px;height:84px;'></div>
+</a><a class='booth' id='18' href='http://duckduckgo.com/?q='><div class='area' style='left:131px;top:909px;width:250px;height:42px; color: red; background-color: salmon'>18 </div><div class='box' style='left:1457px;top:1168px;width:84px;height:84px;'></div>
+</a><a class='booth' id='19' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:195px;width:275px;height:42px; color: red; background-color: salmon'>19 </div><div class='box' style='left:0px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='20' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:237px;width:275px;height:42px; color: red; background-color: salmon'>20 </div><div class='box' style='left:2px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='21' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:279px;width:275px;height:42px; color: red; background-color: salmon'>21 </div><div class='box' style='left:4px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='22' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:321px;width:275px;height:42px; color: red; background-color: salmon'>22 </div><div class='box' style='left:6px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='23' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:363px;width:275px;height:42px; color: red; background-color: salmon'>23 </div><div class='box' style='left:8px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='24' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:405px;width:275px;height:42px; color: red; background-color: salmon'>24 </div><div class='box' style='left:10px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='25' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:447px;width:275px;height:42px; color: red; background-color: salmon'>25 </div><div class='box' style='left:12px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='26' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:489px;width:275px;height:42px; color: red; background-color: salmon'>26 </div><div class='box' style='left:14px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='27' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:531px;width:275px;height:42px; color: red; background-color: salmon'>27 </div><div class='box' style='left:16px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='28' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:573px;width:275px;height:42px; color: red; background-color: salmon'>28 </div><div class='box' style='left:18px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='29' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:615px;width:275px;height:42px; color: red; background-color: salmon'>29 </div><div class='box' style='left:20px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='30' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:657px;width:275px;height:42px; color: red; background-color: salmon'>30 </div><div class='box' style='left:22px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='31' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:699px;width:275px;height:42px; color: red; background-color: salmon'>31 </div><div class='box' style='left:24px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='32' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:741px;width:275px;height:42px; color: red; background-color: salmon'>32 </div><div class='box' style='left:26px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='33' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:783px;width:275px;height:42px; color: red; background-color: salmon'>33 </div><div class='box' style='left:28px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='34' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:825px;width:275px;height:42px; color: red; background-color: salmon'>34 </div><div class='box' style='left:30px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='35' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:867px;width:275px;height:42px; color: red; background-color: salmon'>35 </div><div class='box' style='left:32px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='36' href='http://duckduckgo.com/?q='><div class='area' style='left:391px;top:909px;width:275px;height:42px; color: red; background-color: salmon'>36 </div><div class='box' style='left:34px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='37' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:195px;width:315px;height:42px; color: red; background-color: salmon'>37 </div><div class='box' style='left:36px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='38' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:237px;width:300px;height:42px; color: red; background-color: salmon'>38 </div><div class='box' style='left:38px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='39' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:279px;width:300px;height:42px; color: red; background-color: salmon'>39 </div><div class='box' style='left:40px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='40' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:321px;width:300px;height:42px; color: red; background-color: salmon'>40 </div><div class='box' style='left:42px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='41' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:363px;width:300px;height:42px; color: red; background-color: salmon'>41 </div><div class='box' style='left:44px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='42' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:405px;width:300px;height:42px; color: red; background-color: salmon'>42 </div><div class='box' style='left:46px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='43' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:447px;width:300px;height:42px; color: red; background-color: salmon'>43 </div><div class='box' style='left:48px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='44' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:489px;width:300px;height:42px; color: red; background-color: salmon'>44 </div><div class='box' style='left:50px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='45' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:531px;width:300px;height:42px; color: red; background-color: salmon'>45 </div><div class='box' style='left:52px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='46' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:573px;width:300px;height:42px; color: red; background-color: salmon'>46 </div><div class='box' style='left:54px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='47' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:615px;width:300px;height:42px; color: red; background-color: salmon'>47 </div><div class='box' style='left:56px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='48' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:657px;width:300px;height:42px; color: red; background-color: salmon'>48 </div><div class='box' style='left:58px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='49' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:699px;width:300px;height:42px; color: red; background-color: salmon'>49 </div><div class='box' style='left:60px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='50' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:741px;width:300px;height:42px; color: red; background-color: salmon'>50 </div><div class='box' style='left:62px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='51' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:783px;width:300px;height:42px; color: red; background-color: salmon'>51 </div><div class='box' style='left:64px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='52' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:825px;width:300px;height:42px; color: red; background-color: salmon'>52 </div><div class='box' style='left:66px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='53' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:867px;width:300px;height:42px; color: red; background-color: salmon'>53 </div><div class='box' style='left:68px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='54' href='http://duckduckgo.com/?q='><div class='area' style='left:677px;top:909px;width:300px;height:42px; color: red; background-color: salmon'>54 </div><div class='box' style='left:70px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='A' href='http://duckduckgo.com/?q='><div class='area' style='left:1021px;top:195px;width:250px;height:38px; color: red; background-color: salmon'>A </div><div class='box' style='left:0px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='B' href='http://duckduckgo.com/?q='><div class='area' style='left:1021px;top:233px;width:250px;height:38px; color: red; background-color: salmon'>B </div><div class='box' style='left:2px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='C' href='http://duckduckgo.com/?q='><div class='area' style='left:1021px;top:271px;width:250px;height:38px; color: red; background-color: salmon'>C </div><div class='box' style='left:4px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='D' href='http://duckduckgo.com/?q='><div class='area' style='left:1021px;top:309px;width:250px;height:38px; color: red; background-color: salmon'>D </div><div class='box' style='left:6px;top:0px;width:0px;height:0px;'></div>
+</a><a class='booth' id='E' href='http://duckduckgo.com/?q='><div class='area' style='left:1021px;top:347px;width:250px;height:38px; color: red; background-color: salmon'>E </div><div class='box' style='left:8px;top:0px;width:0px;height:0px;'></div>
+</a>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to AMG2019 artists and organizer.-->
