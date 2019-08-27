@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
@@ -7,8 +7,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="CAFKL3 Interactive Map">
 <meta property="og:description" content="CAFKL3 map with clickable artists' SNS links and search.">
-<meta property="og:url" content="http://milvagox.netlify.com/CAFKL3">
+<meta property="og:url" content="https://milvagox.netlify.com/CAFKL3">
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CAFKL3.png">
+<meta name="description" content="CAFKL3 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
  <title>CAFKL3 Map++</title>
  <style>
   .booth { 
@@ -29,13 +31,21 @@
   }
   .box {
     border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
     position: absolute;
     z-index: 130;
     opacity: inherit;
   }
   .booth_highlight { opacity: 1; }
   .booth_highlight img { opacity: 0; }
-  .booth_highlight:hover img {opacity: 1}
+  .booth_highlight:hover img {opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
     min-width: 280px; 
@@ -121,19 +131,24 @@ ul li a{ width: auto; height: auto; }
     margin: 0;
   }
  </style>
- <script>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
     function highlight_by_anchor() {
-      if(!window.location.hash) { return }
-      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      box = booth.getElementsByClassName("box")[0];
-      box.style.marginTop = "-3px";
-      box.style.marginLeft = "-3px";
-      box.style.border = '5px solid red';
-      link_click(booth);
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block'
-        //console.log(booth.nextElementSibling)
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
       }
+      else { booth_highlightByString(window.location.hash); }
     }
     
     function highlight_booths(booths) {
@@ -148,6 +163,47 @@ ul li a{ width: auto; height: auto; }
       });
     }
     
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
     function search_booth(keyword) {
       Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
         if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
@@ -155,25 +211,44 @@ ul li a{ width: auto; height: auto; }
           item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
         }
       });
-      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
-        item.src='';
-      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
     }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
     
     // very bad glob var
     glob_box_selector = "";
     function link_click(booth) {
-      glob_box_selector = booth;
-      booth.style.opacity = 1;
-      booth.getElementsByClassName('desc')[0].style.display = 'block';
-     // banner = booth.getElementsByClassName('banner')[0];
-     // banner.src = 'CAFKL3/artist/' + booth.id + '.jpg';
-       
-      coverbox = document.getElementById('coverbox');
-      coverbox.style.opacity = 0.5;
-      coverbox.style.zIndex = 100;
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block';
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+       // banner = booth.getElementsByClassName('banner')[0];
+       // banner.src = 'CAFKL3/artist/' + booth.id + '.jpg';
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
       }
     }
     
@@ -219,7 +294,10 @@ ul li a{ width: auto; height: auto; }
 <body onload='highlight_by_anchor();' autofocus>
 <div>
 
-<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CAFKL3/CAFKL3.png' onerror="this.src = './CAFKL3/CAFKL3.jpg'">
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL3/CAFKL3.png' onerror="this.src = './CAFKL3/CAFKL3.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:998px;top:823px;'><h2>A1 Matkomik</h2><a href='http://duckduckgo.com/?q=Matkomik'>Search for Matkomik</a></div><div class='area' style='left:71px;top:269px;width:350px;height:32px;'>A1 MATKOMIK</div><div class='box' style='left:977px;top:803px;width:19px;height:18px;'></div>
 </div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:998px;top:865px;'><h2>A3 Maple Comics</h2><a href='http://duckduckgo.com/?q=Maple%20Comics'>Search for Maple Comics</a></div><div class='area' style='left:71px;top:301px;width:350px;height:32px;'>A3 MAPLE COMICS</div><div class='box' style='left:977px;top:845px;width:19px;height:18px;'></div>
@@ -233,7 +311,7 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='A12' onclick='link_click(this)'><div class='desc' style='left:1093px;top:998px;'><h2>A12 LA MOSAIC</h2><a href='http://duckduckgo.com/?q=LA%20MOSAIC'>Search for LA MOSAIC</a></div><div class='area' style='left:71px;top:493px;width:350px;height:32px;'>A12 LA MOSAIC</div><div class='box' style='left:1073px;top:977px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B1' onclick='link_click(this)'><div class='desc' style='left:982px;top:731px;'><h2>B1 RedShades</h2><a href='http://duckduckgo.com/?q=RedShades'>Search for RedShades</a></div><div class='area' style='left:71px;top:603px;width:350px;height:32px;'>B1 REDSHADES</div><div class='box' style='left:962px;top:710px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B2' onclick='link_click(this)'><div class='desc' style='left:1003px;top:731px;'><h2>B2 Fat Fairy</h2><ul>
-<a href='http://twitter.com/whitevoix' class='twt'></a></ul></div><div class='area' style='left:71px;top:635px;width:350px;height:32px;'>B2 FAT FAIRY</div><div class='box' style='left:983px;top:710px;width:18px;height:19px;'></div>
+<a href='http://twitter.com/whitevoix' class='twt'></a><a href='http://fb.me/FetFairy' class='fbk'></a></ul></div><div class='area' style='left:71px;top:635px;width:350px;height:32px;'>B2 FAT FAIRY</div><div class='box' style='left:983px;top:710px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:1024px;top:731px;'><h2>B3 SillyJellie</h2><a href='http://duckduckgo.com/?q=SillyJellie'>Search for SillyJellie</a></div><div class='area' style='left:71px;top:667px;width:350px;height:32px;'>B3 SILLYJELLIE</div><div class='box' style='left:1004px;top:710px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B4' onclick='link_click(this)'><div class='desc' style='left:1045px;top:731px;'><h2>B4 Eidoleane Art</h2><a href='http://duckduckgo.com/?q=Eidoleane%20Art'>Search for Eidoleane Art</a></div><div class='area' style='left:71px;top:699px;width:350px;height:32px;'>B4 EIDOLEANE ART</div><div class='box' style='left:1025px;top:710px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B5' onclick='link_click(this)'><div class='desc' style='left:1066px;top:731px;'><h2>B5 Lubartic</h2><a href='http://duckduckgo.com/?q=Lubartic'>Search for Lubartic</a></div><div class='area' style='left:71px;top:731px;width:350px;height:32px;'>B5 LUBARTIC</div><div class='box' style='left:1046px;top:710px;width:18px;height:19px;'></div>
@@ -271,7 +349,8 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='B15' onclick='link_click(this)'><div class='desc' style='left:1276px;top:731px;'><h2>B15 Garaj Komik</h2><a href='http://duckduckgo.com/?q=Garaj%20Komik'>Search for Garaj Komik</a></div><div class='area' style='left:448px;top:603px;width:330px;height:32px;'>B15 GARAJ KOMIK</div><div class='box' style='left:1256px;top:710px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B17' onclick='link_click(this)'><div class='desc' style='left:1336px;top:712px;'><h2>B17 DREAMING DREAMS</h2><a href='http://duckduckgo.com/?q=DREAMING%20DREAMS'>Search for DREAMING DREAMS</a></div><div class='area' style='left:448px;top:635px;width:330px;height:32px;'>B17 DREAMING DREAMS</div><div class='box' style='left:1316px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B19' onclick='link_click(this)'><div class='desc' style='left:1378px;top:712px;'><h2>B19 ラジカル / RADICAL</h2><a href='http://duckduckgo.com/?q=%E3%83%A9%E3%82%B8%E3%82%AB%E3%83%AB%20%2F%20RADICAL'>Search for ラジカル / RADICAL</a></div><div class='area' style='left:448px;top:667px;width:330px;height:32px;'>B19 ラジカル / RADICAL</div><div class='box' style='left:1358px;top:691px;width:18px;height:19px;'></div>
-</div><div class='booth' id='B21' onclick='link_click(this)'><div class='desc' style='left:1420px;top:712px;'><h2>B21 abamapam</h2><a href='http://duckduckgo.com/?q=abamapam'>Search for abamapam</a></div><div class='area' style='left:448px;top:699px;width:330px;height:32px;'>B21 ABAMAPAM</div><div class='box' style='left:1400px;top:691px;width:18px;height:19px;'></div>
+</div><div class='booth' id='B21' onclick='link_click(this)'><div class='desc' style='left:1420px;top:712px;'><h2>B21 abamapam</h2><ul>
+<a href='http://twitter.com/RealAbamApam' class='twt'></a><a href='http://fb.me/AbamApam' class='fbk'></a></ul></div><div class='area' style='left:448px;top:699px;width:330px;height:32px;'>B21 ABAMAPAM</div><div class='box' style='left:1400px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B22' onclick='link_click(this)'><div class='desc' style='left:1441px;top:712px;'><h2>B22 Osugatari</h2><ul>
 <a href='http://twitter.com/ComicsByVieN' class='twt'></a><a href='http://fb.me/osugatari' class='fbk'></a><a href='http://fb.me/vulpineninja' class='fbk'></a></ul></div><div class='area' style='left:448px;top:731px;width:330px;height:32px;'>B22 OSUGATARI</div><div class='box' style='left:1421px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B23' onclick='link_click(this)'><div class='desc' style='left:1462px;top:712px;'><h2>B23 Mad Crayons</h2><a href='http://duckduckgo.com/?q=Mad%20Crayons'>Search for Mad Crayons</a></div><div class='area' style='left:448px;top:763px;width:330px;height:32px;'>B23 MAD CRAYONS</div><div class='box' style='left:1442px;top:691px;width:18px;height:19px;'></div>
@@ -281,7 +360,7 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='B28' onclick='link_click(this)'><div class='desc' style='left:1567px;top:712px;'><h2>B28 Hammu</h2><ul>
 <a href='http://fb.me/WorldsOfHammu' class='fbk'></a><a href='http://instagram.com/gourmet_hamster' class='ins'></a><a href='http://webtoons.com/en/challenge/hammu/list?title_no=101923' class='wtn'></a></ul></div><div class='area' style='left:448px;top:891px;width:330px;height:32px;'>B28 HAMMU</div><div class='box' style='left:1547px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B29' onclick='link_click(this)'><div class='desc' style='left:1588px;top:712px;'><h2>B29 Bluepeppermints</h2><ul>
-<a href='http://twitter.com/aldreichd' class='twt'></a><a href='http://twitter.com/KRAD41639080' class='twt'></a></ul></div><div class='area' style='left:448px;top:923px;width:330px;height:32px;'>B29 BLUEPEPPERMINTS</div><div class='box' style='left:1568px;top:691px;width:18px;height:19px;'></div>
+<a href='http://twitter.com/aldreichd' class='twt'></a><a href='http://twitter.com/KRAD41639080' class='twt'></a><a href='http://darkn2ght.deviantart.com' class='dar'></a><a href='http://fb.me/bluepeppermints' class='fbk'></a><a href='http://twitter.com/Balqizu' class='twt'></a></ul></div><div class='area' style='left:448px;top:923px;width:330px;height:32px;'>B29 BLUEPEPPERMINTS</div><div class='box' style='left:1568px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='B30' onclick='link_click(this)'><div class='desc' style='left:1609px;top:712px;'><h2>B30 Lost.Graduation</h2><ul>
 <a href='http://fb.me/Dualnaito' class='fbk'></a><a href='http://instagram.com/dualnaito' class='ins'></a><a href='http://twitter.com/Xiong_Hyouka' class='twt'></a></ul></div><div class='area' style='left:448px;top:955px;width:330px;height:32px;'>B30 LOST.GRADUATION</div><div class='box' style='left:1589px;top:691px;width:18px;height:19px;'></div>
 </div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:1332px;top:674px;'><h2>C17 Banana &amp; Cucumber</h2><a href='http://duckduckgo.com/?q=Banana%20%26%20Cucumber'>Search for Banana &amp; Cucumber</a></div><div class='area' style='left:448px;top:1070px;width:330px;height:32px;'>C17 BANANA &AMP; CUCUMBER</div><div class='box' style='left:1312px;top:653px;width:18px;height:19px;'></div>

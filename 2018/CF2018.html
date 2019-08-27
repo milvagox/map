@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
@@ -7,8 +7,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="CF2018 Interactive Map">
 <meta property="og:description" content="CF2018 map with clickable artists' SNS links and search.">
-<meta property="og:url" content="http://milvagox.netlify.com/CF2018">
+<meta property="og:url" content="https://milvagox.netlify.com/CF2018">
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CF2018.png">
+<meta name="description" content="CF2018 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
  <title>CF2018 Map++</title>
  <style>
   .booth { 
@@ -29,27 +31,40 @@
   }
   .box {
     border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
     position: absolute;
     z-index: 130;
     opacity: inherit;
   }
   .booth_highlight { opacity: 1; }
   .booth_highlight img { opacity: 0; }
-  .booth_highlight:hover img {opacity: 1}
+  .booth_highlight:hover img {opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
- <script>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
     function highlight_by_anchor() {
-      if(!window.location.hash) { return }
-      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      box = booth.getElementsByClassName("box")[0];
-      box.style.marginTop = "-3px";
-      box.style.marginLeft = "-3px";
-      box.style.border = '5px solid red';
-      booth.style.opacity = 1;
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block'
-        //console.log(booth.nextElementSibling)
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        booth.style.opacity = 1;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
       }
+      else { booth_highlightByString(window.location.hash); }
     }
     
     function highlight_booths(booths) {
@@ -64,6 +79,47 @@
       });
     }
     
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
     function search_booth(keyword) {
       Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
         if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
@@ -71,17 +127,40 @@
           item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
         }
       });
-      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
-        item.src='';
-      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
     }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+  document.onclick = function (e) { e = e || window.event;
+  var element = e.target || e.srcElement;
+  if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
+    e.preventDefault();
+    booth_highlight_listing(element.parentNode.id);
+    booth_highlightByString(window.location.hash); } };
+ 
     
  </script>
 </head>
 <body onload='highlight_by_anchor();' autofocus>
 <div>
 
-<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CF2018/CF2018.png' onerror="this.src = './CF2018/CF2018.jpg'">
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CF2018/CF2018.png' onerror="this.src = './CF2018/CF2018.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='D20' href='http://duckduckgo.com/?q=4Clovers'><div class='area' style='left:87px;top:703px;width:340px;height:19px;'>D20 4CLOVERS</div><div class='box' style='left:1319px;top:363px;width:34px;height:29px;'></div>
 </a><a class='booth' id='F11' href='http://twitter.com/4threset'><div class='area' style='left:87px;top:722px;width:340px;height:19px;'>F11 4THRESET</div><div class='box' style='left:959px;top:487px;width:34px;height:29px;'></div>
@@ -157,12 +236,12 @@
 </a><a class='booth' id='F14' href='http://duckduckgo.com/?q=HEWWO%20%E5%85%84DWEI'><div class='area' style='left:474px;top:1266px;width:340px;height:19px;'>F14 HEWWO 兄DWEI</div><div class='box' style='left:1079px;top:487px;width:68px;height:29px;'></div>
 </a><a class='booth' id='G13' href='http://fb.me/hibiscuits/'><div class='area' style='left:474px;top:1285px;width:340px;height:18px;'>G13 HIBISCUITS</div><div class='box' style='left:1039px;top:565px;width:34px;height:29px;'></div>
 </a><a class='booth' id='A06' href='http://instagram.com/hypercharge_'><div class='area' style='left:474px;top:1303px;width:340px;height:19px;'>A06 HYPERCHARGE</div><div class='box' style='left:879px;top:197px;width:34px;height:29px;'></div>
-</a><a class='booth' id='A18' href='http://duckduckgo.com/?q=I%20Adopted%20A%20Cat%21'><div class='area' style='left:474px;top:1341px;width:340px;height:19px;'>A18 I ADOPTED A CAT!</div><div class='box' style='left:1359px;top:197px;width:34px;height:29px;'></div>
+</a><a class='booth' id='A18' href='http://fb.me/guojiangrichang'><div class='area' style='left:474px;top:1341px;width:340px;height:19px;'>A18 I ADOPTED A CAT!</div><div class='box' style='left:1359px;top:197px;width:34px;height:29px;'></div>
 </a><a class='booth' id='A02' href='http://duckduckgo.com/?q=ILoveHambaga%26SPRITE'><div class='area' style='left:474px;top:1360px;width:340px;height:18px;'>A02 ILOVEHAMBAGA&AMP;SPRITE</div><div class='box' style='left:562px;top:197px;width:34px;height:29px;'></div>
 </a><a class='booth' id='A17' href='http://instagram.com/imtxm'><div class='area' style='left:474px;top:1378px;width:340px;height:19px;'>A17 IMTXM X ELANOR CHUAH</div><div class='box' style='left:1319px;top:197px;width:34px;height:29px;'></div>
 </a><a class='booth' id='F03' href='http://duckduckgo.com/?q=Inking%20Liox'><div class='area' style='left:474px;top:1397px;width:340px;height:19px;'>F03 INKING LIOX</div><div class='box' style='left:602px;top:487px;width:34px;height:29px;'></div>
 </a><a class='booth' id='F18' href='http://fb.me/Jacculents'><div class='area' style='left:474px;top:1435px;width:340px;height:18px;'>F18 JACKTUS</div><div class='box' style='left:1239px;top:487px;width:34px;height:29px;'></div>
-</a><a class='booth' id='D08' href='http://duckduckgo.com/?q=JanKen'><div class='area' style='left:474px;top:1453px;width:340px;height:19px;'>D08 JANKEN</div><div class='box' style='left:839px;top:363px;width:68px;height:29px;'></div>
+</a><a class='booth' id='D08' href='http://fb.me/jeanjs95'><div class='area' style='left:474px;top:1453px;width:340px;height:19px;'>D08 JANKEN</div><div class='box' style='left:839px;top:363px;width:68px;height:29px;'></div>
 </a><a class='booth' id='G14' href='http://duckduckgo.com/?q=JC%20%26%20Muta'><div class='area' style='left:474px;top:1472px;width:340px;height:19px;'>G14 JC &AMP; MUTA</div><div class='box' style='left:1079px;top:565px;width:34px;height:29px;'></div>
 </a><a class='booth' id='F26' href='http://duckduckgo.com/?q=JEN-YON'><div class='area' style='left:474px;top:1491px;width:340px;height:19px;'>F26 JEN-YON</div><div class='box' style='left:1595px;top:487px;width:34px;height:29px;'></div>
 </a><a class='booth' id='B08' href='http://duckduckgo.com/?q=JFF'><div class='area' style='left:474px;top:1510px;width:340px;height:18px;'>B08 JFF</div><div class='box' style='left:959px;top:239px;width:34px;height:29px;'></div>
@@ -189,7 +268,7 @@
 </a><a class='booth' id='F23' href='http://duckduckgo.com/?q=Lynsartchemist'><div class='area' style='left:861px;top:1022px;width:340px;height:19px;'>F23 LYNSARTCHEMIST</div><div class='box' style='left:1475px;top:487px;width:68px;height:29px;'></div>
 </a><a class='booth' id='F04' href='http://duckduckgo.com/?q=MadCrayon%26Meepancake'><div class='area' style='left:861px;top:1060px;width:340px;height:18px;'>F04 MADCRAYON&AMP;MEEPANCAKE</div><div class='box' style='left:642px;top:487px;width:68px;height:29px;'></div>
 </a><a class='booth' id='E17' href='http://duckduckgo.com/?q=Magna%20Tea'><div class='area' style='left:861px;top:1078px;width:340px;height:19px;'>E17 MAGNA TEA</div><div class='box' style='left:1199px;top:444px;width:34px;height:29px;'></div>
-</a><a class='booth' id='G26' href='http://duckduckgo.com/?q=Maorenc%20%26%20Kirin'><div class='area' style='left:861px;top:1097px;width:340px;height:19px;'>G26 MAORENC &AMP; KIRIN</div><div class='box' style='left:1595px;top:565px;width:68px;height:29px;'></div>
+</a><a class='booth' id='G26' href='http://twitter.com/maorenc'><div class='area' style='left:861px;top:1097px;width:340px;height:19px;'>G26 MAORENC &AMP; KIRIN</div><div class='box' style='left:1595px;top:565px;width:68px;height:29px;'></div>
 </a><a class='booth' id='D25' href='http://duckduckgo.com/?q=MaotypeB'><div class='area' style='left:861px;top:1116px;width:340px;height:19px;'>D25 MAOTYPEB</div><div class='box' style='left:1555px;top:363px;width:34px;height:29px;'></div>
 </a><a class='booth' id='D16' href='http://duckduckgo.com/?q=Maple%20Chicken'><div class='area' style='left:861px;top:1135px;width:340px;height:18px;'>D16 MAPLE CHICKEN</div><div class='box' style='left:1159px;top:363px;width:34px;height:29px;'></div>
 </a><a class='booth' id='E10' href='http://duckduckgo.com/?q=Marshmallow%20Panic'><div class='area' style='left:861px;top:1153px;width:340px;height:19px;'>E10 MARSHMALLOW PANIC</div><div class='box' style='left:919px;top:444px;width:34px;height:29px;'></div>
@@ -202,7 +281,7 @@
 </a><a class='booth' id='D14' href='http://duckduckgo.com/?q=Mifuki32'><div class='area' style='left:861px;top:1285px;width:340px;height:18px;'>D14 MIFUKI32</div><div class='box' style='left:1079px;top:363px;width:34px;height:29px;'></div>
 </a><a class='booth' id='H19' href='http://duckduckgo.com/?q=Milo%20Elves'><div class='area' style='left:861px;top:1303px;width:340px;height:19px;'>H19 MILO ELVES</div><div class='box' style='left:1278px;top:608px;width:68px;height:29px;'></div>
 </a><a class='booth' id='G15' href='http://duckduckgo.com/?q=Ming%20and%20Fishishtier'><div class='area' style='left:861px;top:1322px;width:340px;height:19px;'>G15 MING AND FISHISHTIER</div><div class='box' style='left:1119px;top:565px;width:34px;height:29px;'></div>
-</a><a class='booth' id='D15' href='http://duckduckgo.com/?q=Miso%2Fworks'><div class='area' style='left:861px;top:1341px;width:340px;height:19px;'>D15 MISO/WORKS</div><div class='box' style='left:1119px;top:363px;width:34px;height:29px;'></div>
+</a><a class='booth' id='D15' href='http://fb.me/rokuman42'><div class='area' style='left:861px;top:1341px;width:340px;height:19px;'>D15 MISO/WORKS</div><div class='box' style='left:1119px;top:363px;width:34px;height:29px;'></div>
 </a><a class='booth' id='B09' href='http://instagram.com/alexahuke'><div class='area' style='left:861px;top:1360px;width:340px;height:18px;'>B09 MOCHIMOCHI</div><div class='box' style='left:999px;top:239px;width:34px;height:29px;'></div>
 </a><a class='booth' id='B30' href='http://duckduckgo.com/?q=Moe%20Moe%20Kyun'><div class='area' style='left:861px;top:1378px;width:340px;height:19px;'>B30 MOE MOE KYUN</div><div class='box' style='left:1875px;top:239px;width:34px;height:29px;'></div>
 </a><a class='booth' id='C28' href='http://duckduckgo.com/?q=moju'><div class='area' style='left:861px;top:1397px;width:340px;height:19px;'>C28 MOJU</div><div class='box' style='left:1675px;top:322px;width:34px;height:29px;'></div>
@@ -241,7 +320,7 @@
 </a><a class='booth' id='B20' href='http://fb.me/ReimyRllp'><div class='area' style='left:1245px;top:1191px;width:340px;height:19px;'>B20 REIMY RLLP</div><div class='box' style='left:1475px;top:239px;width:34px;height:29px;'></div>
 </a><a class='booth' id='G19' href='http://www.rollingronins.com'><div class='area' style='left:1245px;top:1210px;width:340px;height:18px;'>G19 ROLLING RONINS</div><div class='box' style='left:1279px;top:565px;width:68px;height:29px;'></div>
 </a><a class='booth' id='B03' href='http://fb.me/CarmenLimRui'><div class='area' style='left:1245px;top:1228px;width:340px;height:19px;'>B03 RUI</div><div class='box' style='left:602px;top:239px;width:34px;height:29px;'></div>
-</a><a class='booth' id='A21' href='http://duckduckgo.com/?q=Scullworks'><div class='area' style='left:1245px;top:1266px;width:340px;height:19px;'>A21 SCULLWORKS</div><div class='box' style='left:1515px;top:197px;width:34px;height:29px;'></div>
+</a><a class='booth' id='A21' href='http://fb.me/ThyScullsArt'><div class='area' style='left:1245px;top:1266px;width:340px;height:19px;'>A21 SCULLWORKS</div><div class='box' style='left:1515px;top:197px;width:34px;height:29px;'></div>
 </a><a class='booth' id='A16' href='http://facebook.com/sen.neihc'><div class='area' style='left:1245px;top:1285px;width:340px;height:18px;'>A16 SEASALTBACHI</div><div class='box' style='left:1279px;top:197px;width:34px;height:29px;'></div>
 </a><a class='booth' id='G24' href='http://duckduckgo.com/?q=Secret-Garden'><div class='area' style='left:1245px;top:1303px;width:340px;height:19px;'>G24 SECRET-GARDEN</div><div class='box' style='left:1515px;top:565px;width:68px;height:29px;'></div>
 </a><a class='booth' id='E04' href='http://duckduckgo.com/?q=Seox-kun%20Daisuki'><div class='area' style='left:1245px;top:1322px;width:340px;height:19px;'>E04 SEOX-KUN DAISUKI</div><div class='box' style='left:642px;top:444px;width:34px;height:29px;'></div>
@@ -282,8 +361,8 @@
 </a><a class='booth' id='E34' href='http://duckduckgo.com/?q=wxyz'><div class='area' style='left:1634px;top:1135px;width:340px;height:18px;'>E34 WXYZ</div><div class='box' style='left:1915px;top:444px;width:34px;height:29px;'></div>
 </a><a class='booth' id='B26' href='http://instagram.com/xanseviera'><div class='area' style='left:1634px;top:1172px;width:340px;height:19px;'>B26 XANSEVIERA KNICKNACK</div><div class='box' style='left:1715px;top:239px;width:34px;height:29px;'></div>
 </a><a class='booth' id='C31' href='http://fb.me/XFateArtworks'><div class='area' style='left:1634px;top:1191px;width:340px;height:19px;'>C31 XFATE</div><div class='box' style='left:1795px;top:322px;width:34px;height:29px;'></div>
-</a><a class='booth' id='C15' href='http://duckduckgo.com/?q=Y%20to%20Y'><div class='area' style='left:1634px;top:1210px;width:340px;height:18px;'>C15 Y TO Y</div><div class='box' style='left:1119px;top:322px;width:68px;height:29px;'></div>
-</a><a class='booth' id='H01' href='http://duckduckgo.com/?q=Yaki%20Yaki%20Soba'><div class='area' style='left:1634px;top:1228px;width:340px;height:19px;'>H01 YAKI YAKI SOBA</div><div class='box' style='left:522px;top:608px;width:34px;height:29px;'></div>
+</a><a class='booth' id='C15' href='http://fb.me/yee1220'><div class='area' style='left:1634px;top:1210px;width:340px;height:18px;'>C15 Y TO Y</div><div class='box' style='left:1119px;top:322px;width:68px;height:29px;'></div>
+</a><a class='booth' id='H01' href='http://fb.me/skydar'><div class='area' style='left:1634px;top:1228px;width:340px;height:19px;'>H01 YAKI YAKI SOBA</div><div class='box' style='left:522px;top:608px;width:34px;height:29px;'></div>
 </a><a class='booth' id='F19' href='http://duckduckgo.com/?q=Yon%20Gumi'><div class='area' style='left:1634px;top:1247px;width:340px;height:19px;'>F19 YON GUMI</div><div class='box' style='left:1279px;top:487px;width:68px;height:29px;'></div>
 </a><a class='booth' id='B06' href='http://duckduckgo.com/?q=Yuusetsukoi'><div class='area' style='left:1634px;top:1266px;width:340px;height:19px;'>B06 YUUSETSUKOI</div><div class='box' style='left:879px;top:239px;width:68px;height:29px;'></div>
 </a><a class='booth' id='A08' href='http://duckduckgo.com/?q=Zombie%20Drawers'><div class='area' style='left:1634px;top:1303px;width:340px;height:19px;'>A08 ZOMBIE DRAWERS</div><div class='box' style='left:959px;top:197px;width:34px;height:29px;'></div>

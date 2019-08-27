@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CFmini2017 Map++</title>
@@ -22,27 +22,40 @@
   }
   .box {
     border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
     position: absolute;
     z-index: 130;
     opacity: inherit;
   }
   .booth_highlight { opacity: 1; }
   .booth_highlight img { opacity: 0; }
-  .booth_highlight:hover img {opacity: 1}
+  .booth_highlight:hover img {opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
- <script>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
     function highlight_by_anchor() {
-      if(!window.location.hash) { return }
-      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      box = booth.getElementsByClassName("box")[0];
-      box.style.marginTop = "-3px";
-      box.style.marginLeft = "-3px";
-      box.style.border = '5px solid red';
-      booth.style.opacity = 1;
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block'
-        //console.log(booth.nextElementSibling)
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        booth.style.opacity = 1;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
       }
+      else { booth_highlightByString(window.location.hash); }
     }
     
     function highlight_booths(booths) {
@@ -57,6 +70,47 @@
       });
     }
     
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
     function search_booth(keyword) {
       Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
         if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
@@ -64,17 +118,40 @@
           item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
         }
       });
-      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
-        item.src='';
-      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
     }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+  document.onclick = function (e) { e = e || window.event;
+  var element = e.target || e.srcElement;
+  if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
+    e.preventDefault();
+    booth_highlight_listing(element.parentNode.id);
+    booth_highlightByString(window.location.hash); } };
+ 
     
  </script>
 </head>
 <body onload='highlight_by_anchor();' autofocus>
 <div>
 
-<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CFmini2017/CFmini2017.jpg' onerror="this.src = './CFmini2017/CFmini2017.jpg'">
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2017/CFmini2017.jpg' onerror="this.src = './CFmini2017/CFmini2017.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='D10' href='http://fb.me/animeaccess'><div class='area' style='left:76px;top:807px;width:400px;height:26px;'>D10 ANIME ACCESS + NIHOEN</div><div class='box' style='left:935px;top:567px;width:52px;height:35px;'></div>
 </a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Artzy%20Currae'><div class='area' style='left:76px;top:833px;width:400px;height:25px;'>B3 ARTZY CURRAE</div><div class='box' style='left:462px;top:443px;width:114px;height:35px;'></div>
@@ -106,7 +183,7 @@
 </a><a class='booth' id='E5' href='http://duckduckgo.com/?q=love%20cosme%20%26%20mini%20sakura'><div class='area' style='left:551px;top:961px;width:450px;height:26px;'>E5 LOVE COSME &AMP; MINI SAKURA</div><div class='box' style='left:588px;top:638px;width:52px;height:35px;'></div>
 </a><a class='booth' id='D2' href='http://duckduckgo.com/?q=Mai%20%26%20Momo'><div class='area' style='left:551px;top:987px;width:450px;height:25px;'>D2 MAI &AMP; MOMO</div><div class='box' style='left:400px;top:567px;width:52px;height:35px;'></div>
 </a><a class='booth' id='F3' href='http://duckduckgo.com/?q=MakingGimmick'><div class='area' style='left:551px;top:1012px;width:450px;height:26px;'>F3 MAKINGGIMMICK</div><div class='box' style='left:463px;top:693px;width:114px;height:35px;'></div>
-</a><a class='booth' id='A7' href='http://duckduckgo.com/?q=Maorenc'><div class='area' style='left:551px;top:1038px;width:450px;height:26px;'>A7 MAORENC</div><div class='box' style='left:749px;top:389px;width:52px;height:35px;'></div>
+</a><a class='booth' id='A7' href='http://twitter.com/maorenc'><div class='area' style='left:551px;top:1038px;width:450px;height:26px;'>A7 MAORENC</div><div class='box' style='left:749px;top:389px;width:52px;height:35px;'></div>
 </a><a class='booth' id='B6' href='http://duckduckgo.com/?q=MianMao%20Mini%20%E5%B0%8F%E7%9C%A0%E7%8C%AB'><div class='area' style='left:551px;top:1064px;width:450px;height:25px;'>B6 MIANMAO MINI 小眠猫</div><div class='box' style='left:687px;top:443px;width:52px;height:35px;'></div>
 </a><a class='booth' id='C2' href='http://duckduckgo.com/?q=M.Y.%20Memories'><div class='area' style='left:551px;top:1089px;width:450px;height:26px;'>C2 M.Y. MEMORIES</div><div class='box' style='left:400px;top:513px;width:52px;height:35px;'></div>
 </a><a class='booth' id='D6' href='http://instagram.com/nessarose_cosplay'><div class='area' style='left:551px;top:1115px;width:450px;height:26px;'>D6 NESSAROSE X EBI</div><div class='box' style='left:687px;top:567px;width:52px;height:35px;'></div>

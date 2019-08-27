@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>VAX2017 Map++</title>
@@ -22,27 +22,40 @@
   }
   .box {
     border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
     position: absolute;
     z-index: 130;
     opacity: inherit;
   }
   .booth_highlight { opacity: 1; }
   .booth_highlight img { opacity: 0; }
-  .booth_highlight:hover img {opacity: 1}
+  .booth_highlight:hover img {opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
- <script>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
     function highlight_by_anchor() {
-      if(!window.location.hash) { return }
-      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      box = booth.getElementsByClassName("box")[0];
-      box.style.marginTop = "-3px";
-      box.style.marginLeft = "-3px";
-      box.style.border = '5px solid red';
-      booth.style.opacity = 1;
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block'
-        //console.log(booth.nextElementSibling)
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        booth.style.opacity = 1;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
       }
+      else { booth_highlightByString(window.location.hash); }
     }
     
     function highlight_booths(booths) {
@@ -57,6 +70,47 @@
       });
     }
     
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
     function search_booth(keyword) {
       Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
         if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
@@ -64,17 +118,40 @@
           item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
         }
       });
-      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
-        item.src='';
-      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
     }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+  document.onclick = function (e) { e = e || window.event;
+  var element = e.target || e.srcElement;
+  if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
+    e.preventDefault();
+    booth_highlight_listing(element.parentNode.id);
+    booth_highlightByString(window.location.hash); } };
+ 
     
  </script>
 </head>
 <body onload='highlight_by_anchor();' autofocus>
 <div>
 
-<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./VAX2017/VAX2017.png' onerror="this.src = './VAX2017/VAX2017.jpg'">
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./VAX2017/VAX2017.png' onerror="this.src = './VAX2017/VAX2017.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://duckduckgo.com/?q=Artsecution'><div class='area' style='left:64px;top:617px;width:195px;height:15px;'>A1 ARTSECUTION</div><div class='box' style='left:110px;top:190px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:122px; width:91px; height:91px'></div>
 </a><a class='booth' id='A2' href='http://fb.me/kendylife'><div class='area' style='left:64px;top:632px;width:195px;height:15px;'>A2 #KENDYLIFE</div><div class='box' style='left:179px;top:190px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:122px; width:91px; height:91px'></div>
@@ -88,8 +165,8 @@
 </a><a class='booth' id='B2' href='http://duckduckgo.com/?q=Rain%20Lilies'><div class='area' style='left:64px;top:755px;width:195px;height:15px;'>B2 RAIN LILIES</div><div class='box' style='left:179px;top:302px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:310px; width:91px; height:91px'></div>
 </a><a class='booth' id='B3' href='http://twitter.com/ComicsByVieN'><div class='area' style='left:64px;top:770px;width:195px;height:15px;'>B3 OSUGATARI</div><div class='box' style='left:248px;top:302px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:310px; width:91px; height:91px'></div>
 </a><a class='booth' id='B4' href='http://twitter.com/Fukurou_kun33'><div class='area' style='left:64px;top:785px;width:195px;height:16px;'>B4 FRUITCAKES</div><div class='box' style='left:317px;top:302px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:310px; width:91px; height:91px'></div>
-</a><a class='booth' id='B5' href='http://fb.me/MieHanzSandbox'><div class='area' style='left:64px;top:801px;width:195px;height:15px;'>B5 5 MORE MINUTES</div><div class='box' style='left:110px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:402px; width:91px; height:91px'></div>
-</a><a class='booth' id='B6' href='http://duckduckgo.com/?q=Scull%20Arts'><div class='area' style='left:64px;top:816px;width:195px;height:15px;'>B6 SCULL ARTS</div><div class='box' style='left:179px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:402px; width:91px; height:91px'></div>
+</a><a class='booth' id='B5' href='http://twitter.com/MieHanz_Art'><div class='area' style='left:64px;top:801px;width:195px;height:15px;'>B5 5 MORE MINUTES</div><div class='box' style='left:110px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:402px; width:91px; height:91px'></div>
+</a><a class='booth' id='B6' href='http://fb.me/ThyScullsArt'><div class='area' style='left:64px;top:816px;width:195px;height:15px;'>B6 SCULL ARTS</div><div class='box' style='left:179px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='B7' href='http://duckduckgo.com/?q=Suki%20Ni%20Shiro'><div class='area' style='left:64px;top:831px;width:195px;height:16px;'>B7 SUKI NI SHIRO</div><div class='box' style='left:248px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='B8' href='http://fb.me/YukkuriDoujin'><div class='area' style='left:64px;top:847px;width:195px;height:15px;'>B8 YUKKURI</div><div class='box' style='left:317px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='C1' href='http://duckduckgo.com/?q=Salty%20Mayhem'><div class='area' style='left:64px;top:862px;width:195px;height:15px;'>C1 SALTY MAYHEM</div><div class='box' style='left:110px;top:414px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:497px; width:91px; height:91px'></div>
@@ -101,7 +178,7 @@
 </a><a class='booth' id='C7' href='http://duckduckgo.com/?q=Infinitude%20A.S.F'><div class='area' style='left:262px;top:693px;width:195px;height:16px;'>C7 INFINITUDE A.S.F</div><div class='box' style='left:248px;top:460px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:592px; width:91px; height:91px'></div>
 </a><a class='booth' id='C8' href='http://duckduckgo.com/?q=Malaysian%20Touhou%20Brigade'><div class='area' style='left:262px;top:709px;width:195px;height:15px;'>C8 MALAYSIAN TOUHOU BRIGADE</div><div class='box' style='left:317px;top:460px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:592px; width:91px; height:91px'></div>
 </a><a class='booth' id='D1' href='http://fb.me/lefluffykitsune'><div class='area' style='left:262px;top:724px;width:195px;height:15px;'>D1 LE FLUFFY KITSUNE</div><div class='box' style='left:110px;top:526px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:592px; width:91px; height:91px'></div>
-</a><a class='booth' id='D2' href='http://duckduckgo.com/?q=The%20Wolf%20Pack'><div class='area' style='left:262px;top:739px;width:195px;height:16px;'>D2 THE WOLF PACK</div><div class='box' style='left:179px;top:526px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:685px; width:91px; height:91px'></div>
+</a><a class='booth' id='D2' href='http://twitter.com/JenniferTehYL'><div class='area' style='left:262px;top:739px;width:195px;height:16px;'>D2 THE WOLF PACK</div><div class='box' style='left:179px;top:526px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:685px; width:91px; height:91px'></div>
 </a><a class='booth' id='D3' href='http://duckduckgo.com/?q=StarDust%20Creations'><div class='area' style='left:262px;top:755px;width:195px;height:15px;'>D3 STARDUST CREATIONS</div><div class='box' style='left:248px;top:526px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:685px; width:91px; height:91px'></div>
 </a><a class='booth' id='D4' href='http://duckduckgo.com/?q=Maguro%20GuildShop'><div class='area' style='left:262px;top:770px;width:195px;height:15px;'>D4 MAGURO GUILDSHOP</div><div class='box' style='left:317px;top:526px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:685px; width:91px; height:91px'></div>
 </a><a class='booth' id='D5' href='http://duckduckgo.com/?q=SAN%20DESIGN'><div class='area' style='left:262px;top:785px;width:195px;height:16px;'>D5 SAN DESIGN</div><div class='box' style='left:110px;top:572px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:685px; width:91px; height:91px'></div>

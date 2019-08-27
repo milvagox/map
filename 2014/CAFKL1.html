@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
@@ -7,8 +7,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="CAFKL1 Interactive Map">
 <meta property="og:description" content="CAFKL1 map with clickable artists' SNS links and search.">
-<meta property="og:url" content="http://milvagox.netlify.com/CAFKL1">
+<meta property="og:url" content="https://milvagox.netlify.com/CAFKL1">
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CAFKL1.png">
+<meta name="description" content="CAFKL1 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
  <title>CAFKL1 Map++</title>
  <style>
   .booth { 
@@ -29,13 +31,21 @@
   }
   .box {
     border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
     position: absolute;
     z-index: 130;
     opacity: inherit;
   }
   .booth_highlight { opacity: 1; }
   .booth_highlight img { opacity: 0; }
-  .booth_highlight:hover img {opacity: 1}
+  .booth_highlight:hover img {opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
     min-width: 280px; 
@@ -121,19 +131,24 @@ ul li a{ width: auto; height: auto; }
     margin: 0;
   }
  </style>
- <script>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
     function highlight_by_anchor() {
-      if(!window.location.hash) { return }
-      booth = document.getElementById(window.location.hash.slice(1).toUpperCase());
-      box = booth.getElementsByClassName("box")[0];
-      box.style.marginTop = "-3px";
-      box.style.marginLeft = "-3px";
-      box.style.border = '5px solid red';
-      link_click(booth);
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block'
-        //console.log(booth.nextElementSibling)
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
       }
+      else { booth_highlightByString(window.location.hash); }
     }
     
     function highlight_booths(booths) {
@@ -148,6 +163,47 @@ ul li a{ width: auto; height: auto; }
       });
     }
     
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
     function search_booth(keyword) {
       Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
         if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
@@ -155,25 +211,44 @@ ul li a{ width: auto; height: auto; }
           item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
         }
       });
-      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) {
-        item.src='';
-      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
     }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
     
     // very bad glob var
     glob_box_selector = "";
     function link_click(booth) {
-      glob_box_selector = booth;
-      booth.style.opacity = 1;
-      booth.getElementsByClassName('desc')[0].style.display = 'block';
-     // banner = booth.getElementsByClassName('banner')[0];
-     // banner.src = 'CAFKL1/artist/' + booth.id + '.jpg';
-       
-      coverbox = document.getElementById('coverbox');
-      coverbox.style.opacity = 0.5;
-      coverbox.style.zIndex = 100;
-      if (booth.nextElementSibling.classList.contains("custimg")) {
-        booth.nextElementSibling.style.display = 'block';
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+       // banner = booth.getElementsByClassName('banner')[0];
+       // banner.src = 'CAFKL1/artist/' + booth.id + '.jpg';
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
       }
     }
     
@@ -219,13 +294,16 @@ ul li a{ width: auto; height: auto; }
 <body onload='highlight_by_anchor();' autofocus>
 <div>
 
-<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search' style='position: absolute; z-index: 1; font-size: 1rem;'><img src='./CAFKL1/CAFKL1.png' onerror="this.src = './CAFKL1/CAFKL1.jpg'">
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL1/CAFKL1.png' onerror="this.src = './CAFKL1/CAFKL1.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:627px;top:998px;'><h2>A1 Pandabaka</h2><ul>
 <a href='http://pandabaka.deviantart.com' class='dar'></a><a href='http://fb.me/K.cherdrumphai' class='fbk'></a></ul></div><div class='area' style='left:1343px;top:345px;width:320px;height:22px;'>A1 PANDABAKA</div><div class='box' style='left:600px;top:975px;width:25px;height:21px;'></div>
 </div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:655px;top:995px;'><h2>A2 Honey Hachi</h2><a href='http://duckduckgo.com/?q=Honey%20Hachi'>Search for Honey Hachi</a></div><div class='area' style='left:1343px;top:367px;width:320px;height:22px;'>A2 HONEY HACHI</div><div class='box' style='left:628px;top:972px;width:25px;height:21px;'></div>
 </div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:683px;top:992px;'><h2>A3 Fat Fairy</h2><ul>
-<a href='http://twitter.com/whitevoix' class='twt'></a></ul></div><div class='area' style='left:1343px;top:389px;width:320px;height:22px;'>A3 FAT FAIRY</div><div class='box' style='left:656px;top:969px;width:25px;height:21px;'></div>
+<a href='http://twitter.com/whitevoix' class='twt'></a><a href='http://fb.me/FetFairy' class='fbk'></a></ul></div><div class='area' style='left:1343px;top:389px;width:320px;height:22px;'>A3 FAT FAIRY</div><div class='box' style='left:656px;top:969px;width:25px;height:21px;'></div>
 </div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:711px;top:989px;'><h2>A4 Picnic</h2><a href='http://duckduckgo.com/?q=Picnic'>Search for Picnic</a></div><div class='area' style='left:1343px;top:411px;width:320px;height:22px;'>A4 PICNIC</div><div class='box' style='left:684px;top:966px;width:25px;height:21px;'></div>
 </div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:739px;top:986px;'><h2>A5 Pieces of FREEdom</h2><a href='http://duckduckgo.com/?q=Pieces%20of%20FREEdom'>Search for Pieces of FREEdom</a></div><div class='area' style='left:1343px;top:433px;width:320px;height:22px;'>A5 PIECES OF FREEDOM</div><div class='box' style='left:712px;top:963px;width:25px;height:21px;'></div>
 </div><div class='booth' id='A6' onclick='link_click(this)'><div class='desc' style='left:767px;top:983px;'><h2>A6 veleries+fairsky</h2><a href='http://duckduckgo.com/?q=veleries%2Bfairsky'>Search for veleries+fairsky</a></div><div class='area' style='left:1343px;top:455px;width:320px;height:22px;'>A6 VELERIES+FAIRSKY</div><div class='box' style='left:740px;top:960px;width:25px;height:21px;'></div>
@@ -259,7 +337,7 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='A11' onclick='link_click(this)'><div class='desc' style='left:926px;top:969px;'><h2>A11 Hairy Man</h2><a href='http://duckduckgo.com/?q=Hairy%20Man'>Search for Hairy Man</a></div><div class='area' style='left:1669px;top:367px;width:320px;height:22px;'>A11 HAIRY MAN</div><div class='box' style='left:899px;top:943px;width:25px;height:24px;'></div>
 </div><div class='booth' id='A12' onclick='link_click(this)'><div class='desc' style='left:954px;top:966px;'><h2>A12 Running Snail</h2><a href='http://duckduckgo.com/?q=Running%20Snail'>Search for Running Snail</a></div><div class='area' style='left:1669px;top:389px;width:320px;height:22px;'>A12 RUNNING SNAIL</div><div class='box' style='left:927px;top:940px;width:25px;height:24px;'></div>
 </div><div class='booth' id='A13' onclick='link_click(this)'><div class='desc' style='left:982px;top:963px;'><h2>A13 Vanilla Tea Works</h2><ul>
-<a href='http://twitter.com/vanillatea_er' class='twt'></a></ul></div><div class='area' style='left:1669px;top:411px;width:320px;height:22px;'>A13 VANILLA TEA WORKS</div><div class='box' style='left:955px;top:937px;width:25px;height:24px;'></div>
+<a href='http://twitter.com/vanillatea_er' class='twt'></a><a href='http://fb.me/VanillaTeaWorks' class='fbk'></a></ul></div><div class='area' style='left:1669px;top:411px;width:320px;height:22px;'>A13 VANILLA TEA WORKS</div><div class='box' style='left:955px;top:937px;width:25px;height:24px;'></div>
 </div><div class='booth' id='A14' onclick='link_click(this)'><div class='desc' style='left:1010px;top:960px;'><h2>A14 Dreaming Dreams</h2><a href='http://duckduckgo.com/?q=Dreaming%20Dreams'>Search for Dreaming Dreams</a></div><div class='area' style='left:1669px;top:433px;width:320px;height:22px;'>A14 DREAMING DREAMS</div><div class='box' style='left:983px;top:934px;width:25px;height:24px;'></div>
 </div><div class='booth' id='A15' onclick='link_click(this)'><div class='desc' style='left:1038px;top:957px;'><h2>A15 Doodle Noodle</h2><a href='http://duckduckgo.com/?q=Doodle%20Noodle'>Search for Doodle Noodle</a></div><div class='area' style='left:1669px;top:455px;width:320px;height:22px;'>A15 DOODLE NOODLE</div><div class='box' style='left:1011px;top:931px;width:25px;height:24px;'></div>
 </div><div class='booth' id='A16' onclick='link_click(this)'><div class='desc' style='left:1066px;top:954px;'><h2>A16 Last Sprinters</h2><a href='http://duckduckgo.com/?q=Last%20Sprinters'>Search for Last Sprinters</a></div><div class='area' style='left:1669px;top:477px;width:320px;height:22px;'>A16 LAST SPRINTERS</div><div class='box' style='left:1039px;top:928px;width:25px;height:24px;'></div>
