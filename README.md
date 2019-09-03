@@ -10,6 +10,7 @@ Booth location can be highlight with hash('#') on the link.
 # 2019
 - [CF2019](http://milvagox.github.io/map/2019/CF2019)
 - [CFmini2019](http://milvagox.github.io/map/2019/CFmini2019)
+- [OtaFuse2019](http://milvagox.github.io/map/2019/OtaFuse2019)
 - [AMG2019](http://milvagox.github.io/map/2019/AMG2019) ([Cosplay Alley](http://milvagox.github.io/map/2019/AMG2019C)) ([Exhibitor Booth](http://milvagox.github.io/map/2019/AMG2019E))
 - [JOM2019](http://milvagox.github.io/map/2019/JOM2019)
 - [AnimeFest2019](http://milvagox.github.io/map/2019/AnimeFest2019)
