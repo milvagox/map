@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>TAGCC2019 Map++</title>
  <style>
   .booth { 
@@ -149,13 +148,13 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./TAGCC2019/TAGCC2019.png' onerror="this.src = './TAGCC2019/TAGCC2019.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./TAGCC2019/TAGCC2019.png' style='' onerror="this.src = './TAGCC2019/TAGCC2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://rynisyou.com'><div class='area' style='left:110px;top:510px;width:175px;height:14px;'>A1 RYNISYOU</div><div class='box' style='left:601px;top:243px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A2' href='http://instagram.com/ink.diary'><div class='area' style='left:110px;top:524px;width:175px;height:14px;'>A2 INK.DIARY</div><div class='box' style='left:601px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A3' href='http://instagram.com/uecreativeworld_handmade_dolls'><div class='area' style='left:110px;top:538px;width:175px;height:14px;'>A3 UE CREATIVE WORLD</div><div class='box' style='left:601px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A4' href='http://twitter.com/ayakowenzi'><div class='area' style='left:110px;top:552px;width:175px;height:14px;'>A4 AYAKOWENZI</div><div class='box' style='left:601px;top:321px;width:10px;height:22px;'></div>
-</a><a class='booth' id='A5' href='http://fb.me/miyabikaz36'><div class='area' style='left:110px;top:566px;width:175px;height:14px;'>A5 AZARASHI MARU</div><div class='box' style='left:601px;top:347px;width:10px;height:22px;'></div>
+</a><a class='booth' id='A5' href='http://instagram.com/miyabikaz'><div class='area' style='left:110px;top:566px;width:175px;height:14px;'>A5 AZARASHI MARU</div><div class='box' style='left:601px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A6' href='http://instagram.com/tofu_yuu'><div class='area' style='left:110px;top:580px;width:175px;height:14px;'>A6 YUUTIC MOON</div><div class='box' style='left:601px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A7' href='http://instagram.com/sa3three'><div class='area' style='left:110px;top:594px;width:175px;height:14px;'>A7 SA3THREE X THRIVELING</div><div class='box' style='left:601px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A8' href='http://instagram.com/Artfurry'><div class='area' style='left:110px;top:608px;width:175px;height:14px;'>A8 ARTFURRY</div><div class='box' style='left:601px;top:425px;width:10px;height:22px;'></div>
@@ -189,14 +188,14 @@
 </a><a class='booth' id='E2' href='http://duckduckgo.com/?q=Fun%20Fun%20Handcraft'><div class='area' style='left:295px;top:663px;width:175px;height:14px;'>E2 FUN FUN HANDCRAFT</div><div class='box' style='left:391px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E3' href='http://twitter.com/HayateKonno'><div class='area' style='left:295px;top:677px;width:175px;height:14px;'>E3 HAYATE COSPLAYER</div><div class='box' style='left:391px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E4' href='http://fb.me/MayArtPixel'><div class='area' style='left:295px;top:691px;width:175px;height:14px;'>E4 MAY ART</div><div class='box' style='left:391px;top:321px;width:10px;height:22px;'></div>
-</a><a class='booth' id='E5' href='http://duckduckgo.com/?q=Space%20Buns'><div class='area' style='left:295px;top:705px;width:175px;height:14px;'>E5 SPACE BUNS</div><div class='box' style='left:391px;top:347px;width:10px;height:22px;'></div>
+</a><a class='booth' id='E5' href='http://twitter.com/remoncatto'><div class='area' style='left:295px;top:705px;width:175px;height:14px;'>E5 SPACE BUNS</div><div class='box' style='left:391px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E6' href='http://instagram.com/bluebean.angela'><div class='area' style='left:295px;top:719px;width:175px;height:14px;'>E6 BLUEBEAN 藍豆</div><div class='box' style='left:391px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E7' href='http://instagram.com/wizk'><div class='area' style='left:295px;top:733px;width:175px;height:14px;'>E7 WIZKIT</div><div class='box' style='left:391px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E8' href='http://instagram.com/rynna0809'><div class='area' style='left:295px;top:747px;width:175px;height:14px;'>E8 RYNNA遴兒</div><div class='box' style='left:391px;top:425px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F1' href='http://twitter.com/bylynnamalina'><div class='area' style='left:295px;top:786px;width:175px;height:14px;'>F1 DOODLYNN</div><div class='box' style='left:358px;top:243px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F2' href='http://twitter.com/freyz_rc'><div class='area' style='left:295px;top:800px;width:175px;height:14px;'>F2 FREYZ</div><div class='box' style='left:358px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F3' href='http://fb.me/MAOtypeB'><div class='area' style='left:295px;top:814px;width:175px;height:14px;'>F3 MAOTYPEB</div><div class='box' style='left:358px;top:295px;width:10px;height:22px;'></div>
-</a><a class='booth' id='F4' href='http://duckduckgo.com/?q=South%20Streets'><div class='area' style='left:295px;top:828px;width:175px;height:14px;'>F4 SOUTH STREETS</div><div class='box' style='left:358px;top:321px;width:10px;height:22px;'></div>
+</a><a class='booth' id='F4' href='http://instagram.com/tea.syrup'><div class='area' style='left:295px;top:828px;width:175px;height:14px;'>F4 SOUTH STREETS</div><div class='box' style='left:358px;top:321px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F5' href='http://duckduckgo.com/?q=Tidimika'><div class='area' style='left:295px;top:842px;width:175px;height:14px;'>F5 TIDIMIKA</div><div class='box' style='left:358px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F6' href='http://fb.me/COMIX-绘师联盟-235787393611829'><div class='area' style='left:295px;top:856px;width:175px;height:14px;'>F6 COMIX</div><div class='box' style='left:358px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F7' href='http://fb.me/COMIX-绘师联盟-235787393611829'><div class='area' style='left:295px;top:870px;width:175px;height:14px;'>F7 COMIX</div><div class='box' style='left:358px;top:399px;width:10px;height:22px;'></div>

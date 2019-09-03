@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -238,8 +237,8 @@ ul li a{ width: auto; height: auto; }
         glob_box_selector = booth;
         booth.style.opacity = 1;
         booth.getElementsByClassName('desc')[0].style.display = 'block';
-       // banner = booth.getElementsByClassName('banner')[0];
-       // banner.src = 'CAFKL5/artist/' + booth.id + '.jpg';
+         
+         
          
         coverbox = document.getElementById('coverbox');
         coverbox.style.opacity = 0.5;
@@ -295,7 +294,7 @@ ul li a{ width: auto; height: auto; }
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL5/CAFKL5.png' onerror="this.src = './CAFKL5/CAFKL5.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL5/CAFKL5.png' style='' onerror="this.src = './CAFKL5/CAFKL5.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:222px;top:163px;'><h2>A1 Awkward Penguin Art &amp; Niacube</h2><ul>
 <a href='http://fb.me/AwkwardPenguinArt' class='fbk'></a>  <li><a href='http://theawkwardpenguin.com'>theawkwardpenguin.com</a></li>
@@ -364,7 +363,8 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='C14' onclick='link_click(this)'><div class='desc' style='left:377px;top:243px;'><h2>C14 Jacculents</h2><a href='http://duckduckgo.com/?q=Jacculents'>Search for Jacculents</a></div><div class='area' style='left:220px;top:777px;width:190px;height:14px;'>C14 JACCULENTS</div><div class='box' style='left:366px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C15' onclick='link_click(this)'><div class='desc' style='left:389px;top:243px;'><h2>C15 That One Jojo Booth</h2><a href='http://duckduckgo.com/?q=That%20One%20Jojo%20Booth'>Search for That One Jojo Booth</a></div><div class='area' style='left:220px;top:791px;width:190px;height:14px;'>C15 THAT ONE JOJO BOOTH</div><div class='box' style='left:378px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:413px;top:243px;'><h2>C17 Froggit</h2><a href='http://duckduckgo.com/?q=Froggit'>Search for Froggit</a></div><div class='area' style='left:220px;top:805px;width:190px;height:14px;'>C17 FROGGIT</div><div class='box' style='left:402px;top:231px;width:9px;height:10px;'></div>
-</div><div class='booth' id='C18' onclick='link_click(this)'><div class='desc' style='left:425px;top:243px;'><h2>C18 procrastonauts</h2><a href='http://duckduckgo.com/?q=procrastonauts'>Search for procrastonauts</a></div><div class='area' style='left:220px;top:819px;width:190px;height:14px;'>C18 PROCRASTONAUTS</div><div class='box' style='left:414px;top:231px;width:9px;height:10px;'></div>
+</div><div class='booth' id='C18' onclick='link_click(this)'><div class='desc' style='left:425px;top:243px;'><h2>C18 procrastonauts</h2><ul>
+<a href='http://instagram.com/ceniwen_' class='ins'></a><a href='http://twitter.com/_ceniwen' class='twt'></a><a href='http://ceniwen.etsy.com' class='ets'></a></ul></div><div class='area' style='left:220px;top:819px;width:190px;height:14px;'>C18 PROCRASTONAUTS</div><div class='box' style='left:414px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C19' onclick='link_click(this)'><div class='desc' style='left:437px;top:243px;'><h2>C19 Main Hantam</h2><a href='http://duckduckgo.com/?q=Main%20Hantam'>Search for Main Hantam</a></div><div class='area' style='left:220px;top:833px;width:190px;height:14px;'>C19 MAIN HANTAM</div><div class='box' style='left:426px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C21' onclick='link_click(this)'><div class='desc' style='left:636px;top:243px;'><h2>C21 BALLOON</h2><a href='http://duckduckgo.com/?q=BALLOON'>Search for BALLOON</a></div><div class='area' style='left:220px;top:861px;width:190px;height:14px;'>C21 BALLOON</div><div class='box' style='left:625px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C22' onclick='link_click(this)'><div class='desc' style='left:648px;top:243px;'><h2>C22 AMATEURASU</h2><a href='http://duckduckgo.com/?q=AMATEURASU'>Search for AMATEURASU</a></div><div class='area' style='left:220px;top:875px;width:190px;height:14px;'>C22 AMATEURASU</div><div class='box' style='left:637px;top:231px;width:9px;height:10px;'></div>
@@ -379,7 +379,8 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='C31' onclick='link_click(this)'><div class='desc' style='left:756px;top:243px;'><h2>C31 UNregistered Studio</h2><a href='http://duckduckgo.com/?q=UNregistered%20Studio'>Search for UNregistered Studio</a></div><div class='area' style='left:416px;top:512px;width:185px;height:14px;'>C31 UNREGISTERED STUDIO</div><div class='box' style='left:745px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='C33' onclick='link_click(this)'><div class='desc' style='left:780px;top:243px;'><h2>C33 Megame</h2><ul>
 <a href='http://instagram.com/megame88' class='ins'></a><a href='http://fb.me/megame88' class='fbk'></a><a href='http://megame88.lofter.com' class='lft'></a></ul></div><div class='area' style='left:416px;top:526px;width:185px;height:14px;'>C33 MEGAME</div><div class='box' style='left:769px;top:231px;width:9px;height:10px;'></div>
-</div><div class='booth' id='C34' onclick='link_click(this)'><div class='desc' style='left:792px;top:243px;'><h2>C34 MAOtypeB &amp; Mecha Tamashi</h2><a href='http://duckduckgo.com/?q=MAOtypeB%20%26%20Mecha%20Tamashi'>Search for MAOtypeB &amp; Mecha Tamashi</a></div><div class='area' style='left:416px;top:540px;width:185px;height:28px;'>C34 MAOTYPEB &AMP; MECHA TAMASHI</div><div class='box' style='left:781px;top:231px;width:9px;height:10px;'></div>
+</div><div class='booth' id='C34' onclick='link_click(this)'><div class='desc' style='left:792px;top:243px;'><h2>C34 MAOtypeB &amp; Mecha Tamashi</h2><ul>
+<a href='http://fb.me/MAOtypeB' class='fbk'></a><a href='http://instagram.com/maotypeb' class='ins'></a><a href='http://http://maotypeb.storenvy.com/' class='sen'></a><a href='http://fb.me/MechaTamashi' class='fbk'></a><a href='http://darksonwong.deviantart.com' class='dar'></a></ul></div><div class='area' style='left:416px;top:540px;width:185px;height:28px;'>C34 MAOTYPEB &AMP; MECHA TAMASHI</div><div class='box' style='left:781px;top:231px;width:9px;height:10px;'></div>
 </div><div class='booth' id='D1' onclick='link_click(this)'><div class='desc' style='left:357px;top:291px;'><h2>D1 SillyJellie x Olafool</h2><a href='http://duckduckgo.com/?q=SillyJellie%20x%20Olafool'>Search for SillyJellie x Olafool</a></div><div class='area' style='left:416px;top:609px;width:185px;height:14px;'>D1 SILLYJELLIE X OLAFOOL</div><div class='box' style='left:346px;top:279px;width:9px;height:10px;'></div>
 </div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:381px;top:291px;'><h2>D3 Fat Fairy</h2><ul>
 <a href='http://twitter.com/whitevoix' class='twt'></a><a href='http://instagram.com/weiliwonka' class='ins'></a><a href='http://fb.me/FetFairy' class='fbk'></a></ul></div><div class='area' style='left:416px;top:623px;width:185px;height:14px;'>D3 FAT FAIRY</div><div class='box' style='left:370px;top:279px;width:9px;height:10px;'></div>

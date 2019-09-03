@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>TAGCC2018 Map++</title>
  <style>
   .booth { 
@@ -149,7 +148,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./TAGCC2018/TAGCC2018.png' onerror="this.src = './TAGCC2018/TAGCC2018.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./TAGCC2018/TAGCC2018.png' style='' onerror="this.src = './TAGCC2018/TAGCC2018.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://duckduckgo.com/?q=TIXIT'><div class='area' style='left:112px;top:597px;width:180px;height:18px;'>A1 TIXIT</div><div class='box' style='left:315px;top:278px;width:43px;height:43px;'></div>
 </a><a class='booth' id='A2' href='http://duckduckgo.com/?q=LeFudge'><div class='area' style='left:112px;top:615px;width:180px;height:18px;'>A2 LEFUDGE</div><div class='box' style='left:365px;top:278px;width:43px;height:43px;'></div>
@@ -160,7 +159,7 @@
 </a><a class='booth' id='A7' href='http://rynisyou.com'><div class='area' style='left:112px;top:705px;width:180px;height:18px;'>A7 RYNISYOU</div><div class='box' style='left:665px;top:278px;width:43px;height:43px;'></div>
 </a><a class='booth' id='B1' href='http://duckduckgo.com/?q=Lynsartchemist'><div class='area' style='left:301px;top:597px;width:180px;height:18px;'>B1 LYNSARTCHEMIST</div><div class='box' style='left:315px;top:329px;width:43px;height:43px;'></div>
 </a><a class='booth' id='B2' href='http://instagram.com/mishiechua'><div class='area' style='left:301px;top:615px;width:180px;height:18px;'>B2 THE GENDAI SOUBI CLUB</div><div class='box' style='left:365px;top:329px;width:43px;height:43px;'></div>
-</a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Pino%20Ko'><div class='area' style='left:301px;top:633px;width:180px;height:18px;'>B3 PINO KO</div><div class='box' style='left:415px;top:329px;width:43px;height:43px;'></div>
+</a><a class='booth' id='B3' href='http://instagram.com/stella.xin'><div class='area' style='left:301px;top:633px;width:180px;height:18px;'>B3 PINO KO</div><div class='box' style='left:415px;top:329px;width:43px;height:43px;'></div>
 </a><a class='booth' id='B4' href='http://duckduckgo.com/?q=ANEA%20Project'><div class='area' style='left:301px;top:651px;width:180px;height:18px;'>B4 ANEA PROJECT</div><div class='box' style='left:465px;top:329px;width:43px;height:43px;'></div>
 </a><a class='booth' id='B5' href='http://fb.me/animugenindonesia'><div class='area' style='left:301px;top:669px;width:180px;height:18px;'>B5 ANIMUGEN ID</div><div class='box' style='left:565px;top:329px;width:43px;height:43px;'></div>
 </a><a class='booth' id='B6' href='http://instagram.com/rait_visualworks'><div class='area' style='left:301px;top:687px;width:180px;height:18px;'>B6 RAIT VISUAL WORKS</div><div class='box' style='left:615px;top:329px;width:43px;height:43px;'></div>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -238,8 +237,8 @@ ul li a{ width: auto; height: auto; }
         glob_box_selector = booth;
         booth.style.opacity = 1;
         booth.getElementsByClassName('desc')[0].style.display = 'block';
-       // banner = booth.getElementsByClassName('banner')[0];
-       // banner.src = 'CAFKL4/artist/' + booth.id + '.jpg';
+         
+         
          
         coverbox = document.getElementById('coverbox');
         coverbox.style.opacity = 0.5;
@@ -295,7 +294,7 @@ ul li a{ width: auto; height: auto; }
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL4/CAFKL4.png' onerror="this.src = './CAFKL4/CAFKL4.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL4/CAFKL4.png' style='' onerror="this.src = './CAFKL4/CAFKL4.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:391px;top:185px;'><h2>A1 Arigathx</h2><a href='http://duckduckgo.com/?q=Arigathx'>Search for Arigathx</a></div><div class='area' style='left:45px;top:552px;width:175px;height:14px;'>A1 ARIGATHX</div><div class='box' style='left:378px;top:173px;width:11px;height:10px;'></div>
 </div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:405px;top:185px;'><h2>A2 Abam Apam</h2><ul>
@@ -423,7 +422,8 @@ ul li a{ width: auto; height: auto; }
 </div><div class='booth' id='F11' onclick='link_click(this)'><div class='desc' style='left:803px;top:394px;'><h2>F11 danino.c</h2><a href='http://duckduckgo.com/?q=danino.c'>Search for danino.c</a></div><div class='area' style='left:576px;top:874px;width:170px;height:14px;'>F11 DANINO.C</div><div class='box' style='left:790px;top:382px;width:11px;height:10px;'></div>
 </div><div class='booth' id='F12' onclick='link_click(this)'><div class='desc' style='left:817px;top:394px;'><h2>F12 HiBiscuts</h2><ul>
 <a href='http://fb.me/hibiscuits/' class='fbk'></a></ul></div><div class='area' style='left:576px;top:888px;width:170px;height:14px;'>F12 HIBISCUTS</div><div class='box' style='left:804px;top:382px;width:11px;height:10px;'></div>
-</div><div class='booth' id='H1' onclick='link_click(this)'><div class='desc' style='left:857px;top:270px;'><h2>H1 MAOtypeB &amp; Mecha Tamashi</h2><a href='http://duckduckgo.com/?q=MAOtypeB%20%26%20Mecha%20Tamashi'>Search for MAOtypeB &amp; Mecha Tamashi</a></div><div class='area' style='left:753px;top:552px;width:175px;height:28px;'>H1 MAOTYPEB &AMP; MECHA TAMASHI</div><div class='box' style='left:845px;top:257px;width:10px;height:11px;'></div>
+</div><div class='booth' id='H1' onclick='link_click(this)'><div class='desc' style='left:857px;top:270px;'><h2>H1 MAOtypeB &amp; Mecha Tamashi</h2><ul>
+<a href='http://fb.me/MAOtypeB' class='fbk'></a><a href='http://instagram.com/maotypeb' class='ins'></a><a href='http://http://maotypeb.storenvy.com/' class='sen'></a><a href='http://fb.me/MechaTamashi' class='fbk'></a><a href='http://darksonwong.deviantart.com' class='dar'></a></ul></div><div class='area' style='left:753px;top:552px;width:175px;height:28px;'>H1 MAOTYPEB &AMP; MECHA TAMASHI</div><div class='box' style='left:845px;top:257px;width:10px;height:11px;'></div>
 </div><div class='booth' id='H2' onclick='link_click(this)'><div class='desc' style='left:857px;top:284px;'><h2>H2 Circus March</h2><a href='http://duckduckgo.com/?q=Circus%20March'>Search for Circus March</a></div><div class='area' style='left:753px;top:580px;width:175px;height:14px;'>H2 CIRCUS MARCH</div><div class='box' style='left:845px;top:271px;width:10px;height:11px;'></div>
 </div><div class='booth' id='H3' onclick='link_click(this)'><div class='desc' style='left:857px;top:298px;'><h2>H3 Osugatari</h2><ul>
 <a href='http://twitter.com/ComicsByVieN' class='twt'></a><a href='http://fb.me/osugatari' class='fbk'></a><a href='http://fb.me/vulpineninja' class='fbk'></a></ul></div><div class='area' style='left:753px;top:594px;width:175px;height:14px;'>H3 OSUGATARI</div><div class='box' style='left:845px;top:285px;width:10px;height:11px;'></div>
