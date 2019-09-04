@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -11,6 +10,7 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/AMG2019.png">
 <meta name="description" content="AMG2019 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/AMG2019.html">
  <title>AMG2019 Map++</title>
  <style>
   .booth { 
@@ -36,6 +36,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -44,6 +45,93 @@
   }
   .toggle_checkbox { background-color: gainsboro; }
   input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+ul a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+ul li a{ width: auto; height: auto; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
  </style>
  <script>  
     var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
@@ -56,7 +144,7 @@
         box.style.marginTop = "-3px";
         box.style.marginLeft = "-3px";
         box.style.border = '5px solid red';
-        booth.style.opacity = 1;
+        link_click(booth);
         if (booth.nextElementSibling.classList.contains("custimg")) {
           booth.nextElementSibling.style.display = 'block'
         }
@@ -142,14 +230,67 @@
         } finally { document.body.removeChild(textarea); }
       }
     }
-  document.onclick = function (e) { e = e || window.event;
-  var element = e.target || e.srcElement;
-  if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
-    e.preventDefault();
-    booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
  
     
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
  </script>
 </head>
 <body onload='highlight_by_anchor();' autofocus>
@@ -158,68 +299,76 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMG2019/AMG2019E.png' onerror="this.src = './AMG2019/AMG2019E.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMG2019/AMG2019E.png' style='' onerror="this.src = './AMG2019/AMG2019E.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
-<a class='booth' id='01' href='http://duckduckgo.com/?q=DRAME%20PUKUL%207'><div class='area' style='left:131px;top:195px;width:250px;height:42px;'>01 DRAME PUKUL 7</div><div class='box' style='left:1081px;top:1032px;width:41px;height:41px;'></div>
-</a><a class='booth' id='02' href='http://duckduckgo.com/?q=TAKARO%20BGC'><div class='area' style='left:131px;top:237px;width:250px;height:42px;'>02 TAKARO BGC</div><div class='box' style='left:1124px;top:1032px;width:41px;height:41px;'></div>
-</a><a class='booth' id='03' href='http://duckduckgo.com/?q=WARHAMMER'><div class='area' style='left:131px;top:279px;width:250px;height:42px;'>03 WARHAMMER</div><div class='box' style='left:1081px;top:1121px;width:82px;height:41px;'></div>
-</a><a class='booth' id='04' href='http://ohgatcha.com'><div class='area' style='left:131px;top:321px;width:250px;height:42px;'>04 OH! GATCHA</div><div class='box' style='left:1210px;top:782px;width:82px;height:41px;'></div>
-</a><a class='booth' id='05' href='http://duckduckgo.com/?q=GUNDAM%20TOY%20SHOP'><div class='area' style='left:131px;top:363px;width:250px;height:42px;'>05 GUNDAM TOY SHOP</div><div class='box' style='left:1253px;top:830px;width:41px;height:41px;'></div>
-</a><a class='booth' id='06' href='http://duckduckgo.com/?q=SKETCHES.MY'><div class='area' style='left:131px;top:405px;width:250px;height:42px;'>06 SKETCHES.MY</div><div class='box' style='left:1210px;top:906px;width:82px;height:41px;'></div>
-</a><a class='booth' id='07' href='http://duckduckgo.com/?q=TOGATHER%3A%20ISLAND'><div class='area' style='left:131px;top:447px;width:250px;height:42px;'>07 TOGATHER: ISLAND</div><div class='box' style='left:1210px;top:955px;width:41px;height:41px;'></div>
-</a><a class='booth' id='08' href='http://duckduckgo.com/?q=YUUHEI%20SATELLITE'><div class='area' style='left:131px;top:489px;width:250px;height:42px;'>08 YUUHEI SATELLITE</div><div class='box' style='left:1253px;top:955px;width:41px;height:41px;'></div>
-</a><a class='booth' id='09' href='http://duckduckgo.com/?q=COS%20DREAMERS'><div class='area' style='left:131px;top:531px;width:250px;height:42px;'>09 COS DREAMERS</div><div class='box' style='left:1338px;top:782px;width:82px;height:82px;'></div>
-</a><a class='booth' id='10' href='http://duckduckgo.com/?q=COS%20DREAMERS'><div class='area' style='left:131px;top:573px;width:250px;height:42px;'>10 COS DREAMERS</div><div class='box' style='left:1338px;top:909px;width:82px;height:82px;'></div>
-</a><a class='booth' id='11' href='http://duckduckgo.com/?q=GEMPAK%20STARZ'><div class='area' style='left:131px;top:615px;width:250px;height:42px;'>11 GEMPAK STARZ</div><div class='box' style='left:1338px;top:1041px;width:82px;height:82px;'></div>
-</a><a class='booth' id='12' href='http://duckduckgo.com/?q=SAKURA%20MALAYSIA'><div class='area' style='left:131px;top:657px;width:250px;height:42px;'>12 SAKURA MALAYSIA</div><div class='box' style='left:1470px;top:788px;width:82px;height:41px;'></div>
-</a><a class='booth' id='13' href='http://kdu.edu.my'><div class='area' style='left:131px;top:699px;width:250px;height:42px;'>13 KDU COLLEGE</div><div class='box' style='left:1470px;top:834px;width:41px;height:41px;'></div>
-</a><a class='booth' id='14' href='http://duckduckgo.com/?q=THE%20WILLIE%20SHOP'><div class='area' style='left:131px;top:741px;width:250px;height:42px;'>14 THE WILLIE SHOP</div><div class='box' style='left:1513px;top:834px;width:41px;height:41px;'></div>
-</a><a class='booth' id='15' href='http://duckduckgo.com/?q=WACOM'><div class='area' style='left:131px;top:783px;width:250px;height:42px;'>15 WACOM</div><div class='box' style='left:1465px;top:906px;width:87px;height:82px;'></div>
-</a><a class='booth' id='16' href='http://duckduckgo.com/?q=JANTZEN'><div class='area' style='left:131px;top:825px;width:250px;height:42px;'>16 JANTZEN</div><div class='box' style='left:1462px;top:1039px;width:43px;height:82px;'></div>
-</a><a class='booth' id='17' href='http://duckduckgo.com/?q=SUPA%20DUPA%20CIRCUS'><div class='area' style='left:131px;top:867px;width:250px;height:42px;'>17 SUPA DUPA CIRCUS</div><div class='box' style='left:1507px;top:1039px;width:43px;height:82px;'></div>
-</a><a class='booth' id='18' href='http://duckduckgo.com/?q=REXTECH'><div class='area' style='left:131px;top:909px;width:250px;height:42px;'>18 REXTECH</div><div class='box' style='left:1459px;top:1165px;width:89px;height:84px;'></div>
-</a><a class='booth' id='19' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:391px;top:195px;width:275px;height:42px;'>19 MM HANDMADE</div><div class='box' style='left:1592px;top:1040px;width:48px;height:26px;'></div>
-</a><a class='booth' id='20' href='http://duckduckgo.com/?q=UNDO%20ACADEMY'><div class='area' style='left:391px;top:237px;width:275px;height:42px;'>20 UNDO ACADEMY</div><div class='box' style='left:1591px;top:1068px;width:48px;height:26px;'></div>
-</a><a class='booth' id='21' href='http://duckduckgo.com/?q=1%2F3%20DELUSION'><div class='area' style='left:391px;top:279px;width:275px;height:42px;'>21 1/3 DELUSION</div><div class='box' style='left:1588px;top:1131px;width:55px;height:55px;'></div>
-</a><a class='booth' id='22' href='http://duckduckgo.com/?q=MY%20STYLESZ'><div class='area' style='left:391px;top:321px;width:275px;height:42px;'>22 MY STYLESZ</div><div class='box' style='left:1589px;top:1232px;width:27px;height:51px;'></div>
-</a><a class='booth' id='23' href='http://duckduckgo.com/?q=GIII%20GIII%20SHOP'><div class='area' style='left:391px;top:363px;width:275px;height:42px;'>23 GIII GIII SHOP</div><div class='box' style='left:1618px;top:1232px;width:27px;height:51px;'></div>
-</a><a class='booth' id='24' href='http://duckduckgo.com/?q=RUKIA%20PLUSH'><div class='area' style='left:391px;top:405px;width:275px;height:42px;'>24 RUKIA PLUSH</div><div class='box' style='left:1701px;top:1037px;width:27px;height:26px;'></div>
-</a><a class='booth' id='25' href='http://duckduckgo.com/?q=NONGFU%20SPRING'><div class='area' style='left:391px;top:447px;width:275px;height:42px;'>25 NONGFU SPRING</div><div class='box' style='left:1730px;top:1037px;width:27px;height:26px;'></div>
-</a><a class='booth' id='26' href='http://duckduckgo.com/?q=MECHADIOZ'><div class='area' style='left:391px;top:489px;width:275px;height:42px;'>26 MECHADIOZ</div><div class='box' style='left:1700px;top:1068px;width:27px;height:26px;'></div>
-</a><a class='booth' id='27' href='http://duckduckgo.com/?q=CRUX%20HOBBY%20STORE'><div class='area' style='left:391px;top:531px;width:275px;height:42px;'>27 CRUX HOBBY STORE</div><div class='box' style='left:1729px;top:1068px;width:27px;height:26px;'></div>
-</a><a class='booth' id='28' href='http://duckduckgo.com/?q=JOM%20OTAKU%20MATSURI'><div class='area' style='left:391px;top:573px;width:275px;height:42px;'>28 JOM OTAKU MATSURI</div><div class='box' style='left:1700px;top:1133px;width:27px;height:26px;'></div>
-</a><a class='booth' id='29' href='http://duckduckgo.com/?q=IIUM%20ART%20CLUB'><div class='area' style='left:391px;top:615px;width:275px;height:42px;'>29 IIUM ART CLUB</div><div class='box' style='left:1729px;top:1133px;width:27px;height:26px;'></div>
-</a><a class='booth' id='30' href='http://duckduckgo.com/?q=NC%20ANIMATION'><div class='area' style='left:391px;top:657px;width:275px;height:42px;'>30 NC ANIMATION</div><div class='box' style='left:1701px;top:1165px;width:27px;height:26px;'></div>
-</a><a class='booth' id='31' href='http://duckduckgo.com/?q=AKI%20FEST'><div class='area' style='left:391px;top:699px;width:275px;height:42px;'>31 AKI FEST</div><div class='box' style='left:1730px;top:1165px;width:27px;height:26px;'></div>
-</a><a class='booth' id='32' href='http://duckduckgo.com/?q=BOHOMYS%20KIMONO'><div class='area' style='left:391px;top:741px;width:275px;height:42px;'>32 BOHOMYS KIMONO</div><div class='box' style='left:1701px;top:1232px;width:27px;height:26px;'></div>
-</a><a class='booth' id='33' href='http://duckduckgo.com/?q=ACCEL%20DRIVE%20TOKU'><div class='area' style='left:391px;top:783px;width:275px;height:42px;'>33 ACCEL DRIVE TOKU</div><div class='box' style='left:1730px;top:1232px;width:27px;height:26px;'></div>
-</a><a class='booth' id='34' href='http://fb.me/zinmato88'><div class='area' style='left:391px;top:825px;width:275px;height:42px;'>34 ZINMATO</div><div class='box' style='left:1701px;top:1263px;width:27px;height:26px;'></div>
-</a><a class='booth' id='35' href='http://duckduckgo.com/?q=COFFY%20TIAM'><div class='area' style='left:391px;top:867px;width:275px;height:42px;'>35 COFFY TIAM</div><div class='box' style='left:1730px;top:1263px;width:27px;height:26px;'></div>
-</a><a class='booth' id='36' href='http://fb.me/XD.AnimeShop'><div class='area' style='left:391px;top:909px;width:275px;height:42px;'>36 XD SHOP</div><div class='box' style='left:1795px;top:783px;width:43px;height:82px;'></div>
-</a><a class='booth' id='37' href='http://duckduckgo.com/?q=BASHEER%20GRAPHIC%20BOOK'><div class='area' style='left:677px;top:195px;width:315px;height:42px;'>37 BASHEER GRAPHIC BOOK</div><div class='box' style='left:1840px;top:783px;width:43px;height:82px;'></div>
-</a><a class='booth' id='38' href='http://duckduckgo.com/?q=THE%20MAGIC%20RAIN'><div class='area' style='left:677px;top:237px;width:300px;height:42px;'>38 THE MAGIC RAIN</div><div class='box' style='left:1796px;top:908px;width:87px;height:82px;'></div>
-</a><a class='booth' id='39' href='http://duckduckgo.com/?q=PICAPICA'><div class='area' style='left:677px;top:279px;width:300px;height:42px;'>39 PICAPICA</div><div class='box' style='left:1794px;top:1041px;width:43px;height:82px;'></div>
-</a><a class='booth' id='40' href='http://duckduckgo.com/?q=ZOIDS%20WILD'><div class='area' style='left:677px;top:321px;width:300px;height:42px;'>40 ZOIDS WILD</div><div class='box' style='left:1841px;top:1038px;width:41px;height:41px;'></div>
-</a><a class='booth' id='41' href='http://duckduckgo.com/?q=PERSONA%20THEORY'><div class='area' style='left:677px;top:363px;width:300px;height:42px;'>41 PERSONA THEORY</div><div class='box' style='left:1843px;top:1082px;width:41px;height:41px;'></div>
-</a><a class='booth' id='42' href='http://duckduckgo.com/?q=AF-HOBBY%20SHOP'><div class='area' style='left:677px;top:405px;width:300px;height:42px;'>42 AF-HOBBY SHOP</div><div class='box' style='left:1801px;top:1161px;width:82px;height:41px;'></div>
-</a><a class='booth' id='43' href='http://duckduckgo.com/?q=XINBO%20COMIC'><div class='area' style='left:677px;top:447px;width:300px;height:42px;'>43 XINBO COMIC</div><div class='box' style='left:1800px;top:1206px;width:82px;height:41px;'></div>
-</a><a class='booth' id='44' href='http://duckduckgo.com/?q=CHIBI%20COSPLAY'><div class='area' style='left:677px;top:489px;width:300px;height:42px;'>44 CHIBI COSPLAY</div><div class='box' style='left:1930px;top:783px;width:82px;height:82px;'></div>
-</a><a class='booth' id='45' href='http://duckduckgo.com/?q=XINBO%20COMIC'><div class='area' style='left:677px;top:531px;width:300px;height:42px;'>45 XINBO COMIC</div><div class='box' style='left:1928px;top:904px;width:82px;height:41px;'></div>
-</a><a class='booth' id='46' href='http://twitter.com/reikomaru'><div class='area' style='left:677px;top:573px;width:300px;height:42px;'>46 HIBIKIPRO</div><div class='box' style='left:1926px;top:952px;width:41px;height:41px;'></div>
-</a><a class='booth' id='47' href='http://duckduckgo.com/?q=3D%20GADGETS%20MALAYSIA'><div class='area' style='left:677px;top:615px;width:300px;height:42px;'>47 3D GADGETS MALAYSIA</div><div class='box' style='left:1969px;top:952px;width:41px;height:41px;'></div>
-</a><a class='booth' id='48' href='http://duckduckgo.com/?q=PARALLELE'><div class='area' style='left:677px;top:657px;width:300px;height:42px;'>48 PARALLELE</div><div class='box' style='left:1923px;top:1041px;width:41px;height:41px;'></div>
-</a><a class='booth' id='49' href='http://duckduckgo.com/?q=TAKEBUCHI%20KEI'><div class='area' style='left:677px;top:699px;width:300px;height:42px;'>49 TAKEBUCHI KEI</div><div class='box' style='left:1966px;top:1041px;width:41px;height:41px;'></div>
-</a><a class='booth' id='50' href='http://duckduckgo.com/?q=FLERAMO%20%5BORION%5D'><div class='area' style='left:677px;top:741px;width:300px;height:42px;'>50 FLERAMO [ORION]</div><div class='box' style='left:1925px;top:1085px;width:41px;height:41px;'></div>
-</a><a class='booth' id='51' href='http://duckduckgo.com/?q=WONDERFLY'><div class='area' style='left:677px;top:783px;width:300px;height:42px;'>51 WONDERFLY</div><div class='box' style='left:1968px;top:1085px;width:41px;height:41px;'></div>
-</a><a class='booth' id='52' href='http://duckduckgo.com/?q=WORLD%20OF%20BUZZ'><div class='area' style='left:677px;top:825px;width:300px;height:42px;'>52 WORLD OF BUZZ</div><div class='box' style='left:1933px;top:1156px;width:82px;height:41px;'></div>
-</a><a class='booth' id='53' href='http://duckduckgo.com/?q=ARITIST%20HUB'><div class='area' style='left:677px;top:867px;width:300px;height:42px;'>53 ARITIST HUB</div><div class='box' style='left:1928px;top:1204px;width:82px;height:41px;'></div>
-</a><a class='booth' id='54' href='http://duckduckgo.com/?q=SUNWAY%20LAGOON'><div class='area' style='left:677px;top:909px;width:300px;height:42px;'>54 SUNWAY LAGOON</div><div class='box' style='left:1643px;top:1346px;width:84px;height:55px;'></div>
-</a><a class='booth' id='A' href='http://duckduckgo.com/?q=KOW%20KOW%20SNACKS'><div class='area' style='left:1021px;top:195px;width:250px;height:38px;'>A KOW KOW SNACKS</div><div class='box' style='left:1083px;top:954px;width:28px;height:41px;'></div>
-</a><a class='booth' id='B' href='http://duckduckgo.com/?q=NUCRE%20PATISSERIES'><div class='area' style='left:1021px;top:233px;width:250px;height:38px;'>B NUCRE PATISSERIES</div><div class='box' style='left:1083px;top:914px;width:28px;height:41px;'></div>
-</a><a class='booth' id='C' href='http://duckduckgo.com/?q=MY%20ODEN%20X%20PASTA'><div class='area' style='left:1021px;top:271px;width:250px;height:38px;'>C MY ODEN X PASTA</div><div class='box' style='left:1083px;top:870px;width:28px;height:41px;'></div>
-</a><a class='booth' id='D' href='http://duckduckgo.com/?q=MEET%20MEE%20GO'><div class='area' style='left:1021px;top:309px;width:250px;height:38px;'>D MEET MEE GO</div><div class='box' style='left:1084px;top:830px;width:28px;height:41px;'></div>
-</a><a class='booth' id='E' href='http://duckduckgo.com/?q=COWBOYS'><div class='area' style='left:1021px;top:347px;width:250px;height:38px;'>E COWBOYS</div><div class='box' style='left:1083px;top:785px;width:28px;height:41px;'></div>
-</a>
+<div class='booth' id='01' onclick='link_click(this)'><div class='desc' style='left:1124px;top:1075px;'><h2>01 DRAME PUKUL 7</h2><a href='http://duckduckgo.com/?q=DRAME%20PUKUL%207'>Search for DRAME PUKUL 7</a></div><div class='area' style='left:131px;top:195px;width:250px;height:42px;'>01 DRAME PUKUL 7</div><div class='box' style='left:1081px;top:1032px;width:41px;height:41px;'></div>
+</div><div class='booth' id='02' onclick='link_click(this)'><div class='desc' style='left:1167px;top:1075px;'><h2>02 TAKARO BGC</h2><a href='http://duckduckgo.com/?q=TAKARO%20BGC'>Search for TAKARO BGC</a></div><div class='area' style='left:131px;top:237px;width:250px;height:42px;'>02 TAKARO BGC</div><div class='box' style='left:1124px;top:1032px;width:41px;height:41px;'></div>
+</div><div class='booth' id='03' onclick='link_click(this)'><div class='desc' style='left:1165px;top:1164px;'><h2>03 WARHAMMER</h2><a href='http://duckduckgo.com/?q=WARHAMMER'>Search for WARHAMMER</a></div><div class='area' style='left:131px;top:279px;width:250px;height:42px;'>03 WARHAMMER</div><div class='box' style='left:1081px;top:1121px;width:82px;height:41px;'></div>
+</div><div class='booth' id='04' onclick='link_click(this)'><div class='desc' style='left:1294px;top:825px;'><h2>04 OH! GATCHA</h2><ul>
+  <li><a href='http://ohgatcha.com'>ohgatcha.com</a></li>
+</ul></div><div class='area' style='left:131px;top:321px;width:250px;height:42px;'>04 OH! GATCHA</div><div class='box' style='left:1210px;top:782px;width:82px;height:41px;'></div>
+</div><div class='booth' id='05' onclick='link_click(this)'><div class='desc' style='left:1296px;top:873px;'><h2>05 GUNDAM TOY SHOP</h2><a href='http://duckduckgo.com/?q=GUNDAM%20TOY%20SHOP'>Search for GUNDAM TOY SHOP</a></div><div class='area' style='left:131px;top:363px;width:250px;height:42px;'>05 GUNDAM TOY SHOP</div><div class='box' style='left:1253px;top:830px;width:41px;height:41px;'></div>
+</div><div class='booth' id='06' onclick='link_click(this)'><div class='desc' style='left:1294px;top:949px;'><h2>06 SKETCHES.MY</h2><a href='http://duckduckgo.com/?q=SKETCHES.MY'>Search for SKETCHES.MY</a></div><div class='area' style='left:131px;top:405px;width:250px;height:42px;'>06 SKETCHES.MY</div><div class='box' style='left:1210px;top:906px;width:82px;height:41px;'></div>
+</div><div class='booth' id='07' onclick='link_click(this)'><div class='desc' style='left:1253px;top:998px;'><h2>07 TOGATHER: ISLAND</h2><a href='http://duckduckgo.com/?q=TOGATHER%3A%20ISLAND'>Search for TOGATHER: ISLAND</a></div><div class='area' style='left:131px;top:447px;width:250px;height:42px;'>07 TOGATHER: ISLAND</div><div class='box' style='left:1210px;top:955px;width:41px;height:41px;'></div>
+</div><div class='booth' id='08' onclick='link_click(this)'><div class='desc' style='left:1296px;top:998px;'><h2>08 YUUHEI SATELLITE</h2><a href='http://duckduckgo.com/?q=YUUHEI%20SATELLITE'>Search for YUUHEI SATELLITE</a></div><div class='area' style='left:131px;top:489px;width:250px;height:42px;'>08 YUUHEI SATELLITE</div><div class='box' style='left:1253px;top:955px;width:41px;height:41px;'></div>
+</div><div class='booth' id='09' onclick='link_click(this)'><div class='desc' style='left:1422px;top:866px;'><h2>09 COS DREAMERS</h2><a href='http://duckduckgo.com/?q=COS%20DREAMERS'>Search for COS DREAMERS</a></div><div class='area' style='left:131px;top:531px;width:250px;height:42px;'>09 COS DREAMERS</div><div class='box' style='left:1338px;top:782px;width:82px;height:82px;'></div>
+</div><div class='booth' id='10' onclick='link_click(this)'><div class='desc' style='left:1422px;top:993px;'><h2>10 COS DREAMERS</h2><a href='http://duckduckgo.com/?q=COS%20DREAMERS'>Search for COS DREAMERS</a></div><div class='area' style='left:131px;top:573px;width:250px;height:42px;'>10 COS DREAMERS</div><div class='box' style='left:1338px;top:909px;width:82px;height:82px;'></div>
+</div><div class='booth' id='11' onclick='link_click(this)'><div class='desc' style='left:1422px;top:1125px;'><h2>11 GEMPAK STARZ</h2><a href='http://duckduckgo.com/?q=GEMPAK%20STARZ'>Search for GEMPAK STARZ</a></div><div class='area' style='left:131px;top:615px;width:250px;height:42px;'>11 GEMPAK STARZ</div><div class='box' style='left:1338px;top:1041px;width:82px;height:82px;'></div>
+</div><div class='booth' id='12' onclick='link_click(this)'><div class='desc' style='left:1554px;top:831px;'><h2>12 SAKURA MALAYSIA</h2><a href='http://duckduckgo.com/?q=SAKURA%20MALAYSIA'>Search for SAKURA MALAYSIA</a></div><div class='area' style='left:131px;top:657px;width:250px;height:42px;'>12 SAKURA MALAYSIA</div><div class='box' style='left:1470px;top:788px;width:82px;height:41px;'></div>
+</div><div class='booth' id='13' onclick='link_click(this)'><div class='desc' style='left:1513px;top:877px;'><h2>13 KDU COLLEGE</h2><ul>
+  <li><a href='http://kdu.edu.my'>kdu.edu.my</a></li>
+</ul></div><div class='area' style='left:131px;top:699px;width:250px;height:42px;'>13 KDU COLLEGE</div><div class='box' style='left:1470px;top:834px;width:41px;height:41px;'></div>
+</div><div class='booth' id='14' onclick='link_click(this)'><div class='desc' style='left:1556px;top:877px;'><h2>14 THE WILLIE SHOP</h2><a href='http://duckduckgo.com/?q=THE%20WILLIE%20SHOP'>Search for THE WILLIE SHOP</a></div><div class='area' style='left:131px;top:741px;width:250px;height:42px;'>14 THE WILLIE SHOP</div><div class='box' style='left:1513px;top:834px;width:41px;height:41px;'></div>
+</div><div class='booth' id='15' onclick='link_click(this)'><div class='desc' style='left:1554px;top:990px;'><h2>15 WACOM</h2><a href='http://duckduckgo.com/?q=WACOM'>Search for WACOM</a></div><div class='area' style='left:131px;top:783px;width:250px;height:42px;'>15 WACOM</div><div class='box' style='left:1465px;top:906px;width:87px;height:82px;'></div>
+</div><div class='booth' id='16' onclick='link_click(this)'><div class='desc' style='left:1507px;top:1123px;'><h2>16 JANTZEN</h2><a href='http://duckduckgo.com/?q=JANTZEN'>Search for JANTZEN</a></div><div class='area' style='left:131px;top:825px;width:250px;height:42px;'>16 JANTZEN</div><div class='box' style='left:1462px;top:1039px;width:43px;height:82px;'></div>
+</div><div class='booth' id='17' onclick='link_click(this)'><div class='desc' style='left:1552px;top:1123px;'><h2>17 SUPA DUPA CIRCUS</h2><a href='http://duckduckgo.com/?q=SUPA%20DUPA%20CIRCUS'>Search for SUPA DUPA CIRCUS</a></div><div class='area' style='left:131px;top:867px;width:250px;height:42px;'>17 SUPA DUPA CIRCUS</div><div class='box' style='left:1507px;top:1039px;width:43px;height:82px;'></div>
+</div><div class='booth' id='18' onclick='link_click(this)'><div class='desc' style='left:1550px;top:1251px;'><h2>18 REXTECH</h2><a href='http://duckduckgo.com/?q=REXTECH'>Search for REXTECH</a></div><div class='area' style='left:131px;top:909px;width:250px;height:42px;'>18 REXTECH</div><div class='box' style='left:1459px;top:1165px;width:89px;height:84px;'></div>
+</div><div class='booth' id='19' onclick='link_click(this)'><div class='desc' style='left:1642px;top:1068px;'><h2>19 MM HANDMADE</h2><ul>
+<a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></ul></div><div class='area' style='left:391px;top:195px;width:275px;height:42px;'>19 MM HANDMADE</div><div class='box' style='left:1592px;top:1040px;width:48px;height:26px;'></div>
+</div><div class='booth' id='20' onclick='link_click(this)'><div class='desc' style='left:1641px;top:1096px;'><h2>20 UNDO ACADEMY</h2><a href='http://duckduckgo.com/?q=UNDO%20ACADEMY'>Search for UNDO ACADEMY</a></div><div class='area' style='left:391px;top:237px;width:275px;height:42px;'>20 UNDO ACADEMY</div><div class='box' style='left:1591px;top:1068px;width:48px;height:26px;'></div>
+</div><div class='booth' id='21' onclick='link_click(this)'><div class='desc' style='left:1645px;top:1188px;'><h2>21 1/3 DELUSION</h2><a href='http://duckduckgo.com/?q=1%2F3%20DELUSION'>Search for 1/3 DELUSION</a></div><div class='area' style='left:391px;top:279px;width:275px;height:42px;'>21 1/3 DELUSION</div><div class='box' style='left:1588px;top:1131px;width:55px;height:55px;'></div>
+</div><div class='booth' id='22' onclick='link_click(this)'><div class='desc' style='left:1618px;top:1285px;'><h2>22 MY STYLESZ</h2><a href='http://duckduckgo.com/?q=MY%20STYLESZ'>Search for MY STYLESZ</a></div><div class='area' style='left:391px;top:321px;width:275px;height:42px;'>22 MY STYLESZ</div><div class='box' style='left:1589px;top:1232px;width:27px;height:51px;'></div>
+</div><div class='booth' id='23' onclick='link_click(this)'><div class='desc' style='left:1647px;top:1285px;'><h2>23 GIII GIII SHOP</h2><a href='http://duckduckgo.com/?q=GIII%20GIII%20SHOP'>Search for GIII GIII SHOP</a></div><div class='area' style='left:391px;top:363px;width:275px;height:42px;'>23 GIII GIII SHOP</div><div class='box' style='left:1618px;top:1232px;width:27px;height:51px;'></div>
+</div><div class='booth' id='24' onclick='link_click(this)'><div class='desc' style='left:1730px;top:1065px;'><h2>24 RUKIA PLUSH</h2><a href='http://duckduckgo.com/?q=RUKIA%20PLUSH'>Search for RUKIA PLUSH</a></div><div class='area' style='left:391px;top:405px;width:275px;height:42px;'>24 RUKIA PLUSH</div><div class='box' style='left:1701px;top:1037px;width:27px;height:26px;'></div>
+</div><div class='booth' id='25' onclick='link_click(this)'><div class='desc' style='left:1759px;top:1065px;'><h2>25 NONGFU SPRING</h2><a href='http://duckduckgo.com/?q=NONGFU%20SPRING'>Search for NONGFU SPRING</a></div><div class='area' style='left:391px;top:447px;width:275px;height:42px;'>25 NONGFU SPRING</div><div class='box' style='left:1730px;top:1037px;width:27px;height:26px;'></div>
+</div><div class='booth' id='26' onclick='link_click(this)'><div class='desc' style='left:1729px;top:1096px;'><h2>26 MECHADIOZ</h2><a href='http://duckduckgo.com/?q=MECHADIOZ'>Search for MECHADIOZ</a></div><div class='area' style='left:391px;top:489px;width:275px;height:42px;'>26 MECHADIOZ</div><div class='box' style='left:1700px;top:1068px;width:27px;height:26px;'></div>
+</div><div class='booth' id='27' onclick='link_click(this)'><div class='desc' style='left:1758px;top:1096px;'><h2>27 CRUX HOBBY STORE</h2><a href='http://duckduckgo.com/?q=CRUX%20HOBBY%20STORE'>Search for CRUX HOBBY STORE</a></div><div class='area' style='left:391px;top:531px;width:275px;height:42px;'>27 CRUX HOBBY STORE</div><div class='box' style='left:1729px;top:1068px;width:27px;height:26px;'></div>
+</div><div class='booth' id='28' onclick='link_click(this)'><div class='desc' style='left:1729px;top:1161px;'><h2>28 JOM OTAKU MATSURI</h2><a href='http://duckduckgo.com/?q=JOM%20OTAKU%20MATSURI'>Search for JOM OTAKU MATSURI</a></div><div class='area' style='left:391px;top:573px;width:275px;height:42px;'>28 JOM OTAKU MATSURI</div><div class='box' style='left:1700px;top:1133px;width:27px;height:26px;'></div>
+</div><div class='booth' id='29' onclick='link_click(this)'><div class='desc' style='left:1758px;top:1161px;'><h2>29 IIUM ART CLUB</h2><a href='http://duckduckgo.com/?q=IIUM%20ART%20CLUB'>Search for IIUM ART CLUB</a></div><div class='area' style='left:391px;top:615px;width:275px;height:42px;'>29 IIUM ART CLUB</div><div class='box' style='left:1729px;top:1133px;width:27px;height:26px;'></div>
+</div><div class='booth' id='30' onclick='link_click(this)'><div class='desc' style='left:1730px;top:1193px;'><h2>30 NC ANIMATION</h2><a href='http://duckduckgo.com/?q=NC%20ANIMATION'>Search for NC ANIMATION</a></div><div class='area' style='left:391px;top:657px;width:275px;height:42px;'>30 NC ANIMATION</div><div class='box' style='left:1701px;top:1165px;width:27px;height:26px;'></div>
+</div><div class='booth' id='31' onclick='link_click(this)'><div class='desc' style='left:1759px;top:1193px;'><h2>31 AKI FEST</h2><a href='http://duckduckgo.com/?q=AKI%20FEST'>Search for AKI FEST</a></div><div class='area' style='left:391px;top:699px;width:275px;height:42px;'>31 AKI FEST</div><div class='box' style='left:1730px;top:1165px;width:27px;height:26px;'></div>
+</div><div class='booth' id='32' onclick='link_click(this)'><div class='desc' style='left:1730px;top:1260px;'><h2>32 BOHOMYS KIMONO</h2><a href='http://duckduckgo.com/?q=BOHOMYS%20KIMONO'>Search for BOHOMYS KIMONO</a></div><div class='area' style='left:391px;top:741px;width:275px;height:42px;'>32 BOHOMYS KIMONO</div><div class='box' style='left:1701px;top:1232px;width:27px;height:26px;'></div>
+</div><div class='booth' id='33' onclick='link_click(this)'><div class='desc' style='left:1759px;top:1260px;'><h2>33 ACCEL DRIVE TOKU</h2><a href='http://duckduckgo.com/?q=ACCEL%20DRIVE%20TOKU'>Search for ACCEL DRIVE TOKU</a></div><div class='area' style='left:391px;top:783px;width:275px;height:42px;'>33 ACCEL DRIVE TOKU</div><div class='box' style='left:1730px;top:1232px;width:27px;height:26px;'></div>
+</div><div class='booth' id='34' onclick='link_click(this)'><div class='desc' style='left:1730px;top:1291px;'><h2>34 ZINMATO</h2><ul>
+<a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></ul></div><div class='area' style='left:391px;top:825px;width:275px;height:42px;'>34 ZINMATO</div><div class='box' style='left:1701px;top:1263px;width:27px;height:26px;'></div>
+</div><div class='booth' id='35' onclick='link_click(this)'><div class='desc' style='left:1759px;top:1291px;'><h2>35 COFFY TIAM</h2><a href='http://duckduckgo.com/?q=COFFY%20TIAM'>Search for COFFY TIAM</a></div><div class='area' style='left:391px;top:867px;width:275px;height:42px;'>35 COFFY TIAM</div><div class='box' style='left:1730px;top:1263px;width:27px;height:26px;'></div>
+</div><div class='booth' id='36' onclick='link_click(this)'><div class='desc' style='left:1840px;top:867px;'><h2>36 XD SHOP</h2><ul>
+<a href='http://fb.me/XD.AnimeShop' class='fbk'></a><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li></ul></div><div class='area' style='left:391px;top:909px;width:275px;height:42px;'>36 XD SHOP</div><div class='box' style='left:1795px;top:783px;width:43px;height:82px;'></div>
+</div><div class='booth' id='37' onclick='link_click(this)'><div class='desc' style='left:1885px;top:867px;'><h2>37 BASHEER GRAPHIC BOOK</h2><a href='http://duckduckgo.com/?q=BASHEER%20GRAPHIC%20BOOK'>Search for BASHEER GRAPHIC BOOK</a></div><div class='area' style='left:677px;top:195px;width:315px;height:42px;'>37 BASHEER GRAPHIC BOOK</div><div class='box' style='left:1840px;top:783px;width:43px;height:82px;'></div>
+</div><div class='booth' id='38' onclick='link_click(this)'><div class='desc' style='left:1885px;top:992px;'><h2>38 THE MAGIC RAIN</h2><a href='http://duckduckgo.com/?q=THE%20MAGIC%20RAIN'>Search for THE MAGIC RAIN</a></div><div class='area' style='left:677px;top:237px;width:300px;height:42px;'>38 THE MAGIC RAIN</div><div class='box' style='left:1796px;top:908px;width:87px;height:82px;'></div>
+</div><div class='booth' id='39' onclick='link_click(this)'><div class='desc' style='left:1839px;top:1125px;'><h2>39 PICAPICA</h2><a href='http://duckduckgo.com/?q=PICAPICA'>Search for PICAPICA</a></div><div class='area' style='left:677px;top:279px;width:300px;height:42px;'>39 PICAPICA</div><div class='box' style='left:1794px;top:1041px;width:43px;height:82px;'></div>
+</div><div class='booth' id='40' onclick='link_click(this)'><div class='desc' style='left:1884px;top:1081px;'><h2>40 ZOIDS WILD</h2><a href='http://duckduckgo.com/?q=ZOIDS%20WILD'>Search for ZOIDS WILD</a></div><div class='area' style='left:677px;top:321px;width:300px;height:42px;'>40 ZOIDS WILD</div><div class='box' style='left:1841px;top:1038px;width:41px;height:41px;'></div>
+</div><div class='booth' id='41' onclick='link_click(this)'><div class='desc' style='left:1886px;top:1125px;'><h2>41 PERSONA THEORY</h2><a href='http://duckduckgo.com/?q=PERSONA%20THEORY'>Search for PERSONA THEORY</a></div><div class='area' style='left:677px;top:363px;width:300px;height:42px;'>41 PERSONA THEORY</div><div class='box' style='left:1843px;top:1082px;width:41px;height:41px;'></div>
+</div><div class='booth' id='42' onclick='link_click(this)'><div class='desc' style='left:1885px;top:1204px;'><h2>42 AF-HOBBY SHOP</h2><a href='http://duckduckgo.com/?q=AF-HOBBY%20SHOP'>Search for AF-HOBBY SHOP</a></div><div class='area' style='left:677px;top:405px;width:300px;height:42px;'>42 AF-HOBBY SHOP</div><div class='box' style='left:1801px;top:1161px;width:82px;height:41px;'></div>
+</div><div class='booth' id='43' onclick='link_click(this)'><div class='desc' style='left:1884px;top:1249px;'><h2>43 XINBO COMIC</h2><a href='http://duckduckgo.com/?q=XINBO%20COMIC'>Search for XINBO COMIC</a></div><div class='area' style='left:677px;top:447px;width:300px;height:42px;'>43 XINBO COMIC</div><div class='box' style='left:1800px;top:1206px;width:82px;height:41px;'></div>
+</div><div class='booth' id='44' onclick='link_click(this)'><div class='desc' style='left:2014px;top:867px;'><h2>44 CHIBI COSPLAY</h2><a href='http://duckduckgo.com/?q=CHIBI%20COSPLAY'>Search for CHIBI COSPLAY</a></div><div class='area' style='left:677px;top:489px;width:300px;height:42px;'>44 CHIBI COSPLAY</div><div class='box' style='left:1930px;top:783px;width:82px;height:82px;'></div>
+</div><div class='booth' id='45' onclick='link_click(this)'><div class='desc' style='left:2012px;top:947px;'><h2>45 XINBO COMIC</h2><a href='http://duckduckgo.com/?q=XINBO%20COMIC'>Search for XINBO COMIC</a></div><div class='area' style='left:677px;top:531px;width:300px;height:42px;'>45 XINBO COMIC</div><div class='box' style='left:1928px;top:904px;width:82px;height:41px;'></div>
+</div><div class='booth' id='46' onclick='link_click(this)'><div class='desc' style='left:1969px;top:995px;'><h2>46 HIBIKIPRO</h2><ul>
+<a href='http://twitter.com/shinonon1220' class='twt'></a><a href='http://instagram.com/shinonon1220' class='ins'></a><a href='http://fb.me/shinonon1220' class='fbk'></a><a href='http://shinonon.me' class='sqs'></a><br><a href='http://twitter.com/reikomaru' class='twt'></a><a href='http://instagram.com/reikoma.ru' class='ins'></a><a href='http://cheerz.cz/artist/6539' class='chz'></a><a href='http://fb.me/REIKOMARU' class='fbk'></a><a href='http://reikoma.ru' class='reikomaru'></a><br><a href='http://twitter.com/hibikipro' class='twt'></a><a href='http://instagram.com/hibikipro' class='ins'></a><a href='http://hibikipro.com' class='hibikipro'></a></ul></div><div class='area' style='left:677px;top:573px;width:300px;height:42px;'>46 HIBIKIPRO</div><div class='box' style='left:1926px;top:952px;width:41px;height:41px;'></div>
+</div><div class='booth' id='47' onclick='link_click(this)'><div class='desc' style='left:2012px;top:995px;'><h2>47 3D GADGETS MALAYSIA</h2><a href='http://duckduckgo.com/?q=3D%20GADGETS%20MALAYSIA'>Search for 3D GADGETS MALAYSIA</a></div><div class='area' style='left:677px;top:615px;width:300px;height:42px;'>47 3D GADGETS MALAYSIA</div><div class='box' style='left:1969px;top:952px;width:41px;height:41px;'></div>
+</div><div class='booth' id='48' onclick='link_click(this)'><div class='desc' style='left:1966px;top:1084px;'><h2>48 PARALLELE</h2><a href='http://duckduckgo.com/?q=PARALLELE'>Search for PARALLELE</a></div><div class='area' style='left:677px;top:657px;width:300px;height:42px;'>48 PARALLELE</div><div class='box' style='left:1923px;top:1041px;width:41px;height:41px;'></div>
+</div><div class='booth' id='49' onclick='link_click(this)'><div class='desc' style='left:2009px;top:1084px;'><h2>49 TAKEBUCHI KEI</h2><a href='http://duckduckgo.com/?q=TAKEBUCHI%20KEI'>Search for TAKEBUCHI KEI</a></div><div class='area' style='left:677px;top:699px;width:300px;height:42px;'>49 TAKEBUCHI KEI</div><div class='box' style='left:1966px;top:1041px;width:41px;height:41px;'></div>
+</div><div class='booth' id='50' onclick='link_click(this)'><div class='desc' style='left:1968px;top:1128px;'><h2>50 FLERAMO [ORION]</h2><a href='http://duckduckgo.com/?q=FLERAMO%20%5BORION%5D'>Search for FLERAMO [ORION]</a></div><div class='area' style='left:677px;top:741px;width:300px;height:42px;'>50 FLERAMO [ORION]</div><div class='box' style='left:1925px;top:1085px;width:41px;height:41px;'></div>
+</div><div class='booth' id='51' onclick='link_click(this)'><div class='desc' style='left:2011px;top:1128px;'><h2>51 WONDERFLY</h2><a href='http://duckduckgo.com/?q=WONDERFLY'>Search for WONDERFLY</a></div><div class='area' style='left:677px;top:783px;width:300px;height:42px;'>51 WONDERFLY</div><div class='box' style='left:1968px;top:1085px;width:41px;height:41px;'></div>
+</div><div class='booth' id='52' onclick='link_click(this)'><div class='desc' style='left:2017px;top:1199px;'><h2>52 WORLD OF BUZZ</h2><a href='http://duckduckgo.com/?q=WORLD%20OF%20BUZZ'>Search for WORLD OF BUZZ</a></div><div class='area' style='left:677px;top:825px;width:300px;height:42px;'>52 WORLD OF BUZZ</div><div class='box' style='left:1933px;top:1156px;width:82px;height:41px;'></div>
+</div><div class='booth' id='53' onclick='link_click(this)'><div class='desc' style='left:2012px;top:1247px;'><h2>53 ARITIST HUB</h2><a href='http://duckduckgo.com/?q=ARITIST%20HUB'>Search for ARITIST HUB</a></div><div class='area' style='left:677px;top:867px;width:300px;height:42px;'>53 ARITIST HUB</div><div class='box' style='left:1928px;top:1204px;width:82px;height:41px;'></div>
+</div><div class='booth' id='54' onclick='link_click(this)'><div class='desc' style='left:1729px;top:1403px;'><h2>54 SUNWAY LAGOON</h2><a href='http://duckduckgo.com/?q=SUNWAY%20LAGOON'>Search for SUNWAY LAGOON</a></div><div class='area' style='left:677px;top:909px;width:300px;height:42px;'>54 SUNWAY LAGOON</div><div class='box' style='left:1643px;top:1346px;width:84px;height:55px;'></div>
+</div><div class='booth' id='A' onclick='link_click(this)'><div class='desc' style='left:1113px;top:997px;'><h2>A KOW KOW SNACKS</h2><a href='http://duckduckgo.com/?q=KOW%20KOW%20SNACKS'>Search for KOW KOW SNACKS</a></div><div class='area' style='left:1021px;top:195px;width:250px;height:38px;'>A KOW KOW SNACKS</div><div class='box' style='left:1083px;top:954px;width:28px;height:41px;'></div>
+</div><div class='booth' id='B' onclick='link_click(this)'><div class='desc' style='left:1113px;top:957px;'><h2>B NUCRE PATISSERIES</h2><a href='http://duckduckgo.com/?q=NUCRE%20PATISSERIES'>Search for NUCRE PATISSERIES</a></div><div class='area' style='left:1021px;top:233px;width:250px;height:38px;'>B NUCRE PATISSERIES</div><div class='box' style='left:1083px;top:914px;width:28px;height:41px;'></div>
+</div><div class='booth' id='C' onclick='link_click(this)'><div class='desc' style='left:1113px;top:913px;'><h2>C MY ODEN X PASTA</h2><a href='http://duckduckgo.com/?q=MY%20ODEN%20X%20PASTA'>Search for MY ODEN X PASTA</a></div><div class='area' style='left:1021px;top:271px;width:250px;height:38px;'>C MY ODEN X PASTA</div><div class='box' style='left:1083px;top:870px;width:28px;height:41px;'></div>
+</div><div class='booth' id='D' onclick='link_click(this)'><div class='desc' style='left:1114px;top:873px;'><h2>D MEET MEE GO</h2><a href='http://duckduckgo.com/?q=MEET%20MEE%20GO'>Search for MEET MEE GO</a></div><div class='area' style='left:1021px;top:309px;width:250px;height:38px;'>D MEET MEE GO</div><div class='box' style='left:1084px;top:830px;width:28px;height:41px;'></div>
+</div><div class='booth' id='E' onclick='link_click(this)'><div class='desc' style='left:1113px;top:828px;'><h2>E COWBOYS</h2><a href='http://duckduckgo.com/?q=COWBOYS'>Search for COWBOYS</a></div><div class='area' style='left:1021px;top:347px;width:250px;height:38px;'>E COWBOYS</div><div class='box' style='left:1083px;top:785px;width:28px;height:41px;'></div>
+</div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->
 <!--Map and banners are belong to AMG2019 artists and organizer.-->
