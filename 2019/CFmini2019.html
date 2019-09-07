@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head>
+<meta charset="UTF-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -11,21 +10,64 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CFmini2019.png">
 <meta name="description" content="CFmini2019 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/CFmini2019.html">
  <title>CFmini2019 Map++</title>
  <style>
-  body {
-      margin: 0 auto;
-      width: 50%;
-      font-family: monospace;
-    }
-    .boothlist { border-collapse: collapse; }
-    .boothlist td { 
-      border: 1px solid gainsboro; 
-      padding: 0 5px 0 5px; 
-      height: 36px;
-    }
-    .boothlist tr:hover { background-color: ghostwhite }
-    td ul { margin: 0 }
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
 ul a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
 ul li a{ width: auto; height: auto; }
 .abm { background: url('../ico/abm.png'); }
@@ -38,6 +80,7 @@ ul li a{ width: auto; height: auto; }
 .cct { background: url('../ico/cct.png'); }
 .cgc { background: url('../ico/cgc.png'); }
 .charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
 .cottonwings { background: url('../ico/cottonwings.png'); }
 .cpg { background: url('../ico/cpg.png'); }
 .crd { background: url('../ico/crd.png'); }
@@ -49,6 +92,7 @@ ul li a{ width: auto; height: auto; }
 .fbk { background: url('../ico/fbk.png'); }
 .fc2 { background: url('../ico/fc2.png'); }
 .gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
 .imtxm { background: url('../ico/imtxm.png'); }
 .inp { background: url('../ico/inp.png'); }
 .ins { background: url('../ico/ins.png'); }
@@ -65,6 +109,7 @@ ul li a{ width: auto; height: auto; }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -82,13 +127,264 @@ ul li a{ width: auto; height: auto; }
 .wix { background: url('../ico/wix.png'); }
 .wtn { background: url('../ico/wtn.png'); }
 .yingtze { background: url('../ico/yingtze.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
  </style>
- </head><body><h1>Temparory page for CFmini2019</h1><table class="boothlist">
-</table>
-<hr>
-<p>! All the images is belongs to the original creators and right holders.</p>
-<p>! Help is needed for gathering artists and events information</p>
-<p>Please provide information and contact <a href='mailto:milvagox@pm.me'>here</a>.</p>
-</body><html>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2019/CFmini2019.png' style='' onerror="this.src = './CFmini2019/CFmini2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:327px;top:443px;'><h2>A1 KBP Lord Helix</h2><ul>
+<a href='http://fb.me/KBPLordHelix' class='fbk'></a></ul></div><div class='area' style='left:94px;top:695px;width:250px;height:20px;'>A1 KBP LORD HELIX</div><div class='box' style='left:299px;top:402px;width:26px;height:39px;'></div>
+</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:327px;top:510px;'><h2>A2 Reikocubicles</h2><ul>
+<a href='http://drive.google.com/drive/folders/0B4rnG6wltDBAU1hkWFprbER5djA' class='gdr'></a><p>Original comic - See you (a sci fi based comic) RM 15 (20 pcs)<br>Original sketch compilation - various compilation of artwork (20 pcs)<br><br>Various prints from RM 5 to RM 8 (estimated 100 pcs)<br><br>Stickers- RM 33 (10 sets)<br><br>Art commissions from RM 25 to RM 40</p></ul></div><div class='area' style='left:94px;top:715px;width:250px;height:20px;'>A2 REIKOCUBICLES</div><div class='box' style='left:299px;top:469px;width:26px;height:39px;'></div>
+</div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:327px;top:555px;'><h2>A3 Wiz+Cloff</h2><ul>
+<a href='http://twitter.com/WiznArt' class='twt'></a><a href='http://instagram.com/wizn.art' class='ins'></a><a href='http://instagram.com/cloffart' class='ins'></a><a href='http://instagram.com/emicchidesu' class='ins'></a><a href='http://instagram.com/zexirezue' class='ins'></a><a href='http://instagram.com/sina_mira99' class='ins'></a><a href='http://fb.me/onigirystuff' class='fbk'></a><a href='http://drive.google.com/drive/folders/1Hc7POBGSiDZlLFaiKPbjuZZeo7rMxt9O' class='gdr'></a></ul></div><div class='area' style='left:94px;top:735px;width:250px;height:21px;'>A3 WIZ+CLOFF</div><div class='box' style='left:299px;top:514px;width:26px;height:39px;'></div>
+</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:327px;top:600px;'><h2>A4 Strawberry Llama</h2><ul>
+<a href='http://twitter.com/creeeell' class='twt'></a><a href='http://instagram.com/creepyllama' class='ins'></a><a href='http://fb.me/Creepyllama' class='fbk'></a><a href='http://facebook.com/pg/Creepyllama/photos/?tab=album&album_id=2131538136899311' class='fbk'></a></ul></div><div class='area' style='left:94px;top:756px;width:250px;height:20px;'>A4 STRAWBERRY LLAMA</div><div class='box' style='left:299px;top:559px;width:26px;height:39px;'></div>
+</div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:327px;top:645px;'><h2>A5 RYNISYOU</h2><ul>
+<a href='http://rynisyou.com' class='sqs'></a><a href='http://fb.me/rynisyou' class='fbk'></a><a href='http://instagram.com/rynisyou' class='ins'></a><a href='http://rynisyou.tumblr.com' class='tmb'></a><a href='http://twitter.com/rynisyou' class='twt'></a></ul></div><div class='area' style='left:94px;top:776px;width:250px;height:20px;'>A5 RYNISYOU</div><div class='box' style='left:299px;top:604px;width:26px;height:39px;'></div>
+</div><div class='booth' id='B1' onclick='link_click(this)'><div class='desc' style='left:368px;top:466px;'><h2>B1 yeetmeng jiang</h2><ul>
+<a href='http://instagram.com/chunnyyii' class='ins'></a><br><a href='http://instagram.com/citrushades' class='ins'></a><br><a href='http://fb.me/shizuenart' class='fbk'></a><p>We will be mainly selling keychains, badges, prints and stickers!<br>
+We are also planning on selling pouches and artbooks.<br>
+It will be a mix of our product from CF2018/CAFKL19 along with some new stuff.<br>
+<br>chun ☕🌿🐰<a style='display:inline' href='http://instagram.com/p/Bzj-HA8pXx_'>(picture)</a><a style='display:inline' href='http://instagram.com/p/Br0aK-UnVW3'>(second&nbsp;picture)</a>
+<br>citrushades<a style='display:inline' href='https://scontent.fkul16-1.fna.fbcdn.net/v/t1.15752-9/s2048x2048/67308584_2056160301347182_5566926567994556416_n.png?_nc_cat=105&_nc_eui2=AeFp9jMw7YMYxGBblPZx8zd17nttoZChEPM1HltsI5LvrKTJzMCIZQKhL0epyo4QqNm8MpJb7-j96TmpVyQZwMaae3RiI__UvSCIbKLz9AztzQ&_nc_oc=AQnK8PZ5pibl6UIko0eQ5_769NmpNPblk5-7YhYeRt-zXtiWhDWsNreNckJkCmns4e4&_nc_ht=scontent.fkul16-1.fna&oh=9c02b29168cc70bfd4fc7ebbfc86b794&oe=5DB6553C'>(catalog)</a>
+<br>shizuenart<a style='display:inline' href='http://facebook.com/pg/shizuenart/photos/?tab=album&album_id=1542406052559647'>(Album)</a>
+</p></ul></div><div class='area' style='left:94px;top:821px;width:250px;height:20px;'>B1 YEETMENG JIANG</div><div class='box' style='left:340px;top:382px;width:26px;height:82px;'></div>
+</div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:368px;top:511px;'><h2>B3 SOSODABLUEE</h2><ul>
+<a href='http://instagram.com/sosodabluee' class='ins'></a></ul></div><div class='area' style='left:94px;top:841px;width:250px;height:20px;'>B3 SOSODABLUEE</div><div class='box' style='left:340px;top:470px;width:26px;height:39px;'></div>
+</div><div class='booth' id='B4' onclick='link_click(this)'><div class='desc' style='left:368px;top:556px;'><h2>B4 Ayakowenzi</h2><ul>
+<a href='http://twitter.com/ayakowenzi' class='twt'></a><a href='http://instagram.com/ayakowenzi' class='ins'></a></ul></div><div class='area' style='left:94px;top:861px;width:250px;height:20px;'>B4 AYAKOWENZI</div><div class='box' style='left:340px;top:515px;width:26px;height:39px;'></div>
+</div><div class='booth' id='B5' onclick='link_click(this)'><div class='desc' style='left:368px;top:644px;'><h2>B5 AlterEgo Studio</h2><ul>
+<a href='http://fb.me/EveningRumours' class='fbk'></a><a href='http://faezal.deviantart.com' class='dar'></a></ul></div><div class='area' style='left:94px;top:881px;width:250px;height:20px;'>B5 ALTEREGO STUDIO</div><div class='box' style='left:340px;top:560px;width:26px;height:82px;'></div>
+</div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:485px;top:423px;'><h2>C1 MadBunny Workshop</h2><ul>
+<a href='http://fb.me/MadBunnyWorkshop' class='fbk'></a><a href='http://facebook.com/354111321706423/posts/549233175527569?s=100006643362271' class='fbk'></a></ul></div><div class='area' style='left:94px;top:931px;width:250px;height:20px;'>C1 MADBUNNY WORKSHOP</div><div class='box' style='left:457px;top:382px;width:26px;height:39px;'></div>
+</div><div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:485px;top:468px;'><h2>C2 DreamWork Art Studio</h2><ul>
+<a href='http://fb.me/dreamworkartstudio' class='fbk'></a></ul></div><div class='area' style='left:94px;top:951px;width:250px;height:20px;'>C2 DREAMWORK ART STUDIO</div><div class='box' style='left:457px;top:427px;width:26px;height:39px;'></div>
+</div><div class='booth' id='C3' onclick='link_click(this)'><div class='desc' style='left:485px;top:556px;'><h2>C3 DOUJIN TENKA!!</h2><ul>
+<a href='http://fb.me/doujintenka' class='fbk'></a></ul></div><div class='area' style='left:94px;top:971px;width:250px;height:20px;'>C3 DOUJIN TENKA!!</div><div class='box' style='left:457px;top:472px;width:26px;height:82px;'></div>
+</div><div class='booth' id='C5' onclick='link_click(this)'><div class='desc' style='left:485px;top:644px;'><h2>C5 cyanparade</h2><ul>
+<a href='http://twitter.com/cyanparade' class='twt'></a><a href='http://cyanparade.tumblr.com' class='tmb'></a><a href='http://facebook.com/pg/cyanparade/photos/?tab=album&album_id=1004604466277286' class='fbk'></a></ul></div><div class='area' style='left:94px;top:991px;width:250px;height:20px;'>C5 CYANPARADE</div><div class='box' style='left:457px;top:560px;width:26px;height:82px;'></div>
+</div><div class='booth' id='D1' onclick='link_click(this)'><div class='desc' style='left:528px;top:443px;'><h2>D1 dAnz Eggcellence Art</h2><ul>
+  <li><a href='http://pinterest.com/danztan'>pinterest.com/danztan</a></li>
+  <li><a href='http://pinterest.com/danztan/comic-fiesta-arts'>pinterest.com/danztan/comic-fiesta-arts</a></li>
+</ul></div><div class='area' style='left:437px;top:693px;width:250px;height:20px;'>D1 DANZ EGGCELLENCE ART</div><div class='box' style='left:500px;top:402px;width:26px;height:39px;'></div>
+</div><div class='booth' id='D2' onclick='link_click(this)'><div class='desc' style='left:528px;top:511px;'><h2>D2 MOCAP STUDIO</h2><ul>
+<a href='http://fb.me/meningmenymaini' class='fbk'></a><a href='http://facebook.com/profile.php?id=273891383533695' class='fbk'></a><p><br>Comic,printing artwork,poster,plushie</p></ul></div><div class='area' style='left:437px;top:713px;width:250px;height:20px;'>D2 MOCAP STUDIO</div><div class='box' style='left:500px;top:470px;width:26px;height:39px;'></div>
+</div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:528px;top:556px;'><h2>D3 Aletheia Works</h2><ul>
+<a href='http://twitter.com/tan_gami' class='twt'></a><a href='http://fb.me/aletheiaworks.my' class='fbk'></a></ul></div><div class='area' style='left:437px;top:733px;width:250px;height:21px;'>D3 ALETHEIA WORKS</div><div class='box' style='left:500px;top:515px;width:26px;height:39px;'></div>
+</div><div class='booth' id='D4' onclick='link_click(this)'><div class='desc' style='left:528px;top:644px;'><h2>D4 Grace Customize</h2><ul>
+<a href='http://fb.me/GraceCustomizeStore' class='fbk'></a><p>1. Customize Keychain <a style='display:inline' href='http://facebook.com/GraceCustomizeStore/photos/a.220741431840995/459602114621591'>(pic)</a>
+<a style='display:inline' href='http://facebook.com/hongadvancemrlaser/photos/a.1469419079748514/1469439396413149'>(pic)</a>
+<br>2. Customize Table Lamp <a style='display:inline' href='http://facebook.com/GraceCustomizeStore/photos/a.220741431840995/428493937732409'>(pic)</a>
+<a style='display:inline' href='http://facebook.com/hongadvancemrlaser/photos/a.391765950847171/2303623706328043'>(pic)</a>
+<br>3. Customize Earrings (Didn't have product yet)
+<br>4. Customize Pins (Didn't have product yet)
+</p></ul></div><div class='area' style='left:437px;top:754px;width:250px;height:20px;'>D4 GRACE CUSTOMIZE</div><div class='box' style='left:500px;top:560px;width:26px;height:82px;'></div>
+</div><div class='booth' id='E1' onclick='link_click(this)'><div class='desc' style='left:642px;top:423px;'><h2>E1 Chilli &amp; Cheese</h2><ul>
+<a href='http://instagram.com/katsudonno' class='ins'></a><p>Booth: <a style='display:inline' href='http://instagram.com/p/BmvW8dQleOz'>link</a><br>Sample images of Products : <a style='display:inline' href='http://instagram.com/p/BrdCpqvgp9i'>(pic)</a><a style='display:inline' href='http://instagram.com/p/BrUQ-iVASiF'>(pic)</a></p></ul></div><div class='area' style='left:437px;top:819px;width:250px;height:20px;'>E1 CHILLI &AMP; CHEESE</div><div class='box' style='left:614px;top:382px;width:26px;height:39px;'></div>
+</div><div class='booth' id='E2' onclick='link_click(this)'><div class='desc' style='left:642px;top:511px;'><h2>E2 SkullzxBonez</h2><ul>
+<a href='http://instagram.com/skullzxbonez_artpage' class='ins'></a><a href='http://fb.me/skullzxbonez' class='fbk'></a><a href='http://twitter.com/AyaTashax' class='twt'></a><a href='http://https://m.facebook.com/skullzxbonez/photos/?ref=bookmarks&mt_nav=0' class='fbk'></a></ul></div><div class='area' style='left:437px;top:839px;width:250px;height:20px;'>E2 SKULLZXBONEZ</div><div class='box' style='left:614px;top:427px;width:26px;height:82px;'></div>
+</div><div class='booth' id='E4' onclick='link_click(this)'><div class='desc' style='left:642px;top:556px;'><h2>E4 SCENTOFGREENPAPAYA</h2><ul>
+<a href='http://twitter.com/NeddTar' class='twt'></a><a href='http://knightsoftheroundtofu.bigcartel.com' class='bcl'></a><a href='http://nadirahtrmd.wixsite.com/nedportfolio' class='wix'></a><a href='http://drive.google.com/open?id=1n123aD_hQxZhHF1a9p-5-FWHoNMs16s-' class='gdr'></a></ul></div><div class='area' style='left:437px;top:859px;width:250px;height:20px;'>E4 SCENTOFGREENPAPAYA</div><div class='box' style='left:614px;top:515px;width:26px;height:39px;'></div>
+</div><div class='booth' id='E5' onclick='link_click(this)'><div class='desc' style='left:642px;top:644px;'><h2>E5 Tracy Yoko&#39;s Craft</h2><ul>
+<a href='http://instagram.com/tracys_craft' class='ins'></a><a href='http://facebook.com/Tracy-Yoko-Crafts-1912138552340157' class='fbk'></a></ul></div><div class='area' style='left:437px;top:879px;width:250px;height:20px;'>E5 TRACY YOKO&#39;S CRAFT</div><div class='box' style='left:614px;top:560px;width:26px;height:82px;'></div>
+</div><div class='booth' id='F1' onclick='link_click(this)'><div class='desc' style='left:684px;top:424px;'><h2>F1 Chocolate Cheese</h2><ul>
+<a href='http://instagram.com/wwlloonn' class='ins'></a><a href='http://fb.me/loon288' class='fbk'></a></ul></div><div class='area' style='left:437px;top:929px;width:250px;height:20px;'>F1 CHOCOLATE CHEESE</div><div class='box' style='left:656px;top:384px;width:26px;height:38px;'></div>
+</div><div class='booth' id='F2' onclick='link_click(this)'><div class='desc' style='left:684px;top:468px;'><h2>F2 Izham-ZK9</h2><ul>
+<a href='http://twitter.com/izham_zk9' class='twt'></a><a href='http://izham-zk9.deviantart.com' class='dar'></a><a href='http://fb.me/izhamzk9' class='fbk'></a><a href='http://https://twitter.com/izham_zk9/status/1107992747527434240' class='twt'></a></ul></div><div class='area' style='left:437px;top:949px;width:250px;height:20px;'>F2 IZHAM-ZK9</div><div class='box' style='left:656px;top:428px;width:26px;height:38px;'></div>
+</div><div class='booth' id='F3' onclick='link_click(this)'><div class='desc' style='left:684px;top:512px;'><h2>F3 RACHELHOFS</h2><ul>
+<a href='http://instagram.com/rachelhofs' class='ins'></a><a href='http://behance.net/rachelhofs' class='bhc'></a><a href='http://artstation.com/rachelhofs' class='ast'></a><a href='http://https://twitter.com/rachelhofs/status/1154584492880719872/photo/1' class='twt'></a></ul></div><div class='area' style='left:437px;top:969px;width:250px;height:20px;'>F3 RACHELHOFS</div><div class='box' style='left:656px;top:472px;width:26px;height:38px;'></div>
+</div><div class='booth' id='F4' onclick='link_click(this)'><div class='desc' style='left:684px;top:556px;'><h2>F4 SMOL</h2><ul>
+<a href='http://instagram.com/qiqikken' class='ins'></a><a href='http://instagram.com/gyin_x' class='ins'></a>  <li><a href='http://imgur.com/a/xNXzaov'>imgur.com/a/xNXzaov</a></li>
+</ul></div><div class='area' style='left:437px;top:989px;width:250px;height:20px;'>F4 SMOL</div><div class='box' style='left:656px;top:516px;width:26px;height:38px;'></div>
+</div><div class='booth' id='F5' onclick='link_click(this)'><div class='desc' style='left:684px;top:600px;'><h2>F5 Pumpkin Head</h2><ul>
+<a href='http://wzia-zilim.tumblr.com' class='tmb'></a><a href='http://fb.me/wzia.zilim' class='fbk'></a><a href='http://facebook.com/pg/wzia.zilim/photos/?tab=album&album_id=1121441717913943' class='fbk'></a></ul></div><div class='area' style='left:437px;top:1009px;width:250px;height:20px;'>F5 PUMPKIN HEAD</div><div class='box' style='left:656px;top:560px;width:26px;height:38px;'></div>
+</div><div class='booth' id='F6' onclick='link_click(this)'><div class='desc' style='left:684px;top:644px;'><h2>F6 Bulu Jelo</h2><ul>
+  <li><a href='http://etworld.shoplineapp.com'>etworld.shoplineapp.com</a></li>
+</ul></div><div class='area' style='left:437px;top:1029px;width:250px;height:20px;'>F6 BULU JELO</div><div class='box' style='left:656px;top:604px;width:26px;height:38px;'></div>
+</div><div class='booth' id='G1' onclick='link_click(this)'><div class='desc' style='left:622px;top:303px;'><h2>G1 Commander Mittens</h2><ul>
+<a href='http://CommanderMittensCo.etsy.com' class='ets'></a><a href='http://fb.me/commandermitten' class='fbk'></a></ul></div><div class='area' style='left:768px;top:694px;width:250px;height:20px;'>G1 COMMANDER MITTENS</div><div class='box' style='left:583px;top:273px;width:37px;height:28px;'></div>
+</div><div class='booth' id='G2' onclick='link_click(this)'><div class='desc' style='left:666px;top:316px;'><h2>G2 Area 51, Pls Raid</h2><ul>
+<a href='http://instagram.com/xinneh' class='ins'></a><a href='http://instagram.com/kanami_hanaki' class='ins'></a><a href='http://instagram.com/kazukopii' class='ins'></a><a href='http://instagram.com/zhenyuann_0903' class='ins'></a><p>Some pics of my art and past merch/experience: <a style='display:inline' href='http://imgur.com/a/0g2ur7e'>(link)</a><br>We will be selling charms, prints, badges, especially commissions.</p></ul></div><div class='area' style='left:768px;top:714px;width:250px;height:20px;'>G2 AREA 51, PLS RAID</div><div class='box' style='left:627px;top:286px;width:37px;height:28px;'></div>
+</div><div class='booth' id='G3' onclick='link_click(this)'><div class='desc' style='left:710px;top:329px;'><h2>G3 Fishcake</h2><ul>
+<a href='http://instagram.com/meepancake' class='ins'></a><a href='http://instagram.com/fishishtier' class='ins'></a></ul></div><div class='area' style='left:768px;top:734px;width:250px;height:21px;'>G3 FISHCAKE</div><div class='box' style='left:671px;top:299px;width:37px;height:28px;'></div>
+</div><div class='booth' id='G4' onclick='link_click(this)'><div class='desc' style='left:754px;top:342px;'><h2>G4 Shota &amp; Lolita Shop</h2><ul>
+<a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li></ul></div><div class='area' style='left:768px;top:755px;width:250px;height:20px;'>G4 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:715px;top:312px;width:37px;height:28px;'></div>
+</div><div class='booth' id='H1' onclick='link_click(this)'><div class='desc' style='left:801px;top:554px;'><h2>H1 Aki - 小秋</h2><a href='http://duckduckgo.com/?q=Aki%20-%20%E5%B0%8F%E7%A7%8B'>Search for Aki - 小秋</a></div><div class='area' style='left:768px;top:820px;width:250px;height:20px;'>H1 AKI - 小秋</div><div class='box' style='left:773px;top:513px;width:26px;height:39px;'></div>
+</div><div class='booth' id='H2' onclick='link_click(this)'><div class='desc' style='left:801px;top:599px;'><h2>H2 Chineko.千猫</h2><ul>
+<a href='http://instagram.com/mychineko' class='ins'></a><a href='http://fb.me/mychineko' class='fbk'></a><a href='http://facebook.com/mychineko/posts/2042334249178817' class='fbk'></a></ul></div><div class='area' style='left:768px;top:840px;width:250px;height:20px;'>H2 CHINEKO.千猫</div><div class='box' style='left:773px;top:558px;width:26px;height:39px;'></div>
+</div><div class='booth' id='H3' onclick='link_click(this)'><div class='desc' style='left:801px;top:644px;'><h2>H3 Amelia</h2><ul>
+<a href='http://instagram.com/ameliakhor0116' class='ins'></a><a href='http://worldcosplay.net/member/696747' class='wcp'></a><a href='http://fb.me/ameliakhor0116' class='fbk'></a></ul></div><div class='area' style='left:768px;top:860px;width:250px;height:20px;'>H3 AMELIA</div><div class='box' style='left:773px;top:603px;width:26px;height:39px;'></div>
+</div>
+</div></body></html>
 <!--Written and compiled by MilvagoX.-->
 <!--Map and banners are belong to CFmini2019 artists and organizer.-->
