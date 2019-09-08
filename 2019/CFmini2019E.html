@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CFmini2019 Interactive Map">
+<meta property="og:description" content="CFmini2019 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/CFmini2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/CFmini2019.png">
+<meta name="description" content="CFmini2019 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/CFmini2019.html">
+ <title>CFmini2019 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+ul > a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+ul li a{ width: auto; height: auto; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2019/CFmini2019E.png' style='' onerror="this.src = './CFmini2019/CFmini2019E.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='A01' onclick='link_click(this)'><div class='desc' style='left:408px;top:472px;'><h2>A01 ZinMaTo</h2><ul>
+<a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></ul></div><div class='area' style='left:555px;top:276px;width:360px;height:20px;'>A01 ZINMATO</div><div class='box' style='left:375px;top:439px;width:31px;height:31px;'></div>
+</div><div class='booth' id='A02' onclick='link_click(this)'><div class='desc' style='left:408px;top:510px;'><h2>A02 COS DREAMERS JAPAN</h2><ul>
+<a href='http://instagram.com/cosdreamersjapanshop' class='ins'></a><a href='http://fb.me/cosdreamersjapan' class='fbk'></a>  <li><a href='http://http://cosdreamersjapan.my'>http://cosdreamersjapan.my</a></li>
+</ul></div><div class='area' style='left:555px;top:296px;width:360px;height:20px;'>A02 COS DREAMERS JAPAN</div><div class='box' style='left:375px;top:477px;width:31px;height:31px;'></div>
+</div><div class='booth' id='A03' onclick='link_click(this)'><div class='desc' style='left:371px;top:509px;'><h2>A03 EXX</h2><a href='http://duckduckgo.com/?q=EXX'>Search for EXX</a></div><div class='area' style='left:555px;top:316px;width:360px;height:20px;'>A03 EXX</div><div class='box' style='left:338px;top:440px;width:31px;height:67px;'></div>
+</div><div class='booth' id='A05' onclick='link_click(this)'><div class='desc' style='left:301px;top:509px;'><h2>A05 ZX Group Sdn Bhd</h2><a href='http://duckduckgo.com/?q=ZX%20Group%20Sdn%20Bhd'>Search for ZX Group Sdn Bhd</a></div><div class='area' style='left:555px;top:336px;width:360px;height:20px;'>A05 ZX GROUP SDN BHD</div><div class='box' style='left:268px;top:440px;width:31px;height:67px;'></div>
+</div><div class='booth' id='A07' onclick='link_click(this)'><div class='desc' style='left:263px;top:509px;'><h2>A07 6 Toy</h2><ul>
+<a href='http://fb.me/6ToyStore' class='fbk'></a>  <li><a href='http://6toy.com.my'>6toy.com.my</a></li>
+</ul></div><div class='area' style='left:555px;top:356px;width:360px;height:20px;'>A07 6 TOY</div><div class='box' style='left:230px;top:440px;width:31px;height:67px;'></div>
+</div><div class='booth' id='B01' onclick='link_click(this)'><div class='desc' style='left:351px;top:582px;'><h2>B01 MM HANDMADE &amp; SOUVENIR</h2><ul>
+<a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></ul></div><div class='area' style='left:555px;top:412px;width:360px;height:50px;'>B01 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:318px;top:549px;width:31px;height:31px;'></div>
+</div><div class='booth' id='B02' onclick='link_click(this)'><div class='desc' style='left:313px;top:582px;'><h2>B02 The One Academny Penang</h2><ul>
+<a href='http://fb.me/toapenang' class='fbk'></a>  <li><a href='http://toa.edu.my/penang'>toa.edu.my/penang</a></li>
+</ul></div><div class='area' style='left:555px;top:462px;width:360px;height:50px;'>B02 THE ONE ACADEMNY PENANG</div><div class='box' style='left:280px;top:549px;width:31px;height:31px;'></div>
+</div><div class='booth' id='B03' onclick='link_click(this)'><div class='desc' style='left:331px;top:643px;'><h2>B03 FFS Hobby &amp; Mochi Manga</h2><a href='http://duckduckgo.com/?q=FFS%20Hobby%20%26%20Mochi%20Manga'>Search for FFS Hobby &amp; Mochi Manga</a></div><div class='area' style='left:555px;top:512px;width:360px;height:55px;'>B03 FFS HOBBY &AMP; MOCHI MANGA</div><div class='box' style='left:298px;top:610px;width:31px;height:31px;'></div>
+</div><div class='booth' id='B04' onclick='link_click(this)'><div class='desc' style='left:331px;top:681px;'><h2>B04 XD Shop</h2><ul>
+<a href='http://fb.me/XD.AnimeShop' class='fbk'></a><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li></ul></div><div class='area' style='left:555px;top:567px;width:360px;height:30px;'>B04 XD SHOP</div><div class='box' style='left:298px;top:648px;width:31px;height:31px;'></div>
+</div><div class='booth' id='C01' onclick='link_click(this)'><div class='desc' style='left:253px;top:711px;'><h2>C01 Accel&#39;s Helper Shop &amp; Services</h2><ul>
+<a href='http://fb.me/accelshelpershopandservices' class='fbk'></a><a href='http://accelhelpershopandservice.blogspot.com' class='bsp'></a></ul></div><div class='area' style='left:555px;top:635px;width:360px;height:40px;'>C01 ACCEL&#39;S HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:220px;top:678px;width:31px;height:31px;'></div>
+</div><div class='booth' id='C02' onclick='link_click(this)'><div class='desc' style='left:253px;top:786px;'><h2>C02 EXX</h2><a href='http://duckduckgo.com/?q=EXX'>Search for EXX</a></div><div class='area' style='left:555px;top:675px;width:360px;height:20px;'>C02 EXX</div><div class='box' style='left:220px;top:717px;width:31px;height:67px;'></div>
+</div><div class='booth' id='C04' onclick='link_click(this)'><div class='desc' style='left:484px;top:830px;'><h2>C04 Oh! Gatcha</h2><ul>
+  <li><a href='http://ohgatcha.com'>ohgatcha.com</a></li>
+</ul></div><div class='area' style='left:555px;top:695px;width:360px;height:20px;'>C04 OH! GATCHA</div><div class='box' style='left:415px;top:761px;width:67px;height:67px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to CFmini2019 artists and organizer.-->
