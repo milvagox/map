@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NAF2019 Interactive Map">
+<meta property="og:description" content="NAF2019 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/NAF2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/NAF2019.png">
+<meta name="description" content="NAF2019 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/NAF2019.html">
+ <title>NAF2019 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+ul > a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
+ul li a{ width: auto; height: auto; }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./NAF2019/NAF2019.png' style='' onerror="this.src = './NAF2019/NAF2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='G01' onclick='link_click(this)'><div class='desc' style='left:1039px;top:1185px;'><h2>G01 Yonnie芋泥 &gt;w0</h2><ul>
+<a href='http://instagram.com/nie1031' class='ins'></a><a href='http://worldcosplay.net/member/YonnieNG' class='wcp'></a><a href='http://fb.me/Elfography' class='fbk'></a></ul></div><div class='area' style='left:88px;top:354px;width:410px;height:31px;'>G01 YONNIE芋泥 &GT;W0</div><div class='box' style='left:933px;top:1107px;width:104px;height:76px;'></div>
+</div><div class='booth' id='G02' onclick='link_click(this)'><div class='desc' style='left:1198px;top:1185px;'><h2>G02 Eiji 瑛司</h2><a href='http://duckduckgo.com/?q=Eiji%20%E7%91%9B%E5%8F%B8'>Search for Eiji 瑛司</a></div><div class='area' style='left:88px;top:385px;width:410px;height:31px;'>G02 EIJI 瑛司</div><div class='box' style='left:1092px;top:1107px;width:104px;height:76px;'></div>
+</div><div class='booth' id='G03' onclick='link_click(this)'><div class='desc' style='left:1357px;top:1185px;'><h2>G03 Team KuraMaker</h2><a href='http://duckduckgo.com/?q=Team%20KuraMaker'>Search for Team KuraMaker</a></div><div class='area' style='left:88px;top:416px;width:410px;height:31px;'>G03 TEAM KURAMAKER</div><div class='box' style='left:1251px;top:1107px;width:104px;height:76px;'></div>
+</div><div class='booth' id='G04' onclick='link_click(this)'><div class='desc' style='left:1516px;top:1185px;'><h2>G04 Cupcat Images</h2><a href='http://duckduckgo.com/?q=Cupcat%20Images'>Search for Cupcat Images</a></div><div class='area' style='left:88px;top:447px;width:410px;height:31px;'>G04 CUPCAT IMAGES</div><div class='box' style='left:1410px;top:1107px;width:104px;height:76px;'></div>
+</div><div class='booth' id='G05' onclick='link_click(this)'><div class='desc' style='left:1675px;top:1185px;'><h2>G05 The Guild</h2><a href='http://duckduckgo.com/?q=The%20Guild'>Search for The Guild</a></div><div class='area' style='left:88px;top:478px;width:410px;height:31px;'>G05 THE GUILD</div><div class='box' style='left:1569px;top:1107px;width:104px;height:76px;'></div>
+</div><div class='booth' id='V01' onclick='link_click(this)'><div class='desc' style='left:1530px;top:991px;'><h2>V01 MM Handmade Souvenir</h2><a href='http://duckduckgo.com/?q=MM%20Handmade%20Souvenir'>Search for MM Handmade Souvenir</a></div><div class='area' style='left:88px;top:601px;width:410px;height:31px;'>V01 MM HANDMADE SOUVENIR</div><div class='box' style='left:1393px;top:942px;width:135px;height:47px;'></div>
+</div><div class='booth' id='V02' onclick='link_click(this)'><div class='desc' style='left:1648px;top:991px;'><h2>V02 6 Toy</h2><ul>
+<a href='http://fb.me/6ToyStore' class='fbk'></a>  <li><a href='http://6toy.com.my'>6toy.com.my</a></li>
+</ul></div><div class='area' style='left:88px;top:632px;width:410px;height:31px;'>V02 6 TOY</div><div class='box' style='left:1580px;top:942px;width:66px;height:47px;'></div>
+</div><div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:1283px;top:727px;'><h2>A1 Mofu Mofu</h2><a href='http://duckduckgo.com/?q=Mofu%20Mofu'>Search for Mofu Mofu</a></div><div class='area' style='left:88px;top:751px;width:410px;height:31px;'>A1 MOFU MOFU</div><div class='box' style='left:1248px;top:678px;width:33px;height:47px;'></div>
+</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:1283px;top:780px;'><h2>A2 Fantasy Craftwork</h2><a href='http://duckduckgo.com/?q=Fantasy%20Craftwork'>Search for Fantasy Craftwork</a></div><div class='area' style='left:88px;top:782px;width:410px;height:31px;'>A2 FANTASY CRAFTWORK</div><div class='box' style='left:1248px;top:731px;width:33px;height:47px;'></div>
+</div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:1283px;top:886px;'><h2>A3 Jackispainting</h2><ul>
+<a href='http://instagram.com/fantasycraftworksbyjoey' class='ins'></a></ul></div><div class='area' style='left:88px;top:813px;width:410px;height:31px;'>A3 JACKISPAINTING</div><div class='box' style='left:1248px;top:837px;width:33px;height:47px;'></div>
+</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:1283px;top:991px;'><h2>A4 Maycrs</h2><ul>
+<a href='http://instagram.com/maycrs_' class='ins'></a></ul></div><div class='area' style='left:88px;top:844px;width:410px;height:31px;'>A4 MAYCRS</div><div class='box' style='left:1248px;top:890px;width:33px;height:99px;'></div>
+</div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:1328px;top:779px;'><h2>A5 makinggimmick</h2><a href='http://duckduckgo.com/?q=makinggimmick'>Search for makinggimmick</a></div><div class='area' style='left:88px;top:875px;width:410px;height:31px;'>A5 MAKINGGIMMICK</div><div class='box' style='left:1293px;top:678px;width:33px;height:99px;'></div>
+</div><div class='booth' id='A6' onclick='link_click(this)'><div class='desc' style='left:1328px;top:937px;'><h2>A6 Majestico</h2><a href='http://duckduckgo.com/?q=Majestico'>Search for Majestico</a></div><div class='area' style='left:88px;top:906px;width:410px;height:31px;'>A6 MAJESTICO</div><div class='box' style='left:1293px;top:836px;width:33px;height:99px;'></div>
+</div><div class='booth' id='P01' onclick='link_click(this)'><div class='desc' style='left:1137px;top:674px;'><h2>P01 M’Moments</h2><a href='http://duckduckgo.com/?q=M%E2%80%99Moments'>Search for M’Moments</a></div><div class='area' style='left:88px;top:1023px;width:410px;height:31px;'>P01 M’MOMENTS</div><div class='box' style='left:1102px;top:625px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P02' onclick='link_click(this)'><div class='desc' style='left:1137px;top:727px;'><h2>P02 Kotoba</h2><a href='http://duckduckgo.com/?q=Kotoba'>Search for Kotoba</a></div><div class='area' style='left:88px;top:1054px;width:410px;height:31px;'>P02 KOTOBA</div><div class='box' style='left:1102px;top:678px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P03' onclick='link_click(this)'><div class='desc' style='left:1183px;top:727px;'><h2>P03 Dreamin’</h2><a href='http://duckduckgo.com/?q=Dreamin%E2%80%99'>Search for Dreamin’</a></div><div class='area' style='left:88px;top:1085px;width:410px;height:31px;'>P03 DREAMIN’</div><div class='box' style='left:1148px;top:678px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P04' onclick='link_click(this)'><div class='desc' style='left:1137px;top:780px;'><h2>P04 Milky Way</h2><a href='http://duckduckgo.com/?q=Milky%20Way'>Search for Milky Way</a></div><div class='area' style='left:88px;top:1116px;width:410px;height:31px;'>P04 MILKY WAY</div><div class='box' style='left:1102px;top:731px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P05' onclick='link_click(this)'><div class='desc' style='left:1183px;top:780px;'><h2>P05 ENNEA</h2><a href='http://duckduckgo.com/?q=ENNEA'>Search for ENNEA</a></div><div class='area' style='left:88px;top:1147px;width:410px;height:31px;'>P05 ENNEA</div><div class='box' style='left:1148px;top:731px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P06' onclick='link_click(this)'><div class='desc' style='left:1137px;top:886px;'><h2>P06 Vocadoll</h2><a href='http://duckduckgo.com/?q=Vocadoll'>Search for Vocadoll</a></div><div class='area' style='left:88px;top:1178px;width:410px;height:31px;'>P06 VOCADOLL</div><div class='box' style='left:1102px;top:837px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P07' onclick='link_click(this)'><div class='desc' style='left:1183px;top:886px;'><h2>P07 Eternal+Chihiro</h2><a href='http://duckduckgo.com/?q=Eternal%2BChihiro'>Search for Eternal+Chihiro</a></div><div class='area' style='left:88px;top:1209px;width:410px;height:31px;'>P07 ETERNAL+CHIHIRO</div><div class='box' style='left:1148px;top:837px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P08' onclick='link_click(this)'><div class='desc' style='left:1183px;top:939px;'><h2>P08 Queens</h2><a href='http://duckduckgo.com/?q=Queens'>Search for Queens</a></div><div class='area' style='left:88px;top:1240px;width:410px;height:31px;'>P08 QUEENS</div><div class='box' style='left:1148px;top:890px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P09' onclick='link_click(this)'><div class='desc' style='left:1137px;top:939px;'><h2>P09 Sakaki</h2><a href='http://duckduckgo.com/?q=Sakaki'>Search for Sakaki</a></div><div class='area' style='left:88px;top:1271px;width:410px;height:31px;'>P09 SAKAKI</div><div class='box' style='left:1102px;top:890px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P10' onclick='link_click(this)'><div class='desc' style='left:1137px;top:992px;'><h2>P10 Keefee Kit</h2><a href='http://duckduckgo.com/?q=Keefee%20Kit'>Search for Keefee Kit</a></div><div class='area' style='left:88px;top:1302px;width:410px;height:31px;'>P10 KEEFEE KIT</div><div class='box' style='left:1102px;top:943px;width:33px;height:47px;'></div>
+</div><div class='booth' id='P11' onclick='link_click(this)'><div class='desc' style='left:1183px;top:992px;'><h2>P11 Rina Hime</h2><a href='http://duckduckgo.com/?q=Rina%20Hime'>Search for Rina Hime</a></div><div class='area' style='left:88px;top:1333px;width:410px;height:31px;'>P11 RINA HIME</div><div class='box' style='left:1148px;top:943px;width:33px;height:47px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to NAF2019 artists and organizer.-->
