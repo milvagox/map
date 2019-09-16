@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>S4O2016 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2016/S4O2016.png' onerror="this.src = './S4O2016/S4O2016.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2016/S4O2016.png' style='' onerror="this.src = './S4O2016/S4O2016.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='1' href='http://instagram.com/gundamts'><div class='area' style='left:54px;top:910px;width:400px;height:32px;'>1 GUNDAM TOY SHOP</div><div class='box' style='left:397px;top:103px;width:277px;height:110px;'></div>
 </a><a class='booth' id='2' href='http://duckduckgo.com/?q=Vzoid'><div class='area' style='left:54px;top:942px;width:400px;height:32px;'>2 VZOID</div><div class='box' style='left:784px;top:223px;width:110px;height:277px;'></div>

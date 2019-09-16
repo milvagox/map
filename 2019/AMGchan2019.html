@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>AMGchan2019 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMGchan2019/AMGchan2019.jpg' onerror="this.src = './AMGchan2019/AMGchan2019.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMGchan2019/AMGchan2019.jpg' style='' onerror="this.src = './AMGchan2019/AMGchan2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://instagram.com/uecreativeworld_handmade_dolls/'><div class='area' style='left:933px;top:134px;width:153px;height:16px;'>A1 UE CREATIVE WORLD</div><div class='box' style='left:198px;top:837px;width:60px;height:97px;'></div>
 </a><a class='booth' id='A2' href='http://duckduckgo.com/?q=Kaigatamin'><div class='area' style='left:933px;top:150px;width:153px;height:16px;'>A2 KAIGATAMIN</div><div class='box' style='left:198px;top:740px;width:60px;height:97px;'></div>

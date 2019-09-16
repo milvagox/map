@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>VAX2016 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./VAX2016/VAX2016.png' onerror="this.src = './VAX2016/VAX2016.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./VAX2016/VAX2016.png' style='' onerror="this.src = './VAX2016/VAX2016.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://fb.me/dsignunderground'><div class='area' style='left:1640px;top:414px;width:400px;height:24px;'>A1 D*SIGN UNDERGROUND</div><div class='box' style='left:350px;top:1280px;width:57px;height:56px;'></div>
 </a><a class='booth' id='A2' href='http://duckduckgo.com/?q=Sky%20%26%20Sea'><div class='area' style='left:1640px;top:438px;width:400px;height:23px;'>A2 SKY &AMP; SEA</div><div class='box' style='left:409px;top:1280px;width:57px;height:56px;'></div>
@@ -170,7 +170,7 @@
 </a><a class='booth' id='B1' href='http://duckduckgo.com/?q=Maple%20Comics'><div class='area' style='left:1642px;top:858px;width:400px;height:24px;'>B1 MAPLE COMICS</div><div class='box' style='left:350px;top:1392px;width:114px;height:56px;'></div>
 </a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Last%20Sprinters'><div class='area' style='left:1642px;top:882px;width:400px;height:23px;'>B3 LAST SPRINTERS</div><div class='box' style='left:468px;top:1392px;width:57px;height:56px;'></div>
 </a><a class='booth' id='B4' href='http://duckduckgo.com/?q=Spring%20Milktea'><div class='area' style='left:1642px;top:905px;width:400px;height:24px;'>B4 SPRING MILKTEA</div><div class='box' style='left:527px;top:1392px;width:57px;height:56px;'></div>
-</a><a class='booth' id='B5' href='http://fb.me/hibiscuits/'><div class='area' style='left:1642px;top:929px;width:400px;height:23px;'>B5 HIBISCUITS</div><div class='box' style='left:586px;top:1392px;width:57px;height:56px;'></div>
+</a><a class='booth' id='B5' href='http://fb.me/hibiscuits'><div class='area' style='left:1642px;top:929px;width:400px;height:23px;'>B5 HIBISCUITS</div><div class='box' style='left:586px;top:1392px;width:57px;height:56px;'></div>
 </a><a class='booth' id='B6' href='http://duckduckgo.com/?q=SUKETCHI%20DOO'><div class='area' style='left:1642px;top:952px;width:400px;height:24px;'>B6 SUKETCHI DOO</div><div class='box' style='left:645px;top:1392px;width:57px;height:56px;'></div>
 </a><a class='booth' id='B7' href='http://duckduckgo.com/?q=Imaginaire%20Art'><div class='area' style='left:1642px;top:976px;width:400px;height:23px;'>B7 IMAGINAIRE ART</div><div class='box' style='left:704px;top:1392px;width:57px;height:56px;'></div>
 </a><a class='booth' id='B8' href='http://duckduckgo.com/?q=Artsecution'><div class='area' style='left:1642px;top:999px;width:400px;height:24px;'>B8 ARTSECUTION</div><div class='box' style='left:763px;top:1392px;width:57px;height:56px;'></div>

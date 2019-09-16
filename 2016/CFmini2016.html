@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CFmini2016 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2016/CFmini2016.png' onerror="this.src = './CFmini2016/CFmini2016.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2016/CFmini2016.png' style='' onerror="this.src = './CFmini2016/CFmini2016.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='E7' href='http://duckduckgo.com/?q=%2A%20HARUKATSU%20%2A.'><div class='area' style='left:778px;top:264px;width:275px;height:27px;'>E7 * HARUKATSU *.</div><div class='box' style='left:263px;top:673px;width:48px;height:45px;'></div>
 </a><a class='booth' id='E1' href='http://twitter.com/RealAbamApam'><div class='area' style='left:778px;top:291px;width:275px;height:28px;'>E1 ABAM APAM</div><div class='box' style='left:623px;top:673px;width:48px;height:45px;'></div>
@@ -175,7 +175,7 @@
 </a><a class='booth' id='E8' href='http://duckduckgo.com/?q=Lea%E8%8E%89%E9%9B%85%26Mikki%E8%9C%9C%E7%90%AA'><div class='area' style='left:778px;top:838px;width:275px;height:27px;'>E8 LEA莉雅&AMP;MIKKI蜜琪</div><div class='box' style='left:204px;top:673px;width:48px;height:45px;'></div>
 </a><a class='booth' id='B9' href='http://fb.me/LemonsOnSticks'><div class='area' style='left:1068px;top:264px;width:285px;height:27px;'>B9 LEMONSONSTICKS</div><div class='box' style='left:145px;top:404px;width:48px;height:45px;'></div>
 </a><a class='booth' id='E6' href='http://duckduckgo.com/?q=MY.%20Memories'><div class='area' style='left:1068px;top:291px;width:285px;height:28px;'>E6 MY. MEMORIES</div><div class='box' style='left:322px;top:673px;width:48px;height:45px;'></div>
-</a><a class='booth' id='E4' href='http://duckduckgo.com/?q=Makinggimmick'><div class='area' style='left:1068px;top:319px;width:285px;height:27px;'>E4 MAKINGGIMMICK</div><div class='box' style='left:381px;top:673px;width:107px;height:45px;'></div>
+</a><a class='booth' id='E4' href='http://fb.me/mj.fong.37'><div class='area' style='left:1068px;top:319px;width:285px;height:27px;'>E4 MAKINGGIMMICK</div><div class='box' style='left:381px;top:673px;width:107px;height:45px;'></div>
 </a><a class='booth' id='F3' href='http://duckduckgo.com/?q=Moemono%20%E8%90%8C%E4%B9%8B%E7%89%A9'><div class='area' style='left:1068px;top:346px;width:285px;height:27px;'>F3 MOEMONO 萌之物</div><div class='box' style='left:502px;top:732px;width:48px;height:45px;'></div>
 </a><a class='booth' id='D4' href='http://duckduckgo.com/?q=Paraetto%20D%C3%A9%20Casa'><div class='area' style='left:1068px;top:373px;width:285px;height:28px;'>D4 PARAETTO DÉ CASA</div><div class='box' style='left:384px;top:568px;width:106px;height:45px;'></div>
 </a><a class='booth' id='D1' href='http://duckduckgo.com/?q=Pink%20Milk'><div class='area' style='left:1068px;top:401px;width:285px;height:27px;'>D1 PINK MILK</div><div class='box' style='left:623px;top:568px;width:48px;height:45px;'></div>

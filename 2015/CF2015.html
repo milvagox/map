@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -11,6 +10,7 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CF2015.png">
 <meta name="description" content="CF2015 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2015/CF2015.html">
  <title>CF2015 Map++</title>
  <style>
   .booth { 
@@ -36,6 +36,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -158,7 +159,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CF2015/CF2015.png' onerror="this.src = './CF2015/CF2015.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CF2015/CF2015.png' style='' onerror="this.src = './CF2015/CF2015.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='E01' href='http://duckduckgo.com/?q=ReikoCubicles%20CheckPoint'><div class='area' style='left:66px;top:758px;width:200px;height:36px;'>E01 REIKOCUBICLES CHECKPOINT</div><div class='box' style='left:92px;top:650px;width:30px;height:22px;'></div>
 </a><a class='booth' id='E02' href='http://duckduckgo.com/?q=Joker'><div class='area' style='left:66px;top:794px;width:200px;height:21px;'>E02 JOKER</div><div class='box' style='left:128px;top:650px;width:64px;height:22px;'></div>
@@ -241,7 +242,7 @@
 </a><a class='booth' id='G09' href='http://duckduckgo.com/?q=M%27sick'><div class='area' style='left:480px;top:884px;width:200px;height:21px;'>G09 M&#39;SICK</div><div class='box' style='left:378px;top:555px;width:30px;height:22px;'></div>
 </a><a class='booth' id='G10' href='http://duckduckgo.com/?q=JK'><div class='area' style='left:480px;top:905px;width:200px;height:21px;'>G10 JK</div><div class='box' style='left:414px;top:555px;width:30px;height:22px;'></div>
 </a><a class='booth' id='G11' href='http://duckduckgo.com/?q=JKL'><div class='area' style='left:480px;top:926px;width:200px;height:21px;'>G11 JKL</div><div class='box' style='left:450px;top:555px;width:30px;height:22px;'></div>
-</a><a class='booth' id='G12' href='http://duckduckgo.com/?q=makinggimmick'><div class='area' style='left:480px;top:947px;width:200px;height:21px;'>G12 MAKINGGIMMICK</div><div class='box' style='left:486px;top:555px;width:30px;height:22px;'></div>
+</a><a class='booth' id='G12' href='http://fb.me/mj.fong.37'><div class='area' style='left:480px;top:947px;width:200px;height:21px;'>G12 MAKINGGIMMICK</div><div class='box' style='left:486px;top:555px;width:30px;height:22px;'></div>
 </a><a class='booth' id='G13' href='http://duckduckgo.com/?q=LMTXO'><div class='area' style='left:480px;top:968px;width:200px;height:21px;'>G13 LMTXO</div><div class='box' style='left:522px;top:555px;width:30px;height:22px;'></div>
 </a><a class='booth' id='G14' href='http://duckduckgo.com/?q=TerraLiving'><div class='area' style='left:480px;top:989px;width:200px;height:21px;'>G14 TERRALIVING</div><div class='box' style='left:558px;top:555px;width:30px;height:22px;'></div>
 </a><a class='booth' id='G15' href='http://duckduckgo.com/?q=Macchiato'><div class='area' style='left:480px;top:1010px;width:200px;height:21px;'>G15 MACCHIATO</div><div class='box' style='left:594px;top:555px;width:65px;height:22px;'></div>
@@ -326,7 +327,7 @@
 </a><a class='booth' id='K08' href='http://fb.me/dsignunderground'><div class='area' style='left:901px;top:1118px;width:200px;height:21px;'>K08 D*SIGN UNDERGROUND</div><div class='box' style='left:344px;top:423px;width:30px;height:22px;'></div>
 </a><a class='booth' id='K09' href='http://duckduckgo.com/?q=Shooting%20Stars'><div class='area' style='left:901px;top:1139px;width:200px;height:21px;'>K09 SHOOTING STARS</div><div class='box' style='left:380px;top:423px;width:63px;height:22px;'></div>
 </a><a class='booth' id='K11' href='http://duckduckgo.com/?q=Angela%26Kel'><div class='area' style='left:901px;top:1160px;width:200px;height:21px;'>K11 ANGELA&AMP;KEL</div><div class='box' style='left:449px;top:423px;width:30px;height:22px;'></div>
-</a><a class='booth' id='K12' href='http://instagram.com/Artfurry'><div class='area' style='left:901px;top:1181px;width:200px;height:21px;'>K12 ARTFURRY</div><div class='box' style='left:485px;top:423px;width:30px;height:22px;'></div>
+</a><a class='booth' id='K12' href='http://instagram.com/ArtFox_Jay'><div class='area' style='left:901px;top:1181px;width:200px;height:21px;'>K12 ARTFURRY</div><div class='box' style='left:485px;top:423px;width:30px;height:22px;'></div>
 </a><a class='booth' id='K13' href='http://duckduckgo.com/?q=Squarish'><div class='area' style='left:1110px;top:971px;width:200px;height:21px;'>K13 SQUARISH</div><div class='box' style='left:521px;top:423px;width:30px;height:22px;'></div>
 </a><a class='booth' id='K14' href='http://duckduckgo.com/?q=Hero%2AMIX'><div class='area' style='left:1110px;top:992px;width:200px;height:21px;'>K14 HERO*MIX</div><div class='box' style='left:557px;top:423px;width:30px;height:22px;'></div>
 </a><a class='booth' id='K15' href='http://duckduckgo.com/?q=DayDreamer'><div class='area' style='left:1110px;top:1013px;width:200px;height:21px;'>K15 DAYDREAMER</div><div class='box' style='left:593px;top:423px;width:30px;height:22px;'></div>
@@ -348,7 +349,7 @@
 </a><a class='booth' id='L13' href='http://duckduckgo.com/?q=grgr'><div class='area' style='left:901px;top:1428px;width:200px;height:21px;'>L13 GRGR</div><div class='box' style='left:520px;top:364px;width:30px;height:22px;'></div>
 </a><a class='booth' id='L14' href='http://duckduckgo.com/?q=IchiPRO'><div class='area' style='left:1110px;top:1245px;width:200px;height:21px;'>L14 ICHIPRO</div><div class='box' style='left:556px;top:364px;width:30px;height:22px;'></div>
 </a><a class='booth' id='L15' href='http://tohdraws.artstation.com'><div class='area' style='left:1110px;top:1266px;width:200px;height:21px;'>L15 END</div><div class='box' style='left:592px;top:364px;width:65px;height:22px;'></div>
-</a><a class='booth' id='L17' href='http://duckduckgo.com/?q=wickedalucard%20and%20Kam'><div class='area' style='left:1110px;top:1287px;width:200px;height:21px;'>L17 WICKEDALUCARD AND KAM</div><div class='box' style='left:663px;top:364px;width:30px;height:22px;'></div>
+</a><a class='booth' id='L17' href='http://twitter.com/wickedalucard'><div class='area' style='left:1110px;top:1287px;width:200px;height:21px;'>L17 WICKEDALUCARD AND KAM</div><div class='box' style='left:663px;top:364px;width:30px;height:22px;'></div>
 </a><a class='booth' id='L18' href='http://duckduckgo.com/?q=Brody%20The%20Blackheart'><div class='area' style='left:1110px;top:1308px;width:200px;height:21px;'>L18 BRODY THE BLACKHEART</div><div class='box' style='left:699px;top:364px;width:30px;height:22px;'></div>
 </a><a class='booth' id='L19' href='http://duckduckgo.com/?q=Komikapalooza'><div class='area' style='left:1110px;top:1329px;width:200px;height:21px;'>L19 KOMIKAPALOOZA</div><div class='box' style='left:735px;top:364px;width:30px;height:22px;'></div>
 </a><a class='booth' id='L20' href='http://duckduckgo.com/?q=The%20Mystery%20Trunk'><div class='area' style='left:1110px;top:1350px;width:200px;height:21px;'>L20 THE MYSTERY TRUNK</div><div class='box' style='left:771px;top:364px;width:30px;height:22px;'></div>

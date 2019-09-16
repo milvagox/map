@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -11,6 +10,7 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/Cosmart2015.png">
 <meta name="description" content="Cosmart2015 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2015/Cosmart2015.html">
  <title>Cosmart2015 Map++</title>
  <style>
   .booth { 
@@ -36,6 +36,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -158,7 +159,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2015/Cosmart2015.png' onerror="this.src = './Cosmart2015/Cosmart2015.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2015/Cosmart2015.png' style='' onerror="this.src = './Cosmart2015/Cosmart2015.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://duckduckgo.com/?q=The%20Exploding%20Closet'><div class='area' style='left:75px;top:610px;width:300px;height:28px;'>A1 THE EXPLODING CLOSET</div><div class='box' style='left:76px;top:222px;width:85px;height:55px;'></div>
 </a><a class='booth' id='A2' href='http://duckduckgo.com/?q=JUINNIE%20JUNKIES'><div class='area' style='left:75px;top:638px;width:300px;height:28px;'>A2 JUINNIE JUNKIES</div><div class='box' style='left:171px;top:222px;width:85px;height:55px;'></div>

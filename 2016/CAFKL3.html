@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -238,8 +237,8 @@ ul li a{ width: auto; height: auto; }
         glob_box_selector = booth;
         booth.style.opacity = 1;
         booth.getElementsByClassName('desc')[0].style.display = 'block';
-       // banner = booth.getElementsByClassName('banner')[0];
-       // banner.src = 'CAFKL3/artist/' + booth.id + '.jpg';
+         
+         
          
         coverbox = document.getElementById('coverbox');
         coverbox.style.opacity = 0.5;
@@ -295,7 +294,7 @@ ul li a{ width: auto; height: auto; }
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL3/CAFKL3.png' onerror="this.src = './CAFKL3/CAFKL3.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL3/CAFKL3.png' style='' onerror="this.src = './CAFKL3/CAFKL3.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:998px;top:823px;'><h2>A1 Matkomik</h2><a href='http://duckduckgo.com/?q=Matkomik'>Search for Matkomik</a></div><div class='area' style='left:71px;top:269px;width:350px;height:32px;'>A1 MATKOMIK</div><div class='box' style='left:977px;top:803px;width:19px;height:18px;'></div>
 </div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:998px;top:865px;'><h2>A3 Maple Comics</h2><a href='http://duckduckgo.com/?q=Maple%20Comics'>Search for Maple Comics</a></div><div class='area' style='left:71px;top:301px;width:350px;height:32px;'>A3 MAPLE COMICS</div><div class='box' style='left:977px;top:845px;width:19px;height:18px;'></div>

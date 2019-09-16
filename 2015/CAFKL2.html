@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -238,8 +237,8 @@ ul li a{ width: auto; height: auto; }
         glob_box_selector = booth;
         booth.style.opacity = 1;
         booth.getElementsByClassName('desc')[0].style.display = 'block';
-       // banner = booth.getElementsByClassName('banner')[0];
-       // banner.src = 'CAFKL2/artist/' + booth.id + '.jpg';
+         
+         
          
         coverbox = document.getElementById('coverbox');
         coverbox.style.opacity = 0.5;
@@ -295,7 +294,7 @@ ul li a{ width: auto; height: auto; }
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL2/CAFKL2.png' onerror="this.src = './CAFKL2/CAFKL2.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL2/CAFKL2.png' style='' onerror="this.src = './CAFKL2/CAFKL2.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:1023px;top:1322px;'><h2>A1 Lalage</h2><ul>
 <a href='http://twitter.com/madaoba' class='twt'></a><a href='http://lalage.tumblr.com' class='tmb'></a><a href='http://instagram.com/hweigh' class='ins'></a></ul></div><div class='area' style='left:75px;top:298px;width:350px;height:31px;'>A1 LALAGE</div><div class='box' style='left:999px;top:1299px;width:22px;height:21px;'></div>

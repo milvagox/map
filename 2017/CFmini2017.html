@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>CFmini2017 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2017/CFmini2017.jpg' onerror="this.src = './CFmini2017/CFmini2017.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2017/CFmini2017.jpg' style='' onerror="this.src = './CFmini2017/CFmini2017.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='D10' href='http://fb.me/animeaccess'><div class='area' style='left:76px;top:807px;width:400px;height:26px;'>D10 ANIME ACCESS + NIHOEN</div><div class='box' style='left:935px;top:567px;width:52px;height:35px;'></div>
 </a><a class='booth' id='B3' href='http://duckduckgo.com/?q=Artzy%20Currae'><div class='area' style='left:76px;top:833px;width:400px;height:25px;'>B3 ARTZY CURRAE</div><div class='box' style='left:462px;top:443px;width:114px;height:35px;'></div>
@@ -180,7 +180,7 @@
 </a><a class='booth' id='E7' href='http://fb.me/lefluffykitsune'><div class='area' style='left:551px;top:935px;width:450px;height:26px;'>E7 LE FLUFFY KITSUNE</div><div class='box' style='left:751px;top:638px;width:114px;height:35px;'></div>
 </a><a class='booth' id='E5' href='http://duckduckgo.com/?q=love%20cosme%20%26%20mini%20sakura'><div class='area' style='left:551px;top:961px;width:450px;height:26px;'>E5 LOVE COSME &AMP; MINI SAKURA</div><div class='box' style='left:588px;top:638px;width:52px;height:35px;'></div>
 </a><a class='booth' id='D2' href='http://duckduckgo.com/?q=Mai%20%26%20Momo'><div class='area' style='left:551px;top:987px;width:450px;height:25px;'>D2 MAI &AMP; MOMO</div><div class='box' style='left:400px;top:567px;width:52px;height:35px;'></div>
-</a><a class='booth' id='F3' href='http://duckduckgo.com/?q=MakingGimmick'><div class='area' style='left:551px;top:1012px;width:450px;height:26px;'>F3 MAKINGGIMMICK</div><div class='box' style='left:463px;top:693px;width:114px;height:35px;'></div>
+</a><a class='booth' id='F3' href='http://fb.me/mj.fong.37'><div class='area' style='left:551px;top:1012px;width:450px;height:26px;'>F3 MAKINGGIMMICK</div><div class='box' style='left:463px;top:693px;width:114px;height:35px;'></div>
 </a><a class='booth' id='A7' href='http://twitter.com/maorenc'><div class='area' style='left:551px;top:1038px;width:450px;height:26px;'>A7 MAORENC</div><div class='box' style='left:749px;top:389px;width:52px;height:35px;'></div>
 </a><a class='booth' id='B6' href='http://duckduckgo.com/?q=MianMao%20Mini%20%E5%B0%8F%E7%9C%A0%E7%8C%AB'><div class='area' style='left:551px;top:1064px;width:450px;height:25px;'>B6 MIANMAO MINI 小眠猫</div><div class='box' style='left:687px;top:443px;width:52px;height:35px;'></div>
 </a><a class='booth' id='C2' href='http://duckduckgo.com/?q=M.Y.%20Memories'><div class='area' style='left:551px;top:1089px;width:450px;height:26px;'>C2 M.Y. MEMORIES</div><div class='box' style='left:400px;top:513px;width:52px;height:35px;'></div>

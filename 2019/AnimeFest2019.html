@@ -10,6 +10,7 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/AnimeFest2019.png">
 <meta name="description" content="AnimeFest2019 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/AnimeFest2019.html">
  <title>AnimeFest2019 Map++</title>
  <style>
   .banner { position: absolute; z-index: 200; }
@@ -36,6 +37,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -67,8 +69,8 @@
     display: none;
   }
   .booth:hover + .custimg { display: block; }
-ul a{ width: 32px; height: 32px; display: inline-block; margin: 2px; }
-ul li a{ width: auto; height: auto; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.desc > ul { list-style: none }
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -79,6 +81,7 @@ ul li a{ width: auto; height: auto; }
 .cct { background: url('../ico/cct.png'); }
 .cgc { background: url('../ico/cgc.png'); }
 .charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
 .cottonwings { background: url('../ico/cottonwings.png'); }
 .cpg { background: url('../ico/cpg.png'); }
 .crd { background: url('../ico/crd.png'); }
@@ -90,6 +93,7 @@ ul li a{ width: auto; height: auto; }
 .fbk { background: url('../ico/fbk.png'); }
 .fc2 { background: url('../ico/fc2.png'); }
 .gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
 .imtxm { background: url('../ico/imtxm.png'); }
 .inp { background: url('../ico/inp.png'); }
 .ins { background: url('../ico/ins.png'); }
@@ -106,6 +110,7 @@ ul li a{ width: auto; height: auto; }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -298,31 +303,31 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='Ani
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AnimeFest2019/AnimeFest2019.png' style='' onerror="this.src = './AnimeFest2019/AnimeFest2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='C3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:244px;top:93px;'><h2>C3 AK Games Centre</h2><ul>
-<a href='http://fb.me/AKGamesCentre' class='fbk'></a></ul></div><img class='banner' style='left:244px;top:93px;'><div class='area' style='display: none'>C3 AK GAMES CENTRE</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/AKGamesCentre' class='fbk'></a></li></ul></div><img class='banner' style='left:244px;top:93px;'><div class='area' style='display: none'>C3 AK GAMES CENTRE</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='C2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:298px;top:93px;'><h2>C2 BUTTERSPOON</h2><ul>
-<a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a><a href='http://fb.me/lucas.chan' class='fbk'></a></ul></div><img class='banner' style='left:298px;top:93px;'><div class='area' style='display: none'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div>
+<li><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><img class='banner' style='left:298px;top:93px;'><div class='area' style='display: none'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='C1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:352px;top:93px;'><h2>C1 MM HANDMADE SOUVENIR</h2><ul>
-<a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></ul></div><img class='banner' style='left:352px;top:93px;'><div class='area' style='display: none'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div>
+<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><img class='banner' style='left:352px;top:93px;'><div class='area' style='display: none'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:201px;'><h2>B7 ZinMaTo</h2><ul>
-<a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></ul></div><img class='banner' style='left:300px;top:201px;'><div class='area' style='display: none'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div>
+<li><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><img class='banner' style='left:300px;top:201px;'><div class='area' style='display: none'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div>
 </div><div class='booth' id='B6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:255px;'><h2>B6 HOBILITY</h2><ul>
-<a href='http://fb.me/Hobility' class='fbk'></a>  <li><a href='http://hobility.com'>hobility.com</a></li>
-</ul></div><img class='banner' style='left:300px;top:255px;'><div class='area' style='display: none'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div>
+<li><a href='http://fb.me/Hobility' class='fbk'></a></li><li><a href='http://hobility.com'>hobility.com</a></li><li>
+</li></ul></div><img class='banner' style='left:300px;top:255px;'><div class='area' style='display: none'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div>
 </div><div class='booth' id='B5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:254px;'><h2>B5 CHIBI&#39;S COSPLAY SHOPPIE</h2><ul>
-<a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></ul></div><img class='banner' style='left:353px;top:254px;'><div class='area' style='display: none'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div>
+<li><a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></li></ul></div><img class='banner' style='left:353px;top:254px;'><div class='area' style='display: none'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div>
 </div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:348px;'><h2>B3 My Stylesz</h2><ul>
-<a href='http://fb.me/MyStylesz.Trading' class='fbk'></a><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li></ul></div><img class='banner' style='left:299px;top:348px;'><div class='area' style='display: none'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/MyStylesz.Trading' class='fbk'></a></li><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:348px;'><div class='area' style='display: none'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:348px;'><h2>B4 Artist Hub</h2><ul>
-<a href='http://fb.me/ArtistHubMalaysia' class='fbk'></a><li><a href='mailto://artisthubmalaysia@gmail.com'>email: artisthubmalaysia@gmail.com</a></li></ul></div><img class='banner' style='left:353px;top:348px;'><div class='area' style='display: none'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/ArtistHubMalaysia' class='fbk'></a></li><li><a href='mailto://artisthubmalaysia@gmail.com'>email: artisthubmalaysia@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:348px;'><div class='area' style='display: none'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:404px;'><h2>B2 Shota &amp; Lolita Shop</h2><ul>
-<a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li></ul></div><img class='banner' style='left:299px;top:404px;'><div class='area' style='display: none'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='opacity:0;left:248px;top:352px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:404px;'><div class='area' style='display: none'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='opacity:0;left:248px;top:352px;width:49px;height:50px;'></div>
 </div><img src='./AnimeFest2019/B2.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:404px;'><h2>B1 XD SHOP</h2><ul>
-<a href='http://fb.me/XD.AnimeShop' class='fbk'></a><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li></ul></div><img class='banner' style='left:353px;top:404px;'><div class='area' style='display: none'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/XD.AnimeShop' class='fbk'></a></li><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:404px;'><div class='area' style='display: none'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div>
 </div><div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:250px;'><h2>A1 ケムスー万事屋 Kemusuu Yorozuya</h2><ul>
-<li><a href='mailto://siriusyun@hotmail.com'>email: siriusyun@hotmail.com</a></li></ul></div><img class='banner' style='left:489px;top:250px;'><div class='area' style='display: none'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div>
+<li></li><li><a href='mailto://siriusyun@hotmail.com'>email: siriusyun@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:489px;top:250px;'><div class='area' style='display: none'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div>
 </div><div class='booth' id='A2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:356px;'><h2>A2 OH! GATCHA</h2><ul>
-  <li><a href='http://ohgatcha.com'>ohgatcha.com</a></li>
-</ul></div><img class='banner' style='left:489px;top:356px;'><div class='area' style='display: none'>A2 OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div>
+<li></li><li><a href='http://ohgatcha.com'>ohgatcha.com</a></li><li>
+</li></ul></div><img class='banner' style='left:489px;top:356px;'><div class='area' style='display: none'>A2 OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

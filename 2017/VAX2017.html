@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>VAX2017 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./VAX2017/VAX2017.png' onerror="this.src = './VAX2017/VAX2017.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./VAX2017/VAX2017.png' style='' onerror="this.src = './VAX2017/VAX2017.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A1' href='http://duckduckgo.com/?q=Artsecution'><div class='area' style='left:64px;top:617px;width:195px;height:15px;'>A1 ARTSECUTION</div><div class='box' style='left:110px;top:190px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:122px; width:91px; height:91px'></div>
 </a><a class='booth' id='A2' href='http://fb.me/kendylife'><div class='area' style='left:64px;top:632px;width:195px;height:15px;'>A2 #KENDYLIFE</div><div class='box' style='left:179px;top:190px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:122px; width:91px; height:91px'></div>
@@ -164,7 +164,7 @@
 </a><a class='booth' id='B3' href='http://twitter.com/ComicsByVieN'><div class='area' style='left:64px;top:770px;width:195px;height:15px;'>B3 OSUGATARI</div><div class='box' style='left:248px;top:302px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:310px; width:91px; height:91px'></div>
 </a><a class='booth' id='B4' href='http://twitter.com/Fukurou_kun33'><div class='area' style='left:64px;top:785px;width:195px;height:16px;'>B4 FRUITCAKES</div><div class='box' style='left:317px;top:302px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:310px; width:91px; height:91px'></div>
 </a><a class='booth' id='B5' href='http://twitter.com/MieHanz_Art'><div class='area' style='left:64px;top:801px;width:195px;height:15px;'>B5 5 MORE MINUTES</div><div class='box' style='left:110px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:402px; width:91px; height:91px'></div>
-</a><a class='booth' id='B6' href='http://fb.me/ThyScullsArt'><div class='area' style='left:64px;top:816px;width:195px;height:15px;'>B6 SCULL ARTS</div><div class='box' style='left:179px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:402px; width:91px; height:91px'></div>
+</a><a class='booth' id='B6' href='http://twitter.com/SirScull'><div class='area' style='left:64px;top:816px;width:195px;height:15px;'>B6 SCULL ARTS</div><div class='box' style='left:179px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:628px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='B7' href='http://duckduckgo.com/?q=Suki%20Ni%20Shiro'><div class='area' style='left:64px;top:831px;width:195px;height:16px;'>B7 SUKI NI SHIRO</div><div class='box' style='left:248px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:722px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='B8' href='http://fb.me/YukkuriDoujin'><div class='area' style='left:64px;top:847px;width:195px;height:15px;'>B8 YUKKURI</div><div class='box' style='left:317px;top:349px;width:66px;height:31px;'></div><div class='box' style='left:816px; top:402px; width:91px; height:91px'></div>
 </a><a class='booth' id='C1' href='http://duckduckgo.com/?q=Salty%20Mayhem'><div class='area' style='left:64px;top:862px;width:195px;height:15px;'>C1 SALTY MAYHEM</div><div class='box' style='left:110px;top:414px;width:66px;height:31px;'></div><div class='box' style='left:534px; top:497px; width:91px; height:91px'></div>

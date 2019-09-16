@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>S4O2019 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2019/S4O2019.png' onerror="this.src = './S4O2019/S4O2019.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2019/S4O2019.png' style='' onerror="this.src = './S4O2019/S4O2019.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='N1' href='http://instagram.com/alexahuke'><div class='area' style='left:82px;top:496px;width:223px;height:19px;'>N1 MOCHIMOCHI</div><div class='box' style='left:198px;top:188px;width:37px;height:16px;'></div>
 </a><a class='booth' id='N2' href='http://facebook.com/ARU-171-239739616747108'><div class='area' style='left:82px;top:515px;width:223px;height:19px;'>N2 ARU 17+1</div><div class='box' style='left:239px;top:188px;width:37px;height:16px;'></div>
@@ -173,8 +173,8 @@
 </a><a class='booth' id='N20' href='http://fb.me/CarmenLimRui'><div class='area' style='left:315px;top:553px;width:223px;height:19px;'>N20 RUI</div><div class='box' style='left:239px;top:280px;width:37px;height:16px;'></div>
 </a><a class='booth' id='N21' href='http://duckduckgo.com/?q=Moemono'><div class='area' style='left:315px;top:572px;width:223px;height:19px;'>N21 MOEMONO</div><div class='box' style='left:301px;top:280px;width:37px;height:16px;'></div>
 </a><a class='booth' id='N22' href='http://duckduckgo.com/?q=Moemono'><div class='area' style='left:315px;top:591px;width:223px;height:19px;'>N22 MOEMONO</div><div class='box' style='left:342px;top:280px;width:37px;height:16px;'></div>
-</a><a class='booth' id='N23' href='http://duckduckgo.com/?q=Accel%20Helper%20Shop%20%26%20Services'><div class='area' style='left:315px;top:610px;width:223px;height:19px;'>N23 ACCEL HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:399px;top:280px;width:37px;height:16px;'></div>
-</a><a class='booth' id='N24' href='http://duckduckgo.com/?q=Accel%20Helper%20Shop%20%26%20Services'><div class='area' style='left:315px;top:629px;width:223px;height:19px;'>N24 ACCEL HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:440px;top:280px;width:37px;height:16px;'></div>
+</a><a class='booth' id='N23' href='http://fb.me/accelshelpershopandservices'><div class='area' style='left:315px;top:610px;width:223px;height:19px;'>N23 ACCEL HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:399px;top:280px;width:37px;height:16px;'></div>
+</a><a class='booth' id='N24' href='http://fb.me/accelshelpershopandservices'><div class='area' style='left:315px;top:629px;width:223px;height:19px;'>N24 ACCEL HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:440px;top:280px;width:37px;height:16px;'></div>
 </a><a class='booth' id='N25' href='http://fb.me/mypandorabox.msia'><div class='area' style='left:315px;top:648px;width:223px;height:19px;'>N25 PANDORA BOX</div><div class='box' style='left:531px;top:188px;width:18px;height:35px;'></div>
 </a><a class='booth' id='N26' href='http://duckduckgo.com/?q=ROCK-ONGAKU%21'><div class='area' style='left:315px;top:667px;width:223px;height:19px;'>N26 ROCK-ONGAKU!</div><div class='box' style='left:531px;top:227px;width:18px;height:35px;'></div>
 </a><a class='booth' id='N27' href='http://duckduckgo.com/?q=Chateau'><div class='area' style='left:315px;top:686px;width:223px;height:19px;'>N27 CHATEAU</div><div class='box' style='left:487px;top:330px;width:37px;height:16px;'></div>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -11,6 +10,7 @@
 <meta property="og:image" content="http://milvagox.netlify.com/twt/CFmini2015.png">
 <meta name="description" content="CFmini2015 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2015/CFmini2015.html">
  <title>CFmini2015 Map++</title>
  <style>
   .booth { 
@@ -36,6 +36,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -158,11 +159,11 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2015/CFmini2015.png' onerror="this.src = './CFmini2015/CFmini2015.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2015/CFmini2015.png' style='' onerror="this.src = './CFmini2015/CFmini2015.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A01' href='http://duckduckgo.com/?q=LlamaLollipop'><div class='area' style='left:70px;top:667px;width:300px;height:29px;'>A01 LLAMALOLLIPOP</div><div class='box' style='left:429px;top:282px;width:53px;height:53px;'></div>
 </a><a class='booth' id='A02' href='http://duckduckgo.com/?q=Lulu%27s%20Mini%20Shop'><div class='area' style='left:70px;top:696px;width:300px;height:29px;'>A02 LULU&#39;S MINI SHOP</div><div class='box' style='left:493px;top:282px;width:53px;height:53px;'></div>
-</a><a class='booth' id='A03' href='http://duckduckgo.com/?q=MAKINGGIMMICK'><div class='area' style='left:70px;top:725px;width:300px;height:29px;'>A03 MAKINGGIMMICK</div><div class='box' style='left:557px;top:282px;width:117px;height:53px;'></div>
+</a><a class='booth' id='A03' href='http://fb.me/mj.fong.37'><div class='area' style='left:70px;top:725px;width:300px;height:29px;'>A03 MAKINGGIMMICK</div><div class='box' style='left:557px;top:282px;width:117px;height:53px;'></div>
 </a><a class='booth' id='A05' href='http://duckduckgo.com/?q=Cyborg25'><div class='area' style='left:70px;top:754px;width:300px;height:29px;'>A05 CYBORG25</div><div class='box' style='left:685px;top:282px;width:117px;height:53px;'></div>
 </a><a class='booth' id='A07' href='http://duckduckgo.com/?q=Paraetto%20D%C3%A9%20Casa'><div class='area' style='left:70px;top:783px;width:300px;height:29px;'>A07 PARAETTO DÉ CASA</div><div class='box' style='left:813px;top:282px;width:53px;height:53px;'></div>
 </a><a class='booth' id='A08' href='http://fb.me/YukkuriDoujin'><div class='area' style='left:70px;top:812px;width:300px;height:29px;'>A08 YUKKURI</div><div class='box' style='left:969px;top:282px;width:53px;height:53px;'></div>

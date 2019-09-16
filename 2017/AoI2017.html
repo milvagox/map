@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>AoI2017 Map++</title>
  <style>
   .booth { 
@@ -27,6 +26,7 @@
     z-index: 130;
     opacity: inherit;
   }
+  .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
     border-radius: 4px; 
@@ -149,7 +149,7 @@
 <div style='position: absolute; z-index: 1; height: 35px'>
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AoI2017/AoI2017.png' onerror="this.src = './AoI2017/AoI2017.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AoI2017/AoI2017.png' style='' onerror="this.src = './AoI2017/AoI2017.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <a class='booth' id='A01' href='http://fb.me/automeXN'><div class='area' style='left:71px;top:592px;width:400px;height:31px;'>A01 AUTOME XYRYSSE</div><div class='box' style='left:147px;top:346px;width:59px;height:24px;'></div>
 </a><a class='booth' id='A02' href='http://twitter.com/florencemomo'><div class='area' style='left:71px;top:623px;width:400px;height:31px;'>A02 BANANA CLOVER</div><div class='box' style='left:211px;top:346px;width:59px;height:24px;'></div>
