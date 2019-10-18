@@ -27,6 +27,7 @@ Booth location can be highlight with hash('#') on the link.
 
 # 2018
 - [CF2018](http://milvagox.github.io/map/2018/CF2018)
+- [Cosmart2018](http://milvagox.github.io/map/2018/Cosmart2018) ([Cosplay Alley](http://milvagox.github.io/map/2018/Cosmart2018C)) ([Exhibitor Booth](http://milvagox.github.io/map/2018/Cosmart2018E))
 - [AnimeFest2018](http://milvagox.github.io/map/2018/AnimeFest2018)
 - [CFmini2018](http://milvagox.github.io/map/2018/CFmini2018)
 - [AMG2018](http://milvagox.github.io/map/2018/AMG2018)
