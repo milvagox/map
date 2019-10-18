@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cosmart2019 Interactive Map">
+<meta property="og:description" content="Cosmart2019 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/Cosmart2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/Cosmart2019.png">
+<meta name="description" content="Cosmart2019 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/Cosmart2019.html">
+ <title>Cosmart2019 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    min-height: 250px; 
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.desc > ul { list-style: none }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div>
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2019/Cosmart2019E.png' style='' onerror="this.src = './Cosmart2019/Cosmart2019E.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='G00' onclick='link_click(this)'><div class='desc' style='left:176px;top:552px;'><h2>G00 Oh! Gatcha</h2><ul>
+<li></li><li><a href='http://ohgatcha.com'>ohgatcha.com</a></li><li>
+</li></ul></div><div class='area' style='left:43px;top:782px;width:350px;height:22px;'>G00 OH! GATCHA</div><div class='box' style='left:130px;top:350px;width:44px;height:200px;'></div>
+</div><div class='booth' id='G01' onclick='link_click(this)'><div class='desc' style='left:324px;top:446px;'><h2>G01 CHIBI&#39;S COSPLAY SHOPPIE</h2><ul>
+<li><a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></li></ul></div><div class='area' style='left:43px;top:804px;width:350px;height:22px;'>G01 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:229px;top:351px;width:93px;height:93px;'></div>
+</div><div class='booth' id='G05' onclick='link_click(this)'><div class='desc' style='left:464px;top:397px;'><h2>G05 Accel DriveTokuMalaysia</h2><a href='http://duckduckgo.com/?q=Accel%20DriveTokuMalaysia'>Search for Accel DriveTokuMalaysia</a></div><div class='area' style='left:43px;top:826px;width:350px;height:22px;'>G05 ACCEL DRIVETOKUMALAYSIA</div><div class='box' style='left:369px;top:351px;width:93px;height:44px;'></div>
+</div><div class='booth' id='G07' onclick='link_click(this)'><div class='desc' style='left:415px;top:449px;'><h2>G07 Shota &amp; Lolita Shop</h2><ul>
+<li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:43px;top:848px;width:350px;height:22px;'>G07 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:369px;top:403px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G08' onclick='link_click(this)'><div class='desc' style='left:466px;top:449px;'><h2>G08 XD Shop</h2><ul>
+<li><a href='http://fb.me/XD.AnimeShop' class='fbk'></a></li><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:43px;top:870px;width:350px;height:22px;'>G08 XD SHOP</div><div class='box' style='left:420px;top:403px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G09' onclick='link_click(this)'><div class='desc' style='left:555px;top:397px;'><h2>G09 Wings Cosplay Shop</h2><a href='http://duckduckgo.com/?q=Wings%20Cosplay%20Shop'>Search for Wings Cosplay Shop</a></div><div class='area' style='left:43px;top:892px;width:350px;height:22px;'>G09 WINGS COSPLAY SHOP</div><div class='box' style='left:509px;top:351px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G10' onclick='link_click(this)'><div class='desc' style='left:606px;top:397px;'><h2>G10 ParalleleParaiso</h2><a href='http://duckduckgo.com/?q=ParalleleParaiso'>Search for ParalleleParaiso</a></div><div class='area' style='left:43px;top:914px;width:350px;height:22px;'>G10 PARALLELEPARAISO</div><div class='box' style='left:560px;top:351px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G11' onclick='link_click(this)'><div class='desc' style='left:555px;top:449px;'><h2>G11 Fabric Fanatics</h2><a href='http://duckduckgo.com/?q=Fabric%20Fanatics'>Search for Fabric Fanatics</a></div><div class='area' style='left:456px;top:780px;width:410px;height:22px;'>G11 FABRIC FANATICS</div><div class='box' style='left:509px;top:403px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G12' onclick='link_click(this)'><div class='desc' style='left:606px;top:449px;'><h2>G12 ケムスー万事屋 (KemusuuYorozuya)</h2><a href='http://duckduckgo.com/?q=%E3%82%B1%E3%83%A0%E3%82%B9%E3%83%BC%E4%B8%87%E4%BA%8B%E5%B1%8B%20%28KemusuuYorozuya%29'>Search for ケムスー万事屋 (KemusuuYorozuya)</a></div><div class='area' style='left:456px;top:802px;width:410px;height:22px;'>G12 ケムスー万事屋 (KEMUSUUYOROZUYA)</div><div class='box' style='left:560px;top:403px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G13' onclick='link_click(this)'><div class='desc' style='left:275px;top:548px;'><h2>G13 ANIME SPLITS AND ORDERS</h2><a href='http://duckduckgo.com/?q=ANIME%20SPLITS%20AND%20ORDERS'>Search for ANIME SPLITS AND ORDERS</a></div><div class='area' style='left:456px;top:824px;width:410px;height:22px;'>G13 ANIME SPLITS AND ORDERS</div><div class='box' style='left:229px;top:502px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G14' onclick='link_click(this)'><div class='desc' style='left:326px;top:548px;'><h2>G14 MY STYLESZ</h2><a href='http://duckduckgo.com/?q=MY%20STYLESZ'>Search for MY STYLESZ</a></div><div class='area' style='left:456px;top:846px;width:410px;height:22px;'>G14 MY STYLESZ</div><div class='box' style='left:280px;top:502px;width:44px;height:44px;'></div>
+</div><div class='booth' id='G15' onclick='link_click(this)'><div class='desc' style='left:464px;top:548px;'><h2>G15 MM HANDMADE &amp; SOUVENIR</h2><ul>
+<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><div class='area' style='left:456px;top:868px;width:410px;height:22px;'>G15 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:369px;top:502px;width:93px;height:44px;'></div>
+</div><div class='booth' id='G17' onclick='link_click(this)'><div class='desc' style='left:604px;top:548px;'><h2>G17 COSDREAMERS JAPAN</h2><ul>
+<li><a href='http://instagram.com/cosdreamersjapanshop' class='ins'></a><a href='http://fb.me/cosdreamersjapan' class='fbk'></a></li><li><a href='http://http://cosdreamersjapan.my'>http://cosdreamersjapan.my</a></li><li>
+</li></ul></div><div class='area' style='left:456px;top:890px;width:410px;height:22px;'>G17 COSDREAMERS JAPAN</div><div class='box' style='left:509px;top:502px;width:93px;height:44px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to Cosmart2019 artists and organizer.-->
