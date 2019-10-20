@@ -4,17 +4,17 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cosmart2018 Interactive Map DEV">
-<meta property="og:description" content="Cosmart2018 map development page">
+<meta property="og:title" content="Cosmart2018 Interactive Map">
+<meta property="og:description" content="Cosmart2018 map with clickable artists' SNS links and search.">
 <meta property="og:url" content="https://milvagox.netlify.com/Cosmart2018">
-<meta property="og:image" content="http://milvagox.netlify.com/twt/Cosmart2018X.png">
-<meta name="description" content="Cosmart2018 map development page">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/Cosmart2018.png">
+<meta name="description" content="Cosmart2018 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://milvagox.netlify.com/2018/Cosmart2018.html">
  <title>Cosmart2018 Map++</title>
  <style>
   .booth { 
-    opacity: 0.5;
+    opacity: 0;
     cursor: pointer;
   }
   .booth:hover { opacity: 1; }
@@ -25,7 +25,7 @@
     background-color: rgba(0, 255, 255, 0.3);
     position: absolute;
     text-align: right;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
   }
@@ -75,6 +75,7 @@
 .annuendo { background: url('../ico/annuendo.png'); }
 .ast { background: url('../ico/ast.png'); }
 .bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
 .bhc { background: url('../ico/bhc.png'); }
 .bsp { background: url('../ico/bsp.png'); }
 .cct { background: url('../ico/cct.png'); }
@@ -104,6 +105,8 @@
 .lokamade { background: url('../ico/lokamade.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
@@ -127,6 +130,7 @@
 .wix { background: url('../ico/wix.png'); }
 .wtn { background: url('../ico/wtn.png'); }
 .yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
 
   .desc ul {
     padding: 0;
@@ -303,23 +307,25 @@
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='D01' onclick='link_click(this)'><div class='desc' style='left:418px;top:434px;'><h2>D01 MY STYLESZ</h2><ul>
 <li><a href='http://fb.me/MyStylesz.Trading' class='fbk'></a></li><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li><li></li></ul></div><div class='area' style='left:38px;top:771px;width:260px;height:21px;'>D01 MY STYLESZ</div><div class='box' style='left:372px;top:388px;width:44px;height:44px;'></div>
-</div><div class='booth' id='D02' onclick='link_click(this)'><div class='desc' style='left:418px;top:485px;'><h2>D02 Kiba Lee</h2><a href='http://duckduckgo.com/?q=Kiba%20Lee'>Search for Kiba Lee</a></div><div class='area' style='left:38px;top:792px;width:260px;height:21px; color: red; background-color: salmon'>D02 KIBA LEE</div><div class='box' style='left:372px;top:439px;width:44px;height:44px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='D02' onclick='link_click(this)'><div class='desc' style='left:418px;top:485px;'><h2>D02 Kiba Lee</h2><a href='http://duckduckgo.com/?q=Kiba%20Lee'>Search for Kiba Lee</a></div><div class='area' style='left:38px;top:792px;width:260px;height:21px;'>D02 KIBA LEE</div><div class='box' style='left:372px;top:439px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D03' onclick='link_click(this)'><div class='desc' style='left:418px;top:536px;'><h2>D03 Shota &amp; Lolita Shop</h2><ul>
 <li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:38px;top:813px;width:260px;height:21px;'>D03 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:372px;top:490px;width:44px;height:44px;'></div>
-</div><div class='booth' id='D04' onclick='link_click(this)'><div class='desc' style='left:470px;top:434px;'><h2>D04 Hobby Legend</h2><a href='http://duckduckgo.com/?q=Hobby%20Legend'>Search for Hobby Legend</a></div><div class='area' style='left:38px;top:834px;width:260px;height:21px; color: red; background-color: salmon'>D04 HOBBY LEGEND</div><div class='box' style='left:424px;top:388px;width:44px;height:44px; color: red; background-color: salmon'></div>
-</div><div class='booth' id='D05' onclick='link_click(this)'><div class='desc' style='left:470px;top:485px;'><h2>D05 EBI X EEVON</h2><a href='http://duckduckgo.com/?q=EBI%20X%20EEVON'>Search for EBI X EEVON</a></div><div class='area' style='left:38px;top:855px;width:260px;height:21px; color: red; background-color: salmon'>D05 EBI X EEVON</div><div class='box' style='left:424px;top:439px;width:44px;height:44px; color: red; background-color: salmon'></div>
-</div><div class='booth' id='D06' onclick='link_click(this)'><div class='desc' style='left:470px;top:536px;'><h2>D06 Wings Cosplay Shop</h2><a href='http://duckduckgo.com/?q=Wings%20Cosplay%20Shop'>Search for Wings Cosplay Shop</a></div><div class='area' style='left:38px;top:876px;width:260px;height:21px; color: red; background-color: salmon'>D06 WINGS COSPLAY SHOP</div><div class='box' style='left:424px;top:490px;width:44px;height:44px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='D04' onclick='link_click(this)'><div class='desc' style='left:470px;top:434px;'><h2>D04 Hobby Legend</h2><a href='http://duckduckgo.com/?q=Hobby%20Legend'>Search for Hobby Legend</a></div><div class='area' style='left:38px;top:834px;width:260px;height:21px;'>D04 HOBBY LEGEND</div><div class='box' style='left:424px;top:388px;width:44px;height:44px;'></div>
+</div><div class='booth' id='D05' onclick='link_click(this)'><div class='desc' style='left:470px;top:485px;'><h2>D05 EBI X EEVON</h2><a href='http://duckduckgo.com/?q=EBI%20X%20EEVON'>Search for EBI X EEVON</a></div><div class='area' style='left:38px;top:855px;width:260px;height:21px;'>D05 EBI X EEVON</div><div class='box' style='left:424px;top:439px;width:44px;height:44px;'></div>
+</div><div class='booth' id='D06' onclick='link_click(this)'><div class='desc' style='left:470px;top:536px;'><h2>D06 Wings Cosplay Shop</h2><a href='http://duckduckgo.com/?q=Wings%20Cosplay%20Shop'>Search for Wings Cosplay Shop</a></div><div class='area' style='left:38px;top:876px;width:260px;height:21px;'>D06 WINGS COSPLAY SHOP</div><div class='box' style='left:424px;top:490px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D07' onclick='link_click(this)'><div class='desc' style='left:606px;top:434px;'><h2>D07 CHIBI&#39;S COSPLAY SHOPPIE</h2><ul>
 <li><a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></li></ul></div><div class='area' style='left:340px;top:771px;width:310px;height:21px;'>D07 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:511px;top:388px;width:93px;height:44px;'></div><div class='box' style='left:511px; top:437px; width:44px; height:44px'></div>
-</div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:555px;top:536px;'><h2>D10 Parallele Paraiso Cosshop</h2><a href='http://duckduckgo.com/?q=Parallele%20Paraiso%20Cosshop'>Search for Parallele Paraiso Cosshop</a></div><div class='area' style='left:340px;top:792px;width:310px;height:21px; color: red; background-color: salmon'>D10 PARALLELE PARAISO COSSHOP</div><div class='box' style='left:509px;top:490px;width:44px;height:44px; color: red; background-color: salmon'></div>
-</div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:608px;top:486px;'><h2>D11 Accel Drive Toku Malaysia</h2><a href='http://duckduckgo.com/?q=Accel%20Drive%20Toku%20Malaysia'>Search for Accel Drive Toku Malaysia</a></div><div class='area' style='left:340px;top:813px;width:310px;height:21px; color: red; background-color: salmon'>D11 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:562px;top:440px;width:44px;height:44px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:555px;top:536px;'><h2>D10 Parallele Paraiso Cosshop</h2><ul>
+<li><a href='http://instagram.com/parallele.paraiso' class='ins'></a><a href='http://paralleleparaisocos.blogspot.com' class='bsp'></a><a href='http://fb.me/parallelparadisecos' class='fbk'></a><a href='http://youtube.com/channel/UC_GWj2TWBnoSqv7aY7omSdg' class='ytb'></a><a href='http://parallelparadisecos.com' class='parallelparadisecos'></a></li></ul></div><div class='area' style='left:340px;top:792px;width:310px;height:21px;'>D10 PARALLELE PARAISO COSSHOP</div><div class='box' style='left:509px;top:490px;width:44px;height:44px;'></div>
+</div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:608px;top:486px;'><h2>D11 Accel Drive Toku Malaysia</h2><ul>
+<li><a href='http://fb.me/accelshelpershopandservices' class='fbk'></a></li></ul></div><div class='area' style='left:340px;top:813px;width:310px;height:21px;'>D11 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:562px;top:440px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D12' onclick='link_click(this)'><div class='desc' style='left:608px;top:537px;'><h2>D12 Hobility</h2><ul>
 <li><a href='http://fb.me/Hobility' class='fbk'></a></li><li><a href='http://hobility.com'>hobility.com</a></li><li>
 </li></ul></div><div class='area' style='left:340px;top:834px;width:310px;height:21px;'>D12 HOBILITY</div><div class='box' style='left:562px;top:491px;width:44px;height:44px;'></div>
 </div><div class='booth' id='E01' onclick='link_click(this)'><div class='desc' style='left:204px;top:535px;'><h2>E01 Oh! Gatcha 25C Art &amp; Hobbies</h2><ul>
 <li><a href='http://instagram.com/oh.gatcha' class='ins'></a><a href='http://fb.me/oh.gatcha' class='fbk'></a></li><li><a href='http://ohgatcha.com'>ohgatcha.com</a></li><li>
 </li><li><a href='http://fb.me/25cArtandHobbies' class='fbk'></a></li></ul></div><div class='area' style='left:702px;top:771px;width:260px;height:42px;'>E01 OH! GATCHA 25C ART &AMP; HOBBIES</div><div class='box' style='left:158px;top:388px;width:44px;height:145px;'></div>
-</div><div class='booth' id='E02' onclick='link_click(this)'><div class='desc' style='left:338px;top:535px;'><h2>E02 La Petite Fox</h2><a href='http://duckduckgo.com/?q=La%20Petite%20Fox'>Search for La Petite Fox</a></div><div class='area' style='left:702px;top:813px;width:260px;height:21px; color: red; background-color: salmon'>E02 LA PETITE FOX</div><div class='box' style='left:243px;top:388px;width:93px;height:145px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='E02' onclick='link_click(this)'><div class='desc' style='left:338px;top:535px;'><h2>E02 La Petite Fox</h2><a href='http://duckduckgo.com/?q=La%20Petite%20Fox'>Search for La Petite Fox</a></div><div class='area' style='left:702px;top:813px;width:260px;height:21px;'>E02 LA PETITE FOX</div><div class='box' style='left:243px;top:388px;width:93px;height:145px;'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->
