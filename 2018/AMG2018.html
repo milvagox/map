@@ -48,7 +48,9 @@
   .desc {
     padding: 10px 10px 10px 10px ;
     min-width: 280px; 
+    max-width: 500px;
     min-height: 250px; 
+    text-align: justify;
     background-color: white;
     position: absolute; 
     display: none;
@@ -103,6 +105,7 @@
 .lkt { background: url('../ico/lkt.png'); }
 .llo { background: url('../ico/llo.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
@@ -119,10 +122,12 @@
 .shp { background: url('../ico/shp.png'); }
 .sqs { background: url('../ico/sqs.png'); }
 .susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
 .tmb { background: url('../ico/tmb.png'); }
 .tps { background: url('../ico/tps.png'); }
 .twc { background: url('../ico/twc.png'); }
 .twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
 .unk { background: url('../ico/unk.png'); }
 .wbl { background: url('../ico/wbl.png'); }
 .wcp { background: url('../ico/wcp.png'); }
@@ -307,12 +312,12 @@
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:318px;top:443px;'><h2>A1 -SHINE-</h2><a href='http://duckduckgo.com/?q=-SHINE-'>Search for -SHINE-</a></div><div class='area' style='display: none'>A1 -SHINE-</div><div class='box' style='left:256px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:383px;top:443px;'><h2>A2 INNOCENT THIEVES OF HEARTS</h2><ul>
-<li><a href='http://instagram.com/tashigichan' class='ins'></a></li></ul></div><div class='area' style='display: none'>A2 INNOCENT THIEVES OF HEARTS</div><div class='box' style='left:321px;top:349px;width:60px;height:92px;'></div>
+<li><a href='http://instagram.com/tashigichan' class='ins'></a><a href='http://twitter.com/takiro_0' class='twt'></a><a href='http://instagram.com/takiro_tk' class='ins'></a><a href='http://fb.me/takiroArt' class='fbk'></a></li></ul></div><div class='area' style='display: none'>A2 INNOCENT THIEVES OF HEARTS</div><div class='box' style='left:321px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:448px;top:443px;'><h2>A3 PAASTELMEIGHTO</h2><a href='http://duckduckgo.com/?q=PAASTELMEIGHTO'>Search for PAASTELMEIGHTO</a></div><div class='area' style='display: none'>A3 PAASTELMEIGHTO</div><div class='box' style='left:386px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:513px;top:443px;'><h2>A4 SEASALTBACHI</h2><ul>
 <li><a href='http://facebook.com/sen.neihc/' class='fbk'></a></li></ul></div><div class='area' style='display: none'>A4 SEASALTBACHI</div><div class='box' style='left:451px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:578px;top:443px;'><h2>A5 BUTTERSPOON</h2><ul>
-<li><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><div class='area' style='display: none'>A5 BUTTERSPOON</div><div class='box' style='left:516px;top:349px;width:60px;height:92px;'></div>
+<li><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://instagram.com/butterspoonofficial' class='ins'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><div class='area' style='display: none'>A5 BUTTERSPOON</div><div class='box' style='left:516px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A6' onclick='link_click(this)'><div class='desc' style='left:643px;top:443px;'><h2>A6 ESTHERYU</h2><a href='http://duckduckgo.com/?q=ESTHERYU'>Search for ESTHERYU</a></div><div class='area' style='display: none'>A6 ESTHERYU</div><div class='box' style='left:581px;top:349px;width:60px;height:92px;'></div>
 </div><div class='booth' id='A7' onclick='link_click(this)'><div class='desc' style='left:708px;top:443px;'><h2>A7 FAT FAIRY</h2><ul>
 <li><a href='http://twitter.com/whitevoix' class='twt'></a><a href='http://fb.me/FetFairy' class='fbk'></a></li></ul></div><div class='area' style='display: none'>A7 FAT FAIRY</div><div class='box' style='left:646px;top:349px;width:60px;height:92px;'></div>
@@ -359,7 +364,8 @@
 </li></ul></div><div class='area' style='display: none'>B13 RAIT VISUAL WORKS</div><div class='box' style='left:1072px;top:457px;width:60px;height:92px;'></div>
 </div><div class='booth' id='B14' onclick='link_click(this)'><div class='desc' style='left:1237px;top:551px;'><h2>B14 CRUISE CRUSADE</h2><ul>
 <li><a href='http://twitter.com/Wamirul' class='twt'></a></li></ul></div><div class='area' style='display: none'>B14 CRUISE CRUSADE</div><div class='box' style='left:1175px;top:457px;width:60px;height:92px;'></div>
-</div><div class='booth' id='B15' onclick='link_click(this)'><div class='desc' style='left:1302px;top:551px;'><h2>B15 EPHEMERAL INCORPORATE</h2><a href='http://duckduckgo.com/?q=EPHEMERAL%20INCORPORATE'>Search for EPHEMERAL INCORPORATE</a></div><div class='area' style='display: none'>B15 EPHEMERAL INCORPORATE</div><div class='box' style='left:1240px;top:457px;width:60px;height:92px;'></div>
+</div><div class='booth' id='B15' onclick='link_click(this)'><div class='desc' style='left:1302px;top:551px;'><h2>B15 EPHEMERAL INCORPORATE</h2><ul>
+<li><a href='http://fb.me/Ephemeral.inc' class='fbk'></a></li></ul></div><div class='area' style='display: none'>B15 EPHEMERAL INCORPORATE</div><div class='box' style='left:1240px;top:457px;width:60px;height:92px;'></div>
 </div><div class='booth' id='B16' onclick='link_click(this)'><div class='desc' style='left:1367px;top:551px;'><h2>B16 PETRICHOR</h2><ul>
 <li><a href='http://twitter.com/papancakes' class='twt'></a><a href='http://twitter.com/bananacatlah' class='twt'></a></li></ul></div><div class='area' style='display: none'>B16 PETRICHOR</div><div class='box' style='left:1305px;top:457px;width:60px;height:92px;'></div>
 </div><div class='booth' id='B17' onclick='link_click(this)'><div class='desc' style='left:1432px;top:551px;'><h2>B17 FIKURIEN</h2><a href='http://duckduckgo.com/?q=FIKURIEN'>Search for FIKURIEN</a></div><div class='area' style='display: none'>B17 FIKURIEN</div><div class='box' style='left:1370px;top:457px;width:60px;height:92px;'></div>
@@ -368,7 +374,7 @@
 <li><a href='http://fb.me/shuuuuuujing.doodle' class='fbk'></a><a href='http://instagram.com/yenjoo815' class='ins'></a><a href='http://fb.me/khunix' class='fbk'></a></li></ul></div><div class='area' style='display: none'>B19 KAIGATAMIN 開噶他命</div><div class='box' style='left:1500px;top:457px;width:60px;height:92px;'></div>
 </div><div class='booth' id='B20' onclick='link_click(this)'><div class='desc' style='left:1627px;top:551px;'><h2>B20 DADDY TENSHI</h2><a href='http://duckduckgo.com/?q=DADDY%20TENSHI'>Search for DADDY TENSHI</a></div><div class='area' style='display: none'>B20 DADDY TENSHI</div><div class='box' style='left:1565px;top:457px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:318px;top:686px;'><h2>C1 NESSAROSE 貓殿下</h2><ul>
-<li><a href='http://instagram.com/nessarose_cosplay' class='ins'></a><a href='http://worldcosplay.net/member/Neko_Sama' class='wcp'></a><a href='http://patreon.com/nessarose_cosplay' class='ptr'></a><a href='http://fb.me/coser.nessarose' class='fbk'></a></li></ul></div><div class='area' style='display: none'>C1 NESSAROSE 貓殿下</div><div class='box' style='left:256px;top:592px;width:60px;height:92px;'></div>
+<li><a href='http://twitter.com/nessarose_coser' class='twt'></a><a href='http://instagram.com/nessarose_cosplay' class='ins'></a><a href='http://worldcosplay.net/member/Neko_Sama' class='wcp'></a><a href='http://patreon.com/nessarose_cosplay' class='ptr'></a><a href='http://fb.me/coser.nessarose' class='fbk'></a></li></ul></div><div class='area' style='display: none'>C1 NESSAROSE 貓殿下</div><div class='box' style='left:256px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:383px;top:686px;'><h2>C2 MEMYPIE &amp; CANTABILE</h2><ul>
 <li><a href='http://twitter.com/memypie_' class='twt'></a></li></ul></div><div class='area' style='display: none'>C2 MEMYPIE &AMP; CANTABILE</div><div class='box' style='left:321px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C3' onclick='link_click(this)'><div class='desc' style='left:448px;top:686px;'><h2>C3 PEACH AND SAITO</h2><a href='http://duckduckgo.com/?q=PEACH%20AND%20SAITO'>Search for PEACH AND SAITO</a></div><div class='area' style='display: none'>C3 PEACH AND SAITO</div><div class='box' style='left:386px;top:592px;width:60px;height:92px;'></div>
@@ -386,7 +392,8 @@
 <li><a href='http://instagram.com/kazel_' class='ins'></a><a href='http://pinkoi.com/kazel' class='pki'></a><a href='http://fb.me/KazelLimIllustration' class='fbk'></a></li></ul></div><div class='area' style='display: none'>C11 KAZEL LIM</div><div class='box' style='left:942px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C12' onclick='link_click(this)'><div class='desc' style='left:1069px;top:686px;'><h2>C12 INK FACTORY</h2><a href='http://duckduckgo.com/?q=INK%20FACTORY'>Search for INK FACTORY</a></div><div class='area' style='display: none'>C12 INK FACTORY</div><div class='box' style='left:1007px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C13' onclick='link_click(this)'><div class='desc' style='left:1134px;top:686px;'><h2>C13 NO SENSE ART</h2><a href='http://duckduckgo.com/?q=NO%20SENSE%20ART'>Search for NO SENSE ART</a></div><div class='area' style='display: none'>C13 NO SENSE ART</div><div class='box' style='left:1072px;top:592px;width:60px;height:92px;'></div>
-</div><div class='booth' id='C14' onclick='link_click(this)'><div class='desc' style='left:1237px;top:686px;'><h2>C14 UE CREATIVE WORLD</h2><a href='http://duckduckgo.com/?q=UE%20CREATIVE%20WORLD'>Search for UE CREATIVE WORLD</a></div><div class='area' style='display: none'>C14 UE CREATIVE WORLD</div><div class='box' style='left:1175px;top:592px;width:60px;height:92px;'></div>
+</div><div class='booth' id='C14' onclick='link_click(this)'><div class='desc' style='left:1237px;top:686px;'><h2>C14 UE CREATIVE WORLD</h2><ul>
+<li><a href='http://instagram.com/uecreativeworld_handmade_dolls' class='ins'></a></li></ul></div><div class='area' style='display: none'>C14 UE CREATIVE WORLD</div><div class='box' style='left:1175px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C15' onclick='link_click(this)'><div class='desc' style='left:1302px;top:686px;'><h2>C15 AIMIYCHI</h2><a href='http://duckduckgo.com/?q=AIMIYCHI'>Search for AIMIYCHI</a></div><div class='area' style='display: none'>C15 AIMIYCHI</div><div class='box' style='left:1240px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C16' onclick='link_click(this)'><div class='desc' style='left:1367px;top:686px;'><h2>C16 SNOWBEAR</h2><a href='http://duckduckgo.com/?q=SNOWBEAR'>Search for SNOWBEAR</a></div><div class='area' style='display: none'>C16 SNOWBEAR</div><div class='box' style='left:1305px;top:592px;width:60px;height:92px;'></div>
 </div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:1432px;top:686px;'><h2>C17 4TH DIVISION</h2><a href='http://duckduckgo.com/?q=4TH%20DIVISION'>Search for 4TH DIVISION</a></div><div class='area' style='display: none'>C17 4TH DIVISION</div><div class='box' style='left:1370px;top:592px;width:60px;height:92px;'></div>
@@ -450,7 +457,8 @@
 </div><div class='booth' id='E20' onclick='link_click(this)'><div class='desc' style='left:1627px;top:932px;'><h2>E20 ANIMUGEN ID</h2><ul>
 <li><a href='http://fb.me/animugenindonesia' class='fbk'></a></li></ul></div><div class='area' style='display: none'>E20 ANIMUGEN ID</div><div class='box' style='left:1565px;top:838px;width:60px;height:92px;'></div>
 </div><div class='booth' id='F1' onclick='link_click(this)'><div class='desc' style='left:318px;top:1043px;'><h2>F1 WOLF DEN CIRCLE</h2><a href='http://duckduckgo.com/?q=WOLF%20DEN%20CIRCLE'>Search for WOLF DEN CIRCLE</a></div><div class='area' style='display: none'>F1 WOLF DEN CIRCLE</div><div class='box' style='left:256px;top:949px;width:60px;height:92px;'></div>
-</div><div class='booth' id='F2' onclick='link_click(this)'><div class='desc' style='left:383px;top:1043px;'><h2>F2 BANANA CLOVER</h2><a href='http://duckduckgo.com/?q=BANANA%20CLOVER'>Search for BANANA CLOVER</a></div><div class='area' style='display: none'>F2 BANANA CLOVER</div><div class='box' style='left:321px;top:949px;width:60px;height:92px;'></div>
+</div><div class='booth' id='F2' onclick='link_click(this)'><div class='desc' style='left:383px;top:1043px;'><h2>F2 BANANA CLOVER</h2><ul>
+<li><a href='http://instagram.com/banana_clover' class='ins'></a><a href='http://cellesteng.tumblr.com' class='tmb'></a><a href='http://fb.me/bananaclover' class='fbk'></a></li></ul></div><div class='area' style='display: none'>F2 BANANA CLOVER</div><div class='box' style='left:321px;top:949px;width:60px;height:92px;'></div>
 </div><div class='booth' id='F3' onclick='link_click(this)'><div class='desc' style='left:448px;top:1043px;'><h2>F3 OTANIKKI</h2><a href='http://duckduckgo.com/?q=OTANIKKI'>Search for OTANIKKI</a></div><div class='area' style='display: none'>F3 OTANIKKI</div><div class='box' style='left:386px;top:949px;width:60px;height:92px;'></div>
 </div><div class='booth' id='F4' onclick='link_click(this)'><div class='desc' style='left:513px;top:1043px;'><h2>F4 DRAGONMIU_ART</h2><ul>
 <li><a href='http://twitter.com/yvonneling21' class='twt'></a><a href='http://instagram.com/dragonmiu_art' class='ins'></a></li></ul></div><div class='area' style='display: none'>F4 DRAGONMIU_ART</div><div class='box' style='left:451px;top:949px;width:60px;height:92px;'></div>

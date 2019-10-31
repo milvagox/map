@@ -48,7 +48,9 @@
   .desc {
     padding: 10px 10px 10px 10px ;
     min-width: 280px; 
+    max-width: 500px;
     min-height: 250px; 
+    text-align: justify;
     background-color: white;
     position: absolute; 
     display: none;
@@ -103,6 +105,7 @@
 .lkt { background: url('../ico/lkt.png'); }
 .llo { background: url('../ico/llo.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
@@ -119,10 +122,12 @@
 .shp { background: url('../ico/shp.png'); }
 .sqs { background: url('../ico/sqs.png'); }
 .susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
 .tmb { background: url('../ico/tmb.png'); }
 .tps { background: url('../ico/tps.png'); }
 .twc { background: url('../ico/twc.png'); }
 .twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
 .unk { background: url('../ico/unk.png'); }
 .wbl { background: url('../ico/wbl.png'); }
 .wcp { background: url('../ico/wcp.png'); }
@@ -309,7 +314,9 @@
 </div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:405px;top:185px;'><h2>A2 Abam Apam</h2><ul>
 <li><a href='http://twitter.com/RealAbamApam' class='twt'></a><a href='http://fb.me/AbamApam' class='fbk'></a></li></ul></div><div class='area' style='left:45px;top:566px;width:175px;height:14px;'>A2 ABAM APAM</div><div class='box' style='left:392px;top:173px;width:11px;height:10px;'></div>
 </div><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:419px;top:185px;'><h2>A3 Kaz Ravenhart</h2><a href='http://duckduckgo.com/?q=Kaz%20Ravenhart'>Search for Kaz Ravenhart</a></div><div class='area' style='left:45px;top:580px;width:175px;height:14px;'>A3 KAZ RAVENHART</div><div class='box' style='left:406px;top:173px;width:11px;height:10px;'></div>
-</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:433px;top:185px;'><h2>A4 azreenchan</h2><a href='http://duckduckgo.com/?q=azreenchan'>Search for azreenchan</a></div><div class='area' style='left:45px;top:594px;width:175px;height:14px;'>A4 AZREENCHAN</div><div class='box' style='left:420px;top:173px;width:11px;height:10px;'></div>
+</div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:433px;top:185px;'><h2>A4 azreenchan</h2><ul>
+<li><a href='http://instagram.com/azreenchan' class='ins'></a></li><li><a href='http://azreenchan.easy.co'>azreenchan.easy.co</a></li><li>
+<a href='http://behance.net/azreenchan' class='bhc'></a><a href='http://doodle-from-me.blogspot.com' class='bsp'></a></li></ul></div><div class='area' style='left:45px;top:594px;width:175px;height:14px;'>A4 AZREENCHAN</div><div class='box' style='left:420px;top:173px;width:11px;height:10px;'></div>
 </div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:447px;top:185px;'><h2>A5 DOUJIN TENKA !!</h2><ul>
 <li><a href='http://fb.me/doujintenka' class='fbk'></a></li></ul></div><div class='area' style='left:45px;top:608px;width:175px;height:14px;'>A5 DOUJIN TENKA !!</div><div class='box' style='left:434px;top:173px;width:11px;height:10px;'></div>
 </div><div class='booth' id='A7' onclick='link_click(this)'><div class='desc' style='left:475px;top:185px;'><h2>A7 The Wolf Pack</h2><ul>
@@ -372,7 +379,7 @@
 </div><div class='booth' id='C27' onclick='link_click(this)'><div class='desc' style='left:796px;top:269px;'><h2>C27 Manteraverse</h2><a href='http://duckduckgo.com/?q=Manteraverse'>Search for Manteraverse</a></div><div class='area' style='left:225px;top:916px;width:160px;height:14px;'>C27 MANTERAVERSE</div><div class='box' style='left:783px;top:257px;width:11px;height:10px;'></div>
 </div><div class='booth' id='C28' onclick='link_click(this)'><div class='desc' style='left:810px;top:269px;'><h2>C28 Wolf Brothers</h2><a href='http://duckduckgo.com/?q=Wolf%20Brothers'>Search for Wolf Brothers</a></div><div class='area' style='left:225px;top:930px;width:160px;height:14px;'>C28 WOLF BROTHERS</div><div class='box' style='left:797px;top:257px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D1' onclick='link_click(this)'><div class='desc' style='left:391px;top:309px;'><h2>D1 Banana Clover</h2><ul>
-<li><a href='http://twitter.com/florencemomo' class='twt'></a><a href='http://instagram.com/florencemomo' class='ins'></a><a href='http://florencemomo.tumblr.com' class='tmb'></a><a href='http://fb.me/bananaclover' class='fbk'></a><a href='http://instagram.com/banana_clover' class='ins'></a></li></ul></div><div class='area' style='left:394px;top:552px;width:170px;height:14px;'>D1 BANANA CLOVER</div><div class='box' style='left:378px;top:297px;width:11px;height:10px;'></div>
+<li><a href='http://instagram.com/banana_clover' class='ins'></a><a href='http://cellesteng.tumblr.com' class='tmb'></a><a href='http://fb.me/bananaclover' class='fbk'></a></li><li><a href='http://twitter.com/florencemomo' class='twt'></a><a href='http://instagram.com/florencemomo' class='ins'></a><a href='http://florencemomo.tumblr.com' class='tmb'></a></li></ul></div><div class='area' style='left:394px;top:552px;width:170px;height:14px;'>D1 BANANA CLOVER</div><div class='box' style='left:378px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:419px;top:309px;'><h2>D3 RYNISYOU</h2><ul>
 <li><a href='http://rynisyou.com' class='sqs'></a><a href='http://fb.me/rynisyou' class='fbk'></a><a href='http://instagram.com/rynisyou' class='ins'></a><a href='http://rynisyou.tumblr.com' class='tmb'></a><a href='http://twitter.com/rynisyou' class='twt'></a></li></ul></div><div class='area' style='left:394px;top:566px;width:170px;height:14px;'>D3 RYNISYOU</div><div class='box' style='left:406px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D4' onclick='link_click(this)'><div class='desc' style='left:433px;top:309px;'><h2>D4 Inkdeluge</h2><a href='http://duckduckgo.com/?q=Inkdeluge'>Search for Inkdeluge</a></div><div class='area' style='left:394px;top:580px;width:170px;height:14px;'>D4 INKDELUGE</div><div class='box' style='left:420px;top:297px;width:11px;height:10px;'></div>
@@ -381,7 +388,7 @@
 </div><div class='booth' id='D7' onclick='link_click(this)'><div class='desc' style='left:475px;top:309px;'><h2>D7 Teo Acosta</h2><a href='http://duckduckgo.com/?q=Teo%20Acosta'>Search for Teo Acosta</a></div><div class='area' style='left:394px;top:608px;width:170px;height:14px;'>D7 TEO ACOSTA</div><div class='box' style='left:462px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D9' onclick='link_click(this)'><div class='desc' style='left:503px;top:309px;'><h2>D9 Tender Rascal &amp; Fiberz</h2><a href='http://duckduckgo.com/?q=Tender%20Rascal%20%26%20Fiberz'>Search for Tender Rascal &amp; Fiberz</a></div><div class='area' style='left:394px;top:622px;width:170px;height:14px;'>D9 TENDER RASCAL &AMP; FIBERZ</div><div class='box' style='left:490px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:517px;top:309px;'><h2>D10 By Kami</h2><ul>
-<li><a href='http://carousell.com/_bykami' class='crs'></a><a href='http://instagram.com/_bykami' class='ins'></a><a href='http://fb.me/hamifaizal' class='fbk'></a><a href='http://instagram.com/sarahwarao' class='ins'></a><a href='http://twitter.com/SarahWarao' class='twt'></a><a href='http://warao.deviantart.com' class='dar'></a></li></ul></div><div class='area' style='left:394px;top:636px;width:170px;height:14px;'>D10 BY KAMI</div><div class='box' style='left:504px;top:297px;width:11px;height:10px;'></div>
+<li><a href='http://carousell.com/_bykami' class='crs'></a><a href='http://instagram.com/_bykami' class='ins'></a></li><li><a href='http://instagram.com/aimonazart' class='ins'></a><a href='http://fb.me/hamifaizal' class='fbk'></a><a href='http://instagram.com/sarahwarao' class='ins'></a><a href='http://twitter.com/SarahWarao' class='twt'></a><a href='http://warao.deviantart.com' class='dar'></a></li></ul></div><div class='area' style='left:394px;top:636px;width:170px;height:14px;'>D10 BY KAMI</div><div class='box' style='left:504px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:531px;top:309px;'><h2>D11 END</h2><ul>
 <li><a href='http://tohdraws.artstation.com' class='ast'></a><a href='http://tohdraws.deviantart.com' class='dar'></a><a href='http://instagram.com/tohdraws' class='ins'></a><a href='http://instagram.com/onlyparkland' class='ins'></a><a href='http://fb.me/onlyparkland' class='fbk'></a></li></ul></div><div class='area' style='left:394px;top:650px;width:170px;height:14px;'>D11 END</div><div class='box' style='left:518px;top:297px;width:11px;height:10px;'></div>
 </div><div class='booth' id='D13' onclick='link_click(this)'><div class='desc' style='left:559px;top:309px;'><h2>D13 ivan Tao</h2><a href='http://duckduckgo.com/?q=ivan%20Tao'>Search for ivan Tao</a></div><div class='area' style='left:394px;top:664px;width:170px;height:14px;'>D13 IVAN TAO</div><div class='box' style='left:546px;top:297px;width:11px;height:10px;'></div>

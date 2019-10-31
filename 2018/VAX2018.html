@@ -49,7 +49,9 @@
   .desc {
     padding: 10px 10px 10px 210px ;
     min-width: 280px; 
+    max-width: 500px;
     min-height: 250px; 
+    text-align: justify;
     background-color: white;
     position: absolute; 
     display: none;
@@ -104,6 +106,7 @@
 .lkt { background: url('../ico/lkt.png'); }
 .llo { background: url('../ico/llo.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
@@ -120,10 +123,12 @@
 .shp { background: url('../ico/shp.png'); }
 .sqs { background: url('../ico/sqs.png'); }
 .susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
 .tmb { background: url('../ico/tmb.png'); }
 .tps { background: url('../ico/tps.png'); }
 .twc { background: url('../ico/twc.png'); }
 .twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
 .unk { background: url('../ico/unk.png'); }
 .wbl { background: url('../ico/wbl.png'); }
 .wcp { background: url('../ico/wcp.png'); }
@@ -317,7 +322,8 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='VAX
 </div><div class='booth' id='A6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:233px;top:466px;'><h2>A6 Ethereal Heaven</h2><a href='http://duckduckgo.com/?q=Ethereal%20Heaven'>Search for Ethereal Heaven</a></div><img class='banner' style='left:233px;top:466px;'><div class='area' style='left:638px;top:291px;width:250px;height:17px;'>A6 ETHEREAL HEAVEN</div><div class='box' style='left:216px;top:447px;width:15px;height:17px;'></div>
 </div><div class='booth' id='A7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:233px;top:445px;'><h2>A7 Nyantory</h2><a href='http://duckduckgo.com/?q=Nyantory'>Search for Nyantory</a></div><img class='banner' style='left:233px;top:445px;'><div class='area' style='left:638px;top:308px;width:250px;height:17px;'>A7 NYANTORY</div><div class='box' style='left:216px;top:426px;width:15px;height:17px;'></div>
 </div><div class='booth' id='A8' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:233px;top:424px;'><h2>A8 *KatsuNYAAN! *</h2><a href='http://duckduckgo.com/?q=%2AKatsuNYAAN%21%20%2A'>Search for *KatsuNYAAN! *</a></div><img class='banner' style='left:233px;top:424px;'><div class='area' style='left:638px;top:325px;width:250px;height:17px;'>A8 *KATSUNYAAN! *</div><div class='box' style='left:216px;top:405px;width:15px;height:17px;'></div>
-</div><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:487px;'><h2>B1 STARDUST CREATIONS</h2><a href='http://duckduckgo.com/?q=STARDUST%20CREATIONS'>Search for STARDUST CREATIONS</a></div><img class='banner' style='left:292px;top:487px;'><div class='area' style='left:638px;top:360px;width:250px;height:17px;'>B1 STARDUST CREATIONS</div><div class='box' style='left:275px;top:468px;width:15px;height:17px;'></div>
+</div><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:487px;'><h2>B1 STARDUST CREATIONS</h2><ul>
+<li><a href='http://fb.me/StarDustCreations968' class='fbk'></a></li></ul></div><img class='banner' style='left:292px;top:487px;'><div class='area' style='left:638px;top:360px;width:250px;height:17px;'>B1 STARDUST CREATIONS</div><div class='box' style='left:275px;top:468px;width:15px;height:17px;'></div>
 </div><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:466px;'><h2>B2 AYAM</h2><a href='http://duckduckgo.com/?q=AYAM'>Search for AYAM</a></div><img class='banner' style='left:292px;top:466px;'><div class='area' style='left:638px;top:377px;width:250px;height:17px;'>B2 AYAM</div><div class='box' style='left:275px;top:447px;width:15px;height:17px;'></div>
 </div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:445px;'><h2>B3 Aira &amp; Hani</h2><a href='http://duckduckgo.com/?q=Aira%20%26%20Hani'>Search for Aira &amp; Hani</a></div><img class='banner' style='left:292px;top:445px;'><div class='area' style='left:638px;top:394px;width:250px;height:17px;'>B3 AIRA &AMP; HANI</div><div class='box' style='left:275px;top:426px;width:15px;height:17px;'></div>
 </div><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:424px;'><h2>B4 Maguro Guildshop</h2><a href='http://duckduckgo.com/?q=Maguro%20Guildshop'>Search for Maguro Guildshop</a></div><img class='banner' style='left:292px;top:424px;'><div class='area' style='left:638px;top:411px;width:250px;height:17px;'>B4 MAGURO GUILDSHOP</div><div class='box' style='left:275px;top:405px;width:15px;height:17px;'></div>
@@ -330,7 +336,8 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='VAX
 </div><div class='booth' id='C3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:369px;top:445px;'><h2>C3 AHHH!! Studio</h2><a href='http://duckduckgo.com/?q=AHHH%21%21%20Studio'>Search for AHHH!! Studio</a></div><img class='banner' style='left:369px;top:445px;'><div class='area' style='left:638px;top:566px;width:250px;height:17px;'>C3 AHHH!! STUDIO</div><div class='box' style='left:352px;top:426px;width:15px;height:17px;'></div>
 </div><div class='booth' id='C4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:369px;top:424px;'><h2>C4 Fruitcakes</h2><ul>
 <li><a href='http://twitter.com/Fukurou_kun33' class='twt'></a></li></ul></div><img class='banner' style='left:369px;top:424px;'><div class='area' style='left:638px;top:583px;width:250px;height:17px;'>C4 FRUITCAKES</div><div class='box' style='left:352px;top:405px;width:15px;height:17px;'></div>
-</div><div class='booth' id='C5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:390px;top:487px;'><h2>C5 Abunai Usagi Canvas</h2><a href='http://duckduckgo.com/?q=Abunai%20Usagi%20Canvas'>Search for Abunai Usagi Canvas</a></div><img class='banner' style='left:390px;top:487px;'><div class='area' style='left:638px;top:618px;width:250px;height:17px;'>C5 ABUNAI USAGI CANVAS</div><div class='box' style='left:373px;top:468px;width:15px;height:17px;'></div>
+</div><div class='booth' id='C5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:390px;top:487px;'><h2>C5 Abunai Usagi Canvas</h2><ul>
+<li><a href='http://twitter.com/Abunai_usagi' class='twt'></a><a href='http://instagram.com/usagi_canvas' class='ins'></a><a href='http://usagi-canvas.tumblr.com' class='tmb'></a></li></ul></div><img class='banner' style='left:390px;top:487px;'><div class='area' style='left:638px;top:618px;width:250px;height:17px;'>C5 ABUNAI USAGI CANVAS</div><div class='box' style='left:373px;top:468px;width:15px;height:17px;'></div>
 </div><div class='booth' id='C6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:390px;top:466px;'><h2>C6 JENGKAY</h2><a href='http://duckduckgo.com/?q=JENGKAY'>Search for JENGKAY</a></div><img class='banner' style='left:390px;top:466px;'><div class='area' style='left:638px;top:635px;width:250px;height:17px;'>C6 JENGKAY</div><div class='box' style='left:373px;top:447px;width:15px;height:17px;'></div>
 </div><div class='booth' id='C7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:390px;top:445px;'><h2>C7 Cruise Crusade</h2><ul>
 <li><a href='http://twitter.com/Wamirul' class='twt'></a></li></ul></div><img class='banner' style='left:390px;top:445px;'><div class='area' style='left:638px;top:652px;width:250px;height:17px;'>C7 CRUISE CRUSADE</div><div class='box' style='left:373px;top:426px;width:15px;height:17px;'></div>
@@ -338,14 +345,15 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='VAX
 </div><div class='booth' id='D1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:445px;top:487px;'><h2>D1 Shinner</h2><a href='http://duckduckgo.com/?q=Shinner'>Search for Shinner</a></div><img class='banner' style='left:445px;top:487px;'><div class='area' style='left:638px;top:704px;width:250px;height:17px;'>D1 SHINNER</div><div class='box' style='left:428px;top:468px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:445px;top:466px;'><h2>D2 United Derp Guild</h2><a href='http://duckduckgo.com/?q=United%20Derp%20Guild'>Search for United Derp Guild</a></div><img class='banner' style='left:445px;top:466px;'><div class='area' style='left:638px;top:721px;width:250px;height:17px;'>D2 UNITED DERP GUILD</div><div class='box' style='left:428px;top:447px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:445px;top:445px;'><h2>D3 Azreenchan</h2><ul>
-<li><a href='http://instagram.com/azreenchan' class='ins'></a></li></ul></div><img class='banner' style='left:445px;top:445px;'><div class='area' style='left:638px;top:738px;width:250px;height:17px;'>D3 AZREENCHAN</div><div class='box' style='left:428px;top:426px;width:15px;height:17px;'></div>
+<li><a href='http://instagram.com/azreenchan' class='ins'></a></li><li><a href='http://azreenchan.easy.co'>azreenchan.easy.co</a></li><li>
+<a href='http://behance.net/azreenchan' class='bhc'></a><a href='http://doodle-from-me.blogspot.com' class='bsp'></a></li></ul></div><img class='banner' style='left:445px;top:445px;'><div class='area' style='left:638px;top:738px;width:250px;height:17px;'>D3 AZREENCHAN</div><div class='box' style='left:428px;top:426px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:445px;top:424px;'><h2>D4 Abam Apam</h2><ul>
 <li><a href='http://twitter.com/RealAbamApam' class='twt'></a><a href='http://fb.me/AbamApam' class='fbk'></a></li></ul></div><img class='banner' style='left:445px;top:424px;'><div class='area' style='left:638px;top:755px;width:250px;height:17px;'>D4 ABAM APAM</div><div class='box' style='left:428px;top:405px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:466px;top:487px;'><h2>D5 5 More Minutes</h2><ul>
 <li><a href='http://twitter.com/MieHanz_Art' class='twt'></a><a href='http://fb.me/MieHanzSandbox' class='fbk'></a></li></ul></div><img class='banner' style='left:466px;top:487px;'><div class='area' style='left:638px;top:790px;width:250px;height:17px;'>D5 5 MORE MINUTES</div><div class='box' style='left:449px;top:468px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:466px;top:466px;'><h2>D6 Tsukicchii</h2><a href='http://duckduckgo.com/?q=Tsukicchii'>Search for Tsukicchii</a></div><img class='banner' style='left:466px;top:466px;'><div class='area' style='left:638px;top:807px;width:250px;height:17px;'>D6 TSUKICCHII</div><div class='box' style='left:449px;top:447px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:466px;top:445px;'><h2>D7 Artsyhooman &amp; Bylynnamatina</h2><ul>
-<li><a href='http://fb.me/artsyhooman' class='fbk'></a></li></ul></div><img class='banner' style='left:466px;top:445px;'><div class='area' style='left:638px;top:824px;width:250px;height:17px;'>D7 ARTSYHOOMAN &AMP; BYLYNNAMATINA</div><div class='box' style='left:449px;top:426px;width:15px;height:17px;'></div>
+<li><a href='http://fb.me/artsyhooman' class='fbk'></a></li><li><a href='http://twitter.com/bylynnamalina' class='twt'></a><a href='http://instagram.com/bylynnamalina' class='ins'></a></li></ul></div><img class='banner' style='left:466px;top:445px;'><div class='area' style='left:638px;top:824px;width:250px;height:17px;'>D7 ARTSYHOOMAN &AMP; BYLYNNAMATINA</div><div class='box' style='left:449px;top:426px;width:15px;height:17px;'></div>
 </div><div class='booth' id='D8' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:466px;top:424px;'><h2>D8 Dsign Underground</h2><ul>
 <li><a href='http://fb.me/dsignunderground' class='fbk'></a></li></ul></div><img class='banner' style='left:466px;top:424px;'><div class='area' style='left:638px;top:841px;width:250px;height:17px;'>D8 DSIGN UNDERGROUND</div><div class='box' style='left:449px;top:405px;width:15px;height:17px;'></div>
 </div>
