@@ -27,7 +27,7 @@ Booth location can be highlight with hash('#') on the link.
 - [S4O2019](https://milvagox.github.io/map/2019/S4O2019)
 
 # 2018
-- [CF2018](https://milvagox.github.io/map/2018/cf2018-coor) ([Premium Booth](https://milvagox.github.io/map/2018/CF2018P))
+- [CF2018](https://milvagox.github.io/map/2018/CF2018) ([Premium Booth](https://milvagox.github.io/map/2018/CF2018P))
 - [Cosmart2018](https://milvagox.github.io/map/2018/Cosmart2018) ([Cosplay Alley](https://milvagox.github.io/map/2018/Cosmart2018C)) ([Exhibitor Booth](https://milvagox.github.io/map/2018/Cosmart2018E))
 - [AnimeFest2018](https://milvagox.github.io/map/2018/AnimeFest2018)
 - [CFmini2018](https://milvagox.github.io/map/2018/CFmini2018)

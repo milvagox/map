@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html><head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head>
+<meta charset="UTF-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
@@ -14,19 +13,63 @@
 <link rel="canonical" href="https://milvagox.netlify.com/2019/LUP2019.html">
  <title>LUP2019 Map++</title>
  <style>
-  body {
-      margin: 0 auto;
-      width: 50%;
-      font-family: monospace;
-    }
-    .boothlist { border-collapse: collapse; }
-    .boothlist td { 
-      border: 1px solid gainsboro; 
-      padding: 0 5px 0 5px; 
-      height: 36px;
-    }
-    .boothlist tr:hover { background-color: ghostwhite }
-    td ul { margin: 0 }
+  .booth { 
+    opacity: 0;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    max-width: 500px;
+    min-height: 250px; 
+    text-align: justify;
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
 .abm { background: url('../ico/abm.png'); }
@@ -62,6 +105,7 @@
 .lkt { background: url('../ico/lkt.png'); }
 .llo { background: url('../ico/llo.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
@@ -78,10 +122,12 @@
 .shp { background: url('../ico/shp.png'); }
 .sqs { background: url('../ico/sqs.png'); }
 .susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
 .tmb { background: url('../ico/tmb.png'); }
 .tps { background: url('../ico/tps.png'); }
 .twc { background: url('../ico/twc.png'); }
 .twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
 .unk { background: url('../ico/unk.png'); }
 .wbl { background: url('../ico/wbl.png'); }
 .wcp { background: url('../ico/wcp.png'); }
@@ -90,13 +136,292 @@
 .wtn { background: url('../ico/wtn.png'); }
 .yingtze { background: url('../ico/yingtze.png'); }
 .ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
  </style>
- </head><body><h1>Temparory page for LUP2019</h1><table class="boothlist">
-</table>
-<hr>
-<p>! All the images is belongs to the original creators and right holders.</p>
-<p>! Help is needed for gathering artists and events information</p>
-<p>Please provide information and contact <a href='mailto:milvagox@pm.me'>here</a>.</p>
-</body><html>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div style="position: absolute; padding: 8px;">
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./LUP2019/LUP2019.png' style='width:960px; height:960px;' onerror="this.src = './LUP2019/LUP2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='1' onclick='link_click(this)'><div class='desc' style='left:375px;top:359px;'><h2>1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:568px;width:150px;height:13px;'>1 </div><div class='box' style='left:318px;top:302px;width:55px;height:55px;'></div>
+</div><div class='booth' id='2' onclick='link_click(this)'><div class='desc' style='left:377px;top:281px;'><h2>2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:581px;width:150px;height:12px;'>2 </div><div class='box' style='left:320px;top:244px;width:55px;height:35px;'></div>
+</div><div class='booth' id='3' onclick='link_click(this)'><div class='desc' style='left:297px;top:280px;'><h2>3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:593px;width:150px;height:13px;'>3 </div><div class='box' style='left:260px;top:243px;width:35px;height:35px;'></div>
+</div><div class='booth' id='4' onclick='link_click(this)'><div class='desc' style='left:157px;top:320px;'><h2>4 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:606px;width:150px;height:12px;'>4 </div><div class='box' style='left:120px;top:243px;width:35px;height:75px;'></div>
+</div><div class='booth' id='5' onclick='link_click(this)'><div class='desc' style='left:391px;top:505px;'><h2>5 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:618px;width:150px;height:13px;'>5 </div><div class='box' style='left:334px;top:448px;width:55px;height:55px;'></div>
+</div><div class='booth' id='6' onclick='link_click(this)'><div class='desc' style='left:297px;top:341px;'><h2>6 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:631px;width:150px;height:12px;'>6 </div><div class='box' style='left:280px;top:324px;width:15px;height:15px;'></div>
+</div><div class='booth' id='7' onclick='link_click(this)'><div class='desc' style='left:297px;top:381px;'><h2>7 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:643px;width:150px;height:25px;'>7 </div><div class='box' style='left:280px;top:344px;width:15px;height:35px;'></div>
+</div><div class='booth' id='9' onclick='link_click(this)'><div class='desc' style='left:277px;top:341px;'><h2>9 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:668px;width:150px;height:13px;'>9 </div><div class='box' style='left:260px;top:324px;width:15px;height:15px;'></div>
+</div><div class='booth' id='10' onclick='link_click(this)'><div class='desc' style='left:277px;top:361px;'><h2>10 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:681px;width:150px;height:12px;'>10 </div><div class='box' style='left:260px;top:344px;width:15px;height:15px;'></div>
+</div><div class='booth' id='11' onclick='link_click(this)'><div class='desc' style='left:277px;top:381px;'><h2>11 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:693px;width:150px;height:13px;'>11 </div><div class='box' style='left:260px;top:364px;width:15px;height:15px;'></div>
+</div><div class='booth' id='12' onclick='link_click(this)'><div class='desc' style='left:237px;top:300px;'><h2>12 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:706px;width:150px;height:12px;'>12 </div><div class='box' style='left:180px;top:283px;width:55px;height:15px;'></div>
+</div><div class='booth' id='13' onclick='link_click(this)'><div class='desc' style='left:237px;top:360px;'><h2>13 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:718px;width:150px;height:13px;'>13 </div><div class='box' style='left:220px;top:343px;width:15px;height:15px;'></div>
+</div><div class='booth' id='14' onclick='link_click(this)'><div class='desc' style='left:217px;top:360px;'><h2>14 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:731px;width:150px;height:12px;'>14 </div><div class='box' style='left:200px;top:343px;width:15px;height:15px;'></div>
+</div><div class='booth' id='15' onclick='link_click(this)'><div class='desc' style='left:197px;top:360px;'><h2>15 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:743px;width:150px;height:13px;'>15 </div><div class='box' style='left:180px;top:343px;width:15px;height:15px;'></div>
+</div><div class='booth' id='16' onclick='link_click(this)'><div class='desc' style='left:237px;top:381px;'><h2>16 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:756px;width:150px;height:12px;'>16 </div><div class='box' style='left:220px;top:364px;width:15px;height:15px;'></div>
+</div><div class='booth' id='17' onclick='link_click(this)'><div class='desc' style='left:217px;top:381px;'><h2>17 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:768px;width:150px;height:13px;'>17 </div><div class='box' style='left:180px;top:364px;width:35px;height:15px;'></div>
+</div><div class='booth' id='18' onclick='link_click(this)'><div class='desc' style='left:217px;top:261px;'><h2>18 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:781px;width:150px;height:12px;'>18 </div><div class='box' style='left:180px;top:244px;width:35px;height:15px;'></div>
+</div><div class='booth' id='19' onclick='link_click(this)'><div class='desc' style='left:197px;top:321px;'><h2>19 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:793px;width:150px;height:13px;'>19 </div><div class='box' style='left:180px;top:304px;width:15px;height:15px;'></div>
+</div><div class='booth' id='20' onclick='link_click(this)'><div class='desc' style='left:237px;top:321px;'><h2>20 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:806px;width:150px;height:12px;'>20 </div><div class='box' style='left:220px;top:304px;width:15px;height:15px;'></div>
+</div><div class='booth' id='21' onclick='link_click(this)'><div class='desc' style='left:217px;top:321px;'><h2>21 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:818px;width:150px;height:13px;'>21 </div><div class='box' style='left:200px;top:304px;width:15px;height:15px;'></div>
+</div><div class='booth' id='25' onclick='link_click(this)'><div class='desc' style='left:237px;top:261px;'><h2>25 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:831px;width:150px;height:12px;'>25 </div><div class='box' style='left:220px;top:244px;width:15px;height:15px;'></div>
+</div><div class='booth' id='27' onclick='link_click(this)'><div class='desc' style='left:276px;top:300px;'><h2>27 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:843px;width:150px;height:13px;'>27 </div><div class='box' style='left:259px;top:283px;width:15px;height:15px;'></div>
+</div><div class='booth' id='28' onclick='link_click(this)'><div class='desc' style='left:157px;top:361px;'><h2>28 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:856px;width:150px;height:12px;'>28 </div><div class='box' style='left:140px;top:344px;width:15px;height:15px;'></div>
+</div><div class='booth' id='29' onclick='link_click(this)'><div class='desc' style='left:157px;top:381px;'><h2>29 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:868px;width:150px;height:13px;'>29 </div><div class='box' style='left:140px;top:364px;width:15px;height:15px;'></div>
+</div><div class='booth' id='30' onclick='link_click(this)'><div class='desc' style='left:137px;top:359px;'><h2>30 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:881px;width:150px;height:12px;'>30 </div><div class='box' style='left:120px;top:342px;width:15px;height:15px;'></div>
+</div><div class='booth' id='31' onclick='link_click(this)'><div class='desc' style='left:137px;top:379px;'><h2>31 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:893px;width:150px;height:13px;'>31 </div><div class='box' style='left:120px;top:362px;width:15px;height:15px;'></div>
+</div><div class='booth' id='33' onclick='link_click(this)'><div class='desc' style='left:296px;top:300px;'><h2>33 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:60px;top:906px;width:150px;height:12px;'>33 </div><div class='box' style='left:279px;top:283px;width:15px;height:15px;'></div>
+</div><div class='booth' id='M1' onclick='link_click(this)'><div class='desc' style='left:321px;top:413px;'><h2>M1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:569px;width:150px;height:13px;'>M1 </div><div class='box' style='left:311px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M2' onclick='link_click(this)'><div class='desc' style='left:334px;top:413px;'><h2>M2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:582px;width:150px;height:12px;'>M2 </div><div class='box' style='left:324px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M3' onclick='link_click(this)'><div class='desc' style='left:347px;top:413px;'><h2>M3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:594px;width:150px;height:13px;'>M3 </div><div class='box' style='left:337px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M4' onclick='link_click(this)'><div class='desc' style='left:360px;top:413px;'><h2>M4 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:607px;width:150px;height:12px;'>M4 </div><div class='box' style='left:350px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M5' onclick='link_click(this)'><div class='desc' style='left:373px;top:413px;'><h2>M5 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:619px;width:150px;height:13px;'>M5 </div><div class='box' style='left:363px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M6' onclick='link_click(this)'><div class='desc' style='left:386px;top:413px;'><h2>M6 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:632px;width:150px;height:12px;'>M6 </div><div class='box' style='left:376px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M7' onclick='link_click(this)'><div class='desc' style='left:220px;top:413px;'><h2>M7 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:644px;width:150px;height:13px;'>M7 </div><div class='box' style='left:210px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M8' onclick='link_click(this)'><div class='desc' style='left:233px;top:413px;'><h2>M8 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:657px;width:150px;height:12px;'>M8 </div><div class='box' style='left:223px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M9' onclick='link_click(this)'><div class='desc' style='left:246px;top:413px;'><h2>M9 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:669px;width:150px;height:13px;'>M9 </div><div class='box' style='left:236px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M10' onclick='link_click(this)'><div class='desc' style='left:259px;top:413px;'><h2>M10 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:682px;width:150px;height:12px;'>M10 </div><div class='box' style='left:249px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M11' onclick='link_click(this)'><div class='desc' style='left:272px;top:413px;'><h2>M11 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:694px;width:150px;height:13px;'>M11 </div><div class='box' style='left:262px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M12' onclick='link_click(this)'><div class='desc' style='left:285px;top:413px;'><h2>M12 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:707px;width:150px;height:12px;'>M12 </div><div class='box' style='left:275px;top:402px;width:8px;height:9px;'></div>
+</div><div class='booth' id='M13' onclick='link_click(this)'><div class='desc' style='left:120px;top:413px;'><h2>M13 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:719px;width:150px;height:13px;'>M13 </div><div class='box' style='left:97px;top:402px;width:21px;height:9px;'></div>
+</div><div class='booth' id='M14' onclick='link_click(this)'><div class='desc' style='left:146px;top:413px;'><h2>M14 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:732px;width:150px;height:12px;'>M14 </div><div class='box' style='left:123px;top:402px;width:21px;height:9px;'></div>
+</div><div class='booth' id='M15' onclick='link_click(this)'><div class='desc' style='left:172px;top:413px;'><h2>M15 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:229px;top:744px;width:150px;height:13px;'>M15 </div><div class='box' style='left:149px;top:402px;width:21px;height:9px;'></div>
+</div><div class='booth' id='P1' onclick='link_click(this)'><div class='desc' style='left:758px;top:222px;'><h2>P1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:572px;width:150px;height:12px;'>P1 </div><div class='box' style='left:689px;top:202px;width:67px;height:18px;'></div>
+</div><div class='booth' id='P2' onclick='link_click(this)'><div class='desc' style='left:776px;top:222px;'><h2>P2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:584px;width:150px;height:12px;'>P2 </div><div class='box' style='left:761px;top:202px;width:13px;height:18px;'></div>
+</div><div class='booth' id='P3' onclick='link_click(this)'><div class='desc' style='left:831px;top:222px;'><h2>P3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:596px;width:150px;height:12px;'>P3 </div><div class='box' style='left:779px;top:202px;width:50px;height:18px;'></div>
+</div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:698px;top:251px;'><h2>C1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:628px;width:150px;height:13px;'>C1 </div><div class='box' style='left:689px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:710px;top:251px;'><h2>C2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:641px;width:150px;height:12px;'>C2 </div><div class='box' style='left:701px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C3' onclick='link_click(this)'><div class='desc' style='left:722px;top:251px;'><h2>C3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:653px;width:150px;height:13px;'>C3 </div><div class='box' style='left:713px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C4' onclick='link_click(this)'><div class='desc' style='left:734px;top:251px;'><h2>C4 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:666px;width:150px;height:12px;'>C4 </div><div class='box' style='left:725px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C5' onclick='link_click(this)'><div class='desc' style='left:746px;top:251px;'><h2>C5 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:678px;width:150px;height:13px;'>C5 </div><div class='box' style='left:737px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C6' onclick='link_click(this)'><div class='desc' style='left:758px;top:251px;'><h2>C6 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:691px;width:150px;height:12px;'>C6 </div><div class='box' style='left:749px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C7' onclick='link_click(this)'><div class='desc' style='left:770px;top:251px;'><h2>C7 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:703px;width:150px;height:13px;'>C7 </div><div class='box' style='left:761px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C8' onclick='link_click(this)'><div class='desc' style='left:782px;top:251px;'><h2>C8 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:716px;width:150px;height:12px;'>C8 </div><div class='box' style='left:773px;top:242px;width:7px;height:7px;'></div>
+</div><div class='booth' id='C9' onclick='link_click(this)'><div class='desc' style='left:830px;top:251px;'><h2>C9 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:400px;top:728px;width:150px;height:25px;'>C9 </div><div class='box' style='left:786px;top:242px;width:42px;height:7px;'></div>
+</div><div class='booth' id='G1' onclick='link_click(this)'><div class='desc' style='left:579px;top:221px;'><h2>G1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:779px;width:180px;height:12px;'>G1 </div><div class='box' style='left:558px;top:201px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G2' onclick='link_click(this)'><div class='desc' style='left:603px;top:221px;'><h2>G2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:791px;width:180px;height:12px;'>G2 </div><div class='box' style='left:582px;top:201px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G3' onclick='link_click(this)'><div class='desc' style='left:627px;top:221px;'><h2>G3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:803px;width:180px;height:12px;'>G3 </div><div class='box' style='left:606px;top:201px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G4' onclick='link_click(this)'><div class='desc' style='left:651px;top:221px;'><h2>G4 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:815px;width:180px;height:12px;'>G4 </div><div class='box' style='left:630px;top:201px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G5' onclick='link_click(this)'><div class='desc' style='left:579px;top:418px;'><h2>G5 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:827px;width:180px;height:12px;'>G5 </div><div class='box' style='left:558px;top:398px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G6' onclick='link_click(this)'><div class='desc' style='left:603px;top:418px;'><h2>G6 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:839px;width:180px;height:12px;'>G6 </div><div class='box' style='left:582px;top:398px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G7' onclick='link_click(this)'><div class='desc' style='left:627px;top:418px;'><h2>G7 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:851px;width:180px;height:12px;'>G7 </div><div class='box' style='left:606px;top:398px;width:19px;height:18px;'></div>
+</div><div class='booth' id='G8' onclick='link_click(this)'><div class='desc' style='left:651px;top:418px;'><h2>G8 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:399px;top:863px;width:180px;height:12px;'>G8 </div><div class='box' style='left:630px;top:398px;width:19px;height:18px;'></div>
+</div><div class='booth' id='D1' onclick='link_click(this)'><div class='desc' style='left:698px;top:286px;'><h2>D1 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:570px;width:150px;height:12px;'>D1 </div><div class='box' style='left:689px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D2' onclick='link_click(this)'><div class='desc' style='left:710px;top:286px;'><h2>D2 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:582px;width:150px;height:11px;'>D2 </div><div class='box' style='left:701px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:722px;top:286px;'><h2>D3 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:593px;width:150px;height:12px;'>D3 </div><div class='box' style='left:713px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D4' onclick='link_click(this)'><div class='desc' style='left:734px;top:286px;'><h2>D4 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:605px;width:150px;height:12px;'>D4 </div><div class='box' style='left:725px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D5' onclick='link_click(this)'><div class='desc' style='left:746px;top:286px;'><h2>D5 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:617px;width:150px;height:12px;'>D5 </div><div class='box' style='left:737px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D6' onclick='link_click(this)'><div class='desc' style='left:758px;top:286px;'><h2>D6 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:629px;width:150px;height:11px;'>D6 </div><div class='box' style='left:749px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D7' onclick='link_click(this)'><div class='desc' style='left:770px;top:286px;'><h2>D7 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:640px;width:150px;height:12px;'>D7 </div><div class='box' style='left:761px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D8' onclick='link_click(this)'><div class='desc' style='left:782px;top:286px;'><h2>D8 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:652px;width:150px;height:12px;'>D8 </div><div class='box' style='left:773px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D9' onclick='link_click(this)'><div class='desc' style='left:794px;top:286px;'><h2>D9 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:664px;width:150px;height:12px;'>D9 </div><div class='box' style='left:785px;top:277px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:698px;top:299px;'><h2>D10 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:676px;width:150px;height:11px;'>D10 </div><div class='box' style='left:689px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:710px;top:299px;'><h2>D11 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:687px;width:150px;height:12px;'>D11 </div><div class='box' style='left:701px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D12' onclick='link_click(this)'><div class='desc' style='left:722px;top:299px;'><h2>D12 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:699px;width:150px;height:12px;'>D12 </div><div class='box' style='left:713px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D13' onclick='link_click(this)'><div class='desc' style='left:734px;top:299px;'><h2>D13 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:711px;width:150px;height:12px;'>D13 </div><div class='box' style='left:725px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D14' onclick='link_click(this)'><div class='desc' style='left:746px;top:299px;'><h2>D14 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:723px;width:150px;height:11px;'>D14 </div><div class='box' style='left:737px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D15' onclick='link_click(this)'><div class='desc' style='left:758px;top:299px;'><h2>D15 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:734px;width:150px;height:12px;'>D15 </div><div class='box' style='left:749px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D16' onclick='link_click(this)'><div class='desc' style='left:770px;top:299px;'><h2>D16 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:746px;width:150px;height:12px;'>D16 </div><div class='box' style='left:761px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D17' onclick='link_click(this)'><div class='desc' style='left:782px;top:299px;'><h2>D17 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:758px;width:150px;height:12px;'>D17 </div><div class='box' style='left:773px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D18' onclick='link_click(this)'><div class='desc' style='left:794px;top:299px;'><h2>D18 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:770px;width:150px;height:11px;'>D18 </div><div class='box' style='left:785px;top:290px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D19' onclick='link_click(this)'><div class='desc' style='left:698px;top:327px;'><h2>D19 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:781px;width:150px;height:12px;'>D19 </div><div class='box' style='left:689px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D20' onclick='link_click(this)'><div class='desc' style='left:710px;top:327px;'><h2>D20 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:793px;width:150px;height:12px;'>D20 </div><div class='box' style='left:701px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D21' onclick='link_click(this)'><div class='desc' style='left:722px;top:327px;'><h2>D21 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:805px;width:150px;height:12px;'>D21 </div><div class='box' style='left:713px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D22' onclick='link_click(this)'><div class='desc' style='left:734px;top:327px;'><h2>D22 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:817px;width:150px;height:11px;'>D22 </div><div class='box' style='left:725px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D23' onclick='link_click(this)'><div class='desc' style='left:746px;top:327px;'><h2>D23 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:828px;width:150px;height:12px;'>D23 </div><div class='box' style='left:737px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D24' onclick='link_click(this)'><div class='desc' style='left:758px;top:327px;'><h2>D24 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:840px;width:150px;height:12px;'>D24 </div><div class='box' style='left:749px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D25' onclick='link_click(this)'><div class='desc' style='left:770px;top:327px;'><h2>D25 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:852px;width:150px;height:12px;'>D25 </div><div class='box' style='left:761px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D26' onclick='link_click(this)'><div class='desc' style='left:782px;top:327px;'><h2>D26 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:864px;width:150px;height:11px;'>D26 </div><div class='box' style='left:773px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D27' onclick='link_click(this)'><div class='desc' style='left:794px;top:327px;'><h2>D27 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:875px;width:150px;height:12px;'>D27 </div><div class='box' style='left:785px;top:318px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D28' onclick='link_click(this)'><div class='desc' style='left:698px;top:340px;'><h2>D28 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:596px;top:887px;width:150px;height:12px;'>D28 </div><div class='box' style='left:689px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D29' onclick='link_click(this)'><div class='desc' style='left:710px;top:340px;'><h2>D29 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:569px;width:170px;height:12px;'>D29 </div><div class='box' style='left:701px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D30' onclick='link_click(this)'><div class='desc' style='left:722px;top:340px;'><h2>D30 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:581px;width:170px;height:11px;'>D30 </div><div class='box' style='left:713px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D31' onclick='link_click(this)'><div class='desc' style='left:734px;top:340px;'><h2>D31 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:592px;width:170px;height:12px;'>D31 </div><div class='box' style='left:725px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D32' onclick='link_click(this)'><div class='desc' style='left:746px;top:340px;'><h2>D32 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:604px;width:170px;height:12px;'>D32 </div><div class='box' style='left:737px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D33' onclick='link_click(this)'><div class='desc' style='left:758px;top:340px;'><h2>D33 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:616px;width:170px;height:12px;'>D33 </div><div class='box' style='left:749px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D34' onclick='link_click(this)'><div class='desc' style='left:770px;top:340px;'><h2>D34 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:628px;width:170px;height:11px;'>D34 </div><div class='box' style='left:761px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D35' onclick='link_click(this)'><div class='desc' style='left:782px;top:340px;'><h2>D35 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:639px;width:170px;height:12px;'>D35 </div><div class='box' style='left:773px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D36' onclick='link_click(this)'><div class='desc' style='left:794px;top:340px;'><h2>D36 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:651px;width:170px;height:12px;'>D36 </div><div class='box' style='left:785px;top:331px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D37' onclick='link_click(this)'><div class='desc' style='left:698px;top:373px;'><h2>D37 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:663px;width:170px;height:12px;'>D37 </div><div class='box' style='left:689px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D38' onclick='link_click(this)'><div class='desc' style='left:710px;top:373px;'><h2>D38 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:675px;width:170px;height:11px;'>D38 </div><div class='box' style='left:701px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D39' onclick='link_click(this)'><div class='desc' style='left:722px;top:373px;'><h2>D39 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:686px;width:170px;height:12px;'>D39 </div><div class='box' style='left:713px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D40' onclick='link_click(this)'><div class='desc' style='left:734px;top:373px;'><h2>D40 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:698px;width:170px;height:12px;'>D40 </div><div class='box' style='left:725px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D41' onclick='link_click(this)'><div class='desc' style='left:746px;top:373px;'><h2>D41 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:710px;width:170px;height:12px;'>D41 </div><div class='box' style='left:737px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D42' onclick='link_click(this)'><div class='desc' style='left:758px;top:373px;'><h2>D42 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:722px;width:170px;height:11px;'>D42 </div><div class='box' style='left:749px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D43' onclick='link_click(this)'><div class='desc' style='left:770px;top:373px;'><h2>D43 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:733px;width:170px;height:12px;'>D43 </div><div class='box' style='left:761px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D44' onclick='link_click(this)'><div class='desc' style='left:782px;top:373px;'><h2>D44 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:745px;width:170px;height:12px;'>D44 </div><div class='box' style='left:773px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D45' onclick='link_click(this)'><div class='desc' style='left:794px;top:373px;'><h2>D45 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:757px;width:170px;height:12px;'>D45 </div><div class='box' style='left:785px;top:364px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D46' onclick='link_click(this)'><div class='desc' style='left:697px;top:385px;'><h2>D46 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:769px;width:170px;height:11px;'>D46 </div><div class='box' style='left:688px;top:376px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D47' onclick='link_click(this)'><div class='desc' style='left:709px;top:385px;'><h2>D47 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:780px;width:170px;height:12px;'>D47 </div><div class='box' style='left:700px;top:376px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D48' onclick='link_click(this)'><div class='desc' style='left:721px;top:385px;'><h2>D48 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:792px;width:170px;height:12px;'>D48 </div><div class='box' style='left:712px;top:376px;width:7px;height:7px;'></div>
+</div><div class='booth' id='D49' onclick='link_click(this)'><div class='desc' style='left:733px;top:385px;'><h2>D49 </h2><a href='http://duckduckgo.com/?q='>Search for </a></div><div class='area' style='left:778px;top:804px;width:170px;height:12px;'>D49 </div><div class='box' style='left:724px;top:376px;width:7px;height:7px;'></div>
+</div>
+</div></body></html>
 <!--Written and compiled by MilvagoX.-->
 <!--Map and banners are belong to LUP2019 artists and organizer.-->
