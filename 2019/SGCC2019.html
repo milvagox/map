@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SGCC2019 Interactive Map DEV">
+<meta property="og:description" content="SGCC2019 map development page">
+<meta property="og:url" content="https://milvagox.netlify.com/SGCC2019">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/SGCC2019X.png">
+<meta name="description" content="SGCC2019 map development page">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2019/SGCC2019.html">
+ <title>SGCC2019 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    
+    color: black;
+    opacity: inherit;
+    z-index:  20;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 280px; 
+    max-width: 500px;
+    min-height: 250px; 
+    text-align: justify;
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.desc > ul { list-style: none }
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(window.location.hash); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.toUpperCase().includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(window.location.hash);
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div style="position: absolute; padding: 8px;">
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./SGCC2019/SGCC2019.png' style='margin: 0px 220px 220px 0px ; ' onerror="this.src = './SGCC2019/SGCC2019.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div class='booth' id='TS29 & TS31' onclick='link_click(this)'><div class='desc' style='left:291px;top:326px;'><h2>TS29 & TS31 ~ ART OF RACHTA LIN ~</h2><a href='http://duckduckgo.com/?q=~%20ART%20OF%20RACHTA%20LIN%20~'>Search for ~ ART OF RACHTA LIN ~</a></div><div class='area' style='left:550px;top:30px;width:500px;height:18px; color: red; background-color: salmon'>TS29 &amp; TS31 ~ ART OF RACHTA LIN ~</div><div class='box' style='left:227px;top:303px;width:62px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF2' onclick='link_click(this)'><div class='desc' style='left:258px;top:246px;'><h2>TF2 ABSOLUTE MADLAD</h2><a href='http://duckduckgo.com/?q=ABSOLUTE%20MADLAD'>Search for ABSOLUTE MADLAD</a></div><div class='area' style='left:550px;top:48px;width:500px;height:18px; color: red; background-color: salmon'>TF2 ABSOLUTE MADLAD</div><div class='box' style='left:237px;top:223px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS46' onclick='link_click(this)'><div class='desc' style='left:131px;top:246px;'><h2>TS46 ACROWN X VELVET ROOM COSPLAY</h2><a href='http://duckduckgo.com/?q=ACROWN%20X%20VELVET%20ROOM%20COSPLAY'>Search for ACROWN X VELVET ROOM COSPLAY</a></div><div class='area' style='left:550px;top:66px;width:500px;height:18px; color: red; background-color: salmon'>TS46 ACROWN X VELVET ROOM COSPLAY</div><div class='box' style='left:98px;top:223px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF34' onclick='link_click(this)'><div class='desc' style='left:288px;top:202px;'><h2>TF34 ADDIGNI</h2><a href='http://duckduckgo.com/?q=ADDIGNI'>Search for ADDIGNI</a></div><div class='area' style='left:550px;top:84px;width:500px;height:18px; color: red; background-color: salmon'>TF34 ADDIGNI</div><div class='box' style='left:267px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS36' onclick='link_click(this)'><div class='desc' style='left:367px;top:306px;'><h2>TS36 ALAN QUAH</h2><a href='http://duckduckgo.com/?q=ALAN%20QUAH'>Search for ALAN QUAH</a></div><div class='area' style='left:550px;top:102px;width:500px;height:18px; color: red; background-color: salmon'>TS36 ALAN QUAH</div><div class='box' style='left:334px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF31' onclick='link_click(this)'><div class='desc' style='left:266px;top:183px;'><h2>TF31 ALIN X BAGHASKARA</h2><a href='http://duckduckgo.com/?q=ALIN%20X%20BAGHASKARA'>Search for ALIN X BAGHASKARA</a></div><div class='area' style='left:550px;top:120px;width:500px;height:18px; color: red; background-color: salmon'>TF31 ALIN X BAGHASKARA</div><div class='box' style='left:245px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF21' onclick='link_click(this)'><div class='desc' style='left:115px;top:183px;'><h2>TF21 ANATOY</h2><a href='http://duckduckgo.com/?q=ANATOY'>Search for ANATOY</a></div><div class='area' style='left:550px;top:138px;width:500px;height:18px; color: red; background-color: salmon'>TF21 ANATOY</div><div class='box' style='left:94px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF8' onclick='link_click(this)'><div class='desc' style='left:330px;top:246px;'><h2>TF8 ANY</h2><a href='http://duckduckgo.com/?q=ANY'>Search for ANY</a></div><div class='area' style='left:550px;top:156px;width:500px;height:18px; color: red; background-color: salmon'>TF8 ANY</div><div class='box' style='left:309px;top:223px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF43' onclick='link_click(this)'><div class='desc' style='left:386px;top:183px;'><h2>TF43 APEMASK</h2><ul>
+<li><a href='http://instagram.com/apemask' class='ins'></a><a href='http://linktr.ee/apemask' class='lkt'></a></li></ul></div><div class='area' style='left:550px;top:174px;width:500px;height:18px;'>TF43 APEMASK</div><div class='box' style='left:365px;top:160px;width:19px;height:21px;'></div>
+</div><div class='booth' id='TF53' onclick='link_click(this)'><div class='desc' style='left:162px;top:140px;'><h2>TF53 ART OF KI</h2><a href='http://duckduckgo.com/?q=ART%20OF%20KI'>Search for ART OF KI</a></div><div class='area' style='left:550px;top:192px;width:500px;height:18px; color: red; background-color: salmon'>TF53 ART OF KI</div><div class='box' style='left:141px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS5' onclick='link_click(this)'><div class='desc' style='left:224px;top:391px;'><h2>TS5 ARTIZT LABEL</h2><a href='http://duckduckgo.com/?q=ARTIZT%20LABEL'>Search for ARTIZT LABEL</a></div><div class='area' style='left:550px;top:210px;width:500px;height:18px; color: red; background-color: salmon'>TS5 ARTIZT LABEL</div><div class='box' style='left:191px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS22' onclick='link_click(this)'><div class='desc' style='left:89px;top:306px;'><h2>TS22 BAND OF DOODLERS</h2><a href='http://duckduckgo.com/?q=BAND%20OF%20DOODLERS'>Search for BAND OF DOODLERS</a></div><div class='area' style='left:550px;top:228px;width:500px;height:18px; color: red; background-color: salmon'>TS22 BAND OF DOODLERS</div><div class='box' style='left:56px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS40' onclick='link_click(this)'><div class='desc' style='left:439px;top:306px;'><h2>TS40 BASHEER GRAPHIC BOOKS</h2><a href='http://duckduckgo.com/?q=BASHEER%20GRAPHIC%20BOOKS'>Search for BASHEER GRAPHIC BOOKS</a></div><div class='area' style='left:550px;top:246px;width:500px;height:18px; color: red; background-color: salmon'>TS40 BASHEER GRAPHIC BOOKS</div><div class='box' style='left:406px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF59' onclick='link_click(this)'><div class='desc' style='left:343px;top:140px;'><h2>TF59 BEANYNNE</h2><a href='http://duckduckgo.com/?q=BEANYNNE'>Search for BEANYNNE</a></div><div class='area' style='left:550px;top:264px;width:500px;height:18px; color: red; background-color: salmon'>TF59 BEANYNNE</div><div class='box' style='left:322px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS13' onclick='link_click(this)'><div class='desc' style='left:368px;top:391px;'><h2>TS13 BEAST&#39;S PIN LIBRARY</h2><a href='http://duckduckgo.com/?q=BEAST%27S%20PIN%20LIBRARY'>Search for BEAST&#39;S PIN LIBRARY</a></div><div class='area' style='left:550px;top:282px;width:500px;height:18px; color: red; background-color: salmon'>TS13 BEAST&#39;S PIN LIBRARY</div><div class='box' style='left:335px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF5' onclick='link_click(this)'><div class='desc' style='left:303px;top:267px;'><h2>TF5 BERRYBOOZE</h2><a href='http://duckduckgo.com/?q=BERRYBOOZE'>Search for BERRYBOOZE</a></div><div class='area' style='left:550px;top:300px;width:500px;height:18px; color: red; background-color: salmon'>TF5 BERRYBOOZE</div><div class='box' style='left:282px;top:244px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF37' onclick='link_click(this)'><div class='desc' style='left:314px;top:183px;'><h2>TF37 BLUEBEAN 藍豆</h2><ul>
+<li><a href='http://instagram.com/bluebean.angela' class='ins'></a></li></ul></div><div class='area' style='left:550px;top:318px;width:500px;height:18px;'>TF37 BLUEBEAN 藍豆</div><div class='box' style='left:293px;top:160px;width:19px;height:21px;'></div>
+</div><div class='booth' id='TS44' onclick='link_click(this)'><div class='desc' style='left:95px;top:246px;'><h2>TS44 CALIBRE WINGS MONIKA TOYS</h2><a href='http://duckduckgo.com/?q=CALIBRE%20WINGS%20MONIKA%20TOYS'>Search for CALIBRE WINGS MONIKA TOYS</a></div><div class='area' style='left:550px;top:336px;width:500px;height:18px; color: red; background-color: salmon'>TS44 CALIBRE WINGS MONIKA TOYS</div><div class='box' style='left:62px;top:223px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF40' onclick='link_click(this)'><div class='desc' style='left:360px;top:202px;'><h2>TF40 CAOS</h2><a href='http://duckduckgo.com/?q=CAOS'>Search for CAOS</a></div><div class='area' style='left:550px;top:354px;width:500px;height:18px; color: red; background-color: salmon'>TF40 CAOS</div><div class='box' style='left:339px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF16' onclick='link_click(this)'><div class='desc' style='left:464px;top:247px;'><h2>TF16 CARLO JOSE SAN JUAN, MD | ROD ESPINOSA | PILAR ESBER</h2><a href='http://duckduckgo.com/?q=CARLO%20JOSE%20SAN%20JUAN%2C%20MD%20%7C%20ROD%20ESPINOSA%20%7C%20PILAR%20ESBER'>Search for CARLO JOSE SAN JUAN, MD | ROD ESPINOSA | PILAR ESBER</a></div><div class='area' style='left:550px;top:372px;width:500px;height:18px; color: red; background-color: salmon'>TF16 CARLO JOSE SAN JUAN, MD | ROD ESPINOSA | PILAR ESBER</div><div class='box' style='left:443px;top:224px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS23' onclick='link_click(this)'><div class='desc' style='left:124px;top:326px;'><h2>TS23 CHAPTER#1 THAILAND</h2><ul>
+<li><a href='http://fb.me/Chapteronetshirt' class='fbk'></a></li><li><a href='http://chapteroneonlinestore.com'>chapteroneonlinestore.com</a></li><li>
+</li></ul></div><div class='area' style='left:550px;top:390px;width:500px;height:18px;'>TS23 CHAPTER#1 THAILAND</div><div class='box' style='left:91px;top:303px;width:31px;height:21px;'></div>
+</div><div class='booth' id='TF20' onclick='link_click(this)'><div class='desc' style='left:113px;top:201px;'><h2>TF20 CHOOPL DESIGNS</h2><a href='http://duckduckgo.com/?q=CHOOPL%20DESIGNS'>Search for CHOOPL DESIGNS</a></div><div class='area' style='left:550px;top:408px;width:500px;height:18px; color: red; background-color: salmon'>TF20 CHOOPL DESIGNS</div><div class='box' style='left:92px;top:178px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF50 & TF51' onclick='link_click(this)'><div class='desc' style='left:110px;top:141px;'><h2>TF50 & TF51 COMIX CLUB AX</h2><a href='http://duckduckgo.com/?q=COMIX%20CLUB%20AX'>Search for COMIX CLUB AX</a></div><div class='area' style='left:550px;top:426px;width:500px;height:18px; color: red; background-color: salmon'>TF50 &amp; TF51 COMIX CLUB AX</div><div class='box' style='left:70px;top:118px;width:38px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF7' onclick='link_click(this)'><div class='desc' style='left:327px;top:267px;'><h2>TF7 CYSKETCH</h2><a href='http://duckduckgo.com/?q=CYSKETCH'>Search for CYSKETCH</a></div><div class='area' style='left:550px;top:444px;width:500px;height:18px; color: red; background-color: salmon'>TF7 CYSKETCH</div><div class='box' style='left:306px;top:244px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF55' onclick='link_click(this)'><div class='desc' style='left:210px;top:140px;'><h2>TF55 D.ATLASTUDIO</h2><a href='http://duckduckgo.com/?q=D.ATLASTUDIO'>Search for D.ATLASTUDIO</a></div><div class='area' style='left:550px;top:462px;width:500px;height:18px; color: red; background-color: salmon'>TF55 D.ATLASTUDIO</div><div class='box' style='left:189px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS27' onclick='link_click(this)'><div class='desc' style='left:196px;top:326px;'><h2>TS27 DANIEL YU &amp; FUFUFANNY</h2><a href='http://duckduckgo.com/?q=DANIEL%20YU%20%26%20FUFUFANNY'>Search for DANIEL YU &amp; FUFUFANNY</a></div><div class='area' style='left:550px;top:480px;width:500px;height:18px; color: red; background-color: salmon'>TS27 DANIEL YU &amp; FUFUFANNY</div><div class='box' style='left:163px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF38' onclick='link_click(this)'><div class='desc' style='left:336px;top:202px;'><h2>TF38 DMD + ORZU</h2><a href='http://duckduckgo.com/?q=DMD%20%2B%20ORZU'>Search for DMD + ORZU</a></div><div class='area' style='left:550px;top:498px;width:500px;height:18px; color: red; background-color: salmon'>TF38 DMD + ORZU</div><div class='box' style='left:315px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF49' onclick='link_click(this)'><div class='desc' style='left:458px;top:183px;'><h2>TF49 DOODLEDROID &amp; UMBISAURUS</h2><a href='http://duckduckgo.com/?q=DOODLEDROID%20%26%20UMBISAURUS'>Search for DOODLEDROID &amp; UMBISAURUS</a></div><div class='area' style='left:550px;top:516px;width:500px;height:18px; color: red; background-color: salmon'>TF49 DOODLEDROID &amp; UMBISAURUS</div><div class='box' style='left:437px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS10' onclick='link_click(this)'><div class='desc' style='left:298px;top:371px;'><h2>TS10 DOTOY &amp; STRANGE BEAM</h2><a href='http://duckduckgo.com/?q=DOTOY%20%26%20STRANGE%20BEAM'>Search for DOTOY &amp; STRANGE BEAM</a></div><div class='area' style='left:550px;top:534px;width:500px;height:18px; color: red; background-color: salmon'>TS10 DOTOY &amp; STRANGE BEAM</div><div class='box' style='left:265px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF10' onclick='link_click(this)'><div class='desc' style='left:354px;top:246px;'><h2>TF10 DOUJIN TENKA !!</h2><ul>
+<li><a href='http://fb.me/doujintenka' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:552px;width:500px;height:18px;'>TF10 DOUJIN TENKA !!</div><div class='box' style='left:333px;top:223px;width:19px;height:21px;'></div>
+</div><div class='booth' id='TF6' onclick='link_click(this)'><div class='desc' style='left:306px;top:246px;'><h2>TF6 EDGE COMIX</h2><a href='http://duckduckgo.com/?q=EDGE%20COMIX'>Search for EDGE COMIX</a></div><div class='area' style='left:550px;top:570px;width:500px;height:18px; color: red; background-color: salmon'>TF6 EDGE COMIX</div><div class='box' style='left:285px;top:223px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF23' onclick='link_click(this)'><div class='desc' style='left:139px;top:183px;'><h2>TF23 EDWARD &amp; YIIAN</h2><a href='http://duckduckgo.com/?q=EDWARD%20%26%20YIIAN'>Search for EDWARD &amp; YIIAN</a></div><div class='area' style='left:550px;top:588px;width:500px;height:18px; color: red; background-color: salmon'>TF23 EDWARD &amp; YIIAN</div><div class='box' style='left:118px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF35' onclick='link_click(this)'><div class='desc' style='left:290px;top:183px;'><h2>TF35 FREELY ABRIGO</h2><a href='http://duckduckgo.com/?q=FREELY%20ABRIGO'>Search for FREELY ABRIGO</a></div><div class='area' style='left:550px;top:606px;width:500px;height:18px; color: red; background-color: salmon'>TF35 FREELY ABRIGO</div><div class='box' style='left:269px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF9' onclick='link_click(this)'><div class='desc' style='left:351px;top:267px;'><h2>TF9 FRUS</h2><a href='http://duckduckgo.com/?q=FRUS'>Search for FRUS</a></div><div class='area' style='left:550px;top:624px;width:500px;height:18px; color: red; background-color: salmon'>TF9 FRUS</div><div class='box' style='left:330px;top:244px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS3' onclick='link_click(this)'><div class='desc' style='left:258px;top:430px;'><h2>TS3 GGNW TOYS</h2><a href='http://duckduckgo.com/?q=GGNW%20TOYS'>Search for GGNW TOYS</a></div><div class='area' style='left:550px;top:642px;width:500px;height:18px; color: red; background-color: salmon'>TS3 GGNW TOYS</div><div class='box' style='left:225px;top:407px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF29' onclick='link_click(this)'><div class='desc' style='left:211px;top:183px;'><h2>TF29 GUANYINMA TAN</h2><a href='http://duckduckgo.com/?q=GUANYINMA%20TAN'>Search for GUANYINMA TAN</a></div><div class='area' style='left:550px;top:660px;width:500px;height:18px; color: red; background-color: salmon'>TF29 GUANYINMA TAN</div><div class='box' style='left:190px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF32' onclick='link_click(this)'><div class='desc' style='left:310px;top:414px;'><h2>TF32 INKS M.D</h2><a href='http://duckduckgo.com/?q=INKS%20M.D'>Search for INKS M.D</a></div><div class='area' style='left:550px;top:678px;width:500px;height:18px; color: red; background-color: salmon'>TF32 INKS M.D</div><div class='box' style='left:308px;top:412px;width:0px;height:0px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF14' onclick='link_click(this)'><div class='desc' style='left:440px;top:247px;'><h2>TF14 INKY CAT STUDIO</h2><a href='http://duckduckgo.com/?q=INKY%20CAT%20STUDIO'>Search for INKY CAT STUDIO</a></div><div class='area' style='left:550px;top:696px;width:500px;height:18px; color: red; background-color: salmon'>TF14 INKY CAT STUDIO</div><div class='box' style='left:419px;top:224px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS28' onclick='link_click(this)'><div class='desc' style='left:197px;top:306px;'><h2>TS28 JESSICA EMMETT STUDIOS</h2><a href='http://duckduckgo.com/?q=JESSICA%20EMMETT%20STUDIOS'>Search for JESSICA EMMETT STUDIOS</a></div><div class='area' style='left:550px;top:714px;width:500px;height:18px; color: red; background-color: salmon'>TS28 JESSICA EMMETT STUDIOS</div><div class='box' style='left:164px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF47' onclick='link_click(this)'><div class='desc' style='left:434px;top:183px;'><h2>TF47 JNJF DESIGN</h2><a href='http://duckduckgo.com/?q=JNJF%20DESIGN'>Search for JNJF DESIGN</a></div><div class='area' style='left:550px;top:732px;width:500px;height:18px; color: red; background-color: salmon'>TF47 JNJF DESIGN</div><div class='box' style='left:413px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF42' onclick='link_click(this)'><div class='desc' style='left:384px;top:202px;'><h2>TF42 JOJO HILARIO: JH ILLUSTRATIONS</h2><a href='http://duckduckgo.com/?q=JOJO%20HILARIO%3A%20JH%20ILLUSTRATIONS'>Search for JOJO HILARIO: JH ILLUSTRATIONS</a></div><div class='area' style='left:550px;top:750px;width:500px;height:18px; color: red; background-color: salmon'>TF42 JOJO HILARIO: JH ILLUSTRATIONS</div><div class='box' style='left:363px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS41' onclick='link_click(this)'><div class='desc' style='left:403px;top:326px;'><h2>TS41 JRPENCIL + XIXIPENCIL</h2><ul>
+<li><a href='http://instagram.com/jrpencil88' class='ins'></a></li></ul></div><div class='area' style='left:550px;top:768px;width:500px;height:18px;'>TS41 JRPENCIL + XIXIPENCIL</div><div class='box' style='left:370px;top:303px;width:31px;height:21px;'></div>
+</div><div class='booth' id='TS38' onclick='link_click(this)'><div class='desc' style='left:403px;top:306px;'><h2>TS38 KAEL NGU</h2><a href='http://duckduckgo.com/?q=KAEL%20NGU'>Search for KAEL NGU</a></div><div class='area' style='left:550px;top:786px;width:500px;height:18px; color: red; background-color: salmon'>TS38 KAEL NGU</div><div class='box' style='left:370px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF39' onclick='link_click(this)'><div class='desc' style='left:338px;top:183px;'><h2>TF39 KAI3</h2><a href='http://duckduckgo.com/?q=KAI3'>Search for KAI3</a></div><div class='area' style='left:550px;top:804px;width:500px;height:18px; color: red; background-color: salmon'>TF39 KAI3</div><div class='box' style='left:317px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS45' onclick='link_click(this)'><div class='desc' style='left:131px;top:266px;'><h2>TS45 KALIBAK KOMIKS</h2><a href='http://duckduckgo.com/?q=KALIBAK%20KOMIKS'>Search for KALIBAK KOMIKS</a></div><div class='area' style='left:550px;top:822px;width:500px;height:18px; color: red; background-color: salmon'>TS45 KALIBAK KOMIKS</div><div class='box' style='left:98px;top:243px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF52' onclick='link_click(this)'><div class='desc' style='left:138px;top:140px;'><h2>TF52 KATY KAT + THE SUPER SECRET BOOK</h2><a href='http://duckduckgo.com/?q=KATY%20KAT%20%2B%20THE%20SUPER%20SECRET%20BOOK'>Search for KATY KAT + THE SUPER SECRET BOOK</a></div><div class='area' style='left:550px;top:840px;width:500px;height:18px; color: red; background-color: salmon'>TF52 KATY KAT + THE SUPER SECRET BOOK</div><div class='box' style='left:117px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF12' onclick='link_click(this)'><div class='desc' style='left:378px;top:246px;'><h2>TF12 KEVIN THE PANDA</h2><a href='http://duckduckgo.com/?q=KEVIN%20THE%20PANDA'>Search for KEVIN THE PANDA</a></div><div class='area' style='left:550px;top:858px;width:500px;height:18px; color: red; background-color: salmon'>TF12 KEVIN THE PANDA</div><div class='box' style='left:357px;top:223px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS14' onclick='link_click(this)'><div class='desc' style='left:370px;top:371px;'><h2>TS14 KHIET TRAN TOXIC RAT</h2><a href='http://duckduckgo.com/?q=KHIET%20TRAN%20TOXIC%20RAT'>Search for KHIET TRAN TOXIC RAT</a></div><div class='area' style='left:550px;top:876px;width:500px;height:18px; color: red; background-color: salmon'>TS14 KHIET TRAN TOXIC RAT</div><div class='box' style='left:337px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS47' onclick='link_click(this)'><div class='desc' style='left:167px;top:266px;'><h2>TS47 KIRU MADE GALLERY</h2><a href='http://duckduckgo.com/?q=KIRU%20MADE%20GALLERY'>Search for KIRU MADE GALLERY</a></div><div class='area' style='left:550px;top:894px;width:500px;height:18px; color: red; background-color: salmon'>TS47 KIRU MADE GALLERY</div><div class='box' style='left:134px;top:243px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS19' onclick='link_click(this)'><div class='desc' style='left:52px;top:326px;'><h2>TS19 KITTYMYO</h2><a href='http://duckduckgo.com/?q=KITTYMYO'>Search for KITTYMYO</a></div><div class='area' style='left:550px;top:912px;width:500px;height:18px; color: red; background-color: salmon'>TS19 KITTYMYO</div><div class='box' style='left:19px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS4' onclick='link_click(this)'><div class='desc' style='left:294px;top:430px;'><h2>TS4 KUHL NOTES</h2><ul>
+<li><a href='http://twitter.com/kuhl_notes' class='twt'></a><a href='http://instagram.com/kuhlnotes' class='ins'></a><a href='http://fb.me/kuhlnotes' class='fbk'></a><a href='https://carousell.com/kuhlnotes' class='crs'></a></li><li><a href='http://kuhl-notes.com'>kuhl-notes.com</a></li><li>
+</li></ul></div><div class='area' style='left:550px;top:930px;width:500px;height:18px;'>TS4 KUHL NOTES</div><div class='box' style='left:261px;top:407px;width:31px;height:21px;'></div>
+</div><div class='booth' id='TF17' onclick='link_click(this)'><div class='desc' style='left:461px;top:266px;'><h2>TF17 LAUGH AND BELLY X OWO.UWU.ONO</h2><a href='http://duckduckgo.com/?q=LAUGH%20AND%20BELLY%20X%20OWO.UWU.ONO'>Search for LAUGH AND BELLY X OWO.UWU.ONO</a></div><div class='area' style='left:1100px;top:30px;width:500px;height:18px; color: red; background-color: salmon'>TF17 LAUGH AND BELLY X OWO.UWU.ONO</div><div class='box' style='left:440px;top:243px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF1' onclick='link_click(this)'><div class='desc' style='left:255px;top:267px;'><h2>TF1 LEOREN</h2><ul>
+<li><a href='http://twitter.com/LeorenArt' class='twt'></a><a href='http://linktr.ee/leorenart' class='lkt'></a></li><li><a href='http://leoren.art'>leoren.art</a></li><li>
+</li></ul></div><div class='area' style='left:1100px;top:48px;width:500px;height:18px;'>TF1 LEOREN</div><div class='box' style='left:234px;top:244px;width:19px;height:21px;'></div>
+</div><div class='booth' id='TF19' onclick='link_click(this)'><div class='desc' style='left:91px;top:183px;'><h2>TF19 LONG - LAI</h2><a href='http://duckduckgo.com/?q=LONG%20-%20LAI'>Search for LONG - LAI</a></div><div class='area' style='left:1100px;top:66px;width:500px;height:18px; color: red; background-color: salmon'>TF19 LONG - LAI</div><div class='box' style='left:70px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF25' onclick='link_click(this)'><div class='desc' style='left:163px;top:183px;'><h2>TF25 LUNARAEI X NUFFYPUFFY</h2><a href='http://duckduckgo.com/?q=LUNARAEI%20X%20NUFFYPUFFY'>Search for LUNARAEI X NUFFYPUFFY</a></div><div class='area' style='left:1100px;top:84px;width:500px;height:18px; color: red; background-color: salmon'>TF25 LUNARAEI X NUFFYPUFFY</div><div class='box' style='left:142px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF45' onclick='link_click(this)'><div class='desc' style='left:410px;top:183px;'><h2>TF45 LUNATIC PARADISE X SCYTHEMOG</h2><a href='http://duckduckgo.com/?q=LUNATIC%20PARADISE%20X%20SCYTHEMOG'>Search for LUNATIC PARADISE X SCYTHEMOG</a></div><div class='area' style='left:1100px;top:102px;width:500px;height:18px; color: red; background-color: salmon'>TF45 LUNATIC PARADISE X SCYTHEMOG</div><div class='box' style='left:389px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF41' onclick='link_click(this)'><div class='desc' style='left:362px;top:183px;'><h2>TF41 LYNXDRE X SERPENTINE</h2><a href='http://duckduckgo.com/?q=LYNXDRE%20X%20SERPENTINE'>Search for LYNXDRE X SERPENTINE</a></div><div class='area' style='left:1100px;top:120px;width:500px;height:18px; color: red; background-color: salmon'>TF41 LYNXDRE X SERPENTINE</div><div class='box' style='left:341px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS24' onclick='link_click(this)'><div class='desc' style='left:125px;top:306px;'><h2>TS24 MILKCANANIME</h2><a href='http://duckduckgo.com/?q=MILKCANANIME'>Search for MILKCANANIME</a></div><div class='area' style='left:1100px;top:138px;width:500px;height:18px; color: red; background-color: salmon'>TS24 MILKCANANIME</div><div class='box' style='left:92px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS21' onclick='link_click(this)'><div class='desc' style='left:88px;top:326px;'><h2>TS21 MODEL ART DISPLAY</h2><a href='http://duckduckgo.com/?q=MODEL%20ART%20DISPLAY'>Search for MODEL ART DISPLAY</a></div><div class='area' style='left:1100px;top:156px;width:500px;height:18px; color: red; background-color: salmon'>TS21 MODEL ART DISPLAY</div><div class='box' style='left:55px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS9' onclick='link_click(this)'><div class='desc' style='left:296px;top:391px;'><h2>TS9 MORFOSIC STUDIOS</h2><a href='http://duckduckgo.com/?q=MORFOSIC%20STUDIOS'>Search for MORFOSIC STUDIOS</a></div><div class='area' style='left:1100px;top:174px;width:500px;height:18px; color: red; background-color: salmon'>TS9 MORFOSIC STUDIOS</div><div class='box' style='left:263px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS1' onclick='link_click(this)'><div class='desc' style='left:222px;top:430px;'><h2>TS1 MUFFINSAURS X TROOPS ON PRINT</h2><a href='http://duckduckgo.com/?q=MUFFINSAURS%20X%20TROOPS%20ON%20PRINT'>Search for MUFFINSAURS X TROOPS ON PRINT</a></div><div class='area' style='left:1100px;top:192px;width:500px;height:18px; color: red; background-color: salmon'>TS1 MUFFINSAURS X TROOPS ON PRINT</div><div class='box' style='left:189px;top:407px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS43' onclick='link_click(this)'><div class='desc' style='left:95px;top:266px;'><h2>TS43 NEBBY ART</h2><a href='http://duckduckgo.com/?q=NEBBY%20ART'>Search for NEBBY ART</a></div><div class='area' style='left:1100px;top:210px;width:500px;height:18px; color: red; background-color: salmon'>TS43 NEBBY ART</div><div class='box' style='left:62px;top:243px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS25' onclick='link_click(this)'><div class='desc' style='left:160px;top:326px;'><h2>TS25 NEKO ART</h2><a href='http://duckduckgo.com/?q=NEKO%20ART'>Search for NEKO ART</a></div><div class='area' style='left:1100px;top:228px;width:500px;height:18px; color: red; background-color: salmon'>TS25 NEKO ART</div><div class='box' style='left:127px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF33' onclick='link_click(this)'><div class='desc' style='left:310px;top:417px;'><h2>TF33 NELSEN TSEN</h2><a href='http://duckduckgo.com/?q=NELSEN%20TSEN'>Search for NELSEN TSEN</a></div><div class='area' style='left:1100px;top:246px;width:500px;height:18px; color: red; background-color: salmon'>TF33 NELSEN TSEN</div><div class='box' style='left:308px;top:415px;width:0px;height:0px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS35' onclick='link_click(this)'><div class='desc' style='left:295px;top:326px;'><h2>TS35 NIGHTHOOD COLLECTIBLES</h2><a href='http://duckduckgo.com/?q=NIGHTHOOD%20COLLECTIBLES'>Search for NIGHTHOOD COLLECTIBLES</a></div><div class='area' style='left:1100px;top:264px;width:500px;height:18px; color: red; background-color: salmon'>TS35 NIGHTHOOD COLLECTIBLES</div><div class='box' style='left:262px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS48' onclick='link_click(this)'><div class='desc' style='left:167px;top:246px;'><h2>TS48 NOMS DESIGNS</h2><a href='http://duckduckgo.com/?q=NOMS%20DESIGNS'>Search for NOMS DESIGNS</a></div><div class='area' style='left:1100px;top:282px;width:500px;height:18px; color: red; background-color: salmon'>TS48 NOMS DESIGNS</div><div class='box' style='left:134px;top:223px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF28' onclick='link_click(this)'><div class='desc' style='left:209px;top:201px;'><h2>TF28 PEEJAY CATACUTAN ILLUSTRATION</h2><a href='http://duckduckgo.com/?q=PEEJAY%20CATACUTAN%20ILLUSTRATION'>Search for PEEJAY CATACUTAN ILLUSTRATION</a></div><div class='area' style='left:1100px;top:300px;width:500px;height:18px; color: red; background-color: salmon'>TF28 PEEJAY CATACUTAN ILLUSTRATION</div><div class='box' style='left:188px;top:178px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF22' onclick='link_click(this)'><div class='desc' style='left:137px;top:201px;'><h2>TF22 PELCRON</h2><a href='http://duckduckgo.com/?q=PELCRON'>Search for PELCRON</a></div><div class='area' style='left:1100px;top:318px;width:500px;height:18px; color: red; background-color: salmon'>TF22 PELCRON</div><div class='box' style='left:116px;top:178px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF30' onclick='link_click(this)'><div class='desc' style='left:264px;top:202px;'><h2>TF30 PETER NYUGEN</h2><a href='http://duckduckgo.com/?q=PETER%20NYUGEN'>Search for PETER NYUGEN</a></div><div class='area' style='left:1100px;top:336px;width:500px;height:18px; color: red; background-color: salmon'>TF30 PETER NYUGEN</div><div class='box' style='left:243px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS11' onclick='link_click(this)'><div class='desc' style='left:332px;top:391px;'><h2>TS11 PINDEMIC</h2><a href='http://duckduckgo.com/?q=PINDEMIC'>Search for PINDEMIC</a></div><div class='area' style='left:1100px;top:354px;width:500px;height:18px; color: red; background-color: salmon'>TS11 PINDEMIC</div><div class='box' style='left:299px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS37' onclick='link_click(this)'><div class='desc' style='left:331px;top:326px;'><h2>TS37 POKETCAT</h2><a href='http://duckduckgo.com/?q=POKETCAT'>Search for POKETCAT</a></div><div class='area' style='left:1100px;top:372px;width:500px;height:18px; color: red; background-color: salmon'>TS37 POKETCAT</div><div class='box' style='left:298px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF15' onclick='link_click(this)'><div class='desc' style='left:437px;top:266px;'><h2>TF15 PONCRAFTS</h2><a href='http://duckduckgo.com/?q=PONCRAFTS'>Search for PONCRAFTS</a></div><div class='area' style='left:1100px;top:390px;width:500px;height:18px; color: red; background-color: salmon'>TF15 PONCRAFTS</div><div class='box' style='left:416px;top:243px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS49' onclick='link_click(this)'><div class='desc' style='left:203px;top:266px;'><h2>TS49 PURRBALLS</h2><a href='http://duckduckgo.com/?q=PURRBALLS'>Search for PURRBALLS</a></div><div class='area' style='left:1100px;top:408px;width:500px;height:18px; color: red; background-color: salmon'>TS49 PURRBALLS</div><div class='box' style='left:170px;top:243px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF26' onclick='link_click(this)'><div class='desc' style='left:185px;top:201px;'><h2>TF26 QIARA TEOR ILLUSTRATIONS</h2><ul>
+<li><a href='http://twitter.com/Qiara_T' class='twt'></a><a href='http://fb.me/qiarateor' class='fbk'></a></li></ul></div><div class='area' style='left:1100px;top:426px;width:500px;height:18px;'>TF26 QIARA TEOR ILLUSTRATIONS</div><div class='box' style='left:164px;top:178px;width:19px;height:21px;'></div>
+</div><div class='booth' id='TS33' onclick='link_click(this)'><div class='desc' style='left:259px;top:326px;'><h2>TS33 QOOBEE &amp; FRIENDS</h2><a href='http://duckduckgo.com/?q=QOOBEE%20%26%20FRIENDS'>Search for QOOBEE &amp; FRIENDS</a></div><div class='area' style='left:1100px;top:444px;width:500px;height:18px; color: red; background-color: salmon'>TS33 QOOBEE &amp; FRIENDS</div><div class='box' style='left:226px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS32' onclick='link_click(this)'><div class='desc' style='left:295px;top:306px;'><h2>TS32 RAD BOOKS</h2><a href='http://duckduckgo.com/?q=RAD%20BOOKS'>Search for RAD BOOKS</a></div><div class='area' style='left:1100px;top:462px;width:500px;height:18px; color: red; background-color: salmon'>TS32 RAD BOOKS</div><div class='box' style='left:262px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF24' onclick='link_click(this)'><div class='desc' style='left:161px;top:201px;'><h2>TF24 RED DOT GEEK</h2><a href='http://duckduckgo.com/?q=RED%20DOT%20GEEK'>Search for RED DOT GEEK</a></div><div class='area' style='left:1100px;top:480px;width:500px;height:18px; color: red; background-color: salmon'>TF24 RED DOT GEEK</div><div class='box' style='left:140px;top:178px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF57' onclick='link_click(this)'><div class='desc' style='left:295px;top:140px;'><h2>TF57 RIANBOWART + BENGAL</h2><a href='http://duckduckgo.com/?q=RIANBOWART%20%2B%20BENGAL'>Search for RIANBOWART + BENGAL</a></div><div class='area' style='left:1100px;top:498px;width:500px;height:18px; color: red; background-color: salmon'>TF57 RIANBOWART + BENGAL</div><div class='box' style='left:274px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS39' onclick='link_click(this)'><div class='desc' style='left:367px;top:326px;'><h2>TS39 RYAN BENJAMIN</h2><a href='http://duckduckgo.com/?q=RYAN%20BENJAMIN'>Search for RYAN BENJAMIN</a></div><div class='area' style='left:1100px;top:516px;width:500px;height:18px; color: red; background-color: salmon'>TS39 RYAN BENJAMIN</div><div class='box' style='left:334px;top:303px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF58' onclick='link_click(this)'><div class='desc' style='left:319px;top:140px;'><h2>TF58 RYUUSHUO &amp; FEMILIAARTS</h2><a href='http://duckduckgo.com/?q=RYUUSHUO%20%26%20FEMILIAARTS'>Search for RYUUSHUO &amp; FEMILIAARTS</a></div><div class='area' style='left:1100px;top:534px;width:500px;height:18px; color: red; background-color: salmon'>TF58 RYUUSHUO &amp; FEMILIAARTS</div><div class='box' style='left:298px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF3' onclick='link_click(this)'><div class='desc' style='left:279px;top:267px;'><h2>TF3 SAMARASKETCH &amp; JELLYFISHPENCAKES</h2><a href='http://duckduckgo.com/?q=SAMARASKETCH%20%26%20JELLYFISHPENCAKES'>Search for SAMARASKETCH &amp; JELLYFISHPENCAKES</a></div><div class='area' style='left:1100px;top:552px;width:500px;height:18px; color: red; background-color: salmon'>TF3 SAMARASKETCH &amp; JELLYFISHPENCAKES</div><div class='box' style='left:258px;top:244px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF46 & TF48' onclick='link_click(this)'><div class='desc' style='left:430px;top:203px;'><h2>TF46 & TF48 SAOWEE</h2><a href='http://duckduckgo.com/?q=SAOWEE'>Search for SAOWEE</a></div><div class='area' style='left:1100px;top:570px;width:500px;height:18px; color: red; background-color: salmon'>TF46 &amp; TF48 SAOWEE</div><div class='box' style='left:390px;top:180px;width:38px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS34' onclick='link_click(this)'><div class='desc' style='left:331px;top:306px;'><h2>TS34 SCOTT&#39;S COLLECTABLES</h2><a href='http://duckduckgo.com/?q=SCOTT%27S%20COLLECTABLES'>Search for SCOTT&#39;S COLLECTABLES</a></div><div class='area' style='left:1100px;top:588px;width:500px;height:18px; color: red; background-color: salmon'>TS34 SCOTT&#39;S COLLECTABLES</div><div class='box' style='left:298px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS20' onclick='link_click(this)'><div class='desc' style='left:53px;top:306px;'><h2>TS20 SECRET GARDEN</h2><a href='http://duckduckgo.com/?q=SECRET%20GARDEN'>Search for SECRET GARDEN</a></div><div class='area' style='left:1100px;top:606px;width:500px;height:18px; color: red; background-color: salmon'>TS20 SECRET GARDEN</div><div class='box' style='left:20px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS42' onclick='link_click(this)'><div class='desc' style='left:475px;top:306px;'><h2>TS42 SETH ADAMS - ARTIST</h2><a href='http://duckduckgo.com/?q=SETH%20ADAMS%20-%20ARTIST'>Search for SETH ADAMS - ARTIST</a></div><div class='area' style='left:1100px;top:624px;width:500px;height:18px; color: red; background-color: salmon'>TS42 SETH ADAMS - ARTIST</div><div class='box' style='left:442px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF27' onclick='link_click(this)'><div class='desc' style='left:187px;top:183px;'><h2>TF27 SOEFARA</h2><a href='http://duckduckgo.com/?q=SOEFARA'>Search for SOEFARA</a></div><div class='area' style='left:1100px;top:642px;width:500px;height:18px; color: red; background-color: salmon'>TF27 SOEFARA</div><div class='box' style='left:166px;top:160px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS18' onclick='link_click(this)'><div class='desc' style='left:442px;top:371px;'><h2>TS18 SUNGUTS</h2><a href='http://duckduckgo.com/?q=SUNGUTS'>Search for SUNGUTS</a></div><div class='area' style='left:1100px;top:660px;width:500px;height:18px; color: red; background-color: salmon'>TS18 SUNGUTS</div><div class='box' style='left:409px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF18' onclick='link_click(this)'><div class='desc' style='left:89px;top:201px;'><h2>TF18 TEA &amp; BUNS</h2><a href='http://duckduckgo.com/?q=TEA%20%26%20BUNS'>Search for TEA &amp; BUNS</a></div><div class='area' style='left:1100px;top:678px;width:500px;height:18px; color: red; background-color: salmon'>TF18 TEA &amp; BUNS</div><div class='box' style='left:68px;top:178px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF44' onclick='link_click(this)'><div class='desc' style='left:310px;top:420px;'><h2>TF44 THE BABY BLUE BUNNY</h2><a href='http://duckduckgo.com/?q=THE%20BABY%20BLUE%20BUNNY'>Search for THE BABY BLUE BUNNY</a></div><div class='area' style='left:1100px;top:696px;width:500px;height:18px; color: red; background-color: salmon'>TF44 THE BABY BLUE BUNNY</div><div class='box' style='left:308px;top:418px;width:0px;height:0px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS16' onclick='link_click(this)'><div class='desc' style='left:406px;top:371px;'><h2>TS16 THE CURIOUS UNICORN</h2><a href='http://duckduckgo.com/?q=THE%20CURIOUS%20UNICORN'>Search for THE CURIOUS UNICORN</a></div><div class='area' style='left:1100px;top:714px;width:500px;height:18px; color: red; background-color: salmon'>TS16 THE CURIOUS UNICORN</div><div class='box' style='left:373px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS26' onclick='link_click(this)'><div class='desc' style='left:161px;top:306px;'><h2>TS26 THE HAIRY POTTER</h2><a href='http://duckduckgo.com/?q=THE%20HAIRY%20POTTER'>Search for THE HAIRY POTTER</a></div><div class='area' style='left:1100px;top:732px;width:500px;height:18px; color: red; background-color: salmon'>TS26 THE HAIRY POTTER</div><div class='box' style='left:128px;top:283px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS12' onclick='link_click(this)'><div class='desc' style='left:334px;top:371px;'><h2>TS12 TIDU WORKSHOP</h2><a href='http://duckduckgo.com/?q=TIDU%20WORKSHOP'>Search for TIDU WORKSHOP</a></div><div class='area' style='left:1100px;top:750px;width:500px;height:18px; color: red; background-color: salmon'>TS12 TIDU WORKSHOP</div><div class='box' style='left:301px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF4' onclick='link_click(this)'><div class='desc' style='left:282px;top:246px;'><h2>TF4 TINYBIRDFARTS &amp; KEYADE</h2><a href='http://duckduckgo.com/?q=TINYBIRDFARTS%20%26%20KEYADE'>Search for TINYBIRDFARTS &amp; KEYADE</a></div><div class='area' style='left:1100px;top:768px;width:500px;height:18px; color: red; background-color: salmon'>TF4 TINYBIRDFARTS &amp; KEYADE</div><div class='box' style='left:261px;top:223px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF56' onclick='link_click(this)'><div class='desc' style='left:234px;top:140px;'><h2>TF56 TOASTWIRE</h2><a href='http://duckduckgo.com/?q=TOASTWIRE'>Search for TOASTWIRE</a></div><div class='area' style='left:1100px;top:786px;width:500px;height:18px; color: red; background-color: salmon'>TF56 TOASTWIRE</div><div class='box' style='left:213px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS30' onclick='link_click(this)'><div class='desc' style='left:259px;top:306px;'><h2>TS30 TOMODACHI</h2><ul>
+<li><a href='http://twitter.com/TomodachiTShirt' class='twt'></a><a href='http://redbubble.com/shop/tomodachi' class='rbb'></a><a href='http://fb.me/tomodachiTShirt' class='fbk'></a></li><li><a href='http://tomodachiclothing.com'>tomodachiclothing.com</a></li><li>
+</li></ul></div><div class='area' style='left:1100px;top:804px;width:500px;height:18px;'>TS30 TOMODACHI</div><div class='box' style='left:226px;top:283px;width:31px;height:21px;'></div>
+</div><div class='booth' id='TS6' onclick='link_click(this)'><div class='desc' style='left:226px;top:371px;'><h2>TS6 UE CREATIVE WORLD &amp; MY STYLESZ</h2><ul>
+<li><a href='http://instagram.com/uecreativeworld_handmade_dolls' class='ins'></a></li></ul></div><div class='area' style='left:1100px;top:822px;width:500px;height:18px;'>TS6 UE CREATIVE WORLD &amp; MY STYLESZ</div><div class='box' style='left:193px;top:348px;width:31px;height:21px;'></div>
+</div><div class='booth' id='TS8' onclick='link_click(this)'><div class='desc' style='left:262px;top:371px;'><h2>TS8 UNCLE MERMAID</h2><a href='http://duckduckgo.com/?q=UNCLE%20MERMAID'>Search for UNCLE MERMAID</a></div><div class='area' style='left:1100px;top:840px;width:500px;height:18px; color: red; background-color: salmon'>TS8 UNCLE MERMAID</div><div class='box' style='left:229px;top:348px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS50' onclick='link_click(this)'><div class='desc' style='left:203px;top:246px;'><h2>TS50 VINCENT TRINIDAD ART</h2><a href='http://duckduckgo.com/?q=VINCENT%20TRINIDAD%20ART'>Search for VINCENT TRINIDAD ART</a></div><div class='area' style='left:1100px;top:858px;width:500px;height:18px; color: red; background-color: salmon'>TS50 VINCENT TRINIDAD ART</div><div class='box' style='left:170px;top:223px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF54' onclick='link_click(this)'><div class='desc' style='left:186px;top:140px;'><h2>TF54 WARREN LOUW</h2><a href='http://duckduckgo.com/?q=WARREN%20LOUW'>Search for WARREN LOUW</a></div><div class='area' style='left:1100px;top:876px;width:500px;height:18px; color: red; background-color: salmon'>TF54 WARREN LOUW</div><div class='box' style='left:165px;top:117px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS17' onclick='link_click(this)'><div class='desc' style='left:440px;top:391px;'><h2>TS17 WE DRAW THINGS</h2><a href='http://duckduckgo.com/?q=WE%20DRAW%20THINGS'>Search for WE DRAW THINGS</a></div><div class='area' style='left:1100px;top:894px;width:500px;height:18px; color: red; background-color: salmon'>TS17 WE DRAW THINGS</div><div class='box' style='left:407px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TS7' onclick='link_click(this)'><div class='desc' style='left:260px;top:391px;'><h2>TS7 WHENIWASFOUR</h2><a href='http://duckduckgo.com/?q=WHENIWASFOUR'>Search for WHENIWASFOUR</a></div><div class='area' style='left:1100px;top:912px;width:500px;height:18px; color: red; background-color: salmon'>TS7 WHENIWASFOUR</div><div class='box' style='left:227px;top:368px;width:31px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF36' onclick='link_click(this)'><div class='desc' style='left:312px;top:202px;'><h2>TF36 WINTER&#39;S TALES &amp; CIRCUS-USAGI</h2><a href='http://duckduckgo.com/?q=WINTER%27S%20TALES%20%26%20CIRCUS-USAGI'>Search for WINTER&#39;S TALES &amp; CIRCUS-USAGI</a></div><div class='area' style='left:1100px;top:930px;width:500px;height:18px; color: red; background-color: salmon'>TF36 WINTER&#39;S TALES &amp; CIRCUS-USAGI</div><div class='box' style='left:291px;top:179px;width:19px;height:21px; color: red; background-color: salmon'></div>
+</div><div class='booth' id='TF11' onclick='link_click(this)'><div class='desc' style='left:375px;top:267px;'><h2>TF11 WOOD3F 木田森果</h2><ul>
+<li><a href='http://twitter.com/wood_3f' class='twt'></a><a href='http://instagram.com/wood3f' class='ins'></a><a href='http://fb.me/wood.harvest' class='fbk'></a><a href='http://linktr.ee/wood3f' class='lkt'></a></li><li><a href='http://wood3f.com'>wood3f.com</a></li><li>
+</li></ul></div><div class='area' style='left:1100px;top:948px;width:500px;height:18px;'>TF11 WOOD3F 木田森果</div><div class='box' style='left:354px;top:244px;width:19px;height:21px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to SGCC2019 artists and organizer.-->
