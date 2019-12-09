@@ -10,7 +10,7 @@ Booth location can be highlight with hash('#') on the link.
 
 # 2019
 - [CF2019](https://milvagox.github.io/map/2019/CF2019)
-- [SGCC2019](https://milvagox.github.io/map/2019/SGCC2019-coor)
+- [SGCC2019](https://milvagox.github.io/map/2019/SGCC2019)
 - [C3AFASG2019](https://milvagox.github.io/map/2019/C3AFASG2019)
 - [ACC2019](https://milvagox.github.io/map/2019/ACC2019)
 - [Cosmart2019](https://milvagox.github.io/map/2019/Cosmart2019) ([Cosplay Alley](https://milvagox.github.io/map/2019/Cosmart2019C)) ([Exhibitor Booth](https://milvagox.github.io/map/2019/Cosmart2019E))
