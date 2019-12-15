@@ -9,6 +9,7 @@ Booth location can be highlight with hash('#') on the link.
 
 
 # 2019
+- [EOY2019](https://milvagox.github.io/map/2019/EOY2019)
 - [CF2019](https://milvagox.github.io/map/2019/CF2019) ([Premium Booth](https://milvagox.github.io/map/2019/CF2019P))
 - [SGCC2019](https://milvagox.github.io/map/2019/SGCC2019)
 - [C3AFASG2019](https://milvagox.github.io/map/2019/C3AFASG2019)
