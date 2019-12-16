@@ -145,7 +145,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d-]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -161,7 +161,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -177,7 +177,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -248,7 +248,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -357,7 +357,7 @@
 </div><div class='booth' id='B-B17' onclick='link_click(this)'><div class='desc' style='left:1459px;top:233px;'><h2>B-B17 Art Au Lait</h2><ul>
 <li><a href='https://carousell.com/art_aulait' class='crs'></a></li><li><a href='http://twitter.com/cherywitch' class='twt'></a><a href='http://instagram.com/_mingmiu' class='ins'></a></li><li><a href='http://twitter.com/hazegost' class='twt'></a><a href='http://instagram.com/hazegost' class='ins'></a><a href='http://instagram.com/sheensdraw' class='ins'></a><a href='http://instagram.com/petite_etale' class='ins'></a><a href='http://twitter.com/cherywitch' class='twt'></a></li></ul></div><div class='area' style='left:56px;top:926px;width:265px;height:14px;'>B-B17 ART AU LAIT</div><div class='box' style='left:1428px;top:207px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-B22' onclick='link_click(this)'><div class='desc' style='left:1719px;top:233px;'><h2>B-B22 Art of Joanne Poon</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/Joanne'>Joanne</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/theartofjoannepoon' class='ins'></a><a href='http://ko-fi.com/theartofjoannepoon' class='kof'></a></li></ul></div><div class='area' style='left:56px;top:940px;width:265px;height:15px;'>B-B22 ART OF JOANNE POON</div><div class='box' style='left:1688px;top:207px;width:29px;height:24px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Joanne'>Joanne</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/theartofjoannepoon' class='ins'></a><a href='http://ko-fi.com/theartofjoannepoon' class='kof'></a></li><li><p>Just 2 young amateur artist in their Quarter life crisis, hanging onto life.</p></li><li></li></ul></div><div class='area' style='left:56px;top:940px;width:265px;height:15px;'>B-B22 ART OF JOANNE POON</div><div class='box' style='left:1688px;top:207px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-A17' onclick='link_click(this)'><div class='desc' style='left:1459px;top:191px;'><h2>B-A17 Artist Sell Stuff</h2><ul>
 <li><a href='http://twitter.com/Donatissatan' class='twt'></a><a href='http://instagram.com/noliefys' class='ins'></a><a href='http://instagram.com/donatissatan' class='ins'></a><a href='http://instagram.com/lyferie' class='ins'></a><a href='http://linktr.ee/lyferie' class='lkt'></a><a href='http://drive.google.com/drive/folders/1bUsYxEgTEwrba6a5g5xBAdkPOPv959hS' class='gdr'></a></li></ul></div><div class='area' style='left:56px;top:955px;width:265px;height:15px;'>B-A17 ARTIST SELL STUFF</div><div class='box' style='left:1428px;top:165px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-F16-17' onclick='link_click(this)'><div class='desc' style='left:1242px;top:477px;'><h2>B-F16-17 ASGARD ALIENS</h2><ul>
@@ -385,7 +385,8 @@
 <li></li><li><a href='https://milvagox.miraheze.org/wiki/BlueBean 藍豆'>BlueBean 藍豆</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/bluebean.angela' class='ins'></a><a href='http://etsy.com/shop/bluebeanart' class='ets'></a></li></ul></div><div class='area' style='left:56px;top:1131px;width:265px;height:15px;'>B-A16 BLUEBEAN 蓝豆</div><div class='box' style='left:1328px;top:165px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-D10' onclick='link_click(this)'><div class='desc' style='left:902px;top:355px;'><h2>B-D10 BlueMoon x Error Era</h2><ul>
 <li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryu'>Ryu</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/ryufromleupus' class='twt'></a><a href='http://fb.me/ryufromleupus' class='fbk'></a><a href='http://instagram.com/ryufromleupus' class='ins'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Nie'>Nie</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/nieniekoto' class='twt'></a><a href='http://nieniekoto.com' class='nieniekoto'></a><a href='http://behance.net/julianie' class='bhc'></a></li><li><p><a href='https://nieniekoto.com/tagged/merch'>nieniekoto.com/tagged/merch</a><br><a href='https://twitter.com/i/moments/1153613658221494272'>twitter.com/i/moments/1153613658221494272</a></p></li><li></li></ul></div><div class='area' style='left:56px;top:1146px;width:265px;height:14px;'>B-D10 BLUEMOON X ERROR ERA</div><div class='box' style='left:871px;top:329px;width:29px;height:24px;'></div>
-</div><div class='booth' id='B-C05' onclick='link_click(this)'><div class='desc' style='left:646px;top:314px;'><h2>B-C05 Boat Party</h2><a href='http://duckduckgo.com/?q=Boat%20Party'>Search for Boat Party</a></div><div class='area' style='left:56px;top:1160px;width:265px;height:15px;'>B-C05 BOAT PARTY</div><div class='box' style='left:615px;top:288px;width:29px;height:24px;'></div>
+</div><div class='booth' id='B-C05' onclick='link_click(this)'><div class='desc' style='left:646px;top:314px;'><h2>B-C05 Boat Party</h2><ul>
+<li><a href='http://twitter.com/puruling' class='twt'></a><a href='http://pluehunter.deviantart.com' class='dar'></a></li></ul></div><div class='area' style='left:56px;top:1160px;width:265px;height:15px;'>B-C05 BOAT PARTY</div><div class='box' style='left:615px;top:288px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-C08' onclick='link_click(this)'><div class='desc' style='left:824px;top:314px;'><h2>B-C08 Break Pieces</h2><ul>
 <li><a href='http://instagram.com/break.pieces' class='ins'></a><a href='http://instagram.com/chiwayu.icefish' class='ins'></a><a href='https://chiwayu-icefish.tumblr.com' class='tmb'></a><a href='http://fb.me/chiwayu.icefish' class='fbk'></a><a href='http://chiwayu.storenvy.com' class='sen'></a></li></ul></div><div class='area' style='left:56px;top:1175px;width:265px;height:15px;'>B-C08 BREAK PIECES</div><div class='box' style='left:793px;top:288px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-G12' onclick='link_click(this)'><div class='desc' style='left:981px;top:556px;'><h2>B-G12 By Kami</h2><ul>
@@ -460,7 +461,8 @@
 <li><a href='http://instagram.com/rinkkk_510' class='ins'></a></li><li><a href='http://instagram.com/kyo.yuei' class='ins'></a></li><li><a href='http://instagram.com/nicco.draws' class='ins'></a></li></ul></div><div class='area' style='left:361px;top:1057px;width:265px;height:15px;'>B-G21 FURRY K.N.R</div><div class='box' style='left:1428px;top:530px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-F29' onclick='link_click(this)'><div class='desc' style='left:1837px;top:477px;'><h2>B-F29 ghostly</h2><ul>
 <li><a href='http://twitter.com/chiyori_225' class='twt'></a><a href='http://instagram.com/chiyori_225' class='ins'></a><a href='http://chiyori225.carrd.co' class='crd'></a></li><li><p><a href='https://instagram.com/p/BmTLLVMF68u'>merchs</a></p></li><li></li></ul></div><div class='area' style='left:361px;top:1087px;width:265px;height:14px;'>B-F29 GHOSTLY</div><div class='box' style='left:1806px;top:451px;width:29px;height:24px;'></div>
-</div><div class='booth' id='B-F26-27' onclick='link_click(this)'><div class='desc' style='left:1759px;top:477px;'><h2>B-F26-27 Gimbap-shi</h2><a href='http://duckduckgo.com/?q=Gimbap-shi'>Search for Gimbap-shi</a></div><div class='area' style='left:361px;top:1101px;width:265px;height:15px;'>B-F26-27 GIMBAP-SHI</div><div class='box' style='left:1688px;top:451px;width:69px;height:24px;'></div>
+</div><div class='booth' id='B-F26-27' onclick='link_click(this)'><div class='desc' style='left:1759px;top:477px;'><h2>B-F26-27 Gimbap-shi</h2><ul>
+<li><a href='http://twitter.com/harem_wip' class='twt'></a><a href='http://harem37.bigcartel.com' class='bcl'></a></li></ul></div><div class='area' style='left:361px;top:1101px;width:265px;height:15px;'>B-F26-27 GIMBAP-SHI</div><div class='box' style='left:1688px;top:451px;width:69px;height:24px;'></div>
 </div><div class='booth' id='B-D22' onclick='link_click(this)'><div class='desc' style='left:1498px;top:355px;'><h2>B-D22 grandma village 阿嬤村</h2><ul>
 <li><a href='http://instagram.com/ed1738' class='ins'></a></li></ul></div><div class='area' style='left:361px;top:1116px;width:265px;height:15px;'>B-D22 GRANDMA VILLAGE 阿嬤村</div><div class='box' style='left:1467px;top:329px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-E29-30' onclick='link_click(this)'><div class='desc' style='left:1877px;top:436px;'><h2>B-E29-30 Hammu</h2><ul>
@@ -567,7 +569,7 @@
 </div><div class='booth' id='B-C18' onclick='link_click(this)'><div class='desc' style='left:1280px;top:314px;'><h2>B-C18 ME²</h2><ul>
 <li><a href='http://twitter.com/littlenesu' class='twt'></a><a href='http://lainey-nesu.deviantart.com' class='dar'></a></li><li><a href='http://eeilaine.com/DA/CF2019-collage.jpg'>Catalog</a></li><li></li></ul></div><div class='area' style='left:660px;top:1292px;width:265px;height:14px;'>B-C18 ME²</div><div class='box' style='left:1249px;top:288px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-A10' onclick='link_click(this)'><div class='desc' style='left:1059px;top:191px;'><h2>B-A10 Meepancake</h2><ul>
-<li><a href='http://instagram.com/meepancake' class='ins'></a><a href='http://twitter.com/yoshihi_co' class='twt'></a></li></ul></div><div class='area' style='left:1001px;top:676px;width:265px;height:15px;'>B-A10 MEEPANCAKE</div><div class='box' style='left:1028px;top:165px;width:29px;height:24px;'></div>
+<li><a href='http://instagram.com/meepancake' class='ins'></a><a href='http://twitter.com/yoshihi_co' class='twt'></a></li><li><a href='http://twitter.com/Eurandus' class='twt'></a></li></ul></div><div class='area' style='left:1001px;top:676px;width:265px;height:15px;'>B-A10 MEEPANCAKE</div><div class='box' style='left:1028px;top:165px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-E11' onclick='link_click(this)'><div class='desc' style='left:941px;top:436px;'><h2>B-E11 Megame</h2><ul>
 <li><a href='http://instagram.com/megame88' class='ins'></a><a href='http://fb.me/megame88' class='fbk'></a><a href='http://megame88.lofter.com' class='lft'></a></li></ul></div><div class='area' style='left:1001px;top:691px;width:265px;height:15px;'>B-E11 MEGAME</div><div class='box' style='left:910px;top:410px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-F03' onclick='link_click(this)'><div class='desc' style='left:568px;top:477px;'><h2>B-F03 Mei Lian Hoe</h2><ul>
@@ -715,7 +717,7 @@
 </div><div class='booth' id='B-A02' onclick='link_click(this)'><div class='desc' style='left:529px;top:191px;'><h2>B-A02 Sweet Oblivion 甘い忘却</h2><ul>
 <li><a href='http://twitter.com/zuodieALEX' class='twt'></a><a href='http://fb.me/sweetoblivion.alex' class='fbk'></a></li></ul></div><div class='area' style='left:1308px;top:1013px;width:265px;height:15px;'>B-A02 SWEET OBLIVION 甘い忘却</div><div class='box' style='left:498px;top:165px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-C06-07' onclick='link_click(this)'><div class='desc' style='left:725px;top:314px;'><h2>B-C06-07 teh tarik</h2><ul>
-<li><a href='http://twitter.com/erebun11' class='twt'></a></li></ul></div><div class='area' style='left:1308px;top:1043px;width:265px;height:14px;'>B-C06-07 TEH TARIK</div><div class='box' style='left:654px;top:288px;width:69px;height:24px;'></div>
+<li><a href='http://erebun.deviantart.com' class='dar'></a><a href='http://twitter.com/erebun11' class='twt'></a><a href='http://facebook.com/erebun' class='fbk'></a><a href='http://erebun.etsy.com' class='ets'></a></li><li><a href='https://baroquegothik.tumblr.com' class='tmb'></a><a href='http://twitter.com/baroquegothik' class='twt'></a><a href='http://fb.me/baroquegothik' class='fbk'></a><a href='http://instagram.com/baroquegothik' class='ins'></a><a href='http://redbubble.com/people/baroquegothik' class='rbb'></a><a href='http://inprnt.com/gallery/baroquegothik' class='inp'></a></li></ul></div><div class='area' style='left:1308px;top:1043px;width:265px;height:14px;'>B-C06-07 TEH TARIK</div><div class='box' style='left:654px;top:288px;width:69px;height:24px;'></div>
 </div><div class='booth' id='B-G04' onclick='link_click(this)'><div class='desc' style='left:607px;top:556px;'><h2>B-G04 The 8</h2><ul>
 <li><a href='http://instagram.com/snownyng' class='ins'></a><a href='https://snownyng.tumblr.com' class='tmb'></a><a href='http://behance.net/snowny' class='bhc'></a><a href='http://snowny.deviantart.com' class='dar'></a></li><li><a href='https://drive.google.com/drive/folders/1VozgN2OC58IZJfGZ3JEZ0GQ-5DdXy34B'>Catalog</a></li><li></li></ul></div><div class='area' style='left:1308px;top:1057px;width:265px;height:15px;'>B-G04 THE 8</div><div class='box' style='left:576px;top:530px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-E17' onclick='link_click(this)'><div class='desc' style='left:1241px;top:436px;'><h2>B-E17 The Rolling Ronins</h2><ul>
@@ -730,7 +732,7 @@
 </div><div class='booth' id='B-G13' onclick='link_click(this)'><div class='desc' style='left:1020px;top:556px;'><h2>B-G13 Umairih &amp; Poppyfuwa</h2><ul>
 <li><a href='http://twitter.com/umairih_' class='twt'></a><a href='http://instagram.com/umairih' class='ins'></a></li><li><a href='http://instagram.com/Poppyfuwa' class='ins'></a><a href='http://etsy.com/shop/PoppyFuwa' class='ets'></a></li></ul></div><div class='area' style='left:1308px;top:1145px;width:265px;height:15px;'>B-G13 UMAIRIH &AMP; POPPYFUWA</div><div class='box' style='left:989px;top:530px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-B19' onclick='link_click(this)'><div class='desc' style='left:1537px;top:233px;'><h2>B-B19 UNNAMED SEA</h2><ul>
-<li><a href='http://facebook.com/groups/unnamedkomiks' class='fbk'></a></li><li><a href='http://unnamed.asia'>unnamed.asia</a></li><li>
+<li><a href='http://twitter.com/UnnamedKomiks' class='twt'></a><a href='http://facebook.com/groups/unnamedkomiks' class='fbk'></a></li><li><a href='http://unnamed.asia'>unnamed.asia</a></li><li>
 </li></ul></div><div class='area' style='left:1308px;top:1160px;width:265px;height:15px;'>B-B19 UNNAMED SEA</div><div class='box' style='left:1506px;top:207px;width:29px;height:24px;'></div>
 </div><div class='booth' id='B-G18' onclick='link_click(this)'><div class='desc' style='left:1281px;top:556px;'><h2>B-G18 Unspoken Words</h2><ul>
 <li><a href='http://twitter.com/Komainui' class='twt'></a><a href='http://instagram.com/komainui' class='ins'></a><a href='http://kazekamishiranui.deviantart.com' class='dar'></a><a href='http://fb.me/KazekamiArtwork' class='fbk'></a></li><li><a href='https://drive.google.com/drive/folders/1hYsOrMSZO2AWdXFUhqvaPeDZ5HFOz_45'>Catalog</a></li><li></li></ul></div><div class='area' style='left:1308px;top:1175px;width:265px;height:14px;'>B-G18 UNSPOKEN WORDS</div><div class='box' style='left:1250px;top:530px;width:29px;height:24px;'></div>
