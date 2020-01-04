@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,12 +313,13 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2018/Cosmart2018.png' style='' onerror="this.src = './Cosmart2018/Cosmart2018.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='A01' onclick='link_click(this)'><div class='desc' style='left:311px;top:358px;'><h2>A01 Juinnie Junkies</h2><a href='http://duckduckgo.com/?q=Juinnie%20Junkies'>Search for Juinnie Junkies</a></div><div class='area' style='left:170px;top:657px;width:300px;height:22px;'>A01 JUINNIE JUNKIES</div><div class='box' style='left:267px;top:338px;width:42px;height:18px;'></div>
 </div><div class='booth' id='A02' onclick='link_click(this)'><div class='desc' style='left:360px;top:358px;'><h2>A02 V&amp;V 2nd Hand</h2><a href='http://duckduckgo.com/?q=V%26V%202nd%20Hand'>Search for V&amp;V 2nd Hand</a></div><div class='area' style='left:170px;top:679px;width:300px;height:22px;'>A02 V&AMP;V 2ND HAND</div><div class='box' style='left:316px;top:338px;width:42px;height:18px;'></div>
 </div><div class='booth' id='A03' onclick='link_click(this)'><div class='desc' style='left:409px;top:358px;'><h2>A03 Morimon x Yurii</h2><a href='http://duckduckgo.com/?q=Morimon%20x%20Yurii'>Search for Morimon x Yurii</a></div><div class='area' style='left:170px;top:701px;width:300px;height:22px;'>A03 MORIMON X YURII</div><div class='box' style='left:365px;top:338px;width:42px;height:18px;'></div>
 </div><div class='booth' id='A04' onclick='link_click(this)'><div class='desc' style='left:458px;top:358px;'><h2>A04 Potato x Sweet Potato</h2><a href='http://duckduckgo.com/?q=Potato%20x%20Sweet%20Potato'>Search for Potato x Sweet Potato</a></div><div class='area' style='left:170px;top:723px;width:300px;height:22px;'>A04 POTATO X SWEET POTATO</div><div class='box' style='left:414px;top:338px;width:42px;height:18px;'></div>
-</div><div class='booth' id='A05' onclick='link_click(this)'><div class='desc' style='left:507px;top:358px;'><h2>A05 Anivintej</h2><a href='http://duckduckgo.com/?q=Anivintej'>Search for Anivintej</a></div><div class='area' style='left:170px;top:745px;width:300px;height:22px;'>A05 ANIVINTEJ</div><div class='box' style='left:463px;top:338px;width:42px;height:18px;'></div>
+</div><div class='booth' id='A05' onclick='link_click(this)'><div class='desc' style='left:507px;top:358px;'><h2>A05 Anivintej</h2><ul>
+<li><a href='https://carousell.com/anivintej' class='crs'></a><a href='http://fb.me/animubundleshirts' class='fbk'></a></li></ul></div><div class='area' style='left:170px;top:745px;width:300px;height:22px;'>A05 ANIVINTEJ</div><div class='box' style='left:463px;top:338px;width:42px;height:18px;'></div>
 </div><div class='booth' id='A06' onclick='link_click(this)'><div class='desc' style='left:556px;top:358px;'><h2>A06 XJLs</h2><a href='http://duckduckgo.com/?q=XJLs'>Search for XJLs</a></div><div class='area' style='left:170px;top:789px;width:300px;height:22px;'>A06 XJLS</div><div class='box' style='left:512px;top:338px;width:42px;height:18px;'></div>
 </div><div class='booth' id='A07' onclick='link_click(this)'><div class='desc' style='left:605px;top:358px;'><h2>A07 Smart Saru</h2><ul>
 <li><a href='http://fb.me/psycdelico' class='fbk'></a></li></ul></div><div class='area' style='left:170px;top:811px;width:300px;height:22px;'>A07 SMART SARU</div><div class='box' style='left:561px;top:338px;width:42px;height:18px;'></div>

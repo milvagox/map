@@ -16,7 +16,6 @@
   .banner { position: absolute; z-index: 200; }
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -29,6 +28,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -36,6 +36,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -48,7 +49,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 210px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -73,6 +74,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -111,12 +113,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -144,7 +148,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -160,7 +164,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -176,7 +180,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -188,7 +192,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -247,7 +251,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='JOM
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -310,55 +314,55 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='JOM
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./JOM2019/JOM2019.png' style='' onerror="this.src = './JOM2019/JOM2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:388px;'><h2>A1 Fantasy craftworks</h2><ul>
-<li><a href='http://fb.me/FANTASYCRAFTWORKS' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:388px;'><div class='area' style='left:48px;top:665px;width:215px;height:19px;'>A1 FANTASY CRAFTWORKS</div><div class='box' style='left:838px;top:344px;width:23px;height:42px;'></div>
+<li><a href='http://fb.me/FANTASYCRAFTWORKS' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:388px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:665px;width:215px;height:19px;'>A1 FANTASY CRAFTWORKS</div><div class='box' style='left:838px;top:344px;width:23px;height:42px;'></div>
 </div><div class='booth' id='A2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:435px;'><h2>A2 Yugana Senshi Uon</h2><ul>
-<li><a href='http://instagram.com/yuganasenshicosplay' class='ins'></a><a href='http://fb.me/yuganasenshi' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:435px;'><div class='area' style='left:48px;top:684px;width:215px;height:19px;'>A2 YUGANA SENSHI UON</div><div class='box' style='left:838px;top:391px;width:23px;height:42px;'></div>
+<li><a href='http://instagram.com/yuganasenshicosplay' class='ins'></a><a href='http://fb.me/yuganasenshi' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:435px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:684px;width:215px;height:19px;'>A2 YUGANA SENSHI UON</div><div class='box' style='left:838px;top:391px;width:23px;height:42px;'></div>
 </div><div class='booth' id='A3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:496px;'><h2>A3 Rosen Opallos</h2><ul>
-<li><a href='http://fb.me/rosenopallos' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:496px;'><div class='area' style='left:48px;top:703px;width:215px;height:19px;'>A3 ROSEN OPALLOS</div><div class='box' style='left:838px;top:452px;width:23px;height:42px;'></div>
+<li><a href='http://fb.me/rosenopallos' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:496px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:703px;width:215px;height:19px;'>A3 ROSEN OPALLOS</div><div class='box' style='left:838px;top:452px;width:23px;height:42px;'></div>
 </div><div class='booth' id='A4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:543px;'><h2>A4 SkullzxBonez</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/SkullzxBonez'>SkullzxBonez</a></li><li><a href='http://instagram.com/skullzxbonez_artpage' class='ins'></a><a href='http://fb.me/skullzxbonez' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Tasha'>Tasha</a></li><li><a href='http://twitter.com/AyaTashax' class='twt'></a><a href='http://ko-fi.com/tashaxaya' class='kof'></a><a href='https://carousell.com/tasha_petite' class='crs'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Mao'>Mao</a></li><li><a href='http://twitter.com/Maosadao90' class='twt'></a><a href='http://azurekite666.deviantart.com' class='dar'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Hamdyartzone'>Hamdyartzone</a></li><li><a href='http://twitter.com/hamdyartzone' class='twt'></a><a href='http://instagram.com/hamdyartzone' class='ins'></a><a href='http://patreon.com/hamdyartzone' class='ptr'></a><a href='http://fb.me/hamdyartzone' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:543px;'><div class='area' style='left:48px;top:722px;width:215px;height:19px;'>A4 SKULLZXBONEZ</div><div class='box' style='left:838px;top:499px;width:23px;height:42px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/SkullzxBonez'>SkullzxBonez</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/skullzxbonez_artpage' class='ins'></a><a href='http://fb.me/skullzxbonez' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Tasha'>Tasha</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/AyaTashax' class='twt'></a><a href='http://ko-fi.com/tashaxaya' class='kof'></a><a href='https://carousell.com/tasha_petite' class='crs'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Mao'>Mao</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/Maosadao90' class='twt'></a><a href='http://azurekite666.deviantart.com' class='dar'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Hamdyartzone'>Hamdyartzone</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/hamdyartzone' class='twt'></a><a href='http://instagram.com/hamdyartzone' class='ins'></a><a href='http://patreon.com/hamdyartzone' class='ptr'></a><a href='http://fb.me/hamdyartzone' class='fbk'></a></li></ul></div><img class='banner' style='left:863px;top:543px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:722px;width:215px;height:19px;'>A4 SKULLZXBONEZ</div><div class='box' style='left:838px;top:499px;width:23px;height:42px;'></div>
 </div><div class='booth' id='A5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:863px;top:605px;'><h2>A5 MM HANDMADE SOUVENIR</h2><ul>
-<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><img class='banner' style='left:863px;top:605px;'><div class='area' style='left:48px;top:741px;width:215px;height:19px;'>A5 MM HANDMADE SOUVENIR</div><div class='box' style='left:838px;top:561px;width:23px;height:42px;'></div>
+<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><img class='banner' style='left:863px;top:605px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:741px;width:215px;height:19px;'>A5 MM HANDMADE SOUVENIR</div><div class='box' style='left:838px;top:561px;width:23px;height:42px;'></div>
 </div><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:388px;'><h2>B1 KING CHEST</h2><ul>
-<li><a href='http://fb.me/kingchest2016' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:388px;'><div class='area' style='left:48px;top:779px;width:215px;height:19px;'>B1 KING CHEST</div><div class='box' style='opacity:0;left:791px;top:344px;width:23px;height:42px;'></div>
+<li><a href='http://fb.me/kingchest2016' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:388px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:779px;width:215px;height:19px;'>B1 KING CHEST</div><div class='box' style='opacity:0;left:791px;top:344px;width:23px;height:42px;'></div>
 </div><img src='./JOM2019/B1.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:435px;'><h2>B2 Maycrs</h2><ul>
-<li><a href='http://instagram.com/maycrs_' class='ins'></a><a href='http://instagram.com/averagemyra' class='ins'></a></li></ul></div><img class='banner' style='left:816px;top:435px;'><div class='area' style='left:48px;top:798px;width:215px;height:19px;'>B2 MAYCRS</div><div class='box' style='left:791px;top:391px;width:23px;height:42px;'></div>
+<li><a href='http://instagram.com/maycrs_' class='ins'></a><a href='http://instagram.com/averagemyra' class='ins'></a></li></ul></div><img class='banner' style='left:816px;top:435px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:798px;width:215px;height:19px;'>B2 MAYCRS</div><div class='box' style='left:791px;top:391px;width:23px;height:42px;'></div>
 </div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:496px;'><h2>B3 Zinmato</h2><ul>
-<li><a href='http://instagram.com/zinmato' class='ins'></a><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><img class='banner' style='left:816px;top:496px;'><div class='area' style='left:48px;top:817px;width:215px;height:19px;'>B3 ZINMATO</div><div class='box' style='opacity:0;left:791px;top:452px;width:23px;height:42px;'></div>
+<li><a href='http://instagram.com/zinmato' class='ins'></a><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><img class='banner' style='left:816px;top:496px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:817px;width:215px;height:19px;'>B3 ZINMATO</div><div class='box' style='opacity:0;left:791px;top:452px;width:23px;height:42px;'></div>
 </div><img src='./JOM2019/B3.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:543px;'><h2>B4 Kak Bunga ft Saakira Izumi</h2><ul>
-<li><a href='http://twitter.com/saakira_izumi' class='twt'></a><a href='http://instagram.com/saakira_izumi' class='ins'></a><a href='http://fb.me/saakiracosplayer' class='fbk'></a><a href='http://fb.me/hanie.tailor' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:543px;'><div class='area' style='left:48px;top:836px;width:215px;height:19px;'>B4 KAK BUNGA FT SAAKIRA IZUMI</div><div class='box' style='left:791px;top:499px;width:23px;height:42px;'></div>
+<li><a href='http://twitter.com/saakira_izumi' class='twt'></a><a href='http://instagram.com/saakira_izumi' class='ins'></a><a href='http://fb.me/saakiracosplayer' class='fbk'></a><a href='http://fb.me/hanie.tailor' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:543px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:836px;width:215px;height:19px;'>B4 KAK BUNGA FT SAAKIRA IZUMI</div><div class='box' style='left:791px;top:499px;width:23px;height:42px;'></div>
 </div><div class='booth' id='B5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:816px;top:605px;'><h2>B5 PaperBlank</h2><ul>
-<li><a href='http://instagram.com/paperblank.my' class='ins'></a><a href='http://fb.me/paperblank.official12' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:605px;'><div class='area' style='left:48px;top:855px;width:215px;height:19px;'>B5 PAPERBLANK</div><div class='box' style='left:791px;top:561px;width:23px;height:42px;'></div>
+<li><a href='http://instagram.com/paperblank.my' class='ins'></a><a href='http://fb.me/paperblank.official12' class='fbk'></a></li></ul></div><img class='banner' style='left:816px;top:605px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:48px;top:855px;width:215px;height:19px;'>B5 PAPERBLANK</div><div class='box' style='left:791px;top:561px;width:23px;height:42px;'></div>
 </div><div class='booth' id='C1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:687px;top:420px;'><h2>C1 Cos Dreamers Japan</h2><ul>
-<li><a href='http://instagram.com/cosdreamersjapanshop' class='ins'></a><a href='http://fb.me/cosdreamersjapan' class='fbk'></a></li></ul></div><img class='banner' style='left:687px;top:420px;'><div class='area' style='left:285px;top:665px;width:200px;height:19px;'>C1 COS DREAMERS JAPAN</div><div class='box' style='left:642px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:642px; top:347px; width:23px; height:42px'></div>
+<li><a href='http://instagram.com/cosdreamersjapanshop' class='ins'></a><a href='http://fb.me/cosdreamersjapan' class='fbk'></a></li></ul></div><img class='banner' style='left:687px;top:420px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:285px;top:665px;width:200px;height:19px;'>C1 COS DREAMERS JAPAN</div><div class='box' style='left:642px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:642px; top:347px; width:23px; height:42px'></div>
 </div><div class='booth' id='C2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:747px;top:420px;'><h2>C2 ASL QUEEN</h2><ul>
-<li><a href='http://facebook.com/QueenASLcosmeticsasia-432124877376136' class='fbk'></a></li></ul></div><img class='banner' style='left:747px;top:420px;'><div class='area' style='left:285px;top:684px;width:200px;height:19px;'>C2 ASL QUEEN</div><div class='box' style='left:702px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:720px; top:347px; width:23px; height:42px'></div>
+<li><a href='http://facebook.com/QueenASLcosmeticsasia-432124877376136' class='fbk'></a></li></ul></div><img class='banner' style='left:747px;top:420px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:285px;top:684px;width:200px;height:19px;'>C2 ASL QUEEN</div><div class='box' style='left:702px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:720px; top:347px; width:23px; height:42px'></div>
 </div><div class='booth' id='D1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:506px;top:420px;'><h2>D1 University Kuala Lumpur</h2><ul>
-<li><a href='http://twitter.com/UniKLOfficial' class='twt'></a><a href='http://unikl.edu.my' class='unk'></a></li></ul></div><img class='banner' style='left:506px;top:420px;'><div class='area' style='left:285px;top:722px;width:200px;height:19px;'>D1 UNIVERSITY KUALA LUMPUR</div><div class='box' style='left:461px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:461px; top:347px; width:23px; height:42px'></div>
+<li><a href='http://twitter.com/UniKLOfficial' class='twt'></a><a href='http://unikl.edu.my' class='unk'></a></li></ul></div><img class='banner' style='left:506px;top:420px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:285px;top:722px;width:200px;height:19px;'>D1 UNIVERSITY KUALA LUMPUR</div><div class='box' style='left:461px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:461px; top:347px; width:23px; height:42px'></div>
 </div><div class='booth' id='D2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:566px;top:420px;'><h2>D2 Japan Hobby Club</h2><ul>
-<li><a href='http://fb.me/japanhobbyclubJHC' class='fbk'></a></li></ul></div><img class='banner' style='left:566px;top:420px;'><div class='area' style='left:285px;top:741px;width:200px;height:19px;'>D2 JAPAN HOBBY CLUB</div><div class='box' style='left:521px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:539px; top:347px; width:23px; height:42px'></div>
+<li><a href='http://fb.me/japanhobbyclubJHC' class='fbk'></a></li></ul></div><img class='banner' style='left:566px;top:420px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:285px;top:741px;width:200px;height:19px;'>D2 JAPAN HOBBY CLUB</div><div class='box' style='left:521px;top:395px;width:43px;height:23px;'></div><div class='box' style='left:539px; top:347px; width:23px; height:42px'></div>
 </div><div class='booth' id='E1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:207px;top:327px;'><h2>E1 Kiss Marry Kill</h2><ul>
-<li><a href='http://fb.me/kissmarrykill' class='fbk'></a></li></ul></div><img class='banner' style='left:207px;top:327px;'><div class='area' style='left:284px;top:779px;width:160px;height:19px;'>E1 KISS MARRY KILL</div><div class='box' style='opacity:0;left:165px;top:304px;width:40px;height:21px;'></div>
+<li><a href='http://fb.me/kissmarrykill' class='fbk'></a></li></ul></div><img class='banner' style='left:207px;top:327px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:284px;top:779px;width:160px;height:19px;'>E1 KISS MARRY KILL</div><div class='box' style='opacity:0;left:165px;top:304px;width:40px;height:21px;'></div>
 </div><img src='./JOM2019/E1.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='E2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:257px;top:327px;'><h2>E2 Abudora Cosplay</h2><ul>
-<li><a href='http://instagram.com/abudoracosplay' class='ins'></a><a href='http://fb.me/abudora111' class='fbk'></a></li></ul></div><img class='banner' style='left:257px;top:327px;'><div class='area' style='left:284px;top:798px;width:160px;height:19px;'>E2 ABUDORA COSPLAY</div><div class='box' style='left:215px;top:304px;width:40px;height:21px;'></div>
+<li><a href='http://instagram.com/abudoracosplay' class='ins'></a><a href='http://fb.me/abudora111' class='fbk'></a></li></ul></div><img class='banner' style='left:257px;top:327px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:284px;top:798px;width:160px;height:19px;'>E2 ABUDORA COSPLAY</div><div class='box' style='left:215px;top:304px;width:40px;height:21px;'></div>
 </div><div class='booth' id='E3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:309px;top:327px;'><h2>E3 Ookami Ouji</h2><ul>
-<li><a href='http://fb.me/ookamipri' class='fbk'></a></li></ul></div><img class='banner' style='left:309px;top:327px;'><div class='area' style='left:284px;top:817px;width:160px;height:19px;'>E3 OOKAMI OUJI</div><div class='box' style='left:267px;top:304px;width:40px;height:21px;'></div>
+<li><a href='http://fb.me/ookamipri' class='fbk'></a></li></ul></div><img class='banner' style='left:309px;top:327px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:284px;top:817px;width:160px;height:19px;'>E3 OOKAMI OUJI</div><div class='box' style='left:267px;top:304px;width:40px;height:21px;'></div>
 </div><div class='booth' id='E4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:360px;top:327px;'><h2>E4 Chineko</h2><ul>
-<li><a href='http://twitter.com/ChinekoC' class='twt'></a><a href='http://instagram.com/mychineko' class='ins'></a><a href='http://fb.me/mychineko' class='fbk'></a></li></ul></div><img class='banner' style='left:360px;top:327px;'><div class='area' style='left:284px;top:836px;width:160px;height:19px;'>E4 CHINEKO</div><div class='box' style='left:318px;top:304px;width:40px;height:21px;'></div>
+<li><a href='http://twitter.com/ChinekoC' class='twt'></a><a href='http://instagram.com/mychineko' class='ins'></a><a href='http://fb.me/mychineko' class='fbk'></a></li></ul></div><img class='banner' style='left:360px;top:327px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:284px;top:836px;width:160px;height:19px;'>E4 CHINEKO</div><div class='box' style='left:318px;top:304px;width:40px;height:21px;'></div>
 </div><div class='booth' id='E5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:413px;top:327px;'><h2>E5 Forever</h2><ul>
-<li><a href='http://twitter.com/ForeverGlobalHQ' class='twt'></a><a href='http://foreverliving.com' class='unk'></a></li></ul></div><img class='banner' style='left:413px;top:327px;'><div class='area' style='left:284px;top:855px;width:160px;height:19px;'>E5 FOREVER</div><div class='box' style='left:371px;top:304px;width:40px;height:21px;'></div>
+<li><a href='http://twitter.com/ForeverGlobalHQ' class='twt'></a><a href='http://foreverliving.com' class='unk'></a></li></ul></div><img class='banner' style='left:413px;top:327px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:284px;top:855px;width:160px;height:19px;'>E5 FOREVER</div><div class='box' style='left:371px;top:304px;width:40px;height:21px;'></div>
 </div><div class='booth' id='F1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:376px;'><h2>F1 AniVintej</h2><ul>
-<li><a href='https://carousell.com/anivintej' class='crs'></a><a href='http://fb.me/animubundleshirts' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:376px;'><div class='area' style='left:497px;top:665px;width:200px;height:19px;'>F1 ANIVINTEJ</div><div class='box' style='left:104px;top:332px;width:23px;height:42px;'></div><div class='box' style='left:52px; top:304px; width:42px; height:23px'></div>
+<li><a href='https://carousell.com/anivintej' class='crs'></a><a href='http://fb.me/animubundleshirts' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:376px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:497px;top:665px;width:200px;height:19px;'>F1 ANIVINTEJ</div><div class='box' style='left:104px;top:332px;width:23px;height:42px;'></div><div class='box' style='left:52px; top:304px; width:42px; height:23px'></div>
 </div><div class='booth' id='F2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:423px;'><h2>F2 Greennnpanda Craft</h2><ul>
-<li><a href='http://instagram.com/greennnpandacraft' class='ins'></a><a href='http://fb.me/gpandacraft' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:423px;'><div class='area' style='left:497px;top:684px;width:200px;height:19px;'>F2 GREENNNPANDA CRAFT</div><div class='box' style='left:104px;top:379px;width:23px;height:42px;'></div>
+<li><a href='http://instagram.com/greennnpandacraft' class='ins'></a><a href='http://fb.me/gpandacraft' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:423px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:497px;top:684px;width:200px;height:19px;'>F2 GREENNNPANDA CRAFT</div><div class='box' style='left:104px;top:379px;width:23px;height:42px;'></div>
 </div><div class='booth' id='F3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:470px;'><h2>F3 May ART</h2><ul>
-<li><a href='http://fb.me/MayArtPixel' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:470px;'><div class='area' style='left:497px;top:703px;width:200px;height:19px;'>F3 MAY ART</div><div class='box' style='left:104px;top:426px;width:23px;height:42px;'></div>
+<li><a href='http://fb.me/MayArtPixel' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:470px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:497px;top:703px;width:200px;height:19px;'>F3 MAY ART</div><div class='box' style='left:104px;top:426px;width:23px;height:42px;'></div>
 </div><div class='booth' id='F4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:129px;top:517px;'><h2>F4 Animangaki</h2><ul>
-<li><a href='http://twitter.com/animangaki' class='twt'></a><a href='http://fb.me/animangaki' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:517px;'><div class='area' style='left:497px;top:722px;width:200px;height:19px;'>F4 ANIMANGAKI</div><div class='box' style='left:104px;top:473px;width:23px;height:42px;'></div>
+<li><a href='http://twitter.com/animangaki' class='twt'></a><a href='http://fb.me/animangaki' class='fbk'></a></li></ul></div><img class='banner' style='left:129px;top:517px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:497px;top:722px;width:200px;height:19px;'>F4 ANIMANGAKI</div><div class='box' style='left:104px;top:473px;width:23px;height:42px;'></div>
 </div><div class='booth' id='STUDIO' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:893px;top:284px;'><h2>STUDIO Melody Studio</h2><ul>
-<li><a href='http://fb.me/melodystudiokepong' class='fbk'></a><a href='http://melodyphotostudio95.wixsite.com/melodystudiokepong' class='wix'></a></li></ul></div><img class='banner' style='left:893px;top:284px;'><div class='area' style='left:497px;top:759px;width:200px;height:19px;'>STUDIO MELODY STUDIO</div><div class='box' style='left:802px;top:215px;width:89px;height:67px;'></div><div class='box' style='left:802px; top:292px; width:42px; height:23px'></div>
+<li><a href='http://fb.me/melodystudiokepong' class='fbk'></a><a href='http://melodyphotostudio95.wixsite.com/melodystudiokepong' class='wix'></a></li></ul></div><img class='banner' style='left:893px;top:284px;' onerror='this.src="JOM2019/artist/x.png"'><div class='area' style='left:497px;top:759px;width:200px;height:19px;'>STUDIO MELODY STUDIO</div><div class='box' style='left:802px;top:215px;width:89px;height:67px;'></div><div class='box' style='left:802px; top:292px; width:42px; height:23px'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

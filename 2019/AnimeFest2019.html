@@ -16,7 +16,6 @@
   .banner { position: absolute; z-index: 200; }
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -29,6 +28,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -36,6 +36,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -48,7 +49,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 210px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -73,6 +74,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -111,12 +113,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -144,7 +148,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -160,7 +164,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -176,7 +180,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -188,7 +192,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -247,7 +251,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='Ani
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -310,33 +314,33 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='Ani
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AnimeFest2019/AnimeFest2019.png' style='' onerror="this.src = './AnimeFest2019/AnimeFest2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='C3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:244px;top:93px;'><h2>C3 AK Games Centre</h2><ul>
-<li><a href='http://fb.me/AKGamesCentre' class='fbk'></a></li></ul></div><img class='banner' style='left:244px;top:93px;'><div class='area' style='display: none'>C3 AK GAMES CENTRE</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/AKGamesCentre' class='fbk'></a></li></ul></div><img class='banner' style='left:244px;top:93px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>C3 AK GAMES CENTRE</div><div class='box' style='left:193px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='C2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:298px;top:93px;'><h2>C2 BUTTERSPOON</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/BUTTERSPOON'>BUTTERSPOON</a></li><li><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://instagram.com/butterspoonofficial' class='ins'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a></li><li><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><img class='banner' style='left:298px;top:93px;'><div class='area' style='display: none'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/BUTTERSPOON'>BUTTERSPOON</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://instagram.com/butterspoonofficial' class='ins'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a></li><li><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><img class='banner' style='left:298px;top:93px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>C2 BUTTERSPOON</div><div class='box' style='left:247px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='C1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:352px;top:93px;'><h2>C1 MM HANDMADE SOUVENIR</h2><ul>
-<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><img class='banner' style='left:352px;top:93px;'><div class='area' style='display: none'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div>
+<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><img class='banner' style='left:352px;top:93px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>C1 MM HANDMADE SOUVENIR</div><div class='box' style='left:301px;top:41px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:201px;'><h2>B7 ZinMaTo</h2><ul>
-<li><a href='http://instagram.com/zinmato' class='ins'></a><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><img class='banner' style='left:300px;top:201px;'><div class='area' style='display: none'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div>
+<li><a href='http://instagram.com/zinmato' class='ins'></a><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><img class='banner' style='left:300px;top:201px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B7 ZINMATO</div><div class='box' style='left:248px;top:150px;width:50px;height:49px;'></div>
 </div><div class='booth' id='B6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:300px;top:255px;'><h2>B6 HOBILITY</h2><ul>
 <li><a href='http://fb.me/Hobility' class='fbk'></a></li><li><a href='http://hobility.com'>hobility.com</a></li><li>
-</li></ul></div><img class='banner' style='left:300px;top:255px;'><div class='area' style='display: none'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div>
+</li></ul></div><img class='banner' style='left:300px;top:255px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B6 HOBILITY</div><div class='box' style='left:248px;top:204px;width:50px;height:49px;'></div>
 </div><div class='booth' id='B5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:254px;'><h2>B5 CHIBI&#39;S COSPLAY SHOPPIE</h2><ul>
-<li><a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></li></ul></div><img class='banner' style='left:353px;top:254px;'><div class='area' style='display: none'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div>
+<li><a href='http://fb.me/ChibiCosplayShoppie' class='fbk'></a></li></ul></div><img class='banner' style='left:353px;top:254px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B5 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:302px;top:149px;width:49px;height:103px;'></div>
 </div><div class='booth' id='B3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:348px;'><h2>B3 My Stylesz</h2><ul>
-<li><a href='http://fb.me/MyStylesz.Trading' class='fbk'></a></li><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:348px;'><div class='area' style='display: none'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/MyStylesz.Trading' class='fbk'></a></li><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:348px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B3 MY STYLESZ</div><div class='box' style='left:248px;top:296px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:348px;'><h2>B4 Artist Hub</h2><ul>
-<li><a href='http://fb.me/ArtistHubMalaysia' class='fbk'></a></li><li><a href='mailto://artisthubmalaysia@gmail.com'>email: artisthubmalaysia@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:348px;'><div class='area' style='display: none'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/ArtistHubMalaysia' class='fbk'></a></li><li><a href='mailto://artisthubmalaysia@gmail.com'>email: artisthubmalaysia@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:348px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B4 ARTIST HUB</div><div class='box' style='left:302px;top:296px;width:49px;height:50px;'></div>
 </div><div class='booth' id='B2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:299px;top:404px;'><h2>B2 Shota &amp; Lolita Shop</h2><ul>
-<li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:404px;'><div class='area' style='display: none'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='opacity:0;left:248px;top:352px;width:49px;height:50px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'>Shota & Lolita Shop</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:299px;top:404px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B2 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='opacity:0;left:248px;top:352px;width:49px;height:50px;'></div>
 </div><img src='./AnimeFest2019/B2.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='B1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:353px;top:404px;'><h2>B1 XD SHOP</h2><ul>
-<li><a href='http://fb.me/XD.AnimeShop' class='fbk'></a></li><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:404px;'><div class='area' style='display: none'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div>
+<li><a href='http://fb.me/XD.AnimeShop' class='fbk'></a></li><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li><li></li></ul></div><img class='banner' style='left:353px;top:404px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>B1 XD SHOP</div><div class='box' style='left:302px;top:352px;width:49px;height:50px;'></div>
 </div><div class='booth' id='A1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:250px;'><h2>A1 ケムスー万事屋 Kemusuu Yorozuya</h2><ul>
-<li></li><li><a href='mailto://siriusyun@hotmail.com'>email: siriusyun@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:489px;top:250px;'><div class='area' style='display: none'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div>
+<li></li><li><a href='mailto://siriusyun@hotmail.com'>email: siriusyun@hotmail.com</a></li><li></li></ul></div><img class='banner' style='left:489px;top:250px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>A1 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:437px;top:199px;width:50px;height:49px;'></div>
 </div><div class='booth' id='A2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:489px;top:356px;'><h2>A2 OH! GATCHA</h2><ul>
 <li><a href='http://instagram.com/oh.gatcha' class='ins'></a><a href='http://fb.me/oh.gatcha' class='fbk'></a></li><li><a href='http://ohgatcha.com'>ohgatcha.com</a></li><li>
-</li></ul></div><img class='banner' style='left:489px;top:356px;'><div class='area' style='display: none'>A2 OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div>
+</li></ul></div><img class='banner' style='left:489px;top:356px;' onerror='this.src="AnimeFest2019/artist/x.png"'><div class='area' style='display: none'>A2 OH! GATCHA</div><div class='box' style='left:437px;top:253px;width:50px;height:101px;'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

@@ -5,7 +5,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -18,6 +17,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -25,6 +25,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -37,7 +38,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -53,7 +54,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -69,7 +70,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -81,7 +82,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -138,7 +139,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -150,7 +151,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./SSC2019/SSC2019.png' style='' onerror="this.src = './SSC2019/SSC2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='M35' href='mailto://siriusyun@hotmail.com'><div class='area' style='left:170px;top:728px;width:210px;height:32px;'>M35 ケムスー万事屋 KEMUSUU YOROZUYA</div><div class='box' style='left:461px;top:331px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M36' href='http://facebook.com/groups/comicsisland'><div class='area' style='left:170px;top:760px;width:210px;height:16px;'>M36 COMIC &AMP; HOBBY ISLAND</div><div class='box' style='left:461px;top:391px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M37' href='https://duckduckgo.com/?q=Bohomys'><div class='area' style='left:170px;top:776px;width:210px;height:16px;'>M37 BOHOMYS</div><div class='box' style='left:402px;top:331px;width:54px;height:54px;'></div>
@@ -159,7 +160,7 @@
 </a><a class='booth' id='M40' href='https://duckduckgo.com/?q=Genkimono'><div class='area' style='left:170px;top:824px;width:210px;height:16px;'>M40 GENKIMONO</div><div class='box' style='left:462px;top:563px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M41' href='https://duckduckgo.com/?q=SWIMIN12'><div class='area' style='left:170px;top:840px;width:210px;height:16px;'>M41 SWIMIN12</div><div class='box' style='left:402px;top:503px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M42' href='https://duckduckgo.com/?q=Crux%20Hobby%20Store'><div class='area' style='left:170px;top:856px;width:210px;height:16px;'>M42 CRUX HOBBY STORE</div><div class='box' style='left:402px;top:563px;width:54px;height:54px;'></div>
-</a><a class='booth' id='M44' href='https://duckduckgo.com/?q=Anime%20Splits%20%26%20Orders'><div class='area' style='left:170px;top:872px;width:210px;height:16px;'>M44 ANIME SPLITS &AMP; ORDERS</div><div class='box' style='left:283px;top:391px;width:54px;height:54px;'></div>
+</a><a class='booth' id='M44' href='https://milvagox.miraheze.org/wiki/Anime_Splits_and_Orders'><div class='area' style='left:170px;top:872px;width:210px;height:16px;'>M44 ANIME SPLITS &AMP; ORDERS</div><div class='box' style='left:283px;top:391px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M46' href='http://fb.me/dreamsquadd2mc'><div class='area' style='left:170px;top:888px;width:210px;height:32px;'>M46 DREAMSQUAD DAWN CAFE</div><div class='box' style='left:224px;top:391px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M47' href='https://duckduckgo.com/?q=Supa%20Dupa'><div class='area' style='left:170px;top:920px;width:210px;height:16px;'>M47 SUPA DUPA</div><div class='box' style='left:283px;top:503px;width:54px;height:54px;'></div>
 </a><a class='booth' id='M48' href='https://duckduckgo.com/?q=Pika%20Pika%20Photo%20Printing%20Kiosk'><div class='area' style='left:170px;top:936px;width:210px;height:32px;'>M48 PIKA PIKA PHOTO PRINTING KIOSK</div><div class='box' style='left:283px;top:563px;width:54px;height:54px;'></div>
@@ -172,11 +173,11 @@
 </a><a class='booth' id='A07' href='http://instagram.com/_zien_'><div class='area' style='left:410px;top:823px;width:210px;height:16px;'>A07 CWD + JIAO XIN</div><div class='box' style='left:594px;top:307px;width:28px;height:27px;'></div>
 </a><a class='booth' id='D01' href='https://duckduckgo.com/?q=oreironn'><div class='area' style='left:410px;top:878px;width:210px;height:16px;'>D01 OREIRONN</div><div class='box' style='left:936px;top:429px;width:28px;height:27px;'></div>
 </a><a class='booth' id='D02' href='http://fb.me/rainbowunicat'><div class='area' style='left:410px;top:894px;width:210px;height:16px;'>D02 RAINBOW UNICAT</div><div class='box' style='left:879px;top:429px;width:28px;height:27px;'></div>
-</a><a class='booth' id='D03' href='http://fb.me/shotalolitashop'><div class='area' style='left:410px;top:910px;width:210px;height:16px;'>D03 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:822px;top:429px;width:28px;height:27px;'></div>
+</a><a class='booth' id='D03' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:410px;top:910px;width:210px;height:16px;'>D03 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:822px;top:429px;width:28px;height:27px;'></div>
 </a><a class='booth' id='D04' href='http://fb.me/ToriArtworks'><div class='area' style='left:410px;top:926px;width:210px;height:16px;'>D04 NAZETORI</div><div class='box' style='left:765px;top:429px;width:28px;height:27px;'></div>
 </a><a class='booth' id='D05' href='https://duckduckgo.com/?q=Sleepy%20Bunny'><div class='area' style='left:410px;top:942px;width:210px;height:16px;'>D05 SLEEPY BUNNY</div><div class='box' style='left:708px;top:429px;width:28px;height:27px;'></div>
 </a><a class='booth' id='D06' href='http://fb.me/StarDustCreations968'><div class='area' style='left:410px;top:958px;width:210px;height:16px;'>D06 STARDUST CREATIONS</div><div class='box' style='left:651px;top:429px;width:28px;height:27px;'></div>
-</a><a class='booth' id='D07' href='https://duckduckgo.com/?q=Tidimika'><div class='area' style='left:410px;top:974px;width:210px;height:16px;'>D07 TIDIMIKA</div><div class='box' style='left:594px;top:429px;width:28px;height:27px;'></div>
+</a><a class='booth' id='D07' href='https://milvagox.miraheze.org/wiki/Tixit'><div class='area' style='left:410px;top:974px;width:210px;height:16px;'>D07 TIDIMIKA</div><div class='box' style='left:594px;top:429px;width:28px;height:27px;'></div>
 </a><a class='booth' id='B01' href='http://fb.me/dsignunderground'><div class='area' style='left:630px;top:727px;width:210px;height:16px;'>B01 D*SIGN UNDERGROUND</div><div class='box' style='left:936px;top:338px;width:28px;height:27px;'></div>
 </a><a class='booth' id='B02' href='http://fb.me/fukurohandmade'><div class='area' style='left:630px;top:743px;width:210px;height:16px;'>B02 DOUJIN TAMASHI</div><div class='box' style='left:879px;top:338px;width:28px;height:27px;'></div>
 </a><a class='booth' id='B03' href='http://fb.me/doujintenka'><div class='area' style='left:630px;top:759px;width:210px;height:16px;'>B03 DOUJIN TENKA!!</div><div class='box' style='left:822px;top:338px;width:28px;height:27px;'></div>
@@ -190,7 +191,7 @@
 </a><a class='booth' id='E04' href='https://duckduckgo.com/?q=YanYanCraft'><div class='area' style='left:630px;top:926px;width:210px;height:16px;'>E04 YANYANCRAFT</div><div class='box' style='left:765px;top:489px;width:28px;height:27px;'></div>
 </a><a class='booth' id='E05' href='http://fb.me/monsutaparade2256'><div class='area' style='left:630px;top:942px;width:210px;height:16px;'>E05 モンスターPARADE</div><div class='box' style='left:708px;top:489px;width:28px;height:27px;'></div>
 </a><a class='booth' id='E06' href='http://fb.me/NZuoWDie'><div class='area' style='left:630px;top:958px;width:210px;height:16px;'>E06 找事工作坊</div><div class='box' style='left:651px;top:489px;width:28px;height:27px;'></div>
-</a><a class='booth' id='E07' href='http://instagram.com/thepsalmsng'><div class='area' style='left:630px;top:974px;width:210px;height:16px;'>E07 MAGIC POTATO</div><div class='box' style='left:594px;top:489px;width:28px;height:27px;'></div>
+</a><a class='booth' id='E07' href='https://milvagox.miraheze.org/wiki/Yuka Sia'><div class='area' style='left:630px;top:974px;width:210px;height:16px;'>E07 MAGIC POTATO</div><div class='box' style='left:594px;top:489px;width:28px;height:27px;'></div>
 </a><a class='booth' id='C01' href='http://fb.me/lefluffykitsune'><div class='area' style='left:848px;top:727px;width:250px;height:16px;'>C01 LE FLUFFY KITSUNE</div><div class='box' style='left:936px;top:398px;width:28px;height:27px;'></div>
 </a><a class='booth' id='C02' href='http://fb.me/lefluffykitsune'><div class='area' style='left:848px;top:743px;width:250px;height:16px;'>C02 LE FLUFFY KITSUNE</div><div class='box' style='left:879px;top:398px;width:28px;height:27px;'></div>
 </a><a class='booth' id='C03' href='https://duckduckgo.com/?q=MiyabiMaru'><div class='area' style='left:848px;top:759px;width:250px;height:16px;'>C03 MIYABIMARU</div><div class='box' style='left:822px;top:398px;width:28px;height:27px;'></div>

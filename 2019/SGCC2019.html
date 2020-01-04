@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0.6;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: black;
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,7 +313,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./SGCC2019/SGCC2019.png' style='margin: 0px 220px 220px 0px ; ' onerror="this.src = './SGCC2019/SGCC2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='TS29 & TS31' onclick='link_click(this)'><div class='desc' style='left:291px;top:326px;'><h2>TS29 & TS31 ~ ART OF RACHTA LIN ~</h2><ul>
 <li><a href='http://twitter.com/rachta_lin' class='twt'></a><a href='http://rachtalin.artstation.com' class='ast'></a><a href='http://fb.me/rachtalin' class='fbk'></a><a href='http://RachtaLin.etsy.com' class='ets'></a></li><li><a href='http://rachta.com'>rachta.com</a></li><li>
 </li></ul></div><div class='area' style='left:550px;top:30px;width:500px;height:18px;'>TS29 &amp; TS31 ~ ART OF RACHTA LIN ~</div><div class='box' style='left:225px;top:303px;width:64px;height:21px;'></div>
@@ -348,7 +352,7 @@
 </div><div class='booth' id='TF5' onclick='link_click(this)'><div class='desc' style='left:303px;top:267px;'><h2>TF5 BERRYBOOZE</h2><ul>
 <li><a href='http://twitter.com/berrybooze_art' class='twt'></a></li></ul></div><div class='area' style='left:550px;top:300px;width:500px;height:18px;'>TF5 BERRYBOOZE</div><div class='box' style='left:282px;top:244px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF37' onclick='link_click(this)'><div class='desc' style='left:314px;top:183px;'><h2>TF37 BLUEBEAN 藍豆</h2><ul>
-<li><a href='http://instagram.com/bluebean.angela' class='ins'></a></li></ul></div><div class='area' style='left:550px;top:318px;width:500px;height:18px;'>TF37 BLUEBEAN 藍豆</div><div class='box' style='left:293px;top:160px;width:19px;height:21px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/BlueBean 藍豆'>BlueBean 藍豆</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/bluebean.angela' class='ins'></a><a href='http://fb.me/bluebean94' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:318px;width:500px;height:18px;'>TF37 BLUEBEAN 藍豆</div><div class='box' style='left:293px;top:160px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TS44' onclick='link_click(this)'><div class='desc' style='left:95px;top:246px;'><h2>TS44 CALIBRE WINGS MONIKA TOYS</h2><ul>
 <li><a href='http://fb.me/calibrewings' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:336px;width:500px;height:18px;'>TS44 CALIBRE WINGS MONIKA TOYS</div><div class='box' style='left:62px;top:223px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TF40' onclick='link_click(this)'><div class='desc' style='left:360px;top:202px;'><h2>TF40 CAOS</h2><ul>
@@ -369,7 +373,7 @@
 <li><a href='http://twitter.com/cysketch' class='twt'></a><a href='http://instagram.com/cysketch' class='ins'></a><a href='http://ko-fi.com/cysketch' class='kof'></a><a href='http://cysketch.carrd.co' class='crd'></a></li><li><a href='http://cysketch.com'>cysketch.com</a></li><li>
 </li><li><a href='http://twitter.com/Hotpotchild' class='twt'></a></li></ul></div><div class='area' style='left:550px;top:444px;width:500px;height:18px;'>TF7 CYSKETCH</div><div class='box' style='left:306px;top:244px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF55' onclick='link_click(this)'><div class='desc' style='left:210px;top:140px;'><h2>TF55 D.ATLASTUDIO</h2><ul>
-<li><a href='http://instagram.com/d.atlastudio' class='ins'></a></li></ul></div><div class='area' style='left:550px;top:462px;width:500px;height:18px;'>TF55 D.ATLASTUDIO</div><div class='box' style='left:189px;top:117px;width:19px;height:21px;'></div>
+<li><a href='http://instagram.com/d.atlastudio' class='ins'></a><a href='http://datlastudio.etsy.com' class='ets'></a><a href='http://linktr.ee/D.atlastudio' class='lkt'></a></li></ul></div><div class='area' style='left:550px;top:462px;width:500px;height:18px;'>TF55 D.ATLASTUDIO</div><div class='box' style='left:189px;top:117px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TS27' onclick='link_click(this)'><div class='desc' style='left:194px;top:326px;'><h2>TS27 DANIEL YU &amp; FUFUFANNY</h2><ul>
 <li><a href='http://instagram.com/thedanielyu' class='ins'></a><a href='http://fb.me/thedanielyu' class='fbk'></a></li><li><a href='http://thedanielyu.com'>thedanielyu.com</a></li><li>
 </li></ul></div><div class='area' style='left:550px;top:480px;width:500px;height:18px;'>TS27 DANIEL YU &amp; FUFUFANNY</div><div class='box' style='left:161px;top:303px;width:31px;height:21px;'></div>
@@ -380,7 +384,7 @@
 </div><div class='booth' id='TS10' onclick='link_click(this)'><div class='desc' style='left:298px;top:371px;'><h2>TS10 DOTOY &amp; STRANGE BEAM</h2><ul>
 <li><a href='http://instagram.com/dotoy_2015' class='ins'></a></li></ul></div><div class='area' style='left:550px;top:534px;width:500px;height:18px;'>TS10 DOTOY &amp; STRANGE BEAM</div><div class='box' style='left:265px;top:348px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TF10' onclick='link_click(this)'><div class='desc' style='left:354px;top:246px;'><h2>TF10 DOUJIN TENKA !!</h2><ul>
-<li><a href='http://fb.me/doujintenka' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:552px;width:500px;height:18px;'>TF10 DOUJIN TENKA !!</div><div class='box' style='left:333px;top:223px;width:19px;height:21px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/DOUJIN TENKA'>DOUJIN TENKA</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/doujintenka' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/LEOZ'>LEOZ</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/leoz000' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/RON'>RON</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/RON0w0' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:552px;width:500px;height:18px;'>TF10 DOUJIN TENKA !!</div><div class='box' style='left:333px;top:223px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF6' onclick='link_click(this)'><div class='desc' style='left:306px;top:246px;'><h2>TF6 EDGE COMIX</h2><ul>
 <li><a href='http://fb.me/edgecomix' class='fbk'></a></li><li><a href='http://edgecomix.com'>edgecomix.com</a></li><li>
 </li></ul></div><div class='area' style='left:550px;top:570px;width:500px;height:18px;'>TF6 EDGE COMIX</div><div class='box' style='left:285px;top:223px;width:19px;height:21px;'></div>
@@ -418,7 +422,7 @@
 </div><div class='booth' id='TF52' onclick='link_click(this)'><div class='desc' style='left:138px;top:140px;'><h2>TF52 KATY KAT + THE SUPER SECRET BOOK</h2><ul>
 <li><a href='http://fb.me/katykatcos' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:840px;width:500px;height:18px;'>TF52 KATY KAT + THE SUPER SECRET BOOK</div><div class='box' style='left:117px;top:117px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF12' onclick='link_click(this)'><div class='desc' style='left:378px;top:246px;'><h2>TF12 KEVIN THE PANDA</h2><ul>
-<li><a href='http://fb.me/kevinpanda1234' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:858px;width:500px;height:18px;'>TF12 KEVIN THE PANDA</div><div class='box' style='left:357px;top:223px;width:19px;height:21px;'></div>
+<li><a href='http://instagram.com/kevinthepanda1234' class='ins'></a><a href='http://fb.me/kevinpanda1234' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:858px;width:500px;height:18px;'>TF12 KEVIN THE PANDA</div><div class='box' style='left:357px;top:223px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TS14' onclick='link_click(this)'><div class='desc' style='left:370px;top:371px;'><h2>TS14 KHIET TRAN TOXIC RAT</h2><ul>
 <li><a href='http://fb.me/toxicrattoy' class='fbk'></a></li></ul></div><div class='area' style='left:550px;top:876px;width:500px;height:18px;'>TS14 KHIET TRAN TOXIC RAT</div><div class='box' style='left:337px;top:348px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TS47' onclick='link_click(this)'><div class='desc' style='left:164px;top:266px;'><h2>TS47 KIRU MADE GALLERY</h2><ul>
@@ -429,7 +433,7 @@
 <li><a href='http://twitter.com/kuhl_notes' class='twt'></a><a href='http://instagram.com/kuhlnotes' class='ins'></a><a href='http://fb.me/kuhlnotes' class='fbk'></a><a href='https://carousell.com/kuhlnotes' class='crs'></a></li><li><a href='http://kuhl-notes.com'>kuhl-notes.com</a></li><li>
 </li></ul></div><div class='area' style='left:550px;top:930px;width:500px;height:18px;'>TS4 KUHL NOTES</div><div class='box' style='left:261px;top:407px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TF17' onclick='link_click(this)'><div class='desc' style='left:461px;top:266px;'><h2>TF17 LAUGH AND BELLY X OWO.UWU.ONO</h2><ul>
-<li><a href='http://instagram.com/laughandbelly' class='ins'></a><a href='http://linktr.ee/laughandbelly' class='lkt'></a></li></ul></div><div class='area' style='left:1100px;top:30px;width:500px;height:18px;'>TF17 LAUGH AND BELLY X OWO.UWU.ONO</div><div class='box' style='left:440px;top:243px;width:19px;height:21px;'></div>
+<li><a href='http://instagram.com/laughandbelly' class='ins'></a><a href='http://linktr.ee/laughandbelly' class='lkt'></a></li><li><a href='http://instagram.com/owo.uwu.ono' class='ins'></a></li></ul></div><div class='area' style='left:1100px;top:30px;width:500px;height:18px;'>TF17 LAUGH AND BELLY X OWO.UWU.ONO</div><div class='box' style='left:440px;top:243px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF1' onclick='link_click(this)'><div class='desc' style='left:255px;top:267px;'><h2>TF1 LEOREN</h2><ul>
 <li><a href='http://twitter.com/LeorenArt' class='twt'></a><a href='http://linktr.ee/leorenart' class='lkt'></a></li><li><a href='http://leoren.art'>leoren.art</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:48px;width:500px;height:18px;'>TF1 LEOREN</div><div class='box' style='left:234px;top:244px;width:19px;height:21px;'></div>
@@ -533,14 +537,14 @@
 <li><a href='http://fb.me/TiduWorkshop' class='fbk'></a></li><li><a href='http://tidustudio.com'>tidustudio.com</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:750px;width:500px;height:18px;'>TS12 TIDU WORKSHOP</div><div class='box' style='left:301px;top:348px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TF4' onclick='link_click(this)'><div class='desc' style='left:282px;top:246px;'><h2>TF4 TINYBIRDFARTS &amp; KEYADE</h2><ul>
-<li><a href='http://twitter.com/hahahashagi' class='twt'></a><a href='http://curiouscat.me/hahahashagi' class='cct'></a></li><li><a href='http://twitter.com/KeyadeArt' class='twt'></a><a href='http://instagram.com/keyadeart' class='ins'></a><a href='https://keyade.tumblr.com' class='tmb'></a></li></ul></div><div class='area' style='left:1100px;top:768px;width:500px;height:18px;'>TF4 TINYBIRDFARTS &amp; KEYADE</div><div class='box' style='left:261px;top:223px;width:19px;height:21px;'></div>
+<li><a href='http://instagram.com/tinybirdfarts' class='ins'></a></li><li><a href='http://twitter.com/hahahashagi' class='twt'></a><a href='http://curiouscat.me/hahahashagi' class='cct'></a></li><li><a href='http://twitter.com/KeyadeArt' class='twt'></a><a href='http://instagram.com/keyadeart' class='ins'></a><a href='https://keyade.tumblr.com' class='tmb'></a></li></ul></div><div class='area' style='left:1100px;top:768px;width:500px;height:18px;'>TF4 TINYBIRDFARTS &amp; KEYADE</div><div class='box' style='left:261px;top:223px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF56' onclick='link_click(this)'><div class='desc' style='left:234px;top:140px;'><h2>TF56 TOASTWIRE</h2><ul>
-<li><a href='http://twitter.com/toastwire' class='twt'></a></li></ul></div><div class='area' style='left:1100px;top:786px;width:500px;height:18px;'>TF56 TOASTWIRE</div><div class='box' style='left:213px;top:117px;width:19px;height:21px;'></div>
+<li><a href='http://twitter.com/toastwire' class='twt'></a><a href='http://linktr.ee/toastwire' class='lkt'></a></li></ul></div><div class='area' style='left:1100px;top:786px;width:500px;height:18px;'>TF56 TOASTWIRE</div><div class='box' style='left:213px;top:117px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TS30' onclick='link_click(this)'><div class='desc' style='left:259px;top:306px;'><h2>TS30 TOMODACHI</h2><ul>
 <li><a href='http://twitter.com/TomodachiTShirt' class='twt'></a><a href='http://redbubble.com/shop/tomodachi' class='rbb'></a><a href='http://fb.me/tomodachiTShirt' class='fbk'></a></li><li><a href='http://tomodachiclothing.com'>tomodachiclothing.com</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:804px;width:500px;height:18px;'>TS30 TOMODACHI</div><div class='box' style='left:226px;top:283px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TS6' onclick='link_click(this)'><div class='desc' style='left:226px;top:371px;'><h2>TS6 UE CREATIVE WORLD &amp; MY STYLESZ</h2><ul>
-<li><a href='http://instagram.com/uecreativeworld_handmade_dolls' class='ins'></a></li></ul></div><div class='area' style='left:1100px;top:822px;width:500px;height:18px;'>TS6 UE CREATIVE WORLD &amp; MY STYLESZ</div><div class='box' style='left:193px;top:348px;width:31px;height:21px;'></div>
+<li><a href='http://instagram.com/uecreativeworld_handmade_dolls' class='ins'></a><a href='http://fb.me/UEcreativeworld' class='fbk'></a></li></ul></div><div class='area' style='left:1100px;top:822px;width:500px;height:18px;'>TS6 UE CREATIVE WORLD &amp; MY STYLESZ</div><div class='box' style='left:193px;top:348px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TS8' onclick='link_click(this)'><div class='desc' style='left:262px;top:371px;'><h2>TS8 UNCLE MERMAID</h2><ul>
 <li><a href='http://instagram.com/handsome_studio' class='ins'></a></li><li><a href='http://hand-some-studio.com'>hand-some-studio.com</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:840px;width:500px;height:18px;'>TS8 UNCLE MERMAID</div><div class='box' style='left:229px;top:348px;width:31px;height:21px;'></div>
@@ -556,7 +560,8 @@
 <li><a href='http://instagram.com/wheniwasfour_sg' class='ins'></a><a href='http://fb.me/wheniwasfour' class='fbk'></a></li><li><a href='http://wheniwasfour.com'>wheniwasfour.com</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:912px;width:500px;height:18px;'>TS7 WHENIWASFOUR</div><div class='box' style='left:227px;top:368px;width:31px;height:21px;'></div>
 </div><div class='booth' id='TF36' onclick='link_click(this)'><div class='desc' style='left:312px;top:202px;'><h2>TF36 WINTER&#39;S TALES &amp; CIRCUS-USAGI</h2><ul>
-<li><a href='http://twitter.com/BeatRadical' class='twt'></a></li><li><a href='http://twitter.com/circus_usagi' class='twt'></a><a href='http://instagram.com/circususagi' class='ins'></a><a href='https://girlwiththewhiterabbit.tumblr.com' class='tmb'></a><a href='http://fb.me/circus.usagi' class='fbk'></a></li><li><a href='http://circus-usagi.com'>circus-usagi.com</a></li><li>
+<li><a href='http://twitter.com/BeatRadical' class='twt'></a><a href='http://instagram.com/fuyu_tjondro' class='ins'></a><a href='http://fuyukichi.deviantart.com' class='dar'></a></li><li><a href='http://winters-tales.myshopify.com'>winters-tales.myshopify.com</a></li><li>
+</li><li><a href='http://twitter.com/BeatRadical' class='twt'></a></li><li><a href='http://twitter.com/circus_usagi' class='twt'></a><a href='http://instagram.com/circususagi' class='ins'></a><a href='https://girlwiththewhiterabbit.tumblr.com' class='tmb'></a><a href='http://fb.me/circus.usagi' class='fbk'></a></li><li><a href='http://circus-usagi.com'>circus-usagi.com</a></li><li>
 </li></ul></div><div class='area' style='left:1100px;top:930px;width:500px;height:18px;'>TF36 WINTER&#39;S TALES &amp; CIRCUS-USAGI</div><div class='box' style='left:291px;top:179px;width:19px;height:21px;'></div>
 </div><div class='booth' id='TF11' onclick='link_click(this)'><div class='desc' style='left:375px;top:267px;'><h2>TF11 WOOD3F 木田森果</h2><ul>
 <li><a href='http://twitter.com/wood_3f' class='twt'></a><a href='http://instagram.com/wood3f' class='ins'></a><a href='http://fb.me/wood.harvest' class='fbk'></a><a href='http://linktr.ee/wood3f' class='lkt'></a></li><li><a href='http://wood3f.com'>wood3f.com</a></li><li>

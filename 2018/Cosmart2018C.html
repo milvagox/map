@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,13 +313,14 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2018/Cosmart2018C.png' style='' onerror="this.src = './Cosmart2018/Cosmart2018C.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='C01' onclick='link_click(this)'><div class='desc' style='left:142px;top:630.45px;'><h2>C01 ReinaC 2nd Hand</h2><a href='http://duckduckgo.com/?q=ReinaC%202nd%20Hand'>Search for ReinaC 2nd Hand</a></div><div class='area' style='left:648px;top:222px;width:280px;height:21px;'>C01 REINAC 2ND HAND</div><div class='box' style='left:94px;top:610px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C02' onclick='link_click(this)'><div class='desc' style='left:178px;top:666.45px;'><h2>C02 BuyEverything</h2><a href='http://duckduckgo.com/?q=BuyEverything'>Search for BuyEverything</a></div><div class='area' style='left:648px;top:243px;width:280px;height:21px;'>C02 BUYEVERYTHING</div><div class='box' style='left:130px;top:646px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C03' onclick='link_click(this)'><div class='desc' style='left:214px;top:702.45px;'><h2>C03 Salty Budget Cossu</h2><a href='http://duckduckgo.com/?q=Salty%20Budget%20Cossu'>Search for Salty Budget Cossu</a></div><div class='area' style='left:648px;top:264px;width:280px;height:22px;'>C03 SALTY BUDGET COSSU</div><div class='box' style='left:166px;top:682px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C04' onclick='link_click(this)'><div class='desc' style='left:250px;top:738.45px;'><h2>C04 Pisang Ikan</h2><a href='http://duckduckgo.com/?q=Pisang%20Ikan'>Search for Pisang Ikan</a></div><div class='area' style='left:648px;top:286px;width:280px;height:21px;'>C04 PISANG IKAN</div><div class='box' style='left:202px;top:718px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C05' onclick='link_click(this)'><div class='desc' style='left:207px;top:563.45px;'><h2>C05 PzuUsagi</h2><a href='http://duckduckgo.com/?q=PzuUsagi'>Search for PzuUsagi</a></div><div class='area' style='left:648px;top:328px;width:280px;height:22px;'>C05 PZUUSAGI</div><div class='box' style='left:159px;top:543px;width:46px;height:18px;transform:rotate(45deg);'></div>
-</div><div class='booth' id='C06' onclick='link_click(this)'><div class='desc' style='left:243px;top:599.45px;'><h2>C06 Ristelle&#39;s Realm</h2><a href='http://duckduckgo.com/?q=Ristelle%27s%20Realm'>Search for Ristelle&#39;s Realm</a></div><div class='area' style='left:648px;top:350px;width:280px;height:21px;'>C06 RISTELLE&#39;S REALM</div><div class='box' style='left:195px;top:579px;width:46px;height:18px;transform:rotate(45deg);'></div>
+</div><div class='booth' id='C06' onclick='link_click(this)'><div class='desc' style='left:243px;top:599.45px;'><h2>C06 Ristelle&#39;s Realm</h2><ul>
+<li><a href='http://instagram.com/ristelle' class='ins'></a><a href='http://worldcosplay.net/member/18443' class='wcp'></a><a href='http://patreon.com/ristelle' class='ptr'></a><a href='http://twitch.tv/ristellerin' class='twc'></a><a href='http://fb.me/0ristelle0' class='fbk'></a><a href='http://linktr.ee/ristelle' class='lkt'></a></li></ul></div><div class='area' style='left:648px;top:350px;width:280px;height:21px;'>C06 RISTELLE&#39;S REALM</div><div class='box' style='left:195px;top:579px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C07' onclick='link_click(this)'><div class='desc' style='left:279px;top:635.45px;'><h2>C07 2LetGo</h2><a href='http://duckduckgo.com/?q=2LetGo'>Search for 2LetGo</a></div><div class='area' style='left:648px;top:371px;width:280px;height:21px;'>C07 2LETGO</div><div class='box' style='left:231px;top:615px;width:46px;height:18px;transform:rotate(45deg);'></div>
 </div><div class='booth' id='C08' onclick='link_click(this)'><div class='desc' style='left:315px;top:671.45px;'><h2>C08 Michii Make Something</h2><ul>
 <li><a href='http://fb.me/michiimakesomething' class='fbk'></a></li></ul></div><div class='area' style='left:648px;top:392px;width:280px;height:22px;'>C08 MICHII MAKE SOMETHING</div><div class='box' style='left:267px;top:651px;width:46px;height:18px;transform:rotate(45deg);'></div>
@@ -330,11 +335,12 @@
 </div><div class='booth' id='C15' onclick='link_click(this)'><div class='desc' style='left:443px;top:383px;'><h2>C15 IceQiLin</h2><a href='http://duckduckgo.com/?q=IceQiLin'>Search for IceQiLin</a></div><div class='area' style='left:648px;top:606px;width:280px;height:21px;'>C15 ICEQILIN</div><div class='box' style='left:423px;top:335px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C16' onclick='link_click(this)'><div class='desc' style='left:443px;top:434px;'><h2>C16 Dragon&#39;s Den</h2><a href='http://duckduckgo.com/?q=Dragon%27s%20Den'>Search for Dragon&#39;s Den</a></div><div class='area' style='left:648px;top:627px;width:280px;height:21px;'>C16 DRAGON&#39;S DEN</div><div class='box' style='left:423px;top:386px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:443px;top:485px;'><h2>C17 02 PRO</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/02 PRO'>02 PRO</a></li><li><a href='http://fb.me/02production' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryukku-K'>Ryukku-K</a></li><li><a href='http://twitter.com/ryukku_k' class='twt'></a><a href='http://instagram.com/ryukku_k' class='ins'></a><a href='http://fb.me/ryukku.k' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Celestia 龍姫'>Celestia 龍姫</a></li><li></li><li><a href='http://twitter.com/celestiakitsune' class='twt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Hoshi Poshi'>Hoshi Poshi</a></li><li></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Night 雨'>Night 雨</a></li><li></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Miiko スープ'>Miiko スープ</a></li><li></li></ul></div><div class='area' style='left:648px;top:648px;width:280px;height:22px;'>C17 02 PRO</div><div class='box' style='left:423px;top:437px;width:18px;height:46px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/02 PRO'>02 PRO</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/02production' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryukku-K'>Ryukku-K</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/ryukku_k' class='twt'></a><a href='http://instagram.com/ryukku_k' class='ins'></a><a href='http://fb.me/ryukku.k' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Celestia 龍姫'>Celestia 龍姫</a></li><li><span class='chevron'>&gt;</span></li><li><a href='http://twitter.com/celestiakitsune' class='twt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Hoshi Poshi'>Hoshi Poshi</a></li><li><span class='chevron'>&gt;</span></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Night 雨'>Night 雨</a></li><li><span class='chevron'>&gt;</span></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Miiko スープ'>Miiko スープ</a></li><li><span class='chevron'>&gt;</span></li></ul></div><div class='area' style='left:648px;top:648px;width:280px;height:22px;'>C17 02 PRO</div><div class='box' style='left:423px;top:437px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C18' onclick='link_click(this)'><div class='desc' style='left:568px;top:384px;'><h2>C18 YingTze</h2><ul>
 <li><a href='http://twitter.com/ying_tze' class='twt'></a><a href='http://instagram.com/yingtze' class='ins'></a><a href='http://patreon.com/yingtze' class='ptr'></a><a href='http://twitch.tv/yingtze' class='twc'></a><a href='http://ying-tze.blogspot.com' class='bsp'></a><a href='http://worldcosplay.net/member/yingtze' class='wcp'></a><a href='http://otakumode.com/yingtze' class='otm'></a><a href='http://fb.me/YingTze1206' class='fbk'></a><a href='http://yingtze.com' class='yingtze'></a></li></ul></div><div class='area' style='left:648px;top:691px;width:280px;height:21px;'>C18 YINGTZE</div><div class='box' style='left:548px;top:336px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C19' onclick='link_click(this)'><div class='desc' style='left:568px;top:435px;'><h2>C19 Kimono&amp;Lolita</h2><a href='http://duckduckgo.com/?q=Kimono%26Lolita'>Search for Kimono&amp;Lolita</a></div><div class='area' style='left:648px;top:712px;width:280px;height:22px;'>C19 KIMONO&AMP;LOLITA</div><div class='box' style='left:548px;top:387px;width:18px;height:46px;'></div>
-</div><div class='booth' id='C20' onclick='link_click(this)'><div class='desc' style='left:568px;top:486px;'><h2>C20 Techne City</h2><a href='http://duckduckgo.com/?q=Techne%20City'>Search for Techne City</a></div><div class='area' style='left:648px;top:734px;width:280px;height:21px;'>C20 TECHNE CITY</div><div class='box' style='left:548px;top:438px;width:18px;height:46px;'></div>
+</div><div class='booth' id='C20' onclick='link_click(this)'><div class='desc' style='left:568px;top:486px;'><h2>C20 Techne City</h2><ul>
+<li><a href='http://fb.me/TechneCity' class='fbk'></a></li></ul></div><div class='area' style='left:648px;top:734px;width:280px;height:21px;'>C20 TECHNE CITY</div><div class='box' style='left:548px;top:438px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C21' onclick='link_click(this)'><div class='desc' style='left:568px;top:580px;'><h2>C21 我不知道</h2><a href='http://duckduckgo.com/?q=%E6%88%91%E4%B8%8D%E7%9F%A5%E9%81%93'>Search for 我不知道</a></div><div class='area' style='left:648px;top:776px;width:280px;height:22px;'>C21 我不知道</div><div class='box' style='left:548px;top:532px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C22' onclick='link_click(this)'><div class='desc' style='left:568px;top:631px;'><h2>C22 star cluster</h2><a href='http://duckduckgo.com/?q=star%20cluster'>Search for star cluster</a></div><div class='area' style='left:648px;top:798px;width:280px;height:21px;'>C22 STAR CLUSTER</div><div class='box' style='left:548px;top:583px;width:18px;height:46px;'></div>
 </div><div class='booth' id='C23' onclick='link_click(this)'><div class='desc' style='left:568px;top:682px;'><h2>C23 LittleSecret21</h2><ul>

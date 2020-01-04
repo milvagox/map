@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,21 +313,21 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFminiJB2019/CFminiJB2019.png' style='' onerror="this.src = './CFminiJB2019/CFminiJB2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:422px;top:519px;'><h2>A1 RYNISYOU</h2><ul>
 <li><a href='http://rynisyou.com' class='sqs'></a><a href='http://fb.me/rynisyou' class='fbk'></a><a href='http://instagram.com/rynisyou' class='ins'></a><a href='https://rynisyou.tumblr.com' class='tmb'></a><a href='http://twitter.com/rynisyou' class='twt'></a></li></ul></div><div class='area' style='left:573px;top:316px;width:360px;height:31px;'>A1 RYNISYOU</div><div class='box' style='left:393px;top:446px;width:27px;height:71px;'></div>
 </div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:422px;top:601px;'><h2>A2 HiBiscuits</h2><ul>
 <li><a href='http://fb.me/hibiscuits' class='fbk'></a></li></ul></div><div class='area' style='opacity:0;left:573px;top:347px;width:360px;height:30px;'>A2 HIBISCUITS</div><div class='box' style='opacity:0;left:393px;top:528px;width:27px;height:71px;'></div>
 </div><img src='./CFminiJB2019/A2.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='A3' onclick='link_click(this)'><div class='desc' style='left:422px;top:683px;'><h2>A3 BUTTERSPOON</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/BUTTERSPOON'>BUTTERSPOON</a></li><li><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://instagram.com/butterspoonofficial' class='ins'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a></li><li><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:377px;width:360px;height:31px;'>A3 BUTTERSPOON</div><div class='box' style='left:393px;top:610px;width:27px;height:71px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/BUTTERSPOON'>BUTTERSPOON</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/spoon_butter' class='twt'></a><a href='http://instagram.com/butterspoonofficial' class='ins'></a><a href='http://fb.me/butterspoonofficial' class='fbk'></a></li><li><a href='http://fb.me/lucas.chan' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:377px;width:360px;height:31px;'>A3 BUTTERSPOON</div><div class='box' style='left:393px;top:610px;width:27px;height:71px;'></div>
 </div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:422px;top:765px;'><h2>A4 喵&amp;𦍌</h2><ul>
 <li><a href='http://fb.me/HANDMADEBYYY' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:408px;width:360px;height:30px;'>A4 喵&AMP;𦍌</div><div class='box' style='opacity:0;left:393px;top:692px;width:27px;height:71px;'></div>
 </div><img src='./CFminiJB2019/A4.png' onclick="this.style.display=''" class='custimg'><div class='booth' id='B1' onclick='link_click(this)'><div class='desc' style='left:357px;top:519px;'><h2>B1 Raisins &amp; Berry</h2><ul>
-<li><a href='http://instagram.com/bbuberry_micha' class='ins'></a><a href='http://fb.me/RaisinsBerry' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:469px;width:360px;height:30px;'>B1 RAISINS &AMP; BERRY</div><div class='box' style='left:328px;top:446px;width:27px;height:71px;'></div>
+<li><a href='http://instagram.com/bbuberry_micha' class='ins'></a><a href='http://fb.me/RaisinsBerry' class='fbk'></a></li><li><a href='http://twitter.com/bbuberry_tiger' class='twt'></a></li></ul></div><div class='area' style='left:573px;top:469px;width:360px;height:30px;'>B1 RAISINS &AMP; BERRY</div><div class='box' style='left:328px;top:446px;width:27px;height:71px;'></div>
 </div><div class='booth' id='B2' onclick='link_click(this)'><div class='desc' style='left:357px;top:601px;'><h2>B2 KBP Lord Helix</h2><ul>
 <li><a href='http://fb.me/KBPLordHelix' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:499px;width:360px;height:31px;'>B2 KBP LORD HELIX</div><div class='box' style='left:328px;top:528px;width:27px;height:71px;'></div>
 </div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:357px;top:683px;'><h2>B3 Commander Mittens</h2><ul>
-<li><a href='http://CommanderMittensCo.etsy.com' class='ets'></a><a href='http://fb.me/commandermitten' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:530px;width:360px;height:30px;'>B3 COMMANDER MITTENS</div><div class='box' style='left:328px;top:610px;width:27px;height:71px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Miaow'>Miaow</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/kyoupiruchi' class='twt'></a><a href='http://CommanderMittensCo.etsy.com' class='ets'></a><a href='http://fb.me/commandermitten' class='fbk'></a></li></ul></div><div class='area' style='left:573px;top:530px;width:360px;height:30px;'>B3 COMMANDER MITTENS</div><div class='box' style='left:328px;top:610px;width:27px;height:71px;'></div>
 </div><div class='booth' id='B4' onclick='link_click(this)'><div class='desc' style='left:357px;top:765px;'><h2>B4 Yuz&#39;Ki</h2><ul>
 <li><a href='http://instagram.com/pancat.yuzki' class='ins'></a><a href='http://linktr.ee/pancat.yuzki' class='lkt'></a></li></ul></div><div class='area' style='left:573px;top:560px;width:360px;height:31px;'>B4 YUZ&#39;KI</div><div class='box' style='left:328px;top:692px;width:27px;height:71px;'></div>
 </div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:231px;top:519px;'><h2>C1 眠猫</h2><ul>

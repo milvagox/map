@@ -5,7 +5,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -18,6 +17,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -25,6 +25,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -37,7 +38,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -53,7 +54,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -69,7 +70,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -81,7 +82,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -138,7 +139,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -150,17 +151,17 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2017/S4O2017.png' style='' onerror="this.src = './S4O2017/S4O2017.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='1' href='https://duckduckgo.com/?q=MoeSpace'><div class='area' style='left:23px;top:873px;width:335px;height:29px;'>1 MOESPACE</div><div class='box' style='left:690px;top:391px;width:28px;height:49px;'></div>
 </a><a class='booth' id='2' href='https://duckduckgo.com/?q=Visual%20Art%20Expo'><div class='area' style='left:23px;top:902px;width:335px;height:29px;'>2 VISUAL ART EXPO</div><div class='box' style='left:690px;top:323px;width:28px;height:49px;'></div>
 </a><a class='booth' id='3' href='http://fb.me/BlissLibertyHandcrafts'><div class='area' style='left:23px;top:931px;width:335px;height:29px;'>3 BLISS LIBERTY</div><div class='box' style='left:623px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='4' href='https://duckduckgo.com/?q=Tofu%20Tofu%20Moe'><div class='area' style='left:23px;top:960px;width:335px;height:29px;'>4 TOFU TOFU MOE</div><div class='box' style='left:570px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='5' href='https://milvagox.miraheze.org/wiki/Accel_DriveTokuMalaysia'><div class='area' style='left:23px;top:989px;width:335px;height:29px;'>5 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:517px;top:307px;width:50px;height:27px;'></div>
-</a><a class='booth' id='6' href='https://duckduckgo.com/?q=Comrade%20Anime'><div class='area' style='left:23px;top:1018px;width:335px;height:29px;'>6 COMRADE ANIME</div><div class='box' style='left:449px;top:307px;width:50px;height:27px;'></div>
+</a><a class='booth' id='6' href='http://fb.me/comradeanime'><div class='area' style='left:23px;top:1018px;width:335px;height:29px;'>6 COMRADE ANIME</div><div class='box' style='left:449px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='7' href='http://twitter.com/carmenlim0104'><div class='area' style='left:23px;top:1047px;width:335px;height:29px;'>7 RUI</div><div class='box' style='left:396px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='8' href='https://duckduckgo.com/?q=Maguro%20Guildshop'><div class='area' style='left:23px;top:1076px;width:335px;height:29px;'>8 MAGURO GUILDSHOP</div><div class='box' style='left:321px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='9' href='https://duckduckgo.com/?q=Kai1pay%20Handmade'><div class='area' style='left:23px;top:1105px;width:335px;height:29px;'>9 KAI1PAY HANDMADE</div><div class='box' style='left:268px;top:307px;width:50px;height:27px;'></div>
-</a><a class='booth' id='10' href='http://fb.me/shotalolitashop'><div class='area' style='left:23px;top:1134px;width:335px;height:29px;'>10 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:215px;top:307px;width:50px;height:27px;'></div>
+</a><a class='booth' id='10' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:23px;top:1134px;width:335px;height:29px;'>10 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:215px;top:307px;width:50px;height:27px;'></div>
 </a><a class='booth' id='11' href='http://fb.me/sakuranosekai05052014'><div class='area' style='left:23px;top:1163px;width:335px;height:29px;'>11 SAKURA NO SEKAI</div><div class='box' style='left:623px;top:360px;width:50px;height:27px;'></div>
 </a><a class='booth' id='12' href='https://duckduckgo.com/?q=MY%20League%20of%20Legends'><div class='area' style='left:23px;top:1192px;width:335px;height:29px;'>12 MY LEAGUE OF LEGENDS</div><div class='box' style='left:570px;top:360px;width:50px;height:27px;'></div>
 </a><a class='booth' id='13' href='https://duckduckgo.com/?q=Ringo%20Shop'><div class='area' style='left:23px;top:1221px;width:335px;height:29px;'>13 RINGO SHOP</div><div class='box' style='left:517px;top:360px;width:50px;height:27px;'></div>
@@ -173,7 +174,7 @@
 </a><a class='booth' id='20' href='https://duckduckgo.com/?q=Strawberri%20Soda'><div class='area' style='left:362px;top:989px;width:280px;height:29px;'>20 STRAWBERRI SODA</div><div class='box' style='left:570px;top:436px;width:50px;height:27px;'></div>
 </a><a class='booth' id='21' href='https://duckduckgo.com/?q=DMT%20Anime%20%26%20Cosplay%20Shop'><div class='area' style='left:362px;top:1018px;width:367px;height:29px;'>21 DMT ANIME &AMP; COSPLAY SHOP</div><div class='box' style='left:517px;top:436px;width:50px;height:27px;'></div>
 </a><a class='booth' id='22' href='http://lelong.com.my/store/mmhandmade'><div class='area' style='left:362px;top:1047px;width:367px;height:29px;'>22 MM HANDMADE SOUVENIR</div><div class='box' style='left:449px;top:436px;width:50px;height:27px;'></div>
-</a><a class='booth' id='23' href='https://duckduckgo.com/?q=Anime%20Splits%20%26%20Order%27s'><div class='area' style='left:362px;top:1076px;width:367px;height:29px;'>23 ANIME SPLITS &AMP; ORDER&#39;S</div><div class='box' style='left:396px;top:436px;width:50px;height:27px;'></div>
+</a><a class='booth' id='23' href='https://milvagox.miraheze.org/wiki/Anime_Splits_and_Orders'><div class='area' style='left:362px;top:1076px;width:367px;height:29px;'>23 ANIME SPLITS &AMP; ORDER&#39;S</div><div class='box' style='left:396px;top:436px;width:50px;height:27px;'></div>
 </a><a class='booth' id='24' href='http://instagram.com/tamamacos'><div class='area' style='left:362px;top:1105px;width:367px;height:29px;'>24 XJL</div><div class='box' style='left:321px;top:436px;width:50px;height:27px;'></div>
 </a><a class='booth' id='25' href='https://duckduckgo.com/?q=Anpan%20SPARKING'><div class='area' style='left:362px;top:1134px;width:367px;height:29px;'>25 ANPAN SPARKING</div><div class='box' style='left:268px;top:436px;width:50px;height:27px;'></div>
 </a><a class='booth' id='26' href='http://twitter.com/Fukurou_kun33'><div class='area' style='left:362px;top:1163px;width:367px;height:29px;'>26 FRUITCAKES</div><div class='box' style='left:215px;top:436px;width:50px;height:27px;'></div>

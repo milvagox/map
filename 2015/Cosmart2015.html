@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -63,7 +64,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -79,7 +80,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -91,7 +92,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -148,7 +149,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -160,7 +161,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2015/Cosmart2015.png' style='' onerror="this.src = './Cosmart2015/Cosmart2015.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='A1' href='http://instagram.com/relyss__'><div class='area' style='left:75px;top:610px;width:300px;height:28px;'>A1 THE EXPLODING CLOSET</div><div class='box' style='left:76px;top:222px;width:85px;height:55px;'></div>
 </a><a class='booth' id='A2' href='https://duckduckgo.com/?q=JUINNIE%20JUNKIES'><div class='area' style='left:75px;top:638px;width:300px;height:28px;'>A2 JUINNIE JUNKIES</div><div class='box' style='left:171px;top:222px;width:85px;height:55px;'></div>
 </a><a class='booth' id='A3' href='http://fb.me/NZNDyugodie'><div class='area' style='left:75px;top:666px;width:300px;height:28px;'>A3 NZND</div><div class='box' style='left:266px;top:222px;width:85px;height:55px;'></div>
@@ -175,7 +176,7 @@
 </a><a class='booth' id='D4' href='https://duckduckgo.com/?q=Sewn%20Made'><div class='area' style='left:75px;top:946px;width:300px;height:28px;'>D4 SEWN MADE</div><div class='box' style='left:362px;top:465px;width:85px;height:55px;'></div>
 </a><a class='booth' id='D5' href='https://duckduckgo.com/?q=Kuro%E2%80%99s%20Cos%20Shop'><div class='area' style='left:75px;top:974px;width:300px;height:28px;'>D5 KURO’S COS SHOP</div><div class='box' style='left:457px;top:465px;width:85px;height:55px;'></div>
 </a><a class='booth' id='D6' href='https://duckduckgo.com/?q=Senpai%20Tshirt'><div class='area' style='left:75px;top:1002px;width:300px;height:28px;'>D6 SENPAI TSHIRT</div><div class='box' style='left:552px;top:465px;width:85px;height:55px;'></div>
-</a><a class='booth' id='D7' href='https://duckduckgo.com/?q=LeaxMikki'><div class='area' style='left:75px;top:1030px;width:300px;height:28px;'>D7 LEAXMIKKI</div><div class='box' style='left:647px;top:465px;width:85px;height:55px;'></div>
+</a><a class='booth' id='D7' href='http://fb.me/lea.joanes'><div class='area' style='left:75px;top:1030px;width:300px;height:28px;'>D7 LEAXMIKKI</div><div class='box' style='left:647px;top:465px;width:85px;height:55px;'></div>
 </a><a class='booth' id='D8' href='https://duckduckgo.com/?q=Kaienyuu%20%2B%20Maro'><div class='area' style='left:75px;top:1058px;width:300px;height:28px;'>D8 KAIENYUU + MARO</div><div class='box' style='left:742px;top:465px;width:85px;height:55px;'></div>
 </a><a class='booth' id='B1' href='https://duckduckgo.com/?q=BibuBibu'><div class='area' style='left:389px;top:610px;width:300px;height:28px;'>B1 BIBUBIBU</div><div class='box' style='left:77px;top:287px;width:85px;height:55px;'></div>
 </a><a class='booth' id='B2' href='https://duckduckgo.com/?q=sesame%20life'><div class='area' style='left:389px;top:638px;width:300px;height:28px;'>B2 SESAME LIFE</div><div class='box' style='left:172px;top:287px;width:85px;height:55px;'></div>
@@ -185,9 +186,9 @@
 </a><a class='booth' id='B6' href='http://fb.me/NZNDyugodie'><div class='area' style='left:389px;top:750px;width:300px;height:28px;'>B6 NZND REPRESENT</div><div class='box' style='left:552px;top:287px;width:85px;height:55px;'></div>
 </a><a class='booth' id='B7' href='https://duckduckgo.com/?q=On%20Duty'><div class='area' style='left:389px;top:778px;width:300px;height:28px;'>B7 ON DUTY</div><div class='box' style='left:647px;top:287px;width:85px;height:55px;'></div>
 </a><a class='booth' id='B8' href='https://duckduckgo.com/?q=Oneesama%20Doko'><div class='area' style='left:389px;top:806px;width:300px;height:28px;'>B8 ONEESAMA DOKO</div><div class='box' style='left:742px;top:287px;width:85px;height:55px;'></div>
-</a><a class='booth' id='E1' href='https://duckduckgo.com/?q=Angie'><div class='area' style='left:389px;top:862px;width:300px;height:28px;'>E1 ANGIE</div><div class='box' style='left:904px;top:226px;width:112px;height:112px;'></div>
+</a><a class='booth' id='E1' href='https://milvagox.miraheze.org/wiki/Angie'><div class='area' style='left:389px;top:862px;width:300px;height:28px;'>E1 ANGIE</div><div class='box' style='left:904px;top:226px;width:112px;height:112px;'></div>
 </a><a class='booth' id='E2' href='http://fb.me/ChibiCosplayShoppie'><div class='area' style='left:389px;top:890px;width:300px;height:28px;'>E2 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:1026px;top:226px;width:112px;height:112px;'></div>
-</a><a class='booth' id='E3' href='http://fb.me/shotalolitashop'><div class='area' style='left:389px;top:918px;width:300px;height:28px;'>E3 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:1148px;top:226px;width:112px;height:112px;'></div>
+</a><a class='booth' id='E3' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:389px;top:918px;width:300px;height:28px;'>E3 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:1148px;top:226px;width:112px;height:112px;'></div>
 </a><a class='booth' id='E4' href='https://duckduckgo.com/?q=Moecodesigns'><div class='area' style='left:389px;top:946px;width:300px;height:28px;'>E4 MOECODESIGNS</div><div class='box' style='left:904px;top:404px;width:112px;height:112px;'></div>
 </a><a class='booth' id='E5' href='http://twitter.com/ying_tze'><div class='area' style='left:389px;top:974px;width:300px;height:28px;'>E5 YINGTZE</div><div class='box' style='left:1026px;top:404px;width:112px;height:112px;'></div>
 </a><a class='booth' id='C1' href='https://duckduckgo.com/?q=%E8%AF%B7%E8%BE%93%E5%85%A5%E5%90%8D%E5%AD%97'><div class='area' style='left:747px;top:610px;width:300px;height:28px;'>C1 请输入名字</div><div class='box' style='left:77px;top:400px;width:85px;height:55px;'></div>

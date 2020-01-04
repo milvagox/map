@@ -5,7 +5,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -18,6 +17,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -25,6 +25,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -37,7 +38,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -53,7 +54,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -69,7 +70,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -81,7 +82,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -138,7 +139,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -150,7 +151,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./TAGCC2019/TAGCC2019.png' style='' onerror="this.src = './TAGCC2019/TAGCC2019.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='A1' href='http://rynisyou.com'><div class='area' style='left:110px;top:510px;width:175px;height:14px;'>A1 RYNISYOU</div><div class='box' style='left:601px;top:243px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A2' href='http://instagram.com/ink.diary'><div class='area' style='left:110px;top:524px;width:175px;height:14px;'>A2 INK.DIARY</div><div class='box' style='left:601px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='A3' href='http://instagram.com/uecreativeworld_handmade_dolls'><div class='area' style='left:110px;top:538px;width:175px;height:14px;'>A3 UE CREATIVE WORLD</div><div class='box' style='left:601px;top:295px;width:10px;height:22px;'></div>
@@ -169,19 +170,19 @@
 </a><a class='booth' id='B7' href='http://twitter.com/chronismn'><div class='area' style='left:110px;top:733px;width:175px;height:14px;'>B7 LITTLE GREY SALMON</div><div class='box' style='left:568px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='B8' href='http://instagram.com/hanhungsiew'><div class='area' style='left:110px;top:747px;width:175px;height:14px;'>B8 SITHSENSUI &AMP; EGXY</div><div class='box' style='left:568px;top:425px;width:10px;height:22px;'></div>
 </a><a class='booth' id='B9' href='https://duckduckgo.com/?q=Lupi'><div class='area' style='left:110px;top:761px;width:175px;height:14px;'>B9 LUPI</div><div class='box' style='left:568px;top:451px;width:10px;height:22px;'></div>
-</a><a class='booth' id='C1' href='https://duckduckgo.com/?q=SleepyDaze'><div class='area' style='left:110px;top:786px;width:175px;height:14px;'>C1 SLEEPYDAZE</div><div class='box' style='left:496px;top:243px;width:10px;height:22px;'></div>
-</a><a class='booth' id='C2' href='http://instagram.com/korodklothing'><div class='area' style='left:110px;top:800px;width:175px;height:14px;'>C2 KOROD KLOTHING</div><div class='box' style='left:496px;top:269px;width:10px;height:22px;'></div>
+</a><a class='booth' id='C1' href='http://twitter.com/inconyoo'><div class='area' style='left:110px;top:786px;width:175px;height:14px;'>C1 SLEEPYDAZE</div><div class='box' style='left:496px;top:243px;width:10px;height:22px;'></div>
+</a><a class='booth' id='C2' href='https://milvagox.miraheze.org/wiki/Korod Klothing'><div class='area' style='left:110px;top:800px;width:175px;height:14px;'>C2 KOROD KLOTHING</div><div class='box' style='left:496px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='C3' href='http://twitter.com/tishawish_'><div class='area' style='left:110px;top:814px;width:175px;height:14px;'>C3 PICKS &AMP; PINS</div><div class='box' style='left:496px;top:295px;width:10px;height:22px;'></div>
-</a><a class='booth' id='C4' href='http://twitter.com/creeeell'><div class='area' style='left:110px;top:828px;width:175px;height:14px;'>C4 STRAWBERRY LLAMA</div><div class='box' style='left:496px;top:321px;width:10px;height:22px;'></div>
-</a><a class='booth' id='C5' href='http://fb.me/TheArtofwallacedestiny'><div class='area' style='left:110px;top:842px;width:175px;height:14px;'>C5 WALLACE DESTINY</div><div class='box' style='left:496px;top:347px;width:10px;height:22px;'></div>
+</a><a class='booth' id='C4' href='https://milvagox.miraheze.org/wiki/Eggie'><div class='area' style='left:110px;top:828px;width:175px;height:14px;'>C4 STRAWBERRY LLAMA</div><div class='box' style='left:496px;top:321px;width:10px;height:22px;'></div>
+</a><a class='booth' id='C5' href='https://milvagox.miraheze.org/wiki/Wallace Destiny'><div class='area' style='left:110px;top:842px;width:175px;height:14px;'>C5 WALLACE DESTINY</div><div class='box' style='left:496px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='C6' href='https://duckduckgo.com/?q=Royal%20Riot'><div class='area' style='left:110px;top:856px;width:175px;height:14px;'>C6 ROYAL RIOT</div><div class='box' style='left:496px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='C7' href='http://fb.me/artsyhooman'><div class='area' style='left:110px;top:870px;width:175px;height:14px;'>C7 ARTSYHOOMAN</div><div class='box' style='left:496px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='C8' href='http://instagram.com/mishiechua'><div class='area' style='left:110px;top:884px;width:175px;height:14px;'>C8 THE GENDAI SOUBI CLUB</div><div class='box' style='left:496px;top:425px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D1' href='http://twitter.com/jinlicious_my'><div class='area' style='left:295px;top:510px;width:175px;height:14px;'>D1 ERUKUS&#39; ART &AMP; JINLICIOUS MY</div><div class='box' style='left:463px;top:243px;width:10px;height:22px;'></div>
-</a><a class='booth' id='D2' href='http://fb.me/Jacculents'><div class='area' style='left:295px;top:524px;width:175px;height:14px;'>D2 JACKTUS</div><div class='box' style='left:463px;top:269px;width:10px;height:22px;'></div>
+</a><a class='booth' id='D2' href='https://milvagox.miraheze.org/wiki/Jack Yin'><div class='area' style='left:295px;top:524px;width:175px;height:14px;'>D2 JACKTUS</div><div class='box' style='left:463px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D3' href='http://twitter.com/relxion_kunp'><div class='area' style='left:295px;top:538px;width:175px;height:14px;'>D3 RELXION MERCH</div><div class='box' style='left:463px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D4' href='http://sugarmiki.weebly.com'><div class='area' style='left:295px;top:552px;width:175px;height:14px;'>D4 SUGARMIKI</div><div class='box' style='left:463px;top:321px;width:10px;height:22px;'></div>
-</a><a class='booth' id='D5' href='http://instagram.com/thepsalmsng'><div class='area' style='left:295px;top:566px;width:175px;height:14px;'>D5 MAGIC POTATO</div><div class='box' style='left:463px;top:347px;width:10px;height:22px;'></div>
+</a><a class='booth' id='D5' href='https://milvagox.miraheze.org/wiki/Yuka Sia'><div class='area' style='left:295px;top:566px;width:175px;height:14px;'>D5 MAGIC POTATO</div><div class='box' style='left:463px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D6' href='http://twitter.com/Xeph_Artworks'><div class='area' style='left:295px;top:580px;width:175px;height:14px;'>D6 XEPH&#39;S ARTWORK</div><div class='box' style='left:463px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D7' href='http://fb.me/KBPLordHelix'><div class='area' style='left:295px;top:594px;width:175px;height:14px;'>D7 KBP LORD HELIX</div><div class='box' style='left:463px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='D8' href='http://fb.me/KBPLordHelix'><div class='area' style='left:295px;top:608px;width:175px;height:14px;'>D8 KBP LORD HELIX</div><div class='box' style='left:463px;top:425px;width:10px;height:22px;'></div>
@@ -190,33 +191,33 @@
 </a><a class='booth' id='E3' href='http://twitter.com/HayateKonno'><div class='area' style='left:295px;top:677px;width:175px;height:14px;'>E3 HAYATE COSPLAYER</div><div class='box' style='left:391px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E4' href='http://fb.me/MayArtPixel'><div class='area' style='left:295px;top:691px;width:175px;height:14px;'>E4 MAY ART</div><div class='box' style='left:391px;top:321px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E5' href='http://twitter.com/remoncatto'><div class='area' style='left:295px;top:705px;width:175px;height:14px;'>E5 SPACE BUNS</div><div class='box' style='left:391px;top:347px;width:10px;height:22px;'></div>
-</a><a class='booth' id='E6' href='http://instagram.com/bluebean.angela'><div class='area' style='left:295px;top:719px;width:175px;height:14px;'>E6 BLUEBEAN 藍豆</div><div class='box' style='left:391px;top:373px;width:10px;height:22px;'></div>
+</a><a class='booth' id='E6' href='https://milvagox.miraheze.org/wiki/BlueBean 藍豆'><div class='area' style='left:295px;top:719px;width:175px;height:14px;'>E6 BLUEBEAN 藍豆</div><div class='box' style='left:391px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E7' href='http://instagram.com/wizk'><div class='area' style='left:295px;top:733px;width:175px;height:14px;'>E7 WIZKIT</div><div class='box' style='left:391px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='E8' href='http://instagram.com/rynna0809'><div class='area' style='left:295px;top:747px;width:175px;height:14px;'>E8 RYNNA遴兒</div><div class='box' style='left:391px;top:425px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F1' href='https://duckduckgo.com/?q=Doodlynn'><div class='area' style='left:295px;top:786px;width:175px;height:14px;'>F1 DOODLYNN</div><div class='box' style='left:358px;top:243px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F2' href='http://twitter.com/freyz_rc'><div class='area' style='left:295px;top:800px;width:175px;height:14px;'>F2 FREYZ</div><div class='box' style='left:358px;top:269px;width:10px;height:22px;'></div>
-</a><a class='booth' id='F3' href='http://fb.me/MAOtypeB'><div class='area' style='left:295px;top:814px;width:175px;height:14px;'>F3 MAOTYPEB</div><div class='box' style='left:358px;top:295px;width:10px;height:22px;'></div>
+</a><a class='booth' id='F3' href='https://milvagox.miraheze.org/wiki/MAOtypeB'><div class='area' style='left:295px;top:814px;width:175px;height:14px;'>F3 MAOTYPEB</div><div class='box' style='left:358px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F4' href='http://instagram.com/tea.syrup'><div class='area' style='left:295px;top:828px;width:175px;height:14px;'>F4 SOUTH STREETS</div><div class='box' style='left:358px;top:321px;width:10px;height:22px;'></div>
-</a><a class='booth' id='F5' href='https://duckduckgo.com/?q=Tidimika'><div class='area' style='left:295px;top:842px;width:175px;height:14px;'>F5 TIDIMIKA</div><div class='box' style='left:358px;top:347px;width:10px;height:22px;'></div>
+</a><a class='booth' id='F5' href='https://milvagox.miraheze.org/wiki/Tixit'><div class='area' style='left:295px;top:842px;width:175px;height:14px;'>F5 TIDIMIKA</div><div class='box' style='left:358px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F6' href='http://facebook.com/COMIX-绘师联盟-235787393611829'><div class='area' style='left:295px;top:856px;width:175px;height:14px;'>F6 COMIX</div><div class='box' style='left:358px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F7' href='http://facebook.com/COMIX-绘师联盟-235787393611829'><div class='area' style='left:295px;top:870px;width:175px;height:14px;'>F7 COMIX</div><div class='box' style='left:358px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='F8' href='http://twitter.com/yukkuridoujin'><div class='area' style='left:295px;top:884px;width:175px;height:14px;'>F8 YUKKURI</div><div class='box' style='left:358px;top:425px;width:10px;height:22px;'></div>
-</a><a class='booth' id='G1' href='http://twitter.com/AmeliaKhor'><div class='area' style='left:482px;top:510px;width:185px;height:14px;'>G1 AMELIA KHOR</div><div class='box' style='left:286px;top:243px;width:10px;height:22px;'></div>
+</a><a class='booth' id='G1' href='https://milvagox.miraheze.org/wiki/Amelia Khor'><div class='area' style='left:482px;top:510px;width:185px;height:14px;'>G1 AMELIA KHOR</div><div class='box' style='left:286px;top:243px;width:10px;height:22px;'></div>
 </a><a class='booth' id='G2' href='https://duckduckgo.com/?q=%E6%90%9E%E4%BA%8B%E5%A6%99%E5%A6%99%E5%85%8D%20Niubility%20Club%20House'><div class='area' style='left:482px;top:524px;width:185px;height:14px;'>G2 搞事妙妙免 NIUBILITY CLUB HOUSE</div><div class='box' style='left:286px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='G3' href='http://fb.me/XY.ArtWorld'><div class='area' style='left:482px;top:538px;width:185px;height:14px;'>G3 XIIAOYEI</div><div class='box' style='left:286px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='G4' href='http://instagram.com/phi_cosplay'><div class='area' style='left:482px;top:552px;width:185px;height:14px;'>G4 PHI 霏</div><div class='box' style='left:286px;top:321px;width:10px;height:22px;'></div>
 </a><a class='booth' id='G5' href='http://twitter.com/JenniferTehYL'><div class='area' style='left:482px;top:566px;width:185px;height:14px;'>G5 SALT &AMP; PEPPER</div><div class='box' style='left:286px;top:347px;width:10px;height:22px;'></div>
 </a><a class='booth' id='G6' href='http://fb.me/NZuoWDie'><div class='area' style='left:482px;top:580px;width:185px;height:14px;'>G6 找‘事’工作坊 @NZUOWDIE</div><div class='box' style='left:286px;top:373px;width:10px;height:22px;'></div>
-</a><a class='booth' id='G7' href='http://twitter.com/nessarose_coser'><div class='area' style='left:482px;top:594px;width:185px;height:14px;'>G7 NESSAROSE 貓殿下</div><div class='box' style='left:286px;top:399px;width:10px;height:22px;'></div>
-</a><a class='booth' id='H1' href='https://duckduckgo.com/?q=Vincent%20Trinidad%20Art'><div class='area' style='left:482px;top:635px;width:185px;height:14px;'>H1 VINCENT TRINIDAD ART</div><div class='box' style='left:253px;top:243px;width:10px;height:22px;'></div>
-</a><a class='booth' id='H2' href='http://twitter.com/AnimugenID'><div class='area' style='left:482px;top:649px;width:185px;height:14px;'>H2 ANIMUGEN ID</div><div class='box' style='left:253px;top:269px;width:10px;height:22px;'></div>
+</a><a class='booth' id='G7' href='https://milvagox.miraheze.org/wiki/Nessarose'><div class='area' style='left:482px;top:594px;width:185px;height:14px;'>G7 NESSAROSE 貓殿下</div><div class='box' style='left:286px;top:399px;width:10px;height:22px;'></div>
+</a><a class='booth' id='H1' href='http://instagram.com/vincenttrinidadart'><div class='area' style='left:482px;top:635px;width:185px;height:14px;'>H1 VINCENT TRINIDAD ART</div><div class='box' style='left:253px;top:243px;width:10px;height:22px;'></div>
+</a><a class='booth' id='H2' href='https://milvagox.miraheze.org/wiki/Animugen ID'><div class='area' style='left:482px;top:649px;width:185px;height:14px;'>H2 ANIMUGEN ID</div><div class='box' style='left:253px;top:269px;width:10px;height:22px;'></div>
 </a><a class='booth' id='H3' href='http://instagram.com/rait_visualworks'><div class='area' style='left:482px;top:663px;width:185px;height:14px;'>H3 RAIT VISUALWORKS</div><div class='box' style='left:253px;top:295px;width:10px;height:22px;'></div>
 </a><a class='booth' id='H4' href='http://fb.me/animeaccess'><div class='area' style='left:482px;top:677px;width:185px;height:14px;'>H4 ANIME ACCESS</div><div class='box' style='left:253px;top:321px;width:10px;height:22px;'></div>
 </a><a class='booth' id='H5' href='http://instagram.com/chutororo'><div class='area' style='left:482px;top:691px;width:185px;height:14px;'>H5 CHUTORORO</div><div class='box' style='left:253px;top:347px;width:10px;height:22px;'></div>
-</a><a class='booth' id='H6' href='http://carousell.com/_bykami'><div class='area' style='left:482px;top:705px;width:185px;height:14px;'>H6 BY KAMI</div><div class='box' style='left:253px;top:373px;width:10px;height:22px;'></div>
+</a><a class='booth' id='H6' href='https://milvagox.miraheze.org/wiki/TaraGraphika'><div class='area' style='left:482px;top:705px;width:185px;height:14px;'>H6 BY KAMI</div><div class='box' style='left:253px;top:373px;width:10px;height:22px;'></div>
 </a><a class='booth' id='H7' href='http://instagram.com/lizzyylz'><div class='area' style='left:482px;top:719px;width:185px;height:14px;'>H7 LIZZY リジー</div><div class='box' style='left:253px;top:399px;width:10px;height:22px;'></div>
 </a><a class='booth' id='CC1' href='http://fb.me/Angie7099'><div class='area' style='left:476px;top:758px;width:210px;height:14px;'>CC1 ANGIEO_O</div><div class='box' style='left:175px;top:229px;width:22px;height:22px;'></div>
-</a><a class='booth' id='CC2' href='https://duckduckgo.com/?q=SHINE%20X%20RIKKA'><div class='area' style='left:476px;top:772px;width:210px;height:14px;'>CC2 SHINE X RIKKA</div><div class='box' style='left:175px;top:255px;width:22px;height:22px;'></div>
+</a><a class='booth' id='CC2' href='https://milvagox.miraheze.org/wiki/Shine'><div class='area' style='left:476px;top:772px;width:210px;height:14px;'>CC2 SHINE X RIKKA</div><div class='box' style='left:175px;top:255px;width:22px;height:22px;'></div>
 </a><a class='booth' id='CC3' href='https://duckduckgo.com/?q=ITENO%20Puzzle%20Game'><div class='area' style='left:476px;top:786px;width:210px;height:14px;'>CC3 ITENO PUZZLE GAME</div><div class='box' style='left:175px;top:281px;width:22px;height:22px;'></div>
 </a><a class='booth' id='CC4' href='http://fb.me/neko.clayhouse'><div class='area' style='left:476px;top:800px;width:210px;height:14px;'>CC4 NEKO&#39;S HANDMADE</div><div class='box' style='left:175px;top:307px;width:22px;height:22px;'></div>
 </a><a class='booth' id='CC5' href='http://twitter.com/TomodachiTShirt'><div class='area' style='left:476px;top:814px;width:210px;height:14px;'>CC5 TOMODACHI</div><div class='box' style='left:175px;top:333px;width:22px;height:22px;'></div>
@@ -224,7 +225,7 @@
 </a><a class='booth' id='CC7' href='http://fb.me/CUTfilmmaker'><div class='area' style='left:476px;top:842px;width:210px;height:14px;'>CC7 特製隊 CREATOR UNION OF TOKUSATSU</div><div class='box' style='left:175px;top:385px;width:22px;height:22px;'></div>
 </a><a class='booth' id='CC8' href='http://twitter.com/kuhl_notes'><div class='area' style='left:476px;top:856px;width:210px;height:14px;'>CC8 KUHL NOTES</div><div class='box' style='left:175px;top:411px;width:22px;height:22px;'></div>
 </a><a class='booth' id='CC9' href='http://instagram.com/pekomik'><div class='area' style='left:476px;top:870px;width:210px;height:14px;'>CC9 PEKOMIK</div><div class='box' style='left:175px;top:437px;width:22px;height:22px;'></div>
-</a><a class='booth' id='CC10' href='http://fb.me/shotalolitashop'><div class='area' style='left:476px;top:884px;width:210px;height:14px;'>CC10 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:175px;top:463px;width:22px;height:22px;'></div>
+</a><a class='booth' id='CC10' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:476px;top:884px;width:210px;height:14px;'>CC10 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:175px;top:463px;width:22px;height:22px;'></div>
 </a>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

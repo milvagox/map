@@ -5,7 +5,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -18,6 +17,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -25,6 +25,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -37,7 +38,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -53,7 +54,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -69,7 +70,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -81,7 +82,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -138,7 +139,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -150,10 +151,10 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2016/Cosmart2016.png' style='' onerror="this.src = './Cosmart2016/Cosmart2016.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='A01' href='https://duckduckgo.com/?q=Rabbit%20Atelier'><div class='area' style='left:546px;top:312px;width:230px;height:23px;'>A01 RABBIT ATELIER</div><div class='box' style='left:525px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A02' href='http://instagram.com/tamamacos'><div class='area' style='left:546px;top:335px;width:230px;height:23px;'>A02 XJL</div><div class='box' style='left:552px;top:582px;width:24px;height:24px;'></div>
-</a><a class='booth' id='A03' href='https://duckduckgo.com/?q=Lea%26Mikki'><div class='area' style='left:546px;top:358px;width:230px;height:23px;'>A03 LEA&AMP;MIKKI</div><div class='box' style='left:579px;top:582px;width:24px;height:24px;'></div>
+</a><a class='booth' id='A03' href='http://fb.me/lea.joanes'><div class='area' style='left:546px;top:358px;width:230px;height:23px;'>A03 LEA&AMP;MIKKI</div><div class='box' style='left:579px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A04' href='https://duckduckgo.com/?q=Buy%20Now%20No%20Regret%21'><div class='area' style='left:546px;top:381px;width:230px;height:23px;'>A04 BUY NOW NO REGRET!</div><div class='box' style='left:606px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A05' href='https://duckduckgo.com/?q=Royal%20Flush'><div class='area' style='left:546px;top:404px;width:230px;height:23px;'>A05 ROYAL FLUSH</div><div class='box' style='left:633px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A06' href='http://twitter.com/YieldLow'><div class='area' style='left:546px;top:427px;width:230px;height:23px;'>A06 STAR CLUSTER</div><div class='box' style='left:660px;top:582px;width:24px;height:24px;'></div>
@@ -174,7 +175,7 @@
 </a><a class='booth' id='A21' href='https://duckduckgo.com/?q=Kiba%20Lee'><div class='area' style='left:979px;top:427px;width:250px;height:23px;'>A21 KIBA LEE</div><div class='box' style='left:1094px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A22' href='https://duckduckgo.com/?q=kumo%20kumo'><div class='area' style='left:979px;top:450px;width:250px;height:23px;'>A22 KUMO KUMO</div><div class='box' style='left:1121px;top:582px;width:24px;height:24px;'></div>
 </a><a class='booth' id='A23' href='https://duckduckgo.com/?q=JUINNIE%20JUNKIES'><div class='area' style='left:979px;top:473px;width:250px;height:23px;'>A23 JUINNIE JUNKIES</div><div class='box' style='left:1148px;top:582px;width:24px;height:24px;'></div>
-</a><a class='booth' id='B01' href='http://fb.me/shotalolitashop'><div class='area' style='left:1247px;top:312px;width:270px;height:23px;'>B01 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:1174px;top:664px;width:24px;height:52px;'></div>
+</a><a class='booth' id='B01' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:1247px;top:312px;width:270px;height:23px;'>B01 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:1174px;top:664px;width:24px;height:52px;'></div>
 </a><a class='booth' id='B02' href='https://duckduckgo.com/?q=Mr%20Laser%20Digital%20Craft'><div class='area' style='left:1247px;top:335px;width:270px;height:23px;'>B02 MR LASER DIGITAL CRAFT</div><div class='box' style='left:1174px;top:718px;width:24px;height:52px;'></div>
 </a><a class='booth' id='B03' href='http://fb.me/rubynocos'><div class='area' style='left:1247px;top:358px;width:270px;height:23px;'>B03 RUBY&#39;S COSPLAY SHOP</div><div class='box' style='left:1174px;top:772px;width:24px;height:52px;'></div>
 </a><a class='booth' id='B04' href='http://fb.me/ChibiCosplayShoppie'><div class='area' style='left:1247px;top:381px;width:270px;height:23px;'>B04 CHIBI&#39;S COSPLAY SHOPPIE</div><div class='box' style='left:1174px;top:826px;width:24px;height:52px;'></div>

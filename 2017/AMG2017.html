@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,7 +313,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMG2017/AMG2017.png' style='' onerror="this.src = './AMG2017/AMG2017.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='C2' onclick='link_click(this)'><div class='desc' style='left:335px;top:285px;'><h2>C2 #Kendylife</h2><ul>
 <li><a href='http://fb.me/kendylife' class='fbk'></a><a href='http://instagram.com/kendylife88' class='ins'></a><a href='http://kendylife.com' class='unk'></a></li></ul></div><div class='area' style='left:50px;top:504px;width:170px;height:20px;'>C2 #KENDYLIFE</div><div class='box' style='left:287px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D20' onclick='link_click(this)'><div class='desc' style='left:1248px;top:326px;'><h2>D20 5 More Minutes</h2><ul>
@@ -328,7 +332,8 @@
 </div><div class='booth' id='C7' onclick='link_click(this)'><div class='desc' style='left:575px;top:285px;'><h2>C7 Buy Buy Buy</h2><a href='http://duckduckgo.com/?q=Buy%20Buy%20Buy'>Search for Buy Buy Buy</a></div><div class='area' style='left:50px;top:744px;width:170px;height:20px;'>C7 BUY BUY BUY</div><div class='box' style='left:527px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A14' onclick='link_click(this)'><div class='desc' style='left:960px;top:173px;'><h2>A14 Chaos Theory</h2><a href='http://duckduckgo.com/?q=Chaos%20Theory'>Search for Chaos Theory</a></div><div class='area' style='left:50px;top:764px;width:170px;height:20px;'>A14 CHAOS THEORY</div><div class='box' style='left:912px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F9' onclick='link_click(this)'><div class='desc' style='left:696px;top:435px;'><h2>F9 Chinnie</h2><a href='http://duckduckgo.com/?q=Chinnie'>Search for Chinnie</a></div><div class='area' style='left:50px;top:784px;width:170px;height:20px;'>F9 CHINNIE</div><div class='box' style='left:648px;top:396px;width:46px;height:37px;'></div>
-</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:335px;top:173px;'><h2>A2 Comrade Anime</h2><a href='http://duckduckgo.com/?q=Comrade%20Anime'>Search for Comrade Anime</a></div><div class='area' style='left:50px;top:804px;width:170px;height:20px;'>A2 COMRADE ANIME</div><div class='box' style='left:287px;top:134px;width:46px;height:37px;'></div>
+</div><div class='booth' id='A2' onclick='link_click(this)'><div class='desc' style='left:335px;top:173px;'><h2>A2 Comrade Anime</h2><ul>
+<li><a href='http://fb.me/comradeanime' class='fbk'></a><a href='http://fb.me/nekogojoart' class='fbk'></a></li></ul></div><div class='area' style='left:50px;top:804px;width:170px;height:20px;'>A2 COMRADE ANIME</div><div class='box' style='left:287px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E3' onclick='link_click(this)'><div class='desc' style='left:383px;top:394px;'><h2>E3 Creepyllama</h2><ul>
 <li><a href='http://twitter.com/creeeell' class='twt'></a><a href='http://instagram.com/creepyllama' class='ins'></a><a href='http://fb.me/Creepyllama' class='fbk'></a></li><li><a href='http://twitter.com/emusansansansan' class='twt'></a><a href='http://instagram.com/mumububu_' class='ins'></a></li></ul></div><div class='area' style='left:50px;top:824px;width:170px;height:20px;'>E3 CREEPYLLAMA</div><div class='box' style='left:335px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:215px;'><h2>B19 Crippling Depression</h2><a href='http://duckduckgo.com/?q=Crippling%20Depression'>Search for Crippling Depression</a></div><div class='area' style='left:50px;top:844px;width:170px;height:20px;'>B19 CRIPPLING DEPRESSION</div><div class='box' style='left:1152px;top:176px;width:46px;height:37px;'></div>
@@ -350,7 +355,8 @@
 </div><div class='booth' id='A5' onclick='link_click(this)'><div class='desc' style='left:479px;top:173px;'><h2>A5 Fat Birds</h2><a href='http://duckduckgo.com/?q=Fat%20Birds'>Search for Fat Birds</a></div><div class='area' style='left:239px;top:664px;width:165px;height:20px;'>A5 FAT BIRDS</div><div class='box' style='left:431px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B13' onclick='link_click(this)'><div class='desc' style='left:888px;top:215px;'><h2>B13 Fat Fairy</h2><ul>
 <li><a href='http://twitter.com/whitevoix' class='twt'></a><a href='http://instagram.com/weiliwonka' class='ins'></a><a href='http://fb.me/FetFairy' class='fbk'></a></li></ul></div><div class='area' style='left:239px;top:684px;width:165px;height:20px;'>B13 FAT FAIRY</div><div class='box' style='left:840px;top:176px;width:46px;height:37px;'></div>
-</div><div class='booth' id='F8' onclick='link_click(this)'><div class='desc' style='left:648px;top:435px;'><h2>F8 Fiber</h2><a href='http://duckduckgo.com/?q=Fiber'>Search for Fiber</a></div><div class='area' style='left:239px;top:724px;width:165px;height:20px;'>F8 FIBER</div><div class='box' style='left:600px;top:396px;width:46px;height:37px;'></div>
+</div><div class='booth' id='F8' onclick='link_click(this)'><div class='desc' style='left:648px;top:435px;'><h2>F8 Fiber</h2><ul>
+<li><a href='http://fb.me/FiberClothing' class='fbk'></a></li></ul></div><div class='area' style='left:239px;top:724px;width:165px;height:20px;'>F8 FIBER</div><div class='box' style='left:600px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D6' onclick='link_click(this)'><div class='desc' style='left:527px;top:326px;'><h2>D6 Fikurien</h2><a href='http://duckduckgo.com/?q=Fikurien'>Search for Fikurien</a></div><div class='area' style='left:239px;top:744px;width:165px;height:20px;'>D6 FIKURIEN</div><div class='box' style='left:479px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A16' onclick='link_click(this)'><div class='desc' style='left:1056px;top:173px;'><h2>A16 Fish Market</h2><a href='http://duckduckgo.com/?q=Fish%20Market'>Search for Fish Market</a></div><div class='area' style='left:239px;top:764px;width:165px;height:20px;'>A16 FISH MARKET</div><div class='box' style='left:1008px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:435px;'><h2>F15 Fishishtier &amp; Ming</h2><a href='http://duckduckgo.com/?q=Fishishtier%20%26%20Ming'>Search for Fishishtier &amp; Ming</a></div><div class='area' style='left:239px;top:784px;width:165px;height:20px;'>F15 FISHISHTIER &AMP; MING</div><div class='box' style='left:960px;top:396px;width:46px;height:37px;'></div>
@@ -364,33 +370,40 @@
 </div><div class='booth' id='B15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:215px;'><h2>B15 GreenCurryChickent</h2><a href='http://duckduckgo.com/?q=GreenCurryChickent'>Search for GreenCurryChickent</a></div><div class='area' style='left:239px;top:904px;width:165px;height:20px;'>B15 GREENCURRYCHICKENT</div><div class='box' style='left:960px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B20' onclick='link_click(this)'><div class='desc' style='left:1248px;top:215px;'><h2>B20 Hoo Hoos</h2><a href='http://duckduckgo.com/?q=Hoo%20Hoos'>Search for Hoo Hoos</a></div><div class='area' style='left:417px;top:504px;width:270px;height:20px;'>B20 HOO HOOS</div><div class='box' style='left:1200px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A9' onclick='link_click(this)'><div class='desc' style='left:696px;top:173px;'><h2>A9 Ink Factory</h2><a href='http://duckduckgo.com/?q=Ink%20Factory'>Search for Ink Factory</a></div><div class='area' style='left:417px;top:524px;width:270px;height:20px;'>A9 INK FACTORY</div><div class='box' style='left:648px;top:134px;width:46px;height:37px;'></div>
-</div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:285px;'><h2>C17 Inkdeluge</h2><a href='http://duckduckgo.com/?q=Inkdeluge'>Search for Inkdeluge</a></div><div class='area' style='left:417px;top:544px;width:270px;height:20px;'>C17 INKDELUGE</div><div class='box' style='left:1056px;top:246px;width:46px;height:37px;'></div>
+</div><div class='booth' id='C17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:285px;'><h2>C17 Inkdeluge</h2><ul>
+<li><a href='http://fb.me/inkdeluge' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Cendawankulat'>Cendawankulat</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/cendawankulat' class='twt'></a><a href='http://instagram.com/nad_nut' class='ins'></a><a href='http://cendawankulat.artstation.com' class='ast'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Crankynovi'>Crankynovi</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/crankynovi' class='twt'></a><a href='http://instagram.com/crankynovi' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Huujuu'>Huujuu</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/huujuu.doodles' class='ins'></a><a href='https://huujuuhuujuu.tumblr.com' class='tmb'></a></li></ul></div><div class='area' style='left:417px;top:544px;width:270px;height:20px;'>C17 INKDELUGE</div><div class='box' style='left:1056px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C11' onclick='link_click(this)'><div class='desc' style='left:792px;top:285px;'><h2>C11 iR-dR</h2><ul>
 <li><a href='https://ir-dr.tumblr.com' class='tmb'></a><a href='http://twitter.com/projectTiGER_' class='twt'></a><a href='http://fb.me/projectTiGERi' class='fbk'></a><a href='http://instagram.com/projectTiGERi' class='ins'></a></li></ul></div><div class='area' style='left:417px;top:564px;width:270px;height:20px;'>C11 IR-DR</div><div class='box' style='left:744px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A12' onclick='link_click(this)'><div class='desc' style='left:840px;top:173px;'><h2>A12 JEN-YON</h2><a href='http://duckduckgo.com/?q=JEN-YON'>Search for JEN-YON</a></div><div class='area' style='left:417px;top:584px;width:270px;height:20px;'>A12 JEN-YON</div><div class='box' style='left:792px;top:134px;width:46px;height:37px;'></div>
-</div><div class='booth' id='C10' onclick='link_click(this)'><div class='desc' style='left:744px;top:285px;'><h2>C10 JKL</h2><a href='http://duckduckgo.com/?q=JKL'>Search for JKL</a></div><div class='area' style='left:417px;top:604px;width:270px;height:20px;'>C10 JKL</div><div class='box' style='left:696px;top:246px;width:46px;height:37px;'></div>
-</div><div class='booth' id='F10' onclick='link_click(this)'><div class='desc' style='left:744px;top:435px;'><h2>F10 Johyoo</h2><a href='http://duckduckgo.com/?q=Johyoo'>Search for Johyoo</a></div><div class='area' style='left:417px;top:624px;width:270px;height:20px;'>F10 JOHYOO</div><div class='box' style='left:696px;top:396px;width:46px;height:37px;'></div>
-</div><div class='booth' id='A18' onclick='link_click(this)'><div class='desc' style='left:1152px;top:173px;'><h2>A18 Jrpencil</h2><a href='http://duckduckgo.com/?q=Jrpencil'>Search for Jrpencil</a></div><div class='area' style='left:417px;top:644px;width:270px;height:20px;'>A18 JRPENCIL</div><div class='box' style='left:1104px;top:134px;width:46px;height:37px;'></div>
+</div><div class='booth' id='C10' onclick='link_click(this)'><div class='desc' style='left:744px;top:285px;'><h2>C10 JKL</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/JKL'>JKL</a></li><li><span class='chevron'>&gt;</span><a href='http://jkliew92.deviantart.com' class='dar'></a><a href='http://fb.me/jkliew912' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/一久一'>一久一</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/ichikyuuichi' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/黑兔(豆腐兔）'>黑兔(豆腐兔）</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/kangjian961' class='ins'></a><a href='http://fb.me/br.drawing' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/BunnySensei'>BunnySensei</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/yushimaru9516' class='fbk'></a></li><li><a href='http://fb.me/TRITheRedInk' class='fbk'></a></li></ul></div><div class='area' style='left:417px;top:604px;width:270px;height:20px;'>C10 JKL</div><div class='box' style='left:696px;top:246px;width:46px;height:37px;'></div>
+</div><div class='booth' id='F10' onclick='link_click(this)'><div class='desc' style='left:744px;top:435px;'><h2>F10 Johyoo</h2><ul>
+<li><a href='http://instagram.com/johyoo' class='ins'></a></li></ul></div><div class='area' style='left:417px;top:624px;width:270px;height:20px;'>F10 JOHYOO</div><div class='box' style='left:696px;top:396px;width:46px;height:37px;'></div>
+</div><div class='booth' id='A18' onclick='link_click(this)'><div class='desc' style='left:1152px;top:173px;'><h2>A18 Jrpencil</h2><ul>
+<li><a href='http://instagram.com/jrpencil88' class='ins'></a></li></ul></div><div class='area' style='left:417px;top:644px;width:270px;height:20px;'>A18 JRPENCIL</div><div class='box' style='left:1104px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F7' onclick='link_click(this)'><div class='desc' style='left:575px;top:435px;'><h2>F7 Kakilang Handmade &amp; Nitez Creative House</h2><ul>
 <li><a href='http://fb.me/kakilanghandmade' class='fbk'></a><a href='http://fb.me/nitez.creative' class='fbk'></a></li></ul></div><div class='area' style='left:417px;top:664px;width:270px;height:20px;'>F7 KAKILANG HANDMADE &AMP; NITEZ CREATIVE HOUSE</div><div class='box' style='left:527px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C5' onclick='link_click(this)'><div class='desc' style='left:479px;top:285px;'><h2>C5 Kappy here Ow&lt;</h2><a href='http://duckduckgo.com/?q=Kappy%20here%20Ow%3C'>Search for Kappy here Ow&lt;</a></div><div class='area' style='left:417px;top:684px;width:270px;height:20px;'>C5 KAPPY HERE OW&LT;</div><div class='box' style='left:431px;top:246px;width:46px;height:37px;'></div>
-</div><div class='booth' id='E5' onclick='link_click(this)'><div class='desc' style='left:479px;top:394px;'><h2>E5 Kiyosei</h2><a href='http://duckduckgo.com/?q=Kiyosei'>Search for Kiyosei</a></div><div class='area' style='left:417px;top:724px;width:270px;height:20px;'>E5 KIYOSEI</div><div class='box' style='left:431px;top:355px;width:46px;height:37px;'></div>
+</div><div class='booth' id='E5' onclick='link_click(this)'><div class='desc' style='left:479px;top:394px;'><h2>E5 Kiyosei</h2><ul>
+<li><a href='http://twitter.com/sayucchii' class='twt'></a></li></ul></div><div class='area' style='left:417px;top:724px;width:270px;height:20px;'>E5 KIYOSEI</div><div class='box' style='left:431px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C8' onclick='link_click(this)'><div class='desc' style='left:648px;top:285px;'><h2>C8 Kumaki x Chisagi</h2><a href='http://duckduckgo.com/?q=Kumaki%20x%20Chisagi'>Search for Kumaki x Chisagi</a></div><div class='area' style='left:417px;top:744px;width:270px;height:20px;'>C8 KUMAKI X CHISAGI</div><div class='box' style='left:600px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:744px;top:326px;'><h2>D10 Lé Bacons</h2><a href='http://duckduckgo.com/?q=L%C3%A9%20Bacons'>Search for Lé Bacons</a></div><div class='area' style='left:417px;top:764px;width:270px;height:20px;'>D10 LÉ BACONS</div><div class='box' style='left:696px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B14' onclick='link_click(this)'><div class='desc' style='left:960px;top:215px;'><h2>B14 Le DELICATESSEN</h2><ul>
-<li><a href='http://instagram.com/le_delicatessen' class='ins'></a><a href='http://fb.me/ledelicatessen.creation' class='fbk'></a></li></ul></div><div class='area' style='left:417px;top:784px;width:270px;height:20px;'>B14 LE DELICATESSEN</div><div class='box' style='left:912px;top:176px;width:46px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Le DELICATESSEN'>Le DELICATESSEN</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/LeDELICATESSEN_' class='twt'></a><a href='http://instagram.com/le_delicatessen' class='ins'></a><a href='http://pixiv.net/member.php?id=3808190' class='pxv'></a><a href='http://fb.me/ledelicatessen.creation' class='fbk'></a></li></ul></div><div class='area' style='left:417px;top:784px;width:270px;height:20px;'>B14 LE DELICATESSEN</div><div class='box' style='left:912px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D7' onclick='link_click(this)'><div class='desc' style='left:575px;top:326px;'><h2>D7 Lode a Venere</h2><a href='http://duckduckgo.com/?q=Lode%20a%20Venere'>Search for Lode a Venere</a></div><div class='area' style='left:417px;top:804px;width:270px;height:20px;'>D7 LODE A VENERE</div><div class='box' style='left:527px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F5' onclick='link_click(this)'><div class='desc' style='left:479px;top:435px;'><h2>F5 Lynsartchemist &amp; Erukus’ Art</h2><ul>
-<li><a href='http://twitter.com/lynsartchemist' class='twt'></a></li></ul></div><div class='area' style='left:417px;top:824px;width:270px;height:20px;'>F5 LYNSARTCHEMIST &AMP; ERUKUS’ ART</div><div class='box' style='left:431px;top:396px;width:46px;height:37px;'></div>
+<li><a href='http://twitter.com/lynsartchemist' class='twt'></a><a href='http://instagram.com/lynsartchemist' class='ins'></a></li></ul></div><div class='area' style='left:417px;top:824px;width:270px;height:20px;'>F5 LYNSARTCHEMIST &AMP; ERUKUS’ ART</div><div class='box' style='left:431px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B2' onclick='link_click(this)'><div class='desc' style='left:335px;top:215px;'><h2>B2 Maorenc</h2><ul>
 <li><a href='http://twitter.com/maorenc' class='twt'></a><a href='http://maorenc.storenvy.com' class='sen'></a><a href='http://maorenc.deviantart.com' class='dar'></a><a href='http://fb.me/maorenc' class='fbk'></a></li></ul></div><div class='area' style='left:417px;top:844px;width:270px;height:20px;'>B2 MAORENC</div><div class='box' style='left:287px;top:176px;width:46px;height:37px;'></div>
-</div><div class='booth' id='A19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:173px;'><h2>A19 Marshmallow Panic</h2><a href='http://duckduckgo.com/?q=Marshmallow%20Panic'>Search for Marshmallow Panic</a></div><div class='area' style='left:417px;top:864px;width:270px;height:20px;'>A19 MARSHMALLOW PANIC</div><div class='box' style='left:1152px;top:134px;width:46px;height:37px;'></div>
+</div><div class='booth' id='A19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:173px;'><h2>A19 Marshmallow Panic</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Marshmallow Panic'>Marshmallow Panic</a></li><li><span class='chevron'>&gt;</span></li><li><a href='https://milvagox.miraheze.org/wiki/Liyana.K'>Liyana.K</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/lyanne.k' class='ins'></a><a href='http://twitter.com/LeeyanahKay' class='twt'></a><a href='http://tapas.io/liyana' class='tps'></a><a href='http://patreon.com/leekay' class='ptr'></a><a href='http://webtoons.com/en/challenge/of-dark-lords-and-cabbages/list?title_no=207397' class='wtn'></a><a href='https://ruruharuru.tumblr.com' class='tmb'></a><a href='http://fb.me/leeyanahkay' class='fbk'></a><a href='http://linktr.ee/lyanne.k' class='lkt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Sher'>Sher</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/shshr37' class='twt'></a><a href='http://instagram.com/sha.sheru' class='ins'></a><a href='http://fb.me/shasheru' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Nufa_tiah'>Nufa_tiah</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/nufa_tiah' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Alyartz'>Alyartz</a></li><li><span class='chevron'>&gt;</span></li></ul></div><div class='area' style='left:417px;top:864px;width:270px;height:20px;'>A19 MARSHMALLOW PANIC</div><div class='box' style='left:1152px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:173px;'><h2>A17 Mecha Tamashi</h2><ul>
 <li><a href='http://fb.me/MechaTamashi' class='fbk'></a><a href='http://darksonwong.deviantart.com' class='dar'></a></li></ul></div><div class='area' style='left:417px;top:884px;width:270px;height:20px;'>A17 MECHA TAMASHI</div><div class='box' style='left:1056px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E10' onclick='link_click(this)'><div class='desc' style='left:744px;top:394px;'><h2>E10 Medjed</h2><a href='http://duckduckgo.com/?q=Medjed'>Search for Medjed</a></div><div class='area' style='left:417px;top:904px;width:270px;height:20px;'>E10 MEDJED</div><div class='box' style='left:696px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F13' onclick='link_click(this)'><div class='desc' style='left:888px;top:435px;'><h2>F13 Megame</h2><ul>
-<li><a href='http://instagram.com/megame88' class='ins'></a><a href='http://fb.me/megame88' class='fbk'></a><a href='http://megame88.lofter.com' class='lft'></a></li></ul></div><div class='area' style='left:738px;top:504px;width:220px;height:20px;'>F13 MEGAME</div><div class='box' style='left:840px;top:396px;width:46px;height:37px;'></div>
-</div><div class='booth' id='E17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:394px;'><h2>E17 Michael Chuah Design</h2><a href='http://duckduckgo.com/?q=Michael%20Chuah%20Design'>Search for Michael Chuah Design</a></div><div class='area' style='left:738px;top:524px;width:220px;height:20px;'>E17 MICHAEL CHUAH DESIGN</div><div class='box' style='left:1056px;top:355px;width:46px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Megame'>Megame</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/megame88' class='ins'></a><a href='http://fb.me/megame88' class='fbk'></a><a href='http://megame88.lofter.com' class='lft'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Balloon'>Balloon</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/HLBalloon' class='fbk'></a><a href='http://instagram.com/balloon92' class='ins'></a></li></ul></div><div class='area' style='left:738px;top:504px;width:220px;height:20px;'>F13 MEGAME</div><div class='box' style='left:840px;top:396px;width:46px;height:37px;'></div>
+</div><div class='booth' id='E17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:394px;'><h2>E17 Michael Chuah Design</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Michael Chuah'>Michael Chuah</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/michaelchuah' class='ins'></a><a href='http://fb.me/michaelchuah' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:524px;width:220px;height:20px;'>E17 MICHAEL CHUAH DESIGN</div><div class='box' style='left:1056px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B6' onclick='link_click(this)'><div class='desc' style='left:527px;top:215px;'><h2>B6 Michi Make Something</h2><ul>
 <li><a href='http://fb.me/michiimakesomething' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:544px;width:220px;height:20px;'>B6 MICHI MAKE SOMETHING</div><div class='box' style='left:479px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F17' onclick='link_click(this)'><div class='desc' style='left:1104px;top:435px;'><h2>F17 MiMoe Project</h2><a href='http://duckduckgo.com/?q=MiMoe%20Project'>Search for MiMoe Project</a></div><div class='area' style='left:738px;top:564px;width:220px;height:20px;'>F17 MIMOE PROJECT</div><div class='box' style='left:1056px;top:396px;width:46px;height:37px;'></div>
@@ -401,22 +414,24 @@
 </div><div class='booth' id='C18' onclick='link_click(this)'><div class='desc' style='left:1152px;top:285px;'><h2>C18 Moemono 萌之物</h2><a href='http://duckduckgo.com/?q=Moemono%20%E8%90%8C%E4%B9%8B%E7%89%A9'>Search for Moemono 萌之物</a></div><div class='area' style='left:738px;top:644px;width:220px;height:20px;'>C18 MOEMONO 萌之物</div><div class='box' style='left:1104px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:435px;'><h2>F19 MONO</h2><a href='http://duckduckgo.com/?q=MONO'>Search for MONO</a></div><div class='area' style='left:738px;top:664px;width:220px;height:20px;'>F19 MONO</div><div class='box' style='left:1152px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:394px;'><h2>E19 Monochrome Forest</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/Chocorutt'>Chocorutt</a></li><li><a href='http://instagram.com/chocorutt' class='ins'></a><a href='http://twitter.com/choco_rutt' class='twt'></a><a href='http://fb.me/chocoruttt' class='fbk'></a><a href='http://chocorutt.etsy.com' class='ets'></a></li><li><a href='http://twitter.com/Fenrishion' class='twt'></a><a href='http://fb.me/fenrishion' class='fbk'></a><a href='http://fenrishion.storenvy.com' class='sen'></a></li><li><a href='http://twitter.com/snowdeity' class='twt'></a></li><li><a href='http://twitter.com/KenRyuuS' class='twt'></a><a href='http://fb.me/RyuuDraws' class='fbk'></a><a href='http://instagram.com/KenRyuuS' class='ins'></a><a href='http://kenryuu.artstation.com' class='ast'></a></li><li><a href='http://twitter.com/kibashi8a' class='twt'></a><a href='http://facebook.com/Kibashibaa' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:684px;width:220px;height:20px;'>E19 MONOCHROME FOREST</div><div class='box' style='left:1152px;top:355px;width:46px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Monochrome Forest'>Monochrome Forest</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/monochromeforestillust' class='fbk'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Chocorutt'>Chocorutt</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/chocorutt' class='ins'></a><a href='http://twitter.com/choco_rutt' class='twt'></a><a href='http://fb.me/chocoruttt' class='fbk'></a><a href='http://chocorutt.etsy.com' class='ets'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Fen'>Fen</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/Fenrishion' class='twt'></a><a href='http://fb.me/fenrishion' class='fbk'></a><a href='http://fenrishion.storenvy.com' class='sen'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Snow'>Snow</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/snowdeity' class='twt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/KenRyuu'>KenRyuu</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/KenRyuuS' class='twt'></a><a href='http://fb.me/RyuuDraws' class='fbk'></a><a href='http://instagram.com/KenRyuuS' class='ins'></a><a href='http://kenryuu.artstation.com' class='ast'></a></li><li><a href='https://milvagox.miraheze.org/wiki/KibaShiba'>KibaShiba</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/kibashi8a' class='twt'></a><a href='http://facebook.com/Kibashibaa' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:684px;width:220px;height:20px;'>E19 MONOCHROME FOREST</div><div class='box' style='left:1152px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F11' onclick='link_click(this)'><div class='desc' style='left:792px;top:435px;'><h2>F11 Monorabbit</h2><ul>
 <li><a href='http://fb.me/monorabbitWondershop' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:724px;width:220px;height:20px;'>F11 MONORABBIT</div><div class='box' style='left:744px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B3' onclick='link_click(this)'><div class='desc' style='left:383px;top:215px;'><h2>B3 Monstres</h2><a href='http://duckduckgo.com/?q=Monstres'>Search for Monstres</a></div><div class='area' style='left:738px;top:744px;width:220px;height:20px;'>B3 MONSTRES</div><div class='box' style='left:335px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C6' onclick='link_click(this)'><div class='desc' style='left:527px;top:285px;'><h2>C6 N.Y.H</h2><a href='http://duckduckgo.com/?q=N.Y.H'>Search for N.Y.H</a></div><div class='area' style='left:738px;top:764px;width:220px;height:20px;'>C6 N.Y.H</div><div class='box' style='left:479px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B16' onclick='link_click(this)'><div class='desc' style='left:1056px;top:215px;'><h2>B16 Naze Tori</h2><ul>
 <li><a href='http://fb.me/ToriArtworks' class='fbk'></a><a href='https://carousell.com/nazetori' class='crs'></a></li></ul></div><div class='area' style='left:738px;top:784px;width:220px;height:20px;'>B16 NAZE TORI</div><div class='box' style='left:1008px;top:176px;width:46px;height:37px;'></div>
-</div><div class='booth' id='B12' onclick='link_click(this)'><div class='desc' style='left:840px;top:215px;'><h2>B12 Niacube</h2><a href='http://duckduckgo.com/?q=Niacube'>Search for Niacube</a></div><div class='area' style='left:738px;top:804px;width:220px;height:20px;'>B12 NIACUBE</div><div class='box' style='left:792px;top:176px;width:46px;height:37px;'></div>
+</div><div class='booth' id='B12' onclick='link_click(this)'><div class='desc' style='left:840px;top:215px;'><h2>B12 Niacube</h2><ul>
+<li><a href='http://fb.me/niacube3' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:804px;width:220px;height:20px;'>B12 NIACUBE</div><div class='box' style='left:792px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D18' onclick='link_click(this)'><div class='desc' style='left:1152px;top:326px;'><h2>D18 Nii The Alpaca</h2><a href='http://duckduckgo.com/?q=Nii%20The%20Alpaca'>Search for Nii The Alpaca</a></div><div class='area' style='left:738px;top:824px;width:220px;height:20px;'>D18 NII THE ALPACA</div><div class='box' style='left:1104px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='B11' onclick='link_click(this)'><div class='desc' style='left:792px;top:215px;'><h2>B11 No16_workshop</h2><a href='http://duckduckgo.com/?q=No16_workshop'>Search for No16_workshop</a></div><div class='area' style='left:738px;top:844px;width:220px;height:20px;'>B11 NO16_WORKSHOP</div><div class='box' style='left:744px;top:176px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C12' onclick='link_click(this)'><div class='desc' style='left:840px;top:285px;'><h2>C12 Nyanpucinno</h2><a href='http://duckduckgo.com/?q=Nyanpucinno'>Search for Nyanpucinno</a></div><div class='area' style='left:738px;top:864px;width:220px;height:20px;'>C12 NYANPUCINNO</div><div class='box' style='left:792px;top:246px;width:46px;height:37px;'></div>
-</div><div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:287px;top:173px;'><h2>A1 PeaCh</h2><a href='http://duckduckgo.com/?q=PeaCh'>Search for PeaCh</a></div><div class='area' style='left:738px;top:884px;width:220px;height:20px;'>A1 PEACH</div><div class='box' style='left:239px;top:134px;width:46px;height:37px;'></div>
+</div><div class='booth' id='A1' onclick='link_click(this)'><div class='desc' style='left:287px;top:173px;'><h2>A1 PeaCh</h2><ul>
+<li><a href='http://twitter.com/pcmaniac88' class='twt'></a><a href='http://fb.me/PeaChArtworks' class='fbk'></a></li></ul></div><div class='area' style='left:738px;top:884px;width:220px;height:20px;'>A1 PEACH</div><div class='box' style='left:239px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='A4' onclick='link_click(this)'><div class='desc' style='left:431px;top:173px;'><h2>A4 Pink Comet</h2><a href='http://duckduckgo.com/?q=Pink%20Comet'>Search for Pink Comet</a></div><div class='area' style='left:738px;top:904px;width:220px;height:20px;'>A4 PINK COMET</div><div class='box' style='left:383px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D9' onclick='link_click(this)'><div class='desc' style='left:696px;top:326px;'><h2>D9 Plant Brews</h2><a href='http://duckduckgo.com/?q=Plant%20Brews'>Search for Plant Brews</a></div><div class='area' style='left:972px;top:504px;width:180px;height:20px;'>D9 PLANT BREWS</div><div class='box' style='left:648px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E8' onclick='link_click(this)'><div class='desc' style='left:648px;top:394px;'><h2>E8 Raisins &amp; Berry</h2><ul>
-<li><a href='http://instagram.com/bbuberry_micha' class='ins'></a><a href='http://fb.me/RaisinsBerry' class='fbk'></a></li></ul></div><div class='area' style='left:972px;top:524px;width:180px;height:20px;'>E8 RAISINS &AMP; BERRY</div><div class='box' style='left:600px;top:355px;width:46px;height:37px;'></div>
+<li><a href='http://instagram.com/bbuberry_micha' class='ins'></a><a href='http://fb.me/RaisinsBerry' class='fbk'></a></li><li><a href='http://twitter.com/bbuberry_tiger' class='twt'></a></li></ul></div><div class='area' style='left:972px;top:524px;width:180px;height:20px;'>E8 RAISINS &AMP; BERRY</div><div class='box' style='left:600px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C14' onclick='link_click(this)'><div class='desc' style='left:960px;top:285px;'><h2>C14 RAIT Visual Works</h2><ul>
 <li><a href='http://instagram.com/rait_visualworks' class='ins'></a><a href='http://raitvisualworks.deviantart.com' class='dar'></a><a href='http://fb.me/raitvisualworks' class='fbk'></a></li><li><a href='http://raitvisualworks.com'>raitvisualworks.com</a></li><li>
 </li><li><a href='http://animemagic.org/rait-visual-works'>animemagic.org/rait-visual-works</a></li><li>
@@ -434,10 +449,11 @@
 </div><div class='booth' id='F14' onclick='link_click(this)'><div class='desc' style='left:960px;top:435px;'><h2>F14 ShiroMisaki</h2><a href='http://duckduckgo.com/?q=ShiroMisaki'>Search for ShiroMisaki</a></div><div class='area' style='left:972px;top:744px;width:180px;height:20px;'>F14 SHIROMISAKI</div><div class='box' style='left:912px;top:396px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D3' onclick='link_click(this)'><div class='desc' style='left:383px;top:326px;'><h2>D3 ShiroYume</h2><a href='http://duckduckgo.com/?q=ShiroYume'>Search for ShiroYume</a></div><div class='area' style='left:972px;top:764px;width:180px;height:20px;'>D3 SHIROYUME</div><div class='box' style='left:335px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:792px;top:326px;'><h2>D11 Shota &amp; Lolita SHOP</h2><ul>
-<li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:972px;top:784px;width:180px;height:20px;'>D11 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:744px;top:287px;width:46px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'>Shota & Lolita Shop</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:972px;top:784px;width:180px;height:20px;'>D11 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:744px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C19' onclick='link_click(this)'><div class='desc' style='left:1200px;top:285px;'><h2>C19 Shuuuuuujing + Eye Ball</h2><ul>
 <li><a href='http://fb.me/shuuuuuujing.doodle' class='fbk'></a></li></ul></div><div class='area' style='left:972px;top:804px;width:180px;height:20px;'>C19 SHUUUUUUJING + EYE BALL</div><div class='box' style='left:1152px;top:246px;width:46px;height:37px;'></div>
-</div><div class='booth' id='A15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:173px;'><h2>A15 Sleepy Daze</h2><a href='http://duckduckgo.com/?q=Sleepy%20Daze'>Search for Sleepy Daze</a></div><div class='area' style='left:972px;top:824px;width:180px;height:20px;'>A15 SLEEPY DAZE</div><div class='box' style='left:960px;top:134px;width:46px;height:37px;'></div>
+</div><div class='booth' id='A15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:173px;'><h2>A15 Sleepy Daze</h2><ul>
+<li><a href='http://twitter.com/inconyoo' class='twt'></a><a href='http://instagram.com/inconyo' class='ins'></a><a href='http://sleepydaze.storenvy.com' class='sen'></a></li></ul></div><div class='area' style='left:972px;top:824px;width:180px;height:20px;'>A15 SLEEPY DAZE</div><div class='box' style='left:960px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:394px;'><h2>E15 STARDUST CREATION</h2><ul>
 <li><a href='http://fb.me/StarDustCreations968' class='fbk'></a></li></ul></div><div class='area' style='left:972px;top:844px;width:180px;height:20px;'>E15 STARDUST CREATION</div><div class='box' style='left:960px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E4' onclick='link_click(this)'><div class='desc' style='left:431px;top:394px;'><h2>E4 Studio #Project6</h2><a href='http://duckduckgo.com/?q=Studio%20%23Project6'>Search for Studio #Project6</a></div><div class='area' style='left:972px;top:864px;width:180px;height:20px;'>E4 STUDIO #PROJECT6</div><div class='box' style='left:383px;top:355px;width:46px;height:37px;'></div>
@@ -458,7 +474,8 @@
 <li><a href='http://twitter.com/vanillatea_er' class='twt'></a><a href='http://fb.me/VanillaTeaWorks' class='fbk'></a></li></ul></div><div class='area' style='left:1161px;top:664px;width:220px;height:20px;'>A6 VANILLATEA-ER</div><div class='box' style='left:479px;top:134px;width:46px;height:37px;'></div>
 </div><div class='booth' id='C20' onclick='link_click(this)'><div class='desc' style='left:1248px;top:285px;'><h2>C20 we need healing</h2><a href='http://duckduckgo.com/?q=we%20need%20healing'>Search for we need healing</a></div><div class='area' style='left:1161px;top:684px;width:220px;height:20px;'>C20 WE NEED HEALING</div><div class='box' style='left:1200px;top:246px;width:46px;height:37px;'></div>
 </div><div class='booth' id='F16' onclick='link_click(this)'><div class='desc' style='left:1056px;top:435px;'><h2>F16 Wolf Brothers &amp; Dimension Utopia</h2><a href='http://duckduckgo.com/?q=Wolf%20Brothers%20%26%20Dimension%20Utopia'>Search for Wolf Brothers &amp; Dimension Utopia</a></div><div class='area' style='left:1161px;top:724px;width:220px;height:20px;'>F16 WOLF BROTHERS &AMP; DIMENSION UTOPIA</div><div class='box' style='left:1008px;top:396px;width:46px;height:37px;'></div>
-</div><div class='booth' id='E13' onclick='link_click(this)'><div class='desc' style='left:888px;top:394px;'><h2>E13 Wolf Den Circle</h2><a href='http://duckduckgo.com/?q=Wolf%20Den%20Circle'>Search for Wolf Den Circle</a></div><div class='area' style='left:1161px;top:744px;width:220px;height:20px;'>E13 WOLF DEN CIRCLE</div><div class='box' style='left:840px;top:355px;width:46px;height:37px;'></div>
+</div><div class='booth' id='E13' onclick='link_click(this)'><div class='desc' style='left:888px;top:394px;'><h2>E13 Wolf Den Circle</h2><ul>
+<li><a href='http://fb.me/WolfDenCircle' class='fbk'></a></li></ul></div><div class='area' style='left:1161px;top:744px;width:220px;height:20px;'>E13 WOLF DEN CIRCLE</div><div class='box' style='left:840px;top:355px;width:46px;height:37px;'></div>
 </div><div class='booth' id='D15' onclick='link_click(this)'><div class='desc' style='left:1008px;top:326px;'><h2>D15 Woo Yoo</h2><ul>
 <li><a href='http://twitter.com/madcheexy' class='twt'></a><a href='http://linktr.ee/madcheexy' class='lkt'></a></li></ul></div><div class='area' style='left:1161px;top:764px;width:220px;height:20px;'>D15 WOO YOO</div><div class='box' style='left:960px;top:287px;width:46px;height:37px;'></div>
 </div><div class='booth' id='E16' onclick='link_click(this)'><div class='desc' style='left:1056px;top:394px;'><h2>E16 Xanseviera Knicknacks</h2><ul>

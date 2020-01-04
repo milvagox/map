@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,12 +313,12 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./Cosmart2018/Cosmart2018E.png' style='' onerror="this.src = './Cosmart2018/Cosmart2018E.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='D01' onclick='link_click(this)'><div class='desc' style='left:418px;top:434px;'><h2>D01 MY STYLESZ</h2><ul>
 <li><a href='http://fb.me/MyStylesz.Trading' class='fbk'></a></li><li><a href='mailto://my_stylesz@hotmail.com'>email: my_stylesz@hotmail.com</a></li><li></li></ul></div><div class='area' style='left:38px;top:771px;width:260px;height:21px;'>D01 MY STYLESZ</div><div class='box' style='left:372px;top:388px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D02' onclick='link_click(this)'><div class='desc' style='left:418px;top:485px;'><h2>D02 Kiba Lee</h2><a href='http://duckduckgo.com/?q=Kiba%20Lee'>Search for Kiba Lee</a></div><div class='area' style='left:38px;top:792px;width:260px;height:21px;'>D02 KIBA LEE</div><div class='box' style='left:372px;top:439px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D03' onclick='link_click(this)'><div class='desc' style='left:418px;top:536px;'><h2>D03 Shota &amp; Lolita Shop</h2><ul>
-<li><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:38px;top:813px;width:260px;height:21px;'>D03 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:372px;top:490px;width:44px;height:44px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'>Shota & Lolita Shop</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:38px;top:813px;width:260px;height:21px;'>D03 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:372px;top:490px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D04' onclick='link_click(this)'><div class='desc' style='left:470px;top:434px;'><h2>D04 Hobby Legend</h2><a href='http://duckduckgo.com/?q=Hobby%20Legend'>Search for Hobby Legend</a></div><div class='area' style='left:38px;top:834px;width:260px;height:21px;'>D04 HOBBY LEGEND</div><div class='box' style='left:424px;top:388px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D05' onclick='link_click(this)'><div class='desc' style='left:470px;top:485px;'><h2>D05 EBI X EEVON</h2><a href='http://duckduckgo.com/?q=EBI%20X%20EEVON'>Search for EBI X EEVON</a></div><div class='area' style='left:38px;top:855px;width:260px;height:21px;'>D05 EBI X EEVON</div><div class='box' style='left:424px;top:439px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D06' onclick='link_click(this)'><div class='desc' style='left:470px;top:536px;'><h2>D06 Wings Cosplay Shop</h2><a href='http://duckduckgo.com/?q=Wings%20Cosplay%20Shop'>Search for Wings Cosplay Shop</a></div><div class='area' style='left:38px;top:876px;width:260px;height:21px;'>D06 WINGS COSPLAY SHOP</div><div class='box' style='left:424px;top:490px;width:44px;height:44px;'></div>
@@ -323,7 +327,7 @@
 </div><div class='booth' id='D10' onclick='link_click(this)'><div class='desc' style='left:555px;top:536px;'><h2>D10 Parallele Paraiso Cosshop</h2><ul>
 <li><a href='http://instagram.com/parallele.paraiso' class='ins'></a><a href='http://paralleleparaisocos.blogspot.com' class='bsp'></a><a href='http://fb.me/parallelparadisecos' class='fbk'></a><a href='http://youtube.com/channel/UC_GWj2TWBnoSqv7aY7omSdg' class='ytb'></a><a href='http://parallelparadisecos.com' class='parallelparadisecos'></a></li></ul></div><div class='area' style='left:340px;top:792px;width:310px;height:21px;'>D10 PARALLELE PARAISO COSSHOP</div><div class='box' style='left:509px;top:490px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D11' onclick='link_click(this)'><div class='desc' style='left:608px;top:486px;'><h2>D11 Accel Drive Toku Malaysia</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/Accel_DriveTokuMalaysia'>Accel_DriveTokuMalaysia</a></li><li><a href='http://fb.me/accelshelpershopandservices' class='fbk'></a></li></ul></div><div class='area' style='left:340px;top:813px;width:310px;height:21px;'>D11 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:562px;top:440px;width:44px;height:44px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Accel_DriveTokuMalaysia'>Accel_DriveTokuMalaysia</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/accelshelpershopandservices' class='fbk'></a></li></ul></div><div class='area' style='left:340px;top:813px;width:310px;height:21px;'>D11 ACCEL DRIVE TOKU MALAYSIA</div><div class='box' style='left:562px;top:440px;width:44px;height:44px;'></div>
 </div><div class='booth' id='D12' onclick='link_click(this)'><div class='desc' style='left:608px;top:537px;'><h2>D12 Hobility</h2><ul>
 <li><a href='http://fb.me/Hobility' class='fbk'></a></li><li><a href='http://hobility.com'>hobility.com</a></li><li>
 </li></ul></div><div class='area' style='left:340px;top:834px;width:310px;height:21px;'>D12 HOBILITY</div><div class='box' style='left:562px;top:491px;width:44px;height:44px;'></div>

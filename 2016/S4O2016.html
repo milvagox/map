@@ -5,7 +5,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -18,6 +17,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -25,6 +25,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -37,7 +38,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -53,7 +54,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -69,7 +70,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -81,7 +82,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -138,7 +139,7 @@
   if(document.getElementById("favBut").checked && (element.parentNode.tagName == "A")) {
     e.preventDefault();
     booth_highlight_listing(element.parentNode.id);
-    booth_highlightByString(window.location.hash); } };
+    booth_highlightByString(decodeURIComponent(window.location.hash)); } };
  
     
  </script>
@@ -150,10 +151,10 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./S4O2016/S4O2016.png' style='' onerror="this.src = './S4O2016/S4O2016.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <a class='booth' id='1' href='http://instagram.com/gundamts'><div class='area' style='left:54px;top:910px;width:400px;height:32px;'>1 GUNDAM TOY SHOP</div><div class='box' style='left:397px;top:103px;width:277px;height:110px;'></div>
 </a><a class='booth' id='2' href='https://duckduckgo.com/?q=Vzoid'><div class='area' style='left:54px;top:942px;width:400px;height:32px;'>2 VZOID</div><div class='box' style='left:784px;top:223px;width:110px;height:277px;'></div>
-</a><a class='booth' id='3' href='http://fb.me/Toyzable'><div class='area' style='left:54px;top:974px;width:400px;height:32px;'>3 TOYZABLE</div><div class='box' style='left:568px;top:478px;width:187px;height:148px;'></div>
+</a><a class='booth' id='3' href='http://fb.me/Toyzable'><div class='area' style='left:54px;top:974px;width:400px;height:32px;'>3 TOYZABLE</div><div class='box' style='left:580px;top:492px;width:164px;height:120px;transform:rotate(169deg);'></div>
 </a><a class='booth' id='4' href='https://duckduckgo.com/?q=Moe%20Space'><div class='area' style='left:54px;top:1006px;width:400px;height:32px;'>4 MOE SPACE</div><div class='box' style='left:390px;top:512px;width:162px;height:117px;'></div>
 </a><a class='booth' id='5' href='https://duckduckgo.com/?q=Kawaiibrilliant'><div class='area' style='left:54px;top:1038px;width:400px;height:32px;'>5 KAWAIIBRILLIANT</div><div class='box' style='left:396px;top:246px;width:65px;height:34px;'></div>
 </a><a class='booth' id='6' href='http://fb.me/rubynocos'><div class='area' style='left:54px;top:1070px;width:400px;height:32px;'>6 RUBY COSPLAY SHOP</div><div class='box' style='left:464px;top:246px;width:72px;height:34px;'></div>
@@ -162,7 +163,7 @@
 </a><a class='booth' id='9' href='https://duckduckgo.com/?q=Summer%20Breeze'><div class='area' style='left:54px;top:1166px;width:400px;height:32px;'>9 SUMMER BREEZE</div><div class='box' style='left:675px;top:246px;width:72px;height:34px;'></div>
 </a><a class='booth' id='10' href='http://fb.me/dsignunderground'><div class='area' style='left:54px;top:1198px;width:400px;height:32px;'>10 D*SIGN UNDERGROUND</div><div class='box' style='left:396px;top:301px;width:65px;height:34px;'></div>
 </a><a class='booth' id='11' href='http://beanprince.deviantart.com'><div class='area' style='left:54px;top:1230px;width:400px;height:32px;'>11 BEAN&#39;S ART</div><div class='box' style='left:464px;top:301px;width:72px;height:34px;'></div>
-</a><a class='booth' id='12' href='http://fb.me/shotalolitashop'><div class='area' style='left:54px;top:1262px;width:400px;height:32px;'>12 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:539px;top:301px;width:65px;height:34px;'></div>
+</a><a class='booth' id='12' href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'><div class='area' style='left:54px;top:1262px;width:400px;height:32px;'>12 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:539px;top:301px;width:65px;height:34px;'></div>
 </a><a class='booth' id='13' href='https://duckduckgo.com/?q=Finger%20Fairy'><div class='area' style='left:500px;top:910px;width:400px;height:32px;'>13 FINGER FAIRY</div><div class='box' style='left:607px;top:301px;width:65px;height:34px;'></div>
 </a><a class='booth' id='14' href='https://duckduckgo.com/?q=Yume%20Cheese'><div class='area' style='left:500px;top:942px;width:400px;height:32px;'>14 YUME CHEESE</div><div class='box' style='left:675px;top:301px;width:72px;height:34px;'></div>
 </a><a class='booth' id='15' href='https://duckduckgo.com/?q=Moeco%20Designs'><div class='area' style='left:500px;top:974px;width:400px;height:32px;'>15 MOECO DESIGNS</div><div class='box' style='left:396px;top:368px;width:65px;height:34px;'></div>

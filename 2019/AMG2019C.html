@@ -16,7 +16,6 @@
   .banner { position: absolute; z-index: 200; }
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -29,6 +28,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -36,6 +36,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -48,7 +49,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 100px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -73,6 +74,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -111,12 +113,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -144,7 +148,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -160,7 +164,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -176,7 +180,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -188,7 +192,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -247,7 +251,7 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -310,67 +314,67 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='AMG
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMG2019/AMG2019C.png' style='' onerror="this.src = './AMG2019/AMG2019C.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='CA22' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:497px;top:439px;'><h2>CA22 02 PRO</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/02 PRO'>02 PRO</a></li><li><a href='http://fb.me/02production' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryukku-K'>Ryukku-K</a></li><li><a href='http://twitter.com/ryukku_k' class='twt'></a><a href='http://instagram.com/ryukku_k' class='ins'></a><a href='http://fb.me/ryukku.k' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Celestia 龍姫'>Celestia 龍姫</a></li><li></li><li><a href='http://twitter.com/celestiakitsune' class='twt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Hoshi Poshi'>Hoshi Poshi</a></li><li></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Night 雨'>Night 雨</a></li><li></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Miiko スープ'>Miiko スープ</a></li><li></li></ul></div><img class='banner' style='left:497px;top:439px;'><div class='area' style='left:144px;top:728px;width:350px;height:26px;'>CA22 02 PRO</div><div class='box' style='left:361px;top:400px;width:134px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/02 PRO'>02 PRO</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/02production' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryukku-K'>Ryukku-K</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/ryukku_k' class='twt'></a><a href='http://instagram.com/ryukku_k' class='ins'></a><a href='http://fb.me/ryukku.k' class='fbk'></a></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Celestia 龍姫'>Celestia 龍姫</a></li><li><span class='chevron'>&gt;</span></li><li><a href='http://twitter.com/celestiakitsune' class='twt'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Hoshi Poshi'>Hoshi Poshi</a></li><li><span class='chevron'>&gt;</span></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Night 雨'>Night 雨</a></li><li><span class='chevron'>&gt;</span></li><li></li><li><a href='https://milvagox.miraheze.org/wiki/Miiko スープ'>Miiko スープ</a></li><li><span class='chevron'>&gt;</span></li></ul></div><img class='banner' style='left:497px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:728px;width:350px;height:26px;'>CA22 02 PRO</div><div class='box' style='left:361px;top:400px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA4' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:767px;top:636px;'><h2>CA4 95dap8</h2><ul>
-<li><a href='http://worldcosplay.net/member/150119' class='wcp'></a><a href='http://fb.me/Miraii.12' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:636px;'><div class='area' style='left:144px;top:754px;width:350px;height:26px;'>CA4 95DAP8</div><div class='box' style='left:632px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/150119' class='wcp'></a><a href='http://fb.me/Miraii.12' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:754px;width:350px;height:26px;'>CA4 95DAP8</div><div class='box' style='left:632px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA9' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1443px;top:636px;'><h2>CA9 Aestus Domus Aurea</h2><ul>
-<li><a href='http://fb.me/KowalXMiel' class='fbk'></a></li></ul></div><img class='banner' style='left:1443px;top:636px;'><div class='area' style='left:144px;top:832px;width:350px;height:26px;'>CA9 AESTUS DOMUS AUREA</div><div class='box' style='left:1308px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/KowalXMiel' class='fbk'></a></li></ul></div><img class='banner' style='left:1443px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:832px;width:350px;height:26px;'>CA9 AESTUS DOMUS AUREA</div><div class='box' style='left:1308px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1578px;top:538px;'><h2>CA11 Amelia Khor</h2><ul>
-<li><a href='http://twitter.com/AmeliaKhor' class='twt'></a><a href='http://instagram.com/ameliakhor0116' class='ins'></a><a href='http://worldcosplay.net/member/696747' class='wcp'></a><a href='http://fb.me/ameliakhor0116' class='fbk'></a></li></ul></div><img class='banner' style='left:1578px;top:538px;'><div class='area' style='left:144px;top:858px;width:350px;height:26px;'>CA11 AMELIA KHOR</div><div class='box' style='left:1443px;top:499px;width:133px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Amelia Khor'>Amelia Khor</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/AmeliaKhor' class='twt'></a><a href='http://instagram.com/ameliakhor0116' class='ins'></a><a href='http://worldcosplay.net/member/696747' class='wcp'></a><a href='http://fb.me/ameliakhor0116' class='fbk'></a></li></ul></div><img class='banner' style='left:1578px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:858px;width:350px;height:26px;'>CA11 AMELIA KHOR</div><div class='box' style='left:1443px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1578px;top:636px;'><h2>CA10 AngieO_O</h2><ul>
-<li><a href='http://fb.me/Angie7099' class='fbk'></a><a href='http://worldcosplay.net/member/angie0_0' class='wcp'></a><a href='http://deviantart.com/angie0-0' class='dar'></a><a href='http://angie00.blog.fc2.com' class='fc2'></a></li></ul></div><img class='banner' style='left:1578px;top:636px;'><div class='area' style='left:144px;top:884px;width:350px;height:26px;'>CA10 ANGIEO_O</div><div class='box' style='left:1443px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/Angie7099' class='fbk'></a><a href='http://worldcosplay.net/member/angie0_0' class='wcp'></a><a href='http://deviantart.com/angie0-0' class='dar'></a><a href='http://angie00.blog.fc2.com' class='fc2'></a></li></ul></div><img class='banner' style='left:1578px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:884px;width:350px;height:26px;'>CA10 ANGIEO_O</div><div class='box' style='left:1443px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1308px;top:538px;'><h2>CA13 Belle Angel 奥利奥</h2><ul>
-<li><a href='http://fb.me/belleangel210' class='fbk'></a><a href='http://instagram.com/belle_angel210' class='ins'></a></li></ul></div><img class='banner' style='left:1308px;top:538px;'><div class='area' style='left:144px;top:962px;width:350px;height:26px;'>CA13 BELLE ANGEL 奥利奥</div><div class='box' style='left:1173px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/belleangel210' class='fbk'></a><a href='http://instagram.com/belle_angel210' class='ins'></a></li></ul></div><img class='banner' style='left:1308px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:962px;width:350px;height:26px;'>CA13 BELLE ANGEL 奥利奥</div><div class='box' style='left:1173px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA23' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:632px;top:439px;'><h2>CA23 Dova X Foamdesu</h2><ul>
-<li><a href='http://worldcosplay.net/member/84175' class='wcp'></a><a href='http://fb.me/dovaxregrets' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:439px;'><div class='area' style='left:144px;top:1040px;width:350px;height:26px;'>CA23 DOVA X FOAMDESU</div><div class='box' style='left:497px;top:400px;width:133px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Dova'>Dova</a></li><li><span class='chevron'>&gt;</span><a href='http://worldcosplay.net/member/dovah' class='wcp'></a><a href='http://instagram.com/dovacos' class='ins'></a><a href='http://fb.me/dovaxregrets' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:144px;top:1040px;width:350px;height:26px;'>CA23 DOVA X FOAMDESU</div><div class='box' style='left:497px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA26' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1037px;top:439px;'><h2>CA26 Eevon x Yuii</h2><ul>
-<li><a href='http://fb.me/eevoncosplayer' class='fbk'></a><a href='http://linktr.ee/eevon_cosplayer' class='lkt'></a><a href='http://fb.me/YuuweeYuicchi' class='fbk'></a></li></ul></div><img class='banner' style='left:1037px;top:439px;'><div class='area' style='left:504px;top:732px;width:350px;height:26px;'>CA26 EEVON X YUII</div><div class='box' style='left:902px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/eevoncosplayer' class='fbk'></a><a href='http://linktr.ee/eevon_cosplayer' class='lkt'></a><a href='http://fb.me/YuuweeYuicchi' class='fbk'></a></li></ul></div><img class='banner' style='left:1037px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:732px;width:350px;height:26px;'>CA26 EEVON X YUII</div><div class='box' style='left:902px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA6' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1037px;top:636px;'><h2>CA6 Haruko</h2><ul>
-<li><a href='http://fb.me/148Haruko' class='fbk'></a></li></ul></div><img class='banner' style='left:1037px;top:636px;'><div class='area' style='left:504px;top:810px;width:350px;height:26px;'>CA6 HARUKO</div><div class='box' style='left:902px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/148Haruko' class='fbk'></a></li></ul></div><img class='banner' style='left:1037px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:810px;width:350px;height:26px;'>CA6 HARUKO</div><div class='box' style='left:902px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1443px;top:538px;'><h2>CA12 Karyan/Miya</h2><ul>
-<li><a href='http://fb.me/karyannn.milktea' class='fbk'></a><a href='http://instagram.com/milktea_karyannn' class='ins'></a></li><li><a href='http://instagram.com/miyacheong' class='ins'></a><a href='http://fb.me/cosmiya' class='fbk'></a><a href='http://youtube.com/channel/UC11FodcMM2I6paUWsumPNcg' class='ytb'></a></li></ul></div><img class='banner' style='left:1443px;top:538px;'><div class='area' style='left:504px;top:888px;width:350px;height:26px;'>CA12 KARYAN/MIYA</div><div class='box' style='left:1308px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/karyannn.milktea' class='fbk'></a><a href='http://instagram.com/milktea_karyannn' class='ins'></a></li><li><a href='http://instagram.com/miyacheong' class='ins'></a><a href='http://fb.me/cosmiya' class='fbk'></a><a href='http://youtube.com/channel/UC11FodcMM2I6paUWsumPNcg' class='ytb'></a></li></ul></div><img class='banner' style='left:1443px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:888px;width:350px;height:26px;'>CA12 KARYAN/MIYA</div><div class='box' style='left:1308px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA5' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:902px;top:636px;'><h2>CA5 KING ANGEL</h2><ul>
-<li><a href='http://fb.me/ALLHAILKINGANGEL' class='fbk'></a><a href='http://allhailkingangel.wixsite.com/kingangel' class='wix'></a></li></ul></div><img class='banner' style='left:902px;top:636px;'><div class='area' style='left:504px;top:914px;width:350px;height:26px;'>CA5 KING ANGEL</div><div class='box' style='left:767px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/ALLHAILKINGANGEL' class='fbk'></a><a href='http://allhailkingangel.wixsite.com/kingangel' class='wix'></a></li></ul></div><img class='banner' style='left:902px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:914px;width:350px;height:26px;'>CA5 KING ANGEL</div><div class='box' style='left:767px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA27' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1173px;top:439px;'><h2>CA27 Kino MIkii_希</h2><ul>
-<li><a href='http://twitter.com/KinoMikii' class='twt'></a></li><li><a href='http://duckduckgo.com/?q='>Search for </a></li><li><a href='http://worldcosplay.net/member/Mikiikino0210' class='wcp'></a><a href='http://fb.me/KinoMikiiCosplayandGravure' class='fbk'></a><a href='http://patreon.com/kinomikii' class='ptr'></a></li></ul></div><img class='banner' style='left:1173px;top:439px;'><div class='area' style='left:504px;top:940px;width:350px;height:26px;'>CA27 KINO MIKII_希</div><div class='box' style='left:1037px;top:400px;width:134px;height:37px;'></div>
+<li><a href='http://twitter.com/KinoMikii' class='twt'></a></li><li><a href='http://duckduckgo.com/?q='>Search for </a></li><li><a href='http://worldcosplay.net/member/Mikiikino0210' class='wcp'></a><a href='http://fb.me/KinoMikiiCosplayandGravure' class='fbk'></a><a href='http://patreon.com/kinomikii' class='ptr'></a></li></ul></div><img class='banner' style='left:1173px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:940px;width:350px;height:26px;'>CA27 KINO MIKII_希</div><div class='box' style='left:1037px;top:400px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA7' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1173px;top:636px;'><h2>CA7 Lizzy リジー</h2><ul>
-<li><a href='http://instagram.com/lizzyylz' class='ins'></a><a href='http://fb.me/lizzyylz' class='fbk'></a></li></ul></div><img class='banner' style='left:1173px;top:636px;'><div class='area' style='left:504px;top:1018px;width:350px;height:26px;'>CA7 LIZZY リジー</div><div class='box' style='left:1037px;top:597px;width:134px;height:37px;'></div>
+<li><a href='http://instagram.com/lizzyylz' class='ins'></a><a href='http://fb.me/lizzyylz' class='fbk'></a></li></ul></div><img class='banner' style='left:1173px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:1018px;width:350px;height:26px;'>CA7 LIZZY リジー</div><div class='box' style='left:1037px;top:597px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA14' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1173px;top:538px;'><h2>CA14 MingTao Cosplayer</h2><ul>
-<li><a href='http://worldcosplay.net/member/174443' class='wcp'></a><a href='http://fb.me/vmingtao' class='fbk'></a></li></ul></div><img class='banner' style='left:1173px;top:538px;'><div class='area' style='left:504px;top:1096px;width:350px;height:26px;'>CA14 MINGTAO COSPLAYER</div><div class='box' style='left:1037px;top:499px;width:134px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/174443' class='wcp'></a><a href='http://fb.me/vmingtao' class='fbk'></a></li></ul></div><img class='banner' style='left:1173px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:504px;top:1096px;width:350px;height:26px;'>CA14 MINGTAO COSPLAYER</div><div class='box' style='left:1037px;top:499px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA3' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:632px;top:636px;'><h2>CA3 Nessarose x Ebi</h2><ul>
-<li><a href='http://twitter.com/nessarose_coser' class='twt'></a><a href='http://instagram.com/nessarose_cosplay' class='ins'></a><a href='http://worldcosplay.net/member/Neko_Sama' class='wcp'></a><a href='http://patreon.com/nessarose_cosplay' class='ptr'></a><a href='http://fb.me/coser.nessarose' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:636px;'><div class='area' style='left:868px;top:743px;width:380px;height:26px;'>CA3 NESSAROSE X EBI</div><div class='box' style='left:497px;top:597px;width:133px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Nessarose'>Nessarose</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/nessarose_coser' class='twt'></a><a href='http://instagram.com/nessarose_cosplay' class='ins'></a><a href='http://worldcosplay.net/member/Neko_Sama' class='wcp'></a><a href='http://patreon.com/nessarose_cosplay' class='ptr'></a><a href='http://fb.me/coser.nessarose' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:743px;width:380px;height:26px;'>CA3 NESSAROSE X EBI</div><div class='box' style='left:497px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA21' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:361px;top:439px;'><h2>CA21 Nikki &amp; Kappy</h2><ul>
-<li><a href='http://instagram.com/kowalski_kow' class='ins'></a><a href='http://fb.me/kappy0315' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:439px;'><div class='area' style='left:868px;top:769px;width:380px;height:26px;'>CA21 NIKKI &AMP; KAPPY</div><div class='box' style='left:226px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://instagram.com/kowalski_kow' class='ins'></a><a href='http://fb.me/kappy0315' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:769px;width:380px;height:26px;'>CA21 NIKKI &AMP; KAPPY</div><div class='box' style='left:226px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA24' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:767px;top:439px;'><h2>CA24 Reiko喵儿</h2><ul>
-<li><a href='http://fb.me/ReikoMiiao' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:439px;'><div class='area' style='left:868px;top:835px;width:380px;height:26px;'>CA24 REIKO喵儿</div><div class='box' style='left:632px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/ReikoMiiao' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:835px;width:380px;height:26px;'>CA24 REIKO喵儿</div><div class='box' style='left:632px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA25' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:902px;top:439px;'><h2>CA25 ReTurN-Circus- and Stove</h2><ul>
-<li><a href='http://fb.me/returnnn3' class='fbk'></a><a href='http://fb.me/danrostove' class='fbk'></a></li></ul></div><img class='banner' style='left:902px;top:439px;'><div class='area' style='left:868px;top:861px;width:380px;height:26px;'>CA25 RETURN-CIRCUS- AND STOVE</div><div class='box' style='left:767px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://fb.me/returnnn3' class='fbk'></a><a href='http://fb.me/danrostove' class='fbk'></a></li></ul></div><img class='banner' style='left:902px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:861px;width:380px;height:26px;'>CA25 RETURN-CIRCUS- AND STOVE</div><div class='box' style='left:767px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA18' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:632px;top:538px;'><h2>CA18 RingoSama</h2><ul>
-<li><a href='http://worldcosplay.net/member/ringo_isme' class='wcp'></a><a href='http://fb.me/Green.Ringo' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:538px;'><div class='area' style='left:868px;top:887px;width:380px;height:26px;'>CA18 RINGOSAMA</div><div class='box' style='left:497px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/ringo_isme' class='wcp'></a><a href='http://fb.me/Green.Ringo' class='fbk'></a></li></ul></div><img class='banner' style='left:632px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:887px;width:380px;height:26px;'>CA18 RINGOSAMA</div><div class='box' style='left:497px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA19' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:497px;top:538px;'><h2>CA19 Ristelle</h2><ul>
-<li><a href='http://instagram.com/ristelle' class='ins'></a><a href='http://worldcosplay.net/member/18443' class='wcp'></a><a href='http://patreon.com/ristelle' class='ptr'></a><a href='http://twitch.tv/ristellerin' class='twc'></a><a href='http://fb.me/0ristelle0' class='fbk'></a><a href='http://linktr.ee/ristelle' class='lkt'></a></li></ul></div><img class='banner' style='left:497px;top:538px;'><div class='area' style='left:868px;top:913px;width:380px;height:26px;'>CA19 RISTELLE</div><div class='box' style='left:361px;top:499px;width:134px;height:37px;'></div>
+<li><a href='http://instagram.com/ristelle' class='ins'></a><a href='http://worldcosplay.net/member/18443' class='wcp'></a><a href='http://patreon.com/ristelle' class='ptr'></a><a href='http://twitch.tv/ristellerin' class='twc'></a><a href='http://fb.me/0ristelle0' class='fbk'></a><a href='http://linktr.ee/ristelle' class='lkt'></a></li></ul></div><img class='banner' style='left:497px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:913px;width:380px;height:26px;'>CA19 RISTELLE</div><div class='box' style='left:361px;top:499px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA2' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:497px;top:636px;'><h2>CA2 Rynna遴兒</h2><ul>
-<li><a href='http://instagram.com/rynna0809' class='ins'></a><a href='http://fb.me/rynna0809' class='fbk'></a></li></ul></div><img class='banner' style='left:497px;top:636px;'><div class='area' style='left:868px;top:939px;width:380px;height:26px;'>CA2 RYNNA遴兒</div><div class='box' style='left:361px;top:597px;width:134px;height:37px;'></div>
+<li><a href='http://instagram.com/rynna0809' class='ins'></a><a href='http://fb.me/rynna0809' class='fbk'></a></li></ul></div><img class='banner' style='left:497px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:939px;width:380px;height:26px;'>CA2 RYNNA遴兒</div><div class='box' style='left:361px;top:597px;width:134px;height:37px;'></div>
 </div><div class='booth' id='CA1' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:361px;top:636px;'><h2>CA1 SAIDA (Guest)</h2><ul>
-<li><a href='http://worldcosplay.net/member/93823' class='wcp'></a><a href='http://fb.me/OfficialPage.Saida' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:636px;'><div class='area' style='left:868px;top:1019px;width:380px;height:26px;'>CA1 SAIDA (GUEST)</div><div class='box' style='left:226px;top:597px;width:133px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/93823' class='wcp'></a><a href='http://fb.me/OfficialPage.Saida' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:1019px;width:380px;height:26px;'>CA1 SAIDA (GUEST)</div><div class='box' style='left:226px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA29' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1443px;top:439px;'><h2>CA29 Shinku_真红</h2><ul>
-<li><a href='http://worldcosplay.net/member/shinku' class='wcp'></a><a href='http://fb.me/shinku.zh' class='fbk'></a></li></ul></div><img class='banner' style='left:1443px;top:439px;'><div class='area' style='left:868px;top:1045px;width:380px;height:26px;'>CA29 SHINKU_真红</div><div class='box' style='left:1308px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/shinku' class='wcp'></a><a href='http://fb.me/shinku.zh' class='fbk'></a></li></ul></div><img class='banner' style='left:1443px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:1045px;width:380px;height:26px;'>CA29 SHINKU_真红</div><div class='box' style='left:1308px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA16' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:902px;top:538px;'><h2>CA16 SHUU</h2><ul>
-<li><a href='http://worldcosplay.net/member/shuu_ozu' class='wcp'></a><a href='http://fb.me/shuucos' class='fbk'></a></li></ul></div><img class='banner' style='left:902px;top:538px;'><div class='area' style='left:868px;top:1071px;width:380px;height:26px;'>CA16 SHUU</div><div class='box' style='left:767px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://worldcosplay.net/member/shuu_ozu' class='wcp'></a><a href='http://fb.me/shuucos' class='fbk'></a></li></ul></div><img class='banner' style='left:902px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:1071px;width:380px;height:26px;'>CA16 SHUU</div><div class='box' style='left:767px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA8' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1308px;top:636px;'><h2>CA8 Sushii Cosplayer</h2><ul>
-<li><a href='http://twitter.com/SushiiCosplayer' class='twt'></a><a href='http://instagram.com/sushiicosplayer' class='ins'></a><a href='http://worldcosplay.net/member/709075' class='wcp'></a><a href='http://fb.me/SushiiCosplayer' class='fbk'></a><a href='http://patreon.com/justsushii' class='ptr'></a></li></ul></div><img class='banner' style='left:1308px;top:636px;'><div class='area' style='left:868px;top:1097px;width:380px;height:26px;'>CA8 SUSHII COSPLAYER</div><div class='box' style='left:1173px;top:597px;width:133px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Sushii Cosplayer'>Sushii Cosplayer</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/SushiiCosplayer' class='twt'></a><a href='http://instagram.com/sushiicosplayer' class='ins'></a><a href='http://worldcosplay.net/member/709075' class='wcp'></a><a href='http://fb.me/SushiiCosplayer' class='fbk'></a><a href='http://patreon.com/justsushii' class='ptr'></a></li></ul></div><img class='banner' style='left:1308px;top:636px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:868px;top:1097px;width:380px;height:26px;'>CA8 SUSHII COSPLAYER</div><div class='box' style='left:1173px;top:597px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA15' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1037px;top:538px;'><h2>CA15 Tako</h2><ul>
-<li><a href='http://fb.me/takomiranda' class='fbk'></a><a href='http://instagram.com/takodesss' class='ins'></a></li></ul></div><img class='banner' style='left:1037px;top:538px;'><div class='area' style='left:1313px;top:752px;width:370px;height:26px;'>CA15 TAKO</div><div class='box' style='left:902px;top:499px;width:133px;height:37px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Tako'>Tako</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/takodesss' class='ins'></a><a href='http://fb.me/takomiranda' class='fbk'></a></li></ul></div><img class='banner' style='left:1037px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:1313px;top:752px;width:370px;height:26px;'>CA15 TAKO</div><div class='box' style='left:902px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA28' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1308px;top:439px;'><h2>CA28 XuanZii 璇子 x Emiize 小美</h2><ul>
-<li><a href='http://instagram.com/xuanzii_isme' class='ins'></a><a href='http://fb.me/imxuanzii520' class='fbk'></a></li><li><a href='http://instagram.com/emiize_akino' class='ins'></a><a href='http://worldcosplay.net/member/emiize' class='wcp'></a><a href='http://fb.me/emiize' class='fbk'></a></li></ul></div><img class='banner' style='left:1308px;top:439px;'><div class='area' style='left:1313px;top:815px;width:370px;height:26px;'>CA28 XUANZII 璇子 X EMIIZE 小美</div><div class='box' style='left:1173px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://instagram.com/xuanzii_isme' class='ins'></a><a href='http://fb.me/imxuanzii520' class='fbk'></a></li><li><a href='http://instagram.com/emiize_akino' class='ins'></a><a href='http://worldcosplay.net/member/emiize' class='wcp'></a><a href='http://fb.me/emiize' class='fbk'></a></li></ul></div><img class='banner' style='left:1308px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:1313px;top:815px;width:370px;height:26px;'>CA28 XUANZII 璇子 X EMIIZE 小美</div><div class='box' style='left:1173px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA20' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:361px;top:538px;'><h2>CA20 小鱼KIKO - Cosplayer</h2><ul>
-<li><a href='http://twitter.com/xiaoyukikoryo' class='twt'></a><a href='http://instagram.com/xiaoyukiko' class='ins'></a><a href='http://worldcosplay.net/member/xiaoyukiko' class='wcp'></a><a href='http://fb.me/xiaoyukiko' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:538px;'><div class='area' style='left:1313px;top:841px;width:370px;height:26px;'>CA20 小鱼KIKO - COSPLAYER</div><div class='box' style='left:226px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://twitter.com/xiaoyukikoryo' class='twt'></a><a href='http://instagram.com/xiaoyukiko' class='ins'></a><a href='http://worldcosplay.net/member/xiaoyukiko' class='wcp'></a><a href='http://fb.me/xiaoyukiko' class='fbk'></a></li></ul></div><img class='banner' style='left:361px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:1313px;top:841px;width:370px;height:26px;'>CA20 小鱼KIKO - COSPLAYER</div><div class='box' style='left:226px;top:499px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA30' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1578px;top:439px;'><h2>CA30 YingTze</h2><ul>
-<li><a href='http://twitter.com/ying_tze' class='twt'></a><a href='http://instagram.com/yingtze' class='ins'></a><a href='http://patreon.com/yingtze' class='ptr'></a><a href='http://twitch.tv/yingtze' class='twc'></a><a href='http://ying-tze.blogspot.com' class='bsp'></a><a href='http://worldcosplay.net/member/yingtze' class='wcp'></a><a href='http://otakumode.com/yingtze' class='otm'></a><a href='http://fb.me/YingTze1206' class='fbk'></a><a href='http://yingtze.com' class='yingtze'></a></li></ul></div><img class='banner' style='left:1578px;top:439px;'><div class='area' style='left:1313px;top:906px;width:370px;height:26px;'>CA30 YINGTZE</div><div class='box' style='left:1443px;top:400px;width:133px;height:37px;'></div>
+<li><a href='http://twitter.com/ying_tze' class='twt'></a><a href='http://instagram.com/yingtze' class='ins'></a><a href='http://patreon.com/yingtze' class='ptr'></a><a href='http://twitch.tv/yingtze' class='twc'></a><a href='http://ying-tze.blogspot.com' class='bsp'></a><a href='http://worldcosplay.net/member/yingtze' class='wcp'></a><a href='http://otakumode.com/yingtze' class='otm'></a><a href='http://fb.me/YingTze1206' class='fbk'></a><a href='http://yingtze.com' class='yingtze'></a></li></ul></div><img class='banner' style='left:1578px;top:439px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:1313px;top:906px;width:370px;height:26px;'>CA30 YINGTZE</div><div class='box' style='left:1443px;top:400px;width:133px;height:37px;'></div>
 </div><div class='booth' id='CA17' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:767px;top:538px;'><h2>CA17 +Yonnie芋泥 &gt;w0+</h2><ul>
-<li><a href='http://instagram.com/nie1031' class='ins'></a><a href='http://worldcosplay.net/member/YonnieNG' class='wcp'></a><a href='http://fb.me/Elfography' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:538px;'><div class='area' style='left:1313px;top:932px;width:370px;height:26px;'>CA17 +YONNIE芋泥 &GT;W0+</div><div class='box' style='left:632px;top:499px;width:133px;height:37px;'></div>
+<li><a href='http://instagram.com/nie1031' class='ins'></a><a href='http://worldcosplay.net/member/YonnieNG' class='wcp'></a><a href='http://fb.me/Elfography' class='fbk'></a></li></ul></div><img class='banner' style='left:767px;top:538px;' onerror='this.src="AMG2019/artist/x.png"'><div class='area' style='left:1313px;top:932px;width:370px;height:26px;'>CA17 +YONNIE芋泥 &GT;W0+</div><div class='box' style='left:632px;top:499px;width:133px;height:37px;'></div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->

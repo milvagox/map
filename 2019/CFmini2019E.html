@@ -15,7 +15,6 @@
  <style>
   .booth { 
     opacity: 0;
-    cursor: pointer;
   }
   .booth:hover { opacity: 1; }
   .booth img { display: none; }
@@ -28,6 +27,7 @@
     color: rgba(0, 0, 0, 0);
     opacity: inherit;
     z-index:  20;
+    cursor: pointer;
   }
   .box {
     border: 3px dotted aqua;
@@ -35,6 +35,7 @@
     position: absolute;
     z-index: 130;
     opacity: inherit;
+    cursor: pointer;
   }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
@@ -47,7 +48,7 @@
   input:checked + .toggle_checkbox { background-color: yellow; }
   .desc {
     padding: 10px 10px 10px 10px ;
-    min-width: 280px; 
+    min-width: 320px; 
     max-width: 500px;
     min-height: 250px; 
     text-align: justify;
@@ -72,6 +73,7 @@
   .booth:hover + .custimg { display: block; }
 .desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
 .desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
@@ -110,12 +112,14 @@
 .nieniekoto { background: url('../ico/nieniekoto.png'); }
 .otm { background: url('../ico/otm.png'); }
 .parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
 .ptr { background: url('../ico/ptr.png'); }
 .pxv { background: url('../ico/pxv.png'); }
 .rbb { background: url('../ico/rbb.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
 .sen { background: url('../ico/sen.png'); }
@@ -143,7 +147,7 @@
   }
  </style>
  <script>  
-    var boothSelector = (window.location.hash.match(/(?:([\w\s\d]+)[^|]?)/gi))
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
     function highlight_by_anchor() {
       if(!boothSelector) { return; }
       else if (boothSelector.length == 1) {
@@ -159,7 +163,7 @@
         }
         location.hash = boothSelector[0];
       }
-      else { booth_highlightByString(window.location.hash); }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
     }
     
     function highlight_booths(booths) {
@@ -175,7 +179,7 @@
     }
     
     function booth_highlight_listing(tag) {
-      hash_buff = (window.location.hash).match(/(?:([\w\s\d]+)[^|]?)/gi);
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!hash_buff) { hash_buff = [""]; }
       if(hash_buff.indexOf(tag) != -1) {
         hash_buff = hash_buff.filter(function(item) {return item != tag});
@@ -187,7 +191,7 @@
       var highlighted = document.getElementsByClassName('booth_highlight');
       while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
       
-      var keylist = keyword.match(/(?:([\w\s\d]+)[^|]?)/gi);
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
       if(!keylist) { return; }
       keylist.forEach(function(item) {
         booth = document.getElementById(item.toUpperCase());
@@ -246,7 +250,7 @@
     function link_click(booth) {
       if(document.getElementById("favBut").checked) {
         booth_highlight_listing(booth.id);
-        booth_highlightByString(window.location.hash);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
       } else {
         glob_box_selector = booth;
         booth.style.opacity = 1;
@@ -309,7 +313,7 @@
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CFmini2019/CFmini2019E.png' style='' onerror="this.src = './CFmini2019/CFmini2019E.jpg'">
-<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px'></div>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='A01' onclick='link_click(this)'><div class='desc' style='left:408px;top:472px;'><h2>A01 ZinMaTo</h2><ul>
 <li><a href='http://instagram.com/zinmato' class='ins'></a><a href='http://fb.me/zinmato88' class='fbk'></a><a href='http://shopee.com/zinmato88' class='shp'></a></li></ul></div><div class='area' style='left:555px;top:276px;width:360px;height:20px;'>A01 ZINMATO</div><div class='box' style='left:375px;top:439px;width:31px;height:31px;'></div>
 </div><div class='booth' id='A02' onclick='link_click(this)'><div class='desc' style='left:408px;top:510px;'><h2>A02 COS DREAMERS JAPAN</h2><ul>
@@ -321,7 +325,7 @@
 <li><a href='http://fb.me/6ToyStore' class='fbk'></a></li><li><a href='http://6toy.com.my'>6toy.com.my</a></li><li>
 </li></ul></div><div class='area' style='left:555px;top:356px;width:360px;height:20px;'>A07 6 TOY</div><div class='box' style='left:230px;top:440px;width:31px;height:67px;'></div>
 </div><div class='booth' id='B01' onclick='link_click(this)'><div class='desc' style='left:351px;top:582px;'><h2>B01 MM HANDMADE &amp; SOUVENIR</h2><ul>
-<li><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><div class='area' style='left:555px;top:412px;width:360px;height:50px;'>B01 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:318px;top:549px;width:31px;height:31px;'></div>
+<li><a href='http://fb.me/mmhandmadesouvenir' class='fbk'></a><a href='http://lelong.com.my/store/mmhandmade' class='llo'></a></li></ul></div><div class='area' style='left:555px;top:412px;width:360px;height:50px;'>B01 MM HANDMADE &AMP; SOUVENIR</div><div class='box' style='left:318px;top:549px;width:31px;height:31px;'></div>
 </div><div class='booth' id='B02' onclick='link_click(this)'><div class='desc' style='left:313px;top:582px;'><h2>B02 The One Academny Penang</h2><ul>
 <li><a href='http://fb.me/toapenang' class='fbk'></a></li><li><a href='http://toa.edu.my/penang'>toa.edu.my/penang</a></li><li>
 </li></ul></div><div class='area' style='left:555px;top:462px;width:360px;height:50px;'>B02 THE ONE ACADEMNY PENANG</div><div class='box' style='left:280px;top:549px;width:31px;height:31px;'></div>
@@ -330,7 +334,7 @@
 </div><div class='booth' id='B04' onclick='link_click(this)'><div class='desc' style='left:331px;top:681px;'><h2>B04 XD Shop</h2><ul>
 <li><a href='http://fb.me/XD.AnimeShop' class='fbk'></a></li><li><a href='mailto://xiaodong.xdshop@gmail.com'>email: xiaodong.xdshop@gmail.com</a></li><li></li></ul></div><div class='area' style='left:555px;top:567px;width:360px;height:30px;'>B04 XD SHOP</div><div class='box' style='left:298px;top:648px;width:31px;height:31px;'></div>
 </div><div class='booth' id='C01' onclick='link_click(this)'><div class='desc' style='left:253px;top:711px;'><h2>C01 Accel&#39;s Helper Shop &amp; Services</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/Accel_DriveTokuMalaysia'>Accel_DriveTokuMalaysia</a></li><li><a href='http://fb.me/accelshelpershopandservices' class='fbk'></a><a href='http://accelhelpershopandservice.blogspot.com' class='bsp'></a></li></ul></div><div class='area' style='left:555px;top:635px;width:360px;height:40px;'>C01 ACCEL&#39;S HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:220px;top:678px;width:31px;height:31px;'></div>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Accel_DriveTokuMalaysia'>Accel_DriveTokuMalaysia</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/accelshelpershopandservices' class='fbk'></a><a href='http://accelhelpershopandservice.blogspot.com' class='bsp'></a></li></ul></div><div class='area' style='left:555px;top:635px;width:360px;height:40px;'>C01 ACCEL&#39;S HELPER SHOP &AMP; SERVICES</div><div class='box' style='left:220px;top:678px;width:31px;height:31px;'></div>
 </div><div class='booth' id='C02' onclick='link_click(this)'><div class='desc' style='left:253px;top:786px;'><h2>C02 EXX</h2><a href='http://duckduckgo.com/?q=EXX'>Search for EXX</a></div><div class='area' style='left:555px;top:675px;width:360px;height:20px;'>C02 EXX</div><div class='box' style='left:220px;top:717px;width:31px;height:67px;'></div>
 </div><div class='booth' id='C04' onclick='link_click(this)'><div class='desc' style='left:484px;top:830px;'><h2>C04 Oh! Gatcha</h2><ul>
 <li><a href='http://instagram.com/oh.gatcha' class='ins'></a><a href='http://fb.me/oh.gatcha' class='fbk'></a></li><li><a href='http://ohgatcha.com'>ohgatcha.com</a></li><li>
