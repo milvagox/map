@@ -8,6 +8,9 @@ Booth location can be highlight with hash('#') on the link.
 > (CAFKL6 A1) [milvagox.github.io/map/2019/CAFKL6#A1](https://milvagox.github.io/map/2019/CAFKL6#A1)
 
 
+# 2020
+- [arata2020](https://milvagox.github.io/map/2020/arata2020)
+
 # 2019
 - [EOY2019](https://milvagox.github.io/map/2019/EOY2019)
 - [CF2019](https://milvagox.github.io/map/2019/CF2019) ([Exhibitor Booth](https://milvagox.github.io/map/2019/CF2019E)) ([Premium Booth](https://milvagox.github.io/map/2019/CF2019P))

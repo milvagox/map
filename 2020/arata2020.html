@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="arata2020 Interactive Map">
+<meta property="og:description" content="arata2020 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/arata2020">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/arata2020.png">
+<meta name="description" content="arata2020 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2020/arata2020.html">
+ <title>arata2020 Map++</title>
+ <style>
+  .banner { position: absolute; z-index: 200; }
+  .booth { 
+    opacity: 0;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+    cursor: pointer;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+    cursor: pointer;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 100px ;
+    min-width: 320px; 
+    max-width: 500px;
+    min-height: 250px; 
+    text-align: justify;
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+  }
+  .desc h2 {
+    margin: 1px;\nfont-family: monospace;\ntext-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
+.desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='arata2020/artist/' + booth.id + '.png' }    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+        banner = booth.getElementsByClassName('banner')[0] 
+        banner.src = 'arata2020/artist/' + booth.id + '.png'; 
+        banner.style.display = 'block'; 
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      glob_box_selector.getElementsByClassName('banner')[0].style.display = '';
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div style="position: absolute; padding: 8px;">
+
+<div style='position: absolute; z-index: 1; height: 35px'>
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./arata2020/arata2020.png' style='' onerror="this.src = './arata2020/arata2020.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
+<div class='booth' id='A18' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:188px;top:136px;'><h2>A18 Doji, Eth and Woof</h2><a href='http://duckduckgo.com/?q=Doji%2C%20Eth%20and%20Woof'>Search for Doji, Eth and Woof</a></div><img class='banner' style='left:188px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A18 DOJI, ETH AND WOOF</div><div class='box' style='left:156px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A17' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:222px;top:136px;'><h2>A17 The Secluded Spot</h2><ul>
+<li><a href='http://twitter.com/leos_ng' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">I will be bringing these as new prints for ARATA this coming Saturday! <a href="https://t.co/KhkfcGPOTg">https://t.co/KhkfcGPOTg</a></p>&mdash; Leos Ng Okita @ ARATA A17 (@leos_ng) <a href="https://twitter.com/leos_ng/status/1212733277905158145?ref_src=twsrc%5Etfw">January 2, 2020</a></blockquote></p></li><li></li></ul></div><img class='banner' style='left:222px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A17 THE SECLUDED SPOT</div><div class='box' style='left:191px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A16' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:257px;top:136px;'><h2>A16 Jun</h2><a href='http://duckduckgo.com/?q=Jun'>Search for Jun</a></div><img class='banner' style='left:257px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A16 JUN</div><div class='box' style='left:225px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A15' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:291px;top:136px;'><h2>A15 |M.A.M.U|-Penguin</h2><a href='http://duckduckgo.com/?q=%7CM.A.M.U%7C-Penguin'>Search for |M.A.M.U|-Penguin</a></div><img class='banner' style='left:291px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A15 |M.A.M.U|-PENGUIN</div><div class='box' style='left:260px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A14' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:349px;top:136px;'><h2>A14 Laz Café</h2><a href='http://duckduckgo.com/?q=Laz%20Caf%C3%A9'>Search for Laz Café</a></div><img class='banner' style='left:349px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A14 LAZ CAFÉ</div><div class='box' style='left:317px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:383px;top:136px;'><h2>A13 NrNs</h2><ul>
+<li><a href='http://twitter.com/Hotpotchild' class='twt'></a><a href='http://ko-fi.com/hotpotchild' class='kof'></a></li></ul></div><img class='banner' style='left:383px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A13 NRNS</div><div class='box' style='left:352px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:418px;top:136px;'><h2>A12 Mochibuddies</h2><a href='http://duckduckgo.com/?q=Mochibuddies'>Search for Mochibuddies</a></div><img class='banner' style='left:418px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A12 MOCHIBUDDIES</div><div class='box' style='left:386px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:452px;top:136px;'><h2>A11 etgoeshibaeee</h2><ul>
+<li><a href='http://instagram.com/etgoeshibaeee' class='ins'></a><a href='http://fb.me/etgoeshibaeee' class='fbk'></a><a href='http://etgoeshibaeee.etsy.com' class='ets'></a><a href='http://linktr.ee/etgoeshibaeee' class='lkt'></a></li></ul></div><img class='banner' style='left:452px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A11 ETGOESHIBAEEE</div><div class='box' style='left:421px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:509px;top:136px;'><h2>A10 Asterion Borealis</h2><a href='http://duckduckgo.com/?q=Asterion%20Borealis'>Search for Asterion Borealis</a></div><img class='banner' style='left:509px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A10 ASTERION BOREALIS</div><div class='box' style='left:477px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A09' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:543px;top:136px;'><h2>A09 Sunnydeers</h2><a href='http://duckduckgo.com/?q=Sunnydeers'>Search for Sunnydeers</a></div><img class='banner' style='left:543px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A09 SUNNYDEERS</div><div class='box' style='left:512px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:688px;top:136px;'><h2>A08 Atelier Chronos**</h2><ul>
+<li><a href='http://twitter.com/ChronosAtelier' class='twt'></a></li><li><a href='http://twitter.com/ChromelxD' class='twt'></a></li><li><a href='http://twitter.com/humiko_jin' class='twt'></a><a href='http://linktr.ee/ionised.cosplay' class='lkt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">[BZZT...Patch 5.0 has major bugs of the mimikyu kind...<br>Maintenance will begin and end at 11am]<a href="https://twitter.com/hashtag/arataichiba?src=hash&amp;ref_src=twsrc%5Etfw">#arataichiba</a> updated(?) catalogue thread now up for emergency maintenance!<br><br>I’ll be joining again with <a href="https://twitter.com/ChromelxD?ref_src=twsrc%5Etfw">@ChromelxD</a> and <a href="https://twitter.com/humiko_jin?ref_src=twsrc%5Etfw">@humiko_jin</a> at Table A08 today!<br>Please support us~ <a href="https://t.co/zjuiXhA3MK">pic.twitter.com/zjuiXhA3MK</a></p>&mdash; ☆Atelier Chronos [@Arata A08] (@ChronosAtelier) <a href="https://twitter.com/ChronosAtelier/status/1213144875194970112?ref_src=twsrc%5Etfw">January 3, 2020</a></blockquote><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">Some new prints! (2/3) <a href="https://twitter.com/hashtag/eoy2019?src=hash&amp;ref_src=twsrc%5Etfw">#eoy2019</a> <a href="https://twitter.com/hashtag/theeoy2019?src=hash&amp;ref_src=twsrc%5Etfw">#theeoy2019</a> <a href="https://twitter.com/hashtag/eoysg?src=hash&amp;ref_src=twsrc%5Etfw">#eoysg</a> <a href="https://t.co/hMwerwnXIU">pic.twitter.com/hMwerwnXIU</a></p>&mdash; Chromel 🥐 Roxas Zine | Arata A08 (@ChromelxD) <a href="https://twitter.com/ChromelxD/status/1210613027373907969?ref_src=twsrc%5Etfw">December 27, 2019</a></blockquote><blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><p lang="en" dir="ltr">New prints and new (and old) stickers designs! (3/3) <a href="https://twitter.com/hashtag/eoy2019?src=hash&amp;ref_src=twsrc%5Etfw">#eoy2019</a> <a href="https://twitter.com/hashtag/theeoy2019?src=hash&amp;ref_src=twsrc%5Etfw">#theeoy2019</a> <a href="https://twitter.com/hashtag/eoysg?src=hash&amp;ref_src=twsrc%5Etfw">#eoysg</a> <a href="https://t.co/VdBeFoB905">pic.twitter.com/VdBeFoB905</a></p>&mdash; Chromel 🥐 Roxas Zine | Arata A08 (@ChromelxD) <a href="https://twitter.com/ChromelxD/status/1210613094847639553?ref_src=twsrc%5Etfw">December 27, 2019</a></blockquote></p></li><li></li></ul></div><img class='banner' style='left:688px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A08 ATELIER CHRONOS**</div><div class='box' style='left:656px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:722px;top:136px;'><h2>A07 YuuKen</h2><ul>
+<li><a href='http://twitter.com/ArtofYuuKen' class='twt'></a><a href='http://instagram.com/artofyuuken' class='ins'></a><a href='http://linktr.ee/YuuKen' class='lkt'></a></li></ul></div><img class='banner' style='left:722px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A07 YUUKEN</div><div class='box' style='left:691px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:757px;top:136px;'><h2>A06 MarNyx</h2><a href='http://duckduckgo.com/?q=MarNyx'>Search for MarNyx</a></div><img class='banner' style='left:757px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A06 MARNYX</div><div class='box' style='left:725px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:791px;top:136px;'><h2>A05 Sngarila Art</h2><ul>
+<li><a href='http://instagram.com/sngarila.art' class='ins'></a></li></ul></div><img class='banner' style='left:791px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A05 SNGARILA ART</div><div class='box' style='left:760px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:848px;top:136px;'><h2>A04 Rokuuso</h2><ul>
+<li><a href='http://twitter.com/rokuuso' class='twt'></a><a href='http://instagram.com/rokuuso' class='ins'></a><a href='http://fb.me/rokuuso' class='fbk'></a></li></ul></div><img class='banner' style='left:848px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A04 ROKUUSO</div><div class='box' style='left:816px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:882px;top:136px;'><h2>A03 Dysfunctional Room x Winter&#39;s Tales</h2><ul>
+<li><a href='http://twitter.com/dysfunctionalrm' class='twt'></a></li><li><a href='http://twitter.com/BeatRadical' class='twt'></a><a href='http://instagram.com/fuyu_tjondro' class='ins'></a><a href='http://fuyukichi.deviantart.com' class='dar'></a></li><li><a href='http://winters-tales.myshopify.com'>winters-tales.myshopify.com</a></li><li>
+</li></ul></div><img class='banner' style='left:882px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A03 DYSFUNCTIONAL ROOM X WINTER&#39;S TALES</div><div class='box' style='left:851px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='A02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:917px;top:136px;'><h2>A02 Passed Away</h2><a href='http://duckduckgo.com/?q=Passed%20Away'>Search for Passed Away</a></div><img class='banner' style='left:917px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A02 PASSED AWAY</div><div class='box' style='left:885px;top:109px;width:30px;height:25px;'></div>
+</div><div class='booth' id='A01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:951px;top:136px;'><h2>A01 UWU CHUNGAS</h2><a href='http://duckduckgo.com/?q=UWU%20CHUNGAS'>Search for UWU CHUNGAS</a></div><img class='banner' style='left:951px;top:136px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>A01 UWU CHUNGAS</div><div class='box' style='left:920px;top:109px;width:29px;height:25px;'></div>
+</div><div class='booth' id='B04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:907px;top:236px;'><h2>B04 Milkca nanime</h2><a href='http://duckduckgo.com/?q=Milkca%20nanime'>Search for Milkca nanime</a></div><img class='banner' style='left:907px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B04 MILKCA NANIME</div><div class='box' style='left:875px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='B03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:941px;top:236px;'><h2>B03 Toastwire</h2><ul>
+<li><a href='http://twitter.com/toastwire' class='twt'></a><a href='http://linktr.ee/toastwire' class='lkt'></a></li></ul></div><img class='banner' style='left:941px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B03 TOASTWIRE</div><div class='box' style='left:910px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='B02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:976px;top:236px;'><h2>B02 bobilaru</h2><a href='http://duckduckgo.com/?q=bobilaru'>Search for bobilaru</a></div><img class='banner' style='left:976px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B02 BOBILARU</div><div class='box' style='left:944px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='B01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1010px;top:236px;'><h2>B01 Koheemura Cafe</h2><a href='http://duckduckgo.com/?q=Koheemura%20Cafe'>Search for Koheemura Cafe</a></div><img class='banner' style='left:1010px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B01 KOHEEMURA CAFE</div><div class='box' style='left:979px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='B08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:907px;top:268px;'><h2>B08 Fierying &amp; JYNX</h2><a href='http://duckduckgo.com/?q=Fierying%20%26%20JYNX'>Search for Fierying &amp; JYNX</a></div><img class='banner' style='left:907px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B08 FIERYING &AMP; JYNX</div><div class='box' style='left:875px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='B07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:941px;top:268px;'><h2>B07 Mala Big Hot</h2><ul>
+<li><a href='http://twitter.com/sytamas' class='twt'></a></li><li><a href='http://twitter.com/cheekpeas' class='twt'></a><a href='http://instagram.com/cheekpeas' class='ins'></a></li></ul></div><img class='banner' style='left:941px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B07 MALA BIG HOT</div><div class='box' style='left:910px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='B06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:976px;top:268px;'><h2>B06 heronio x ga_stamps</h2><a href='http://duckduckgo.com/?q=heronio%20x%20ga_stamps'>Search for heronio x ga_stamps</a></div><img class='banner' style='left:976px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B06 HERONIO X GA_STAMPS</div><div class='box' style='left:944px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='B05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:1010px;top:268px;'><h2>B05 bang.</h2><a href='http://duckduckgo.com/?q=bang.'>Search for bang.</a></div><img class='banner' style='left:1010px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>B05 BANG.</div><div class='box' style='left:979px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:828px;top:236px;'><h2>C01 KEVIN the PANDA</h2><ul>
+<li><a href='http://instagram.com/kevinthepanda1234' class='ins'></a><a href='http://fb.me/kevinpanda1234' class='fbk'></a></li></ul></div><img class='banner' style='left:828px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C01 KEVIN THE PANDA</div><div class='box' style='left:797px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:794px;top:236px;'><h2>C02 Purrballs</h2><ul>
+<li><a href='http://twitter.com/purrballs' class='twt'></a><a href='http://fb.me/purrballs' class='fbk'></a></li><li><a href='http://purrballs.sg'>purrballs.sg</a></li><li>
+</li></ul></div><img class='banner' style='left:794px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C02 PURRBALLS</div><div class='box' style='left:762px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='C03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:759px;top:236px;'><h2>C03 nuwubs</h2><a href='http://duckduckgo.com/?q=nuwubs'>Search for nuwubs</a></div><img class='banner' style='left:759px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C03 NUWUBS</div><div class='box' style='left:728px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:725px;top:236px;'><h2>C04 BubbleBunny</h2><a href='http://duckduckgo.com/?q=BubbleBunny'>Search for BubbleBunny</a></div><img class='banner' style='left:725px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C04 BUBBLEBUNNY</div><div class='box' style='left:693px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='C05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:690px;top:236px;'><h2>C05 Noxiera</h2><a href='http://duckduckgo.com/?q=Noxiera'>Search for Noxiera</a></div><img class='banner' style='left:690px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C05 NOXIERA</div><div class='box' style='left:659px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:656px;top:236px;'><h2>C06 Bento Palette</h2><ul>
+<li><a href='http://fb.me/bentopalette' class='fbk'></a></li><li><a href='http://twitter.com/JWNtay' class='twt'></a></li><li><a href='http://jwentay.com'>jwentay.com</a></li><li>
+</li><li><a href='http://twitter.com/monoccrow' class='twt'></a><a href='http://ko-fi.com/monoccrow' class='kof'></a></li><li><a href='http://twitter.com/Nomdere' class='twt'></a></li><li><a href='http://twitter.com/tribbutribby' class='twt'></a><a href='http://ko-fi.com/bunnyshadeow' class='kof'></a></li><li><a href='http://hooojw.pb.gallery'>hooojw.pb.gallery</a></li><li>
+</li></ul></div><img class='banner' style='left:656px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C06 BENTO PALETTE</div><div class='box' style='left:624px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='C07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:828px;top:268px;'><h2>C07 inkyFox</h2><a href='http://duckduckgo.com/?q=inkyFox'>Search for inkyFox</a></div><img class='banner' style='left:828px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C07 INKYFOX</div><div class='box' style='left:797px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:794px;top:268px;'><h2>C08 Flufflefur + Iaihoshi</h2><a href='http://duckduckgo.com/?q=Flufflefur%20%2B%20Iaihoshi'>Search for Flufflefur + Iaihoshi</a></div><img class='banner' style='left:794px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C08 FLUFFLEFUR + IAIHOSHI</div><div class='box' style='left:762px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='C09' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:759px;top:268px;'><h2>C09 Kiyo</h2><ul>
+<li><a href='http://twitter.com/kiyocosplay' class='twt'></a></li></ul></div><img class='banner' style='left:759px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C09 KIYO</div><div class='box' style='left:728px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:725px;top:268px;'><h2>C10 HEE HEE SWEAT SHOP</h2><ul>
+<li><a href='http://twitter.com/orendalies' class='twt'></a><a href='http://instagram.com/orendalies' class='ins'></a></li></ul></div><img class='banner' style='left:725px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C10 HEE HEE SWEAT SHOP</div><div class='box' style='left:693px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='C11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:690px;top:268px;'><h2>C11 POORTATOES</h2><a href='http://duckduckgo.com/?q=POORTATOES'>Search for POORTATOES</a></div><img class='banner' style='left:690px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C11 POORTATOES</div><div class='box' style='left:659px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='C12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:656px;top:268px;'><h2>C12 mythos 2ndhands</h2><a href='http://duckduckgo.com/?q=mythos%202ndhands'>Search for mythos 2ndhands</a></div><img class='banner' style='left:656px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>C12 MYTHOS 2NDHANDS</div><div class='box' style='left:624px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:577px;top:236px;'><h2>D01 Blur SotongS</h2><a href='http://duckduckgo.com/?q=Blur%20SotongS'>Search for Blur SotongS</a></div><img class='banner' style='left:577px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D01 BLUR SOTONGS</div><div class='box' style='left:546px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:543px;top:236px;'><h2>D02 spolmkt</h2><a href='http://duckduckgo.com/?q=spolmkt'>Search for spolmkt</a></div><img class='banner' style='left:543px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D02 SPOLMKT</div><div class='box' style='left:511px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:508px;top:236px;'><h2>D03 box tom</h2><ul>
+<li><a href='http://twitter.com/xerouo' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">(RTs appreciated! 💖) hello!! i&#39;ll be boothing at arata tomorrow. depending on space i may not be displaying my own merch but i&#39;ll have them anyway so if you want to get anything just ask!! <br><br>i&#39;ll also be selling a bunch of official merch please help me give them a better home 🥺 <a href="https://t.co/I2LGrLB6wI">pic.twitter.com/I2LGrLB6wI</a></p>&mdash; 50°xero@arata D03 (@xerouo) <a href="https://twitter.com/xerouo/status/1213100331069952001?ref_src=twsrc%5Etfw">January 3, 2020</a></blockquote></p></li><li></li></ul></div><img class='banner' style='left:508px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D03 BOX TOM</div><div class='box' style='left:477px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:474px;top:236px;'><h2>D04 Art of K3</h2><a href='http://duckduckgo.com/?q=Art%20of%20K3'>Search for Art of K3</a></div><img class='banner' style='left:474px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D04 ART OF K3</div><div class='box' style='left:442px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:439px;top:236px;'><h2>D05 a.mj studio</h2><a href='http://duckduckgo.com/?q=a.mj%20studio'>Search for a.mj studio</a></div><img class='banner' style='left:439px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D05 A.MJ STUDIO</div><div class='box' style='left:408px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:405px;top:236px;'><h2>D06 Kinokotori</h2><a href='http://duckduckgo.com/?q=Kinokotori'>Search for Kinokotori</a></div><img class='banner' style='left:405px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D06 KINOKOTORI</div><div class='box' style='left:373px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:577px;top:268px;'><h2>D07 Church Of Salt</h2><ul>
+<li><a href='http://twitter.com/churchofsalt' class='twt'></a><a href='http://instagram.com/churchofsalt' class='ins'></a></li><li><a href='http://twitter.com/karqmie' class='twt'></a></li></ul></div><img class='banner' style='left:577px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D07 CHURCH OF SALT</div><div class='box' style='left:546px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:543px;top:268px;'><h2>D08 Studio Moongi</h2><a href='http://duckduckgo.com/?q=Studio%20Moongi'>Search for Studio Moongi</a></div><img class='banner' style='left:543px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D08 STUDIO MOONGI</div><div class='box' style='left:511px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D09' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:508px;top:268px;'><h2>D09 Jrpencil + Xixipencil</h2><a href='http://duckduckgo.com/?q=Jrpencil%20%2B%20Xixipencil'>Search for Jrpencil + Xixipencil</a></div><img class='banner' style='left:508px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D09 JRPENCIL + XIXIPENCIL</div><div class='box' style='left:477px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:474px;top:268px;'><h2>D10 Mishatventures</h2><a href='http://duckduckgo.com/?q=Mishatventures'>Search for Mishatventures</a></div><img class='banner' style='left:474px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D10 MISHATVENTURES</div><div class='box' style='left:442px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='D11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:439px;top:268px;'><h2>D11 Salty Mochi</h2><a href='http://duckduckgo.com/?q=Salty%20Mochi'>Search for Salty Mochi</a></div><img class='banner' style='left:439px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D11 SALTY MOCHI</div><div class='box' style='left:408px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='D12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:405px;top:268px;'><h2>D12 RAIT Visualworks</h2><ul>
+<li><a href='http://instagram.com/rait_visualworks' class='ins'></a><a href='http://raitvisualworks.deviantart.com' class='dar'></a><a href='http://fb.me/raitvisualworks' class='fbk'></a></li><li><a href='http://raitvisualworks.com'>raitvisualworks.com</a></li><li>
+</li><li><a href='http://animemagic.org/rait-visual-works'>animemagic.org/rait-visual-works</a></li><li>
+</li></ul></div><img class='banner' style='left:405px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>D12 RAIT VISUALWORKS</div><div class='box' style='left:373px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:326px;top:236px;'><h2>E01 Jelly Stardrops</h2><a href='http://duckduckgo.com/?q=Jelly%20Stardrops'>Search for Jelly Stardrops</a></div><img class='banner' style='left:326px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E01 JELLY STARDROPS</div><div class='box' style='left:295px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:236px;'><h2>E02 Bun Bun Co.</h2><ul>
+<li><a href='http://twitter.com/alzonerie' class='twt'></a></li><li><a href='http://twitter.com/zaku709' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">[ RT &amp; ♥ are appreciated ]<br>Here&#39;s my catalogue for <a href="https://twitter.com/hashtag/arataichiba?src=hash&amp;ref_src=twsrc%5Etfw">#arataichiba</a> this Saturday! I&#39;ll be boothing with <a href="https://twitter.com/zaku709?ref_src=twsrc%5Etfw">@zaku709</a> at bunbun co E02! Look for two yellow people? heh- <a href="https://t.co/L1pboDDNoc">pic.twitter.com/L1pboDDNoc</a></p>&mdash; Alzo♥️薛晓 @ Arata E02 (@alzonerie) <a href="https://twitter.com/alzonerie/status/1212647102276222976?ref_src=twsrc%5Etfw">January 2, 2020</a></blockquote></p></li><li></li></ul></div><img class='banner' style='left:292px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E02 BUN BUN CO.</div><div class='box' style='left:260px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:257px;top:236px;'><h2>E03 Kilgore Draws</h2><a href='http://duckduckgo.com/?q=Kilgore%20Draws'>Search for Kilgore Draws</a></div><img class='banner' style='left:257px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E03 KILGORE DRAWS</div><div class='box' style='left:226px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:223px;top:236px;'><h2>E04 Hou Nasties</h2><a href='http://duckduckgo.com/?q=Hou%20Nasties'>Search for Hou Nasties</a></div><img class='banner' style='left:223px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E04 HOU NASTIES</div><div class='box' style='left:191px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:188px;top:236px;'><h2>E05 Salty tea art</h2><ul>
+<li><a href='http://twitter.com/yumette' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">Hello, I will be boothing at <a href="https://twitter.com/hashtag/arataichiba?src=hash&amp;ref_src=twsrc%5Etfw">#arataichiba</a> on 4 Jan 2020! There is <a href="https://twitter.com/hashtag/mxtx?src=hash&amp;ref_src=twsrc%5Etfw">#mxtx</a> gift with purchase, and I&#39;m also selling second-hand merch, visual novels, manga (see next tweet). Hope to see you there!<a href="https://twitter.com/hashtag/nezha?src=hash&amp;ref_src=twsrc%5Etfw">#nezha</a> <a href="https://twitter.com/hashtag/aobing?src=hash&amp;ref_src=twsrc%5Etfw">#aobing</a> <a href="https://twitter.com/hashtag/a3?src=hash&amp;ref_src=twsrc%5Etfw">#a3</a> <a href="https://twitter.com/hashtag/a3game?src=hash&amp;ref_src=twsrc%5Etfw">#a3game</a> <a href="https://twitter.com/hashtag/%E3%82%A8%E3%83%BC%E3%82%B9%E3%83%AA%E3%83%BC?src=hash&amp;ref_src=twsrc%5Etfw">#エースリー</a> <a href="https://twitter.com/hashtag/%E5%A4%A9%E5%AE%98%E8%B5%90%E7%A6%8F?src=hash&amp;ref_src=twsrc%5Etfw">#天官赐福</a> <a href="https://twitter.com/hashtag/%E9%AD%94%E9%81%93%E7%A5%96%E5%B8%88?src=hash&amp;ref_src=twsrc%5Etfw">#魔道祖师</a> <a href="https://twitter.com/hashtag/%E4%BA%BA%E6%B8%A3%E5%8F%8D%E6%B4%BE%E8%87%AA%E6%95%91%E7%B3%BB%E7%BB%9F?src=hash&amp;ref_src=twsrc%5Etfw">#人渣反派自救系统</a> <a href="https://twitter.com/hashtag/2bro?src=hash&amp;ref_src=twsrc%5Etfw">#2bro</a> <a href="https://t.co/gt3pMLq0VI">pic.twitter.com/gt3pMLq0VI</a></p>&mdash; ユメ (´ω｀* ) Arata E05 花怜太可爱 ♡ 娄池最棒 (@yumette) <a href="https://twitter.com/yumette/status/1211545604288962561?ref_src=twsrc%5Etfw">December 30, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> </p></li><li></li></ul></div><img class='banner' style='left:188px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E05 SALTY TEA ART</div><div class='box' style='left:157px;top:209px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:154px;top:236px;'><h2>E06 Nui Paradise</h2><ul>
+<li><a href='http://twitter.com/snowharasho' class='twt'></a><a href='http://ko-fi.com/snowharasho' class='kof'></a></li></ul></div><img class='banner' style='left:154px;top:236px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E06 NUI PARADISE</div><div class='box' style='left:122px;top:209px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:326px;top:268px;'><h2>E07 Valeriehazlife</h2><a href='http://duckduckgo.com/?q=Valeriehazlife'>Search for Valeriehazlife</a></div><img class='banner' style='left:326px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E07 VALERIEHAZLIFE</div><div class='box' style='left:295px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:292px;top:268px;'><h2>E08 158cm</h2><a href='http://duckduckgo.com/?q=158cm'>Search for 158cm</a></div><img class='banner' style='left:292px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E08 158CM</div><div class='box' style='left:260px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E09' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:257px;top:268px;'><h2>E09 NUSCAS</h2><ul>
+<li><a href='http://instagram.com/nusanitan' class='ins'></a></li></ul></div><img class='banner' style='left:257px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E09 NUSCAS</div><div class='box' style='left:226px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:223px;top:268px;'><h2>E10 sconesumer x synclairx</h2><ul>
+<li><a href='http://twitter.com/sconesumer' class='twt'></a><a href='http://instagram.com/sconesumer' class='ins'></a><a href='http://sconesumer.storenvy.com' class='sen'></a><a href='https://sconesumer.tumblr.com' class='tmb'></a></li></ul></div><img class='banner' style='left:223px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E10 SCONESUMER X SYNCLAIRX</div><div class='box' style='left:191px;top:241px;width:30px;height:25px;'></div>
+</div><div class='booth' id='E11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:188px;top:268px;'><h2>E11 Saltea Partea</h2><a href='http://duckduckgo.com/?q=Saltea%20Partea'>Search for Saltea Partea</a></div><img class='banner' style='left:188px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E11 SALTEA PARTEA</div><div class='box' style='left:157px;top:241px;width:29px;height:25px;'></div>
+</div><div class='booth' id='E12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:154px;top:268px;'><h2>E12 D.atlastudio</h2><ul>
+<li><a href='http://instagram.com/d.atlastudio' class='ins'></a><a href='http://datlastudio.etsy.com' class='ets'></a><a href='http://linktr.ee/D.atlastudio' class='lkt'></a></li></ul></div><img class='banner' style='left:154px;top:268px;' onerror='this.src="arata2020/artist/x.png"'><div class='area' style='display: none'>E12 D.ATLASTUDIO</div><div class='box' style='left:122px;top:241px;width:30px;height:25px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to arata2020 artists and organizer.-->
