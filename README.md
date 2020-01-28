@@ -10,6 +10,7 @@ Booth location can be highlight with hash('#') on the link.
 
 # 2020
 - [hanamimkt2020](https://milvagox.github.io/map/2020/hanamimkt2020)
+- [S4O2020](https://milvagox.github.io/map/2020/S4O2020)
 - [arata2020](https://milvagox.github.io/map/2020/arata2020)
 
 # 2019
