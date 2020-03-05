@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html><head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="doujima2020 Interactive Map">
+<meta property="og:description" content="doujima2020 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/doujima2020">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/doujima2020.png">
+<meta name="description" content="doujima2020 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2020/doujima2020.html">
+ <title>doujima2020 Map++</title>
+ <style>
+  body {
+      margin: 0 auto;
+      width: 50%;
+      font-family: monospace;
+    }
+    .boothlist { border-collapse: collapse; }
+    .boothlist td { 
+      border: 1px solid gainsboro; 
+      padding: 0 5px 0 5px; 
+      height: 36px;
+    }
+    .boothlist tr:hover { background-color: ghostwhite }
+    td ul { margin: 0 }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.and-club { background: url('../ico/and-club.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.bss { background: url('../ico/bss.png'); }
+.califlair { background: url('../ico/califlair.png'); }
+.cbm { background: url('../ico/cbm.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.dpt { background: url('../ico/dpt.png'); }
+.eby { background: url('../ico/eby.png'); }
+.ecw { background: url('../ico/ecw.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.esc { background: url('../ico/esc.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.fkr { background: url('../ico/fkr.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.gfl { background: url('../ico/gfl.png'); }
+.gmr { background: url('../ico/gmr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.ice-berry { background: url('../ico/ice-berry.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lnk { background: url('../ico/lnk.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.plk { background: url('../ico/plk.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pts { background: url('../ico/pts.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rachta { background: url('../ico/rachta.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sdc { background: url('../ico/sdc.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.spf { background: url('../ico/spf.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.uchuusummer { background: url('../ico/uchuusummer.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+ </style>
+ </head><body><h1>Temparory page for doujima2020</h1><table class="boothlist">
+<tr><td>The Mango Incident</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=The%20Mango%20Incident'>Search for The Mango Incident</a></li></ul>
+</td></tr><tr><td>=/</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=%3D%2F'>Search for =/</a></li></ul>
+</td></tr><tr><td>Picks & Pins</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/tishawish_' class='twt'></a><a href='https://tishawish.tumblr.com' class='tmb'></a><a href='http://instagram.com/tishawish_' class='ins'></a><a href='http://piknu.com/u/tishawish_' class='pkn'></a><a href='http://twitter.com/buttooti' class='twt'></a><a href='https://buttooti.tumblr.com' class='tmb'></a><a href='http://instagram.com/buttooti' class='ins'></a><a href='http://piknu.com/u/buttooti' class='pkn'></a></li></ul></td></tr><tr><td>hachuu</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=hachuu'>Search for hachuu</a></li></ul>
+</td></tr><tr><td>KBP Lord Helix</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/KBPLordHelix' class='fbk'></a></li></ul></td></tr><tr><td>Dropstars</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Dropstars'>Search for Dropstars</a></li></ul>
+</td></tr><tr><td>Reitsurou</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Reitsurou'>Search for Reitsurou</a></li></ul>
+</td></tr><tr><td>ElieN</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ElieN'>Search for ElieN</a></li></ul>
+</td></tr><tr><td>Fortuna Fortis Adiuvat</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Fortuna%20Fortis%20Adiuvat'>Search for Fortuna Fortis Adiuvat</a></li></ul>
+</td></tr><tr><td>UWU CHUNGAS</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=UWU%20CHUNGAS'>Search for UWU CHUNGAS</a></li></ul>
+</td></tr><tr><td>arvy & skaiiria</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=arvy%20%26%20skaiiria'>Search for arvy &amp; skaiiria</a></li></ul>
+</td></tr><tr><td>Shota & Lolita Shop</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'>Shota & Lolita Shop</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></td></tr><tr><td>And they were roommates</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=And%20they%20were%20roommates'>Search for And they were roommates</a></li></ul>
+</td></tr><tr><td>Icejiinhalamy</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Icejiinhalamy'>Search for Icejiinhalamy</a></li></ul>
+</td></tr><tr><td>Trashcan Babies</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Trashcan%20Babies'>Search for Trashcan Babies</a></li></ul>
+</td></tr><tr><td>Nelson Tsen</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/_nelsontsen' class='ins'></a></li></ul></td></tr><tr><td>Cirque D'artiste </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Cirque%20D%27artiste%20'>Search for Cirque D&#39;artiste </a></li></ul>
+</td></tr><tr><td>De Stervende Students</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=De%20Stervende%20Students'>Search for De Stervende Students</a></li></ul>
+</td></tr><tr><td>Paraetto Dé Casá</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Paraetto%20D%C3%A9%20Cas%C3%A1'>Search for Paraetto Dé Casá</a></li></ul>
+</td></tr><tr><td>SillyJellie x Lunarite on the Moon</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SillyJellie%20x%20Lunarite%20on%20the%20Moon'>Search for SillyJellie x Lunarite on the Moon</a></li></ul>
+</td></tr><tr><td>Kazel Lim</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Kazel Lim'>Kazel Lim</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/kazel_' class='ins'></a><a href='http://pinkoi.com/kazel' class='pki'></a><a href='http://fb.me/KazelLimIllustration' class='fbk'></a><a href='http://etsy.com/shop/KazelLim' class='ets'></a></li></ul></td></tr><tr><td>JanJooos</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=JanJooos'>Search for JanJooos</a></li></ul>
+</td></tr><tr><td>Lemillion Stand</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Lemillion%20Stand'>Search for Lemillion Stand</a></li></ul>
+</td></tr><tr><td>WalgDP.co & Cloudhedd</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=WalgDP.co%20%26%20Cloudhedd'>Search for WalgDP.co &amp; Cloudhedd</a></li></ul>
+</td></tr><tr><td>ghostscrawl </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ghostscrawl%20'>Search for ghostscrawl </a></li></ul>
+</td></tr><tr><td>MISSING24SEVEN</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=MISSING24SEVEN'>Search for MISSING24SEVEN</a></li></ul>
+</td></tr><tr><td>ArtFox</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ArtFox'>Search for ArtFox</a></li></ul>
+</td></tr><tr><td>White Rice </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=White%20Rice%20'>Search for White Rice </a></li></ul>
+</td></tr><tr><td>freebird</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/freebirdceleste' class='ins'></a></li></ul></td></tr><tr><td>Soft Horngry</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Soft%20Horngry'>Search for Soft Horngry</a></li></ul>
+</td></tr><tr><td>Maple Chicken</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/funr1n' class='ins'></a><a href='https://funrin.tumblr.com' class='tmb'></a><a href='http://chanteltan.wixsite.com/portfolio' class='wix'></a></li></ul></td></tr><tr><td>KEVIN the PANDA</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/kevinthepanda1234' class='ins'></a><a href='http://fb.me/kevinpanda1234' class='fbk'></a></li></ul></td></tr><tr><td>Sticks and Tones</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sticks%20and%20Tones'>Search for Sticks and Tones</a></li></ul>
+</td></tr><tr><td>don-Bury Me Alive</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=don-Bury%20Me%20Alive'>Search for don-Bury Me Alive</a></li></ul>
+</td></tr><tr><td>Ramen Mochi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Ramen%20Mochi'>Search for Ramen Mochi</a></li></ul>
+</td></tr><tr><td>Art of Rachelhofs</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Art%20of%20Rachelhofs'>Search for Art of Rachelhofs</a></li></ul>
+</td></tr><tr><td>gyoGUTS</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=gyoGUTS'>Search for gyoGUTS</a></li></ul>
+</td></tr><tr><td>Glittering Grimoire</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Glittering%20Grimoire'>Search for Glittering Grimoire</a></li></ul>
+</td></tr><tr><td>Flos Somnia</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Flos%20Somnia'>Search for Flos Somnia</a></li></ul>
+</td></tr><tr><td>Chocolate Pandas</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chocolate%20Pandas'>Search for Chocolate Pandas</a></li></ul>
+</td></tr><tr><td>Jacktus</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Jack Yin'>Jack Yin</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/Jacculents' class='fbk'></a><a href='http://instagram.com/jacculents' class='ins'></a><a href='https://jacculents.tumblr.com' class='tmb'></a></li></ul></td></tr><tr><td>Phi and Eko Curiosities </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Phi%20and%20Eko%20Curiosities%20'>Search for Phi and Eko Curiosities </a></li></ul>
+</td></tr><tr><td>Kuso Taisa</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/shirou_yuki' class='twt'></a><a href='http://kuso-taisa.deviantart.com' class='dar'></a><a href='http://instagram.com/kusotaisa' class='ins'></a><a href='http://kusotaisa.bigcartel.com' class='bcl'></a><a href='http://pixiv.me/kuso-taisa' class='pxv'></a><a href='http://fb.me/kuso.taisa' class='fbk'></a></li></ul></td></tr><tr><td>Phailet</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Phailet'>Search for Phailet</a></li></ul>
+</td></tr><tr><td>Vaniraa & catrocker</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Vaniraa%20%26%20catrocker'>Search for Vaniraa &amp; catrocker</a></li></ul>
+</td></tr><tr><td>KuraH</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=KuraH'>Search for KuraH</a></li></ul>
+</td></tr><tr><td>XiaoKen & Friends</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=XiaoKen%20%26%20Friends'>Search for XiaoKen &amp; Friends</a></li></ul>
+</td></tr><tr><td>Yumu Arts</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Yumu%20Arts'>Search for Yumu Arts</a></li></ul>
+</td></tr><tr><td>Jumping Jackfruits</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Jumping%20Jackfruits'>Search for Jumping Jackfruits</a></li></ul>
+</td></tr><tr><td>fentastically</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=fentastically'>Search for fentastically</a></li></ul>
+</td></tr><tr><td>TRXYLAND</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=TRXYLAND'>Search for TRXYLAND</a></li></ul>
+</td></tr><tr><td>rock melon & MelonPan</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=rock%20melon%20%26%20MelonPan'>Search for rock melon &amp; MelonPan</a></li></ul>
+</td></tr><tr><td>Noodles Chinese Cabbage Mushroom</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Noodles%20Chinese%20Cabbage%20Mushroom'>Search for Noodles Chinese Cabbage Mushroom</a></li></ul>
+</td></tr><tr><td>Paca Merch</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Paca%20Merch'>Search for Paca Merch</a></li></ul>
+</td></tr><tr><td>BEARBRICKJIA</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=BEARBRICKJIA'>Search for BEARBRICKJIA</a></li></ul>
+</td></tr><tr><td>Rainy*Star</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Rainy%2AStar'>Search for Rainy*Star</a></li></ul>
+</td></tr><tr><td>158cm</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=158cm'>Search for 158cm</a></li></ul>
+</td></tr><tr><td>Peipokes x ichixichi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Peipokes%20x%20ichixichi'>Search for Peipokes x ichixichi</a></li></ul>
+</td></tr><tr><td>the zookeepers</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=the%20zookeepers'>Search for the zookeepers</a></li></ul>
+</td></tr><tr><td>Art of Aliss</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Art%20of%20Aliss'>Search for Art of Aliss</a></li></ul>
+</td></tr><tr><td>The Starving Artists</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=The%20Starving%20Artists'>Search for The Starving Artists</a></li></ul>
+</td></tr><tr><td>CIRCUS DE LALELO x ji-PEN</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=CIRCUS%20DE%20LALELO%20x%20ji-PEN'>Search for CIRCUS DE LALELO x ji-PEN</a></li></ul>
+</td></tr><tr><td>edgelords</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=edgelords'>Search for edgelords</a></li></ul>
+</td></tr><tr><td>soulc1ty</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=soulc1ty'>Search for soulc1ty</a></li></ul>
+</td></tr><tr><td>Polyvinyl Parfait</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/pvc_parfait' class='twt'></a><a href='http://pixiv.net/member.php?id=1190332' class='pxv'></a><a href='http://pvcparfait.wixsite.com/ketten' class='wix'></a><a href='http://fb.me/pvcparfait' class='fbk'></a><a href='http://ko-fi.com/ketten' class='kof'></a></li><li><a href='http://twitter.com/creachivity_art' class='twt'></a><a href='http://instagram.com/creachivity' class='ins'></a><a href='https://creachivity.tumblr.com' class='tmb'></a><a href='http://fb.me/creachivity' class='fbk'></a></li><li><a href='http://creachivity.com'>creachivity.com</a></li><li>
+</li><li><a href='http://creachivityshop.com'>creachivityshop.com</a></li><li>
+</li><li><a href='http://twitter.com/starrywhitewall' class='twt'></a><a href='http://fb.me/starrywhitewall' class='fbk'></a></li></ul></td></tr><tr><td>Milkcananime</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/milkcananime' class='ins'></a><a href='https://milkcananime.tumblr.com' class='tmb'></a><a href='http://behance.net/milkcananime' class='bhc'></a><a href='http://Milkcananime.etsy.com' class='ets'></a><a href='http://fb.me/milkcananime' class='fbk'></a></li><li><a href='http://milkcananime.com'>milkcananime.com</a></li><li>
+</li></ul></td></tr><tr><td>WunderJar</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=WunderJar'>Search for WunderJar</a></li></ul>
+</td></tr><tr><td>Creepyllama</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/creeeell' class='twt'></a><a href='http://instagram.com/creepyllama' class='ins'></a><a href='http://fb.me/Creepyllama' class='fbk'></a></li><li><a href='http://twitter.com/emusansansansan' class='twt'></a><a href='http://instagram.com/mumububu_' class='ins'></a></li></ul></td></tr><tr><td>Peaches and cream</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Peaches%20and%20cream'>Search for Peaches and cream</a></li></ul>
+</td></tr><tr><td>Baby Blue Bunny</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Baby%20Blue%20Bunny'>Search for Baby Blue Bunny</a></li></ul>
+</td></tr><tr><td>Dial Up Sounds</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Dial%20Up%20Sounds'>Search for Dial Up Sounds</a></li></ul>
+</td></tr><tr><td>Die Letzte</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/dieletzte' class='ins'></a><a href='http://pixiv.net/member.php?id=77589' class='pxv'></a><a href='https://ultrateecee.tumblr.com' class='tmb'></a></li></ul></td></tr><tr><td>Wildreamz</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Wildreamz'>Search for Wildreamz</a></li></ul>
+</td></tr><tr><td>Yuri Nakama</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Yuri%20Nakama'>Search for Yuri Nakama</a></li></ul>
+</td></tr><tr><td>NazeTori</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/ToriArtworks' class='fbk'></a><a href='https://carousell.com/nazetori' class='crs'></a></li></ul></td></tr><tr><td>Papercloudzy</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Papercloudzy'>Search for Papercloudzy</a></li></ul>
+</td></tr><tr><td>Atelier</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Atelier'>Search for Atelier</a></li></ul>
+</td></tr><tr><td>Yare Yare Yukai</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Yare%20Yare%20Yukai'>Search for Yare Yare Yukai</a></li></ul>
+</td></tr><tr><td>FoxieKnox</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=FoxieKnox'>Search for FoxieKnox</a></li></ul>
+</td></tr><tr><td>Afelise</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Afelise'>Search for Afelise</a></li></ul>
+</td></tr><tr><td>xFate</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/XFateArtworks' class='fbk'></a><a href='http://pixiv.me/xfatezh' class='pxv'></a></li></ul></td></tr><tr><td>RiceCakes</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=RiceCakes'>Search for RiceCakes</a></li></ul>
+</td></tr><tr><td>Edward & Yiian</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Edward Chee'>Edward Chee</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/edwardssoul' class='ins'></a><a href='http://edwardckk.artstation.com' class='ast'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Yiian'>Yiian</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/monochromic_pinata' class='ins'></a></li></ul></td></tr><tr><td>Salty Tiramisu</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Salty%20Tiramisu'>Search for Salty Tiramisu</a></li></ul>
+</td></tr><tr><td>InuNeko Studio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=InuNeko%20Studio'>Search for InuNeko Studio</a></li></ul>
+</td></tr><tr><td>Church of Salt</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Church%20of%20Salt'>Search for Church of Salt</a></li></ul>
+</td></tr><tr><td>MoJuLi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=MoJuLi'>Search for MoJuLi</a></li></ul>
+</td></tr><tr><td>calamitybunnie</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=calamitybunnie'>Search for calamitybunnie</a></li></ul>
+</td></tr><tr><td>Team Cortisoul</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Team%20Cortisoul'>Search for Team Cortisoul</a></li></ul>
+</td></tr><tr><td>R.E.C</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=R.E.C'>Search for R.E.C</a></li></ul>
+</td></tr><tr><td>The Nomsters</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=The%20Nomsters'>Search for The Nomsters</a></li></ul>
+</td></tr><tr><td>Norvrandt</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Norvrandt'>Search for Norvrandt</a></li></ul>
+</td></tr><tr><td>Birb Roulette</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Birb%20Roulette'>Search for Birb Roulette</a></li></ul>
+</td></tr><tr><td>Good Voibes</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Good%20Voibes'>Search for Good Voibes</a></li></ul>
+</td></tr><tr><td>Dai Daifuku mochi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Dai%20Daifuku%20mochi'>Search for Dai Daifuku mochi</a></li></ul>
+</td></tr><tr><td>Studio BootLeg </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Studio%20BootLeg%20'>Search for Studio BootLeg </a></li></ul>
+</td></tr><tr><td>PAU PTE LTD</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=PAU%20PTE%20LTD'>Search for PAU PTE LTD</a></li></ul>
+</td></tr><tr><td>Quarter Life Crisis</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Quarter%20Life%20Crisis'>Search for Quarter Life Crisis</a></li></ul>
+</td></tr><tr><td>Fishofthelake</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Fishofthelake'>Search for Fishofthelake</a></li></ul>
+</td></tr><tr><td>TinyMochiStarDally</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=TinyMochiStarDally'>Search for TinyMochiStarDally</a></li></ul>
+</td></tr><tr><td>H & D(Hungry and Desperate)</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=H%20%26%20D%28Hungry%20and%20Desperate%29'>Search for H &amp; D(Hungry and Desperate)</a></li></ul>
+</td></tr><tr><td>The Toilet Rolls</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=The%20Toilet%20Rolls'>Search for The Toilet Rolls</a></li></ul>
+</td></tr><tr><td>Fabulous Five</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Fabulous%20Five'>Search for Fabulous Five</a></li></ul>
+</td></tr><tr><td>Chii and Joos!</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chii%20and%20Joos%21'>Search for Chii and Joos!</a></li></ul>
+</td></tr><tr><td>Patji Commissions</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Patji%20Commissions'>Search for Patji Commissions</a></li></ul>
+</td></tr><tr><td>Collateral Damage Studios</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Collateral%20Damage%20Studios'>Search for Collateral Damage Studios</a></li></ul>
+</td></tr><tr><td>Voice of Temptation</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Voice%20of%20Temptation'>Search for Voice of Temptation</a></li></ul>
+</td></tr><tr><td>Akiocha and Choo</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Akiocha%20and%20Choo'>Search for Akiocha and Choo</a></li></ul>
+</td></tr><tr><td>Anime Access</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/animeaccess' class='fbk'></a></li></ul></td></tr><tr><td>Rokuuso</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/rokuuso' class='twt'></a><a href='http://instagram.com/rokuuso' class='ins'></a><a href='http://fb.me/rokuuso' class='fbk'></a></li></ul></td></tr><tr><td>PRAWNM33</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/PRAWNM33'>PRAWNM33</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/prawnm33' class='ins'></a><a href='http://etsy.com/shop/prawnm33' class='ets'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Arvy'>Arvy</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/arvyewaldo' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Skaiiria'>Skaiiria</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/skaiiria' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Bichi.mao'>Bichi.mao</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/bichi.mao' class='ins'></a></li></ul></td></tr><tr><td>Sylphine</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sylphine'>Search for Sylphine</a></li></ul>
+</td></tr><tr><td>Vicbaobao</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Vicbaobao'>Search for Vicbaobao</a></li></ul>
+</td></tr><tr><td>kirabunni</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=kirabunni'>Search for kirabunni</a></li></ul>
+</td></tr><tr><td>Vin★Crows</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Vin%E2%98%85Crows'>Search for Vin★Crows</a></li></ul>
+</td></tr><tr><td>DOKI DOKI PARTY</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/lefthandveggies' class='twt'></a><a href='http://instagram.com/halcyn_' class='ins'></a></li></ul></td></tr><tr><td>Painzu -n- Karmine</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Painzu%20-n-%20Karmine'>Search for Painzu -n- Karmine</a></li></ul>
+</td></tr><tr><td>Qiara Teor Illustrations </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Qiara%20Teor%20Illustrations%20'>Search for Qiara Teor Illustrations </a></li></ul>
+</td></tr><tr><td>Banana clover</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/banana_clover' class='ins'></a><a href='https://cellesteng.tumblr.com' class='tmb'></a><a href='http://fb.me/bananaclover' class='fbk'></a></li></ul></td></tr><tr><td>Euforia Visual Works</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Euforia%20Visual%20Works'>Search for Euforia Visual Works</a></li></ul>
+</td></tr><tr><td>Ionised Art</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Ionised%20Art'>Search for Ionised Art</a></li></ul>
+</td></tr><tr><td>Jelly☆Stardrops</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Jelly%E2%98%86Stardrops'>Search for Jelly☆Stardrops</a></li></ul>
+</td></tr><tr><td>YamKio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=YamKio'>Search for YamKio</a></li></ul>
+</td></tr><tr><td>Thriveling</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/thriveling' class='ins'></a><a href='http://fb.me/thriveling' class='fbk'></a><a href='http://twitter.com/thriveling' class='twt'></a><a href='https://thriveling.tumblr.com' class='tmb'></a></li></ul></td></tr><tr><td>Chromel</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chromel'>Search for Chromel</a></li></ul>
+</td></tr><tr><td>Crylica</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Crylica'>Search for Crylica</a></li></ul>
+</td></tr><tr><td>NONCONMAN</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=NONCONMAN'>Search for NONCONMAN</a></li></ul>
+</td></tr><tr><td>MAOtypeB & MechaTamashi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=MAOtypeB%20%26%20MechaTamashi'>Search for MAOtypeB &amp; MechaTamashi</a></li></ul>
+</td></tr><tr><td>reimy rllp illustration </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=reimy%20rllp%20illustration%20'>Search for reimy rllp illustration </a></li></ul>
+</td></tr><tr><td>Yukkuri</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/yukkuridoujin' class='twt'></a><a href='http://instagram.com/yukkuridoujin' class='ins'></a><a href='http://fb.me/YukkuriDoujin' class='fbk'></a></li><li><a href='https://atelierdefmoe.tumblr.com' class='tmb'></a><a href='http://fb.me/Moesworx' class='fbk'></a></li><li><a href='http://twitter.com/sakuradesune' class='twt'></a><a href='http://instagram.com/sakuradesune' class='ins'></a><a href='http://agito666.deviantart.com' class='dar'></a></li></ul></td></tr><tr><td>TinyPinc + Furfi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=TinyPinc%20%2B%20Furfi'>Search for TinyPinc + Furfi</a></li></ul>
+</td></tr><tr><td>Ayakowenzi </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Ayakowenzi%20'>Search for Ayakowenzi </a></li></ul>
+</td></tr><tr><td>ice＊berry</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ice%EF%BC%8Aberry'>Search for ice＊berry</a></li></ul>
+</td></tr><tr><td>Raisins & Berry</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/bbuberry_micha' class='ins'></a><a href='http://fb.me/RaisinsBerry' class='fbk'></a></li><li><a href='http://twitter.com/bbuberry_tiger' class='twt'></a></li></ul></td></tr><tr><td>Salted Macaroons</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Salted%20Macaroons'>Search for Salted Macaroons</a></li></ul>
+</td></tr><tr><td>ensō</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ens%C5%8D'>Search for ensō</a></li></ul>
+</td></tr><tr><td>Melerie</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/melerieshop' class='ins'></a></li><li><a href='http://melerieshop.com'>melerieshop.com</a></li><li>
+</li></ul></td></tr><tr><td>Sweet popsicle</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sweet%20popsicle'>Search for Sweet popsicle</a></li></ul>
+</td></tr><tr><td>Meijin Don</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Meijin%20Don'>Search for Meijin Don</a></li></ul>
+</td></tr><tr><td>Lunaraei & Nuffypuffy</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Lunaraei%20%26%20Nuffypuffy'>Search for Lunaraei &amp; Nuffypuffy</a></li></ul>
+</td></tr><tr><td>Dark Papillon</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Dark%20Papillon'>Search for Dark Papillon</a></li></ul>
+</td></tr><tr><td>samarasketch</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=samarasketch'>Search for samarasketch</a></li></ul>
+</td></tr><tr><td>Pastel Yellow</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/vinshota_' class='twt'></a></li><li><a href='http://twitter.com/chiyori_225' class='twt'></a><a href='http://chiyori225.carrd.co' class='crd'></a></li></ul></td></tr><tr><td>Kaejunni</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Kaejunni'>Search for Kaejunni</a></li></ul>
+</td></tr><tr><td>Umbisaurus</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Umbisaurus'>Search for Umbisaurus</a></li></ul>
+</td></tr><tr><td>Laugh And Belly & Beebeecraftycat</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Laugh%20And%20Belly%20%26%20Beebeecraftycat'>Search for Laugh And Belly &amp; Beebeecraftycat</a></li></ul>
+</td></tr><tr><td>Cabinet of Drawers</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Cabinet%20of%20Drawers'>Search for Cabinet of Drawers</a></li></ul>
+</td></tr><tr><td>Polaris Circle</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/polariscircle' class='fbk'></a></li></ul></td></tr><tr><td>Addigni</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Addigni'>Search for Addigni</a></li></ul>
+</td></tr><tr><td>Roastea</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Roastea'>Search for Roastea</a></li></ul>
+</td></tr><tr><td>Haus Ossan</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Haus%20Ossan'>Search for Haus Ossan</a></li></ul>
+</td></tr><tr><td>Mala Bigger Spicy</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Mala%20Bigger%20Spicy'>Search for Mala Bigger Spicy</a></li></ul>
+</td></tr><tr><td>PengiCrew</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=PengiCrew'>Search for PengiCrew</a></li></ul>
+</td></tr><tr><td>Clickbait</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Clickbait'>Search for Clickbait</a></li></ul>
+</td></tr><tr><td>Art of Cai: The Seventh Lion</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Art%20of%20Cai%3A%20The%20Seventh%20Lion'>Search for Art of Cai: The Seventh Lion</a></li></ul>
+</td></tr><tr><td>lofikaffe</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=lofikaffe'>Search for lofikaffe</a></li></ul>
+</td></tr><tr><td>人間動物園</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=%E4%BA%BA%E9%96%93%E5%8B%95%E7%89%A9%E5%9C%92'>Search for 人間動物園</a></li></ul>
+</td></tr><tr><td>Squash Alternative Works</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/SquashAlternativeWorks' class='fbk'></a></li></ul></td></tr><tr><td>FrissoTheeio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=FrissoTheeio'>Search for FrissoTheeio</a></li></ul>
+</td></tr><tr><td>Ammybunny</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Ammybunny'>Search for Ammybunny</a></li></ul>
+</td></tr><tr><td>ZENOS BOOTHY CALL</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ZENOS%20BOOTHY%20CALL'>Search for ZENOS BOOTHY CALL</a></li></ul>
+</td></tr><tr><td>PlanetaryDivision x AmphyStyles</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=PlanetaryDivision%20x%20AmphyStyles'>Search for PlanetaryDivision x AmphyStyles</a></li></ul>
+</td></tr><tr><td>No Sense Art</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=No%20Sense%20Art'>Search for No Sense Art</a></li></ul>
+</td></tr><tr><td>Asgard Aliens</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/asgardaliens' class='fbk'></a><a href='http://twitter.com/atsyrea' class='twt'></a></li></ul></td></tr><tr><td>Ermione</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Ermione'>Search for Ermione</a></li></ul>
+</td></tr><tr><td>Jellowofish</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Jellowofish'>Search for Jellowofish</a></li></ul>
+</td></tr><tr><td>Swiss Roll</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Swiss%20Roll'>Search for Swiss Roll</a></li></ul>
+</td></tr><tr><td>Eggsu Kealyuu Malt Heimao</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Eggsu%20Kealyuu%20Malt%20Heimao'>Search for Eggsu Kealyuu Malt Heimao</a></li></ul>
+</td></tr><tr><td>Gotta Cat Them All</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Gotta%20Cat%20Them%20All'>Search for Gotta Cat Them All</a></li></ul>
+</td></tr><tr><td>Monsuta x Potato</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Monsuta%20x%20Potato'>Search for Monsuta x Potato</a></li></ul>
+</td></tr><tr><td>SketchyGerry</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SketchyGerry'>Search for SketchyGerry</a></li></ul>
+</td></tr><tr><td>2B Or Not 2B/Uwro</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=2B%20Or%20Not%202B%2FUwro'>Search for 2B Or Not 2B/Uwro</a></li></ul>
+</td></tr><tr><td>Chickentocino</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chickentocino'>Search for Chickentocino</a></li></ul>
+</td></tr><tr><td>SANAE</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SANAE'>Search for SANAE</a></li></ul>
+</td></tr><tr><td>Hammu</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/WorldsOfHammu' class='fbk'></a><a href='http://instagram.com/gourmet_hamster' class='ins'></a><a href='http://webtoons.com/en/challenge/hammu/list?title_no=101923' class='wtn'></a></li></ul></td></tr><tr><td>SomaniXD, SwiftTeaFox, takux3</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SomaniXD%2C%20SwiftTeaFox%2C%20takux3'>Search for SomaniXD, SwiftTeaFox, takux3</a></li></ul>
+</td></tr><tr><td>Spicy popsicle</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Spicy%20popsicle'>Search for Spicy popsicle</a></li></ul>
+</td></tr><tr><td>Atelier Karrakon</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Atelier%20Karrakon'>Search for Atelier Karrakon</a></li></ul>
+</td></tr><tr><td>Winter's Room</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Winter%27s%20Room'>Search for Winter&#39;s Room</a></li></ul>
+</td></tr><tr><td>Band of Busy People</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Band%20of%20Busy%20People'>Search for Band of Busy People</a></li></ul>
+</td></tr><tr><td>BubbleBunnyArt</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=BubbleBunnyArt'>Search for BubbleBunnyArt</a></li></ul>
+</td></tr><tr><td>OrePonKap</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=OrePonKap'>Search for OrePonKap</a></li></ul>
+</td></tr><tr><td>Saltbaithoohaha</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Saltbaithoohaha'>Search for Saltbaithoohaha</a></li></ul>
+</td></tr><tr><td>Zoo Pals</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/mvdfvcedmvl' class='twt'></a><a href='http://instagram.com/smol_mooncat' class='ins'></a><a href='http://instagram.com/starlight_bunbun' class='ins'></a><a href='http://instagram.com/tehopandaworks' class='ins'></a><a href='http://instagram.com/blueunown' class='ins'></a></li></ul></td></tr><tr><td>Break Pieces</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Break Pieces'>Break Pieces</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/break.pieces' class='ins'></a></li><li><a href='https://milvagox.miraheze.org/wiki/chiwayu'>chiwayu</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/chiwayu.icefish' class='ins'></a><a href='https://chiwayu-icefish.tumblr.com' class='tmb'></a><a href='http://fb.me/chiwayu.icefish' class='fbk'></a><a href='http://chiwayu.storenvy.com' class='sen'></a></li></ul></td></tr><tr><td>Chomon</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chomon'>Search for Chomon</a></li></ul>
+</td></tr><tr><td>Corn Artists</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Corn%20Artists'>Search for Corn Artists</a></li></ul>
+</td></tr><tr><td>Bluepeppermints</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/aldreichd' class='twt'></a><a href='http://twitter.com/KRAD41639080' class='twt'></a><a href='http://darkn2ght.deviantart.com' class='dar'></a><a href='http://fb.me/bluepeppermints' class='fbk'></a><a href='http://twitter.com/Balqizu' class='twt'></a></li></ul></td></tr><tr><td>Daru</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Daru'>Search for Daru</a></li></ul>
+</td></tr><tr><td>Phantom Thief of Memes</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Phantom%20Thief%20of%20Memes'>Search for Phantom Thief of Memes</a></li></ul>
+</td></tr><tr><td>Half alive</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Half%20alive'>Search for Half alive</a></li></ul>
+</td></tr><tr><td>VampKrafters</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=VampKrafters'>Search for VampKrafters</a></li></ul>
+</td></tr><tr><td>Minoru Joeling</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/minorujoeling' class='twt'></a><a href='http://instagram.com/joe_ling' class='ins'></a><a href='http://patreon.com/minorujoeling' class='ptr'></a><a href='http://fb.me/minorujoeling' class='fbk'></a></li><li><a href='http://minorujoeling.com'>minorujoeling.com</a></li><li>
+</li></ul></td></tr><tr><td>Wafflecookie</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Wafflecookie'>Search for Wafflecookie</a></li></ul>
+</td></tr><tr><td>Conspirer's Guild</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Conspirer%27s%20Guild'>Search for Conspirer&#39;s Guild</a></li></ul>
+</td></tr><tr><td>Lunar Post Box</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/nokedoke' class='twt'></a><a href='http://instagram.com/nokedoke' class='ins'></a></li><li><a href='http://twitter.com/jord_ies' class='twt'></a><a href='http://instagram.com/jord_ies' class='ins'></a></li><li><a href='http://instagram.com/carnival_birdd' class='ins'></a><a href='http://twitter.com/sheloewito' class='twt'></a></li></ul></td></tr><tr><td>H&R</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/harenchiou' class='fbk'></a><a href='http://twitter.com/RedK_is_broke' class='twt'></a><a href='http://fb.me/ImRedWow' class='fbk'></a><a href='http://twitter.com/_shintetsuya' class='twt'></a><a href='http://instagram.com/_shintetsuya' class='ins'></a><a href='http://fb.me/smalljuarts' class='fbk'></a><a href='http://instagram.com/smalljuarts' class='ins'></a><a href='http://twitter.com/harenchiou' class='twt'></a></li></ul></td></tr><tr><td>Kawakkoii x Fayelistar</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Kawakkoii%20x%20Fayelistar'>Search for Kawakkoii x Fayelistar</a></li></ul>
+</td></tr><tr><td>Fried Chiken</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/laverinne' class='ins'></a><a href='http://laverinne.storenvy.com' class='sen'></a><a href='http://laverinne.deviantart.com' class='dar'></a></li></ul></td></tr><tr><td>Leos</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Leos'>Search for Leos</a></li></ul>
+</td></tr><tr><td>Neko Fingerprint</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Neko%20Fingerprint'>Search for Neko Fingerprint</a></li></ul>
+</td></tr><tr><td>◀To Be Continued</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=%E2%97%80To%20Be%20Continued'>Search for ◀To Be Continued</a></li></ul>
+</td></tr><tr><td>Maorenc</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/maorenc' class='twt'></a><a href='http://maorenc.storenvy.com' class='sen'></a><a href='http://maorenc.deviantart.com' class='dar'></a><a href='http://fb.me/maorenc' class='fbk'></a></li></ul></td></tr><tr><td>Asterion Borealis</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Asterion%20Borealis'>Search for Asterion Borealis</a></li></ul>
+</td></tr><tr><td>Bento Palette</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/bentopalette' class='fbk'></a></li><li><a href='http://twitter.com/JWNtay' class='twt'></a></li><li><a href='http://jwentay.com'>jwentay.com</a></li><li>
+</li><li><a href='http://twitter.com/monoccrow' class='twt'></a><a href='http://ko-fi.com/monoccrow' class='kof'></a></li><li><a href='http://twitter.com/Nomdere' class='twt'></a></li><li><a href='http://twitter.com/tribbutribby' class='twt'></a><a href='http://ko-fi.com/bunnyshadeow' class='kof'></a></li><li><a href='http://hooojw.pb.gallery'>hooojw.pb.gallery</a></li><li>
+</li></ul></td></tr><tr><td>Ein Lee</td>
+<td class='desc'>
+<ul>
+<li><a href='http://einlee.deviantart.com' class='dar'></a><a href='http://fb.me/einlmao' class='fbk'></a></li></ul></td></tr><tr><td>ART & PUG</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ART%20%26%20PUG'>Search for ART &amp; PUG</a></li></ul>
+</td></tr><tr><td>Noxiera </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Noxiera%20'>Search for Noxiera </a></li></ul>
+</td></tr><tr><td>love! love! BEAM! </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=love%21%20love%21%20BEAM%21%20'>Search for love! love! BEAM! </a></li></ul>
+</td></tr><tr><td>ICARUS</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=ICARUS'>Search for ICARUS</a></li></ul>
+</td></tr><tr><td>Sa3three</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/sa3three' class='fbk'></a><a href='http://instagram.com/sa3three' class='ins'></a></li></ul></td></tr><tr><td>Cute Prawn Studios</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Cute%20Prawn%20Studios'>Search for Cute Prawn Studios</a></li></ul>
+</td></tr><tr><td>MeowkTea</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=MeowkTea'>Search for MeowkTea</a></li></ul>
+</td></tr><tr><td>Serein Studio</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Rain'>Rain</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/SereinStudio' class='twt'></a><a href='http://fb.me/sereinstudio' class='fbk'></a><a href='http://sereinstudio.ecwid.com' class='ecw'></a></li></ul></td></tr><tr><td>Shinner-CXI</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/shinnercxi' class='fbk'></a><a href='https://shinner-cxi.tumblr.com' class='tmb'></a><a href='http://twitter.com/Shinner_CXI' class='twt'></a><a href='http://instagram.com/Shinner_CXI' class='ins'></a><a href='http://shopee.com/shinnercxi' class='shp'></a></li></ul></td></tr><tr><td>Sidebaes</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sidebaes'>Search for Sidebaes</a></li></ul>
+</td></tr><tr><td>The Silent Studio</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/moyan_paints' class='twt'></a><a href='http://instagram.com/thesilentstudio' class='ins'></a><a href='http://moyan.deviantart.com' class='dar'></a><a href='http://fb.me/thesilentstudio' class='fbk'></a></li></ul></td></tr><tr><td>IAIHOSHI</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=IAIHOSHI'>Search for IAIHOSHI</a></li></ul>
+</td></tr><tr><td>PonCrafts</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/PotechiPon' class='twt'></a><a href='http://instagram.com/poncrafts' class='ins'></a><a href='http://patreon.com/poncrafts' class='ptr'></a></li><li><a href='http://poncraftsshop.com'>poncraftsshop.com</a></li><li>
+</li></ul></td></tr><tr><td>Kinokotori</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/thekinokotori' class='twt'></a><a href='http://instagram.com/thekinokotori' class='ins'></a><a href='http://fb.me/kinokotori' class='fbk'></a><a href='http://kinokotori.storenvy.com' class='sen'></a></li></ul></td></tr><tr><td>Tiny Bird Friends</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Tiny%20Bird%20Friends'>Search for Tiny Bird Friends</a></li></ul>
+</td></tr><tr><td>CHEEPCHEEP!</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=CHEEPCHEEP%21'>Search for CHEEPCHEEP!</a></li></ul>
+</td></tr><tr><td>BlueBean 蓝豆</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/BlueBean 藍豆'>BlueBean 藍豆</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/bluebean.angela' class='ins'></a><a href='http://fb.me/bluebean94' class='fbk'></a><a href='http://etsy.com/shop/bluebeanart' class='ets'></a></li></ul></td></tr><tr><td>KabaYao</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=KabaYao'>Search for KabaYao</a></li></ul>
+</td></tr><tr><td>Miyukiko</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Miyukiko'>Search for Miyukiko</a></li></ul>
+</td></tr><tr><td>Pandabaka</td>
+<td class='desc'>
+<ul>
+<li><a href='http://pandabaka.deviantart.com' class='dar'></a><a href='http://fb.me/K.cherdrumphai' class='fbk'></a></li></ul></td></tr><tr><td>CHUINNY</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/CHUINNY'>CHUINNY</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/chuinny' class='twt'></a><a href='http://instagram.com/yichuin' class='ins'></a><a href='https://chuinny.tumblr.com' class='tmb'></a><a href='http://ko-fi.com/chuinny' class='kof'></a><a href='http://fb.me/chuinny' class='fbk'></a></li></ul></td></tr><tr><td>Livan</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Livan'>Search for Livan</a></li></ul>
+</td></tr><tr><td>Chopsticksroad</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chopsticksroad'>Search for Chopsticksroad</a></li></ul>
+</td></tr><tr><td>Leafcat</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Leafcat'>Search for Leafcat</a></li></ul>
+</td></tr><tr><td>Potato Quartet</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Potato%20Quartet'>Search for Potato Quartet</a></li></ul>
+</td></tr><tr><td>SPICY'N</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SPICY%27N'>Search for SPICY&#39;N</a></li></ul>
+</td></tr><tr><td>Flooflers x Ponzu</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Flooflers%20x%20Ponzu'>Search for Flooflers x Ponzu</a></li></ul>
+</td></tr><tr><td>Rainbow Unicat</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/rainbowunicat' class='fbk'></a><a href='http://twitter.com/bunpurr' class='twt'></a></li></ul></td></tr><tr><td>Passion.Precious</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Passion.Precious'>Search for Passion.Precious</a></li></ul>
+</td></tr><tr><td>Sunnydeers</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/sunnywari' class='ins'></a></li><li><a href='http://twitter.com/deersysse' class='twt'></a><a href='http://instagram.com/freckledeers' class='ins'></a><a href='http://linktr.ee/freckledeers' class='lkt'></a></li></ul></td></tr><tr><td>BELLS&CURRY</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=BELLS%26CURRY'>Search for BELLS&amp;CURRY</a></li></ul>
+</td></tr><tr><td>Sanpeepo</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sanpeepo'>Search for Sanpeepo</a></li></ul>
+</td></tr><tr><td>Wizkit</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/wizk' class='ins'></a></li></ul></td></tr><tr><td>Dessert Time</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Dessert%20Time'>Search for Dessert Time</a></li></ul>
+</td></tr><tr><td>o.mj studio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=o.mj%20studio'>Search for o.mj studio</a></li></ul>
+</td></tr><tr><td>Headless Chicken</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Headless%20Chicken'>Search for Headless Chicken</a></li></ul>
+</td></tr><tr><td>炸香蕉 Fried Banana</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=%E7%82%B8%E9%A6%99%E8%95%89%20Fried%20Banana'>Search for 炸香蕉 Fried Banana</a></li></ul>
+</td></tr><tr><td>Kukla Majikku</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Kukla%20Majikku'>Search for Kukla Majikku</a></li></ul>
+</td></tr><tr><td>Yolko </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Yolko%20'>Search for Yolko </a></li></ul>
+</td></tr><tr><td>Lefterstein & Comics Ensemble</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Lefterstein%20%26%20Comics%20Ensemble'>Search for Lefterstein &amp; Comics Ensemble</a></li></ul>
+</td></tr><tr><td>Hawker404</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Hawker404'>Search for Hawker404</a></li></ul>
+</td></tr><tr><td>catica</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=catica'>Search for catica</a></li></ul>
+</td></tr><tr><td>eezycraftzy</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=eezycraftzy'>Search for eezycraftzy</a></li></ul>
+</td></tr><tr><td>Neetabe</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Neetabe'>Search for Neetabe</a></li></ul>
+</td></tr><tr><td>Pegushi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Pegushi'>Search for Pegushi</a></li></ul>
+</td></tr><tr><td>Kari Kaijū x Elizabeth And The Spooks</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Kari%20Kaij%C5%AB%20x%20Elizabeth%20And%20The%20Spooks'>Search for Kari Kaijū x Elizabeth And The Spooks</a></li></ul>
+</td></tr><tr><td>Smashed beans</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Smashed%20beans'>Search for Smashed beans</a></li></ul>
+</td></tr><tr><td>Naegi Cult</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Naegi%20Cult'>Search for Naegi Cult</a></li></ul>
+</td></tr><tr><td>pupuren & aissumi</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=pupuren%20%26%20aissumi'>Search for pupuren &amp; aissumi</a></li></ul>
+</td></tr><tr><td>Peggyshrooms </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Peggyshrooms%20'>Search for Peggyshrooms </a></li></ul>
+</td></tr><tr><td>JAESANSHI</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=JAESANSHI'>Search for JAESANSHI</a></li></ul>
+</td></tr><tr><td>Heaven Official's Bros</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Heaven%20Official%27s%20Bros'>Search for Heaven Official&#39;s Bros</a></li></ul>
+</td></tr><tr><td>Labutori</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='http://labutori.com'>labutori.com</a></li><li>
+</li><li><a href='https://milvagox.miraheze.org/wiki/BunnixHime'>BunnixHime</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/bunnixhime' class='twt'></a><a href='http://instagram.com/bunnixhime' class='ins'></a><a href='http://daniongkaili.wixsite.com/danisport/digital-art' class='wix'></a></li><li><a href='https://milvagox.miraheze.org/wiki/Ok-Latte'>Ok-Latte</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/ok_latte' class='twt'></a><a href='http://instagram.com/ok_latte' class='ins'></a></li></ul></td></tr><tr><td>Untitled-1</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Untitled-1'>Search for Untitled-1</a></li></ul>
+</td></tr><tr><td>HOMIS</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=HOMIS'>Search for HOMIS</a></li></ul>
+</td></tr><tr><td>Michelle Wong</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Michelle%20Wong'>Search for Michelle Wong</a></li></ul>
+</td></tr><tr><td>Elnino, Shuga and Tako</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Elnino%2C%20Shuga%20and%20Tako'>Search for Elnino, Shuga and Tako</a></li></ul>
+</td></tr><tr><td>Last Minute Illustrators</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Last%20Minute%20Illustrators'>Search for Last Minute Illustrators</a></li></ul>
+</td></tr><tr><td>Xeph's Artworks</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/Xeph_Artworks' class='twt'></a><a href='http://instagram.com/xephartworks' class='ins'></a><a href='http://pixiv.net/member.php?id=110174' class='pxv'></a><a href='http://xephonia.deviantart.com' class='dar'></a><a href='http://XephArt.etsy.com' class='ets'></a><a href='http://fb.me/XephArt' class='fbk'></a></li></ul></td></tr><tr><td>fat fairy</td>
+<td class='desc'>
+<ul>
+<li><a href='http://fb.me/FetFairy' class='fbk'></a></li></ul></td></tr><tr><td>OG peeps</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=OG%20peeps'>Search for OG peeps</a></li></ul>
+</td></tr><tr><td>LOCOPEPPERMONSTA</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=LOCOPEPPERMONSTA'>Search for LOCOPEPPERMONSTA</a></li></ul>
+</td></tr><tr><td>Redsake</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Redsake'>Search for Redsake</a></li></ul>
+</td></tr><tr><td>Sining Gang</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sining%20Gang'>Search for Sining Gang</a></li></ul>
+</td></tr><tr><td>LyQxC.rika</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=LyQxC.rika'>Search for LyQxC.rika</a></li></ul>
+</td></tr><tr><td>Fishcake and Co</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Fishcake%20and%20Co'>Search for Fishcake and Co</a></li></ul>
+</td></tr><tr><td>Milk.Hybrid (prev. as Banana Dominion)</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Milk.Hybrid%20%28prev.%20as%20Banana%20Dominion%29'>Search for Milk.Hybrid (prev. as Banana Dominion)</a></li></ul>
+</td></tr><tr><td>D.atlastudio</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/d.atlastudio' class='ins'></a><a href='http://datlastudio.etsy.com' class='ets'></a><a href='http://linktr.ee/D.atlastudio' class='lkt'></a></li></ul></td></tr><tr><td>zairen</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=zairen'>Search for zairen</a></li></ul>
+</td></tr><tr><td>Eternal-S</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/eternals' class='twt'></a><a href='http://instagram.com/_eternals' class='ins'></a><a href='http://pixiv.net/member.php?id=299783' class='pxv'></a><a href='http://eternalshop.bigcartel.com' class='bcl'></a><a href='http://eternal-s.deviantart.com' class='dar'></a><a href='http://fb.me/EternalS.Artist' class='fbk'></a></li><li><a href='http://eternal-s.com'>eternal-s.com</a></li><li>
+</li></ul></td></tr><tr><td>Kinnoishi Studio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Kinnoishi%20Studio'>Search for Kinnoishi Studio</a></li></ul>
+</td></tr><tr><td>Mabora</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Mabora'>Search for Mabora</a></li></ul>
+</td></tr><tr><td>Xev Pallet Crafts</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Xev%20Pallet%20Crafts'>Search for Xev Pallet Crafts</a></li></ul>
+</td></tr><tr><td>Wild Maple</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Wild%20Maple'>Search for Wild Maple</a></li></ul>
+</td></tr><tr><td>Pupu</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Pupu'>Search for Pupu</a></li></ul>
+</td></tr><tr><td>The Crystarium</td>
+<td class='desc'>
+<ul>
+<li><a href='http://twitter.com/prinzcake' class='twt'></a><a href='https://prinzcake.tumblr.com' class='tmb'></a></li><li><a href='http://twitter.com/crowiaa' class='twt'></a><a href='http://ko-fi.com/crowiaa' class='kof'></a></li></ul></td></tr><tr><td>etgoeshibaeee</td>
+<td class='desc'>
+<ul>
+<li><a href='http://instagram.com/etgoeshibaeee' class='ins'></a><a href='http://fb.me/etgoeshibaeee' class='fbk'></a><a href='http://etgoeshibaeee.etsy.com' class='ets'></a><a href='http://linktr.ee/etgoeshibaeee' class='lkt'></a></li></ul></td></tr><tr><td>The Shreklings</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=The%20Shreklings'>Search for The Shreklings</a></li></ul>
+</td></tr><tr><td>Chibaneelle Art Circle</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Chibaneelle%20Art%20Circle'>Search for Chibaneelle Art Circle</a></li></ul>
+</td></tr><tr><td>Tea & buns</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Tea%20%26%20buns'>Search for Tea &amp; buns</a></li></ul>
+</td></tr><tr><td>Potato</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Potato'>Search for Potato</a></li></ul>
+</td></tr><tr><td>me²rros</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=me%C2%B2rros'>Search for me²rros</a></li></ul>
+</td></tr><tr><td>MisoNiso</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=MisoNiso'>Search for MisoNiso</a></li></ul>
+</td></tr><tr><td>LiHao x UE Creative World x XZ</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=LiHao%20x%20UE%20Creative%20World%20x%20XZ'>Search for LiHao x UE Creative World x XZ</a></li></ul>
+</td></tr><tr><td>SunameriDrill &Mon KID</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=SunameriDrill%20%26Mon%20KID'>Search for SunameriDrill &amp;Mon KID</a></li></ul>
+</td></tr><tr><td>Pythonkid</td>
+<td class='desc'>
+<ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Pythonkid'>Pythonkid</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/pythonkid2013' class='twt'></a><a href='http://instagram.com/pythonkid2013' class='ins'></a><a href='http://pythonkid.blog.fc2.com' class='fc2'></a></li></ul></td></tr><tr><td>Wiz-</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Wiz-'>Search for Wiz-</a></li></ul>
+</td></tr><tr><td>Bubble Tea</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Bubble%20Tea'>Search for Bubble Tea</a></li></ul>
+</td></tr><tr><td>Soapdemons</td>
+<td class='desc'>
+<ul>
+<li><a href='http://soapdemons.storenvy.com' class='sen'></a></li><li><a href='http://twitter.com/audidraws' class='twt'></a><a href='http://instagram.com/audidraws' class='ins'></a><a href='https://audidraws.tumblr.com' class='tmb'></a></li><li><a href='http://twitter.com/mcdorknaldz' class='twt'></a><a href='http://instagram.com/mcdorknalds' class='ins'></a><a href='https://mcdorknalds.tumblr.com' class='tmb'></a></li></ul></td></tr><tr><td>NEYX</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=NEYX'>Search for NEYX</a></li></ul>
+</td></tr><tr><td>Bellpickle Troops</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Bellpickle%20Troops'>Search for Bellpickle Troops</a></li></ul>
+</td></tr><tr><td>Litarnes</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Litarnes'>Search for Litarnes</a></li></ul>
+</td></tr><tr><td>Brick This Now </td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Brick%20This%20Now%20'>Search for Brick This Now </a></li></ul>
+</td></tr><tr><td>TOYFATT</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=TOYFATT'>Search for TOYFATT</a></li></ul>
+</td></tr><tr><td>Pinerolli & Yin</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Pinerolli%20%26%20Yin'>Search for Pinerolli &amp; Yin</a></li></ul>
+</td></tr><tr><td>Tweedles | Raiyne | Luis Design</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Tweedles%20%7C%20Raiyne%20%7C%20Luis%20Design'>Search for Tweedles | Raiyne | Luis Design</a></li></ul>
+</td></tr><tr><td>Bibuhanson</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Bibuhanson'>Search for Bibuhanson</a></li></ul>
+</td></tr><tr><td>Sabgeid</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Sabgeid'>Search for Sabgeid</a></li></ul>
+</td></tr><tr><td>Inky Cat Studio</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Inky%20Cat%20Studio'>Search for Inky Cat Studio</a></li></ul>
+</td></tr><tr><td>Beanynne</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Beanynne'>Search for Beanynne</a></li></ul>
+</td></tr><tr><td>Napyonz</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Napyonz'>Search for Napyonz</a></li></ul>
+</td></tr><tr><td>Tofucat Workshop</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Tofucat%20Workshop'>Search for Tofucat Workshop</a></li></ul>
+</td></tr><tr><td>Nezart & Chaerin Jung</td>
+<td class='desc'>
+<ul><li><a href='http://duckduckgo.com/?q=Nezart%20%26%20Chaerin%20Jung'>Search for Nezart &amp; Chaerin Jung</a></li></ul>
+</td></tr></table>
+<hr>
+<p>! All the images is belongs to the original creators and right holders.</p>
+<p>! Help is needed for gathering artists and events information</p>
+<p>Please provide information and contact <a href='mailto:milvagox@pm.me'>here</a>.</p>
+</body><html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to doujima2020 artists and organizer.-->
