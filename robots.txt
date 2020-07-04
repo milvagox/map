@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /ico/
 
-Sitemap: https://milvagox.netlify.com/sitemap.txt
+Sitemap: https://milvagox.cyou/sitemap.txt

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="kurocon Interactive Map">
+<meta property="og:description" content="kurocon map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/kurocon">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/kurocon.png">
+<meta name="description" content="kurocon map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2020/kurocon.html">
+ <title>kurocon Map++</title>
+ <style>
+  .booth { 
+    opacity: 0.6;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(200, 200, 200, 0.5);
+    position: absolute;
+    
+    color: black;
+    opacity: inherit;
+    z-index:  20;
+    cursor: pointer;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+    cursor: pointer;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 320px; 
+    max-width: 500px;
+    min-height: 250px; 
+    text-align: justify;
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+    border-radius: 0 20px 20px 20px;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.and-club { background: url('../ico/and-club.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.bss { background: url('../ico/bss.png'); }
+.califlair { background: url('../ico/califlair.png'); }
+.cbm { background: url('../ico/cbm.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.dpt { background: url('../ico/dpt.png'); }
+.eby { background: url('../ico/eby.png'); }
+.ecw { background: url('../ico/ecw.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.esc { background: url('../ico/esc.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.fkr { background: url('../ico/fkr.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.gfl { background: url('../ico/gfl.png'); }
+.gmr { background: url('../ico/gmr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.ice-berry { background: url('../ico/ice-berry.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lnk { background: url('../ico/lnk.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.plk { background: url('../ico/plk.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pts { background: url('../ico/pts.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rachta { background: url('../ico/rachta.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sdc { background: url('../ico/sdc.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.spf { background: url('../ico/spf.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.uchuusummer { background: url('../ico/uchuusummer.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.toUpperCase().includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div style="position: absolute; padding: 8px;">
+
+<div style='position: absolute; z-index: 1; height: 35px;display: none;' >
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><iframe src="https://free.timeanddate.com/countdown/i7cuteou/n173/cf12/cm0/cu4/ct0/cs0/ca0/co1/cr0/ss0/cac000/cpc000/pcfff/tcfff/fs100/szw320/szh135/tatTime%20left%20to%20Kurocon/tac000/tptTime%20since%20Event%20started%20in/tpc000/iso2020-07-04T11:00:00" allowTransparency="true" frameborder="0" width="182" height="52"></iframe>
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
+<div class='booth' id='01' onclick='link_click(this)'><div class='desc' style='left:430px;top:75px;'><h2>01 Alu</h2><ul>
+<li><a href='http://passionpeach.bigcartel.com' class='bcl'></a><a href='http://twitter.com/Nichibibo' class='twt'></a><a href='http://instagram.com/Aluzaa' class='ins'></a><a href='http://ko-fi.com/aluzaa' class='kof'></a></li></ul></div><div class='area' style='left:300px;top:50px;width:130px;height:25px;'>01 Alu</div><div class='box' style='left:298px;top:48px;width:130px;height:25px;'></div>
+</div><div class='booth' id='02' onclick='link_click(this)'><div class='desc' style='left:430px;top:125px;'><h2>02 Arun Balmick</h2><ul>
+<li><a href='https://arundraws.tumblr.com/portfolio' class='tmb'></a><a href='http://twitter.com/arundraws' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">I&#39;ll be a part of <a href="https://twitter.com/KurotsukiCon?ref_src=twsrc%5Etfw">@KurotsukiCon</a>&#39;s digital artist alley this weekend! I&#39;ll even be doing a live drawing panel hosted on their Twitch at 4PM EST and should last for an hour. If you have any requests, feel free to drop me suggestions and I&#39;ll go through them tomorrow. ✌️ <a href="https://t.co/BRJBdk4jRs">pic.twitter.com/BRJBdk4jRs</a></p>&mdash; Runes (@arundraws) <a href="https://twitter.com/arundraws/status/1279231027425226752?ref_src=twsrc%5Etfw">July 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> </p></li><li></li></ul></div><div class='area' style='left:300px;top:100px;width:130px;height:25px;'>02 Arun Balmick</div><div class='box' style='left:298px;top:98px;width:130px;height:25px;'></div>
+</div><div class='booth' id='03' onclick='link_click(this)'><div class='desc' style='left:430px;top:175px;'><h2>03 BoldEgoist</h2><ul>
+<li><a href='http://boldegoist.bigcartel.com' class='bcl'></a><a href='http://twitter.com/boldegoist' class='twt'></a><a href='http://www.instagram.com/boldegoist' class='ins'></a></li><li><p><blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><p lang="en" dir="ltr">7/3 UPDATE: Sam and I discussed a lot of things and we decided to relist some items to Etsy, as well as offer &quot;con rates&quot; on Bigcartel. <br><br>Etsy hit us with another fee so now they&#39;re taking up to 50% of some ticket prices 😬 BUT now u can save out stuff to ur wishlist! <a href="https://t.co/18LtcC9eEL">pic.twitter.com/18LtcC9eEL</a></p>&mdash; BoldEgoist @ ISEKAICON ONLINE💖 (@BoldEgoist) <a href="https://twitter.com/BoldEgoist/status/1279232893924098049?ref_src=twsrc%5Etfw">July 4, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:300px;top:150px;width:130px;height:25px;'>03 BoldEgoist</div><div class='box' style='left:298px;top:148px;width:130px;height:25px;'></div>
+</div><div class='booth' id='04' onclick='link_click(this)'><div class='desc' style='left:430px;top:225px;'><h2>04 Concon</h2><ul>
+<li></li><li><a href='http://concon.shop'>concon.shop</a></li><li>
+<a href='http://twitter.com/rainbowemuweeps' class='twt'></a><a href='http://instagram.com/rainbowemuweeps' class='ins'></a><a href='http://pixiv.net/users/18891006' class='pxv'></a><a href='http://twitch.tv/rainbowemuweeps' class='twc'></a><a href='http://www.patreon.com/rainbowemuweeps' class='ptr'></a></li></ul></div><div class='area' style='left:300px;top:200px;width:130px;height:25px;'>04 Concon</div><div class='box' style='left:298px;top:198px;width:130px;height:25px;'></div>
+</div><div class='booth' id='05' onclick='link_click(this)'><div class='desc' style='left:430px;top:275px;'><h2>05 Jeffrey Liu</h2><ul>
+<li><a href='http://twitter.com/Drago39R' class='twt'></a></li></ul></div><div class='area' style='left:300px;top:250px;width:130px;height:25px;'>05 Jeffrey Liu</div><div class='box' style='left:298px;top:248px;width:130px;height:25px;'></div>
+</div><div class='booth' id='06' onclick='link_click(this)'><div class='desc' style='left:430px;top:325px;'><h2>06 JMotion</h2><ul>
+<li><a href='http://jmotion.storenvy.com' class='sen'></a><a href='http://twitter.com/JMotion0' class='twt'></a><a href='http://instagram.com/JMotion0' class='ins'></a><a href='http://pixiv.net/users/6262563' class='pxv'></a><a href='http://youtube.com/jmotion' class='ytb'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">You can find me in the <a href="https://twitter.com/KurotsukiCon?ref_src=twsrc%5Etfw">@KurotsukiCon</a> virtual artist alley on Discord this weekend, along with a bunch of other super talented artists and creators!<br>Please come check us out!<a href="https://twitter.com/hashtag/Kurocon?src=hash&amp;ref_src=twsrc%5Etfw">#Kurocon</a> <a href="https://t.co/fgt3lJUrgB">pic.twitter.com/fgt3lJUrgB</a></p>&mdash; Jarryd 🐨 Commissions Open (@JMotion0) <a href="https://twitter.com/JMotion0/status/1279264102385217537?ref_src=twsrc%5Etfw">July 4, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:300px;top:300px;width:130px;height:25px;'>06 JMotion</div><div class='box' style='left:298px;top:298px;width:130px;height:25px;'></div>
+</div><div class='booth' id='07' onclick='link_click(this)'><div class='desc' style='left:430px;top:375px;'><h2>07 KimBox</h2><ul>
+<li></li><li><a href='http://www.artofkimvance.com'>www.artofkimvance.com</a></li><li>
+<a href='http://twitter.com/kimbox_jpeg' class='twt'></a><a href='http://instagram.com/kimbox.jpeg' class='ins'></a><a href='http://ko-fi.com/kimbox_jpeg' class='kof'></a></li></ul></div><div class='area' style='left:300px;top:350px;width:130px;height:25px;'>07 KimBox</div><div class='box' style='left:298px;top:348px;width:130px;height:25px;'></div>
+</div><div class='booth' id='08' onclick='link_click(this)'><div class='desc' style='left:430px;top:425px;'><h2>08 Knistern</h2><ul>
+<li><a href='http://knisternportfolio.carrd.co' class='crd'></a><a href='http://twitter.com/Theknistern' class='twt'></a><a href='http://instagram.com/_knistern' class='ins'></a></li></ul></div><div class='area' style='left:300px;top:400px;width:130px;height:25px;'>08 Knistern</div><div class='box' style='left:298px;top:398px;width:130px;height:25px;'></div>
+</div><div class='booth' id='09' onclick='link_click(this)'><div class='desc' style='left:630px;top:75px;'><h2>09 Kurapixel</h2><ul>
+<li></li><li><a href='http://kurapixel.com'>kurapixel.com</a></li><li>
+<a href='http://kurapixel.wixsite.com/artstuff' class='wix'></a><a href='http://twitter.com/kurapixel' class='twt'></a><a href='http://instagram.com/kurapixel' class='ins'></a></li></ul></div><div class='area' style='left:500px;top:50px;width:130px;height:25px;'>09 Kurapixel</div><div class='box' style='left:498px;top:48px;width:130px;height:25px;'></div>
+</div><div class='booth' id='10' onclick='link_click(this)'><div class='desc' style='left:630px;top:125px;'><h2>10 I_aciel</h2><ul>
+<li><a href='http://inprnt.com/gallery/l_aciel' class='inp'></a><a href='http://twitter.com/l_aciel' class='twt'></a><a href='http://instagram.com/l_aciel' class='ins'></a><a href='http://twitch.tv/l_aciel' class='twc'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/portfolioday?src=hash&amp;ref_src=twsrc%5Etfw">#portfolioday</a> so time to update<br><br>Hello. hello. I&#39;m Jess Seto I&#39;m a concept artist and illustrator. <br><br>👁️<a href="https://t.co/wTlz8YJtRu">https://t.co/wTlz8YJtRu</a><br>👁️<a href="https://t.co/5NiIrQ8DUY">https://t.co/5NiIrQ8DUY</a><br>👁️<a href="https://t.co/VH0VVlfw6L">https://t.co/VH0VVlfw6L</a> <a href="https://t.co/4Occ2jkXLk">pic.twitter.com/4Occ2jkXLk</a></p>&mdash; Jess Seto (@l_aciel) <a href="https://twitter.com/l_aciel/status/1217180451070185473?ref_src=twsrc%5Etfw">January 14, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:100px;width:130px;height:25px;'>10 I_aciel</div><div class='box' style='left:498px;top:98px;width:130px;height:25px;'></div>
+</div><div class='booth' id='11' onclick='link_click(this)'><div class='desc' style='left:630px;top:175px;'><h2>11 Phib</h2><ul>
+<li><a href='http://deviantart.com/phibonnachee/gallery' class='dar'></a><a href='http://etsy.com/ca/shop/PhibOfficial' class='ets'></a><a href='http://twitter.com/phibonnachee' class='twt'></a><a href='http://twitch.tv/phibonnachee' class='twc'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">Updated shop categories to make it easier to find my very large poster collection!<a href="https://t.co/s3MwIXocca">https://t.co/s3MwIXocca</a><br><br>Free Shipping for all orders until cons are back up! <a href="https://t.co/0CCXZXyB7x">pic.twitter.com/0CCXZXyB7x</a></p>&mdash; Phib@Kurocon/AnimeExpoLite (@Phibonnachee) <a href="https://twitter.com/Phibonnachee/status/1269150256933023750?ref_src=twsrc%5Etfw">June 6, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:150px;width:130px;height:25px;'>11 Phib</div><div class='box' style='left:498px;top:148px;width:130px;height:25px;'></div>
+</div><div class='booth' id='12' onclick='link_click(this)'><div class='desc' style='left:630px;top:225px;'><h2>12 radiostarkiller</h2><ul>
+<li></li><li><a href='http://rsk-art.squarespace.com'>rsk-art.squarespace.com</a></li><li>
+<a href='http://paprikacarnival.bigcartel.com' class='bcl'></a><a href='http://twitter.com/radiostarkiller' class='twt'></a><a href='http://instagram.com/radiostarkiller' class='ins'></a><a href='http://twitch.tv/radiostarkiller' class='twc'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">[RTs✨]<br><br>hi all! <br><br>i&#39;m participating in <a href="https://twitter.com/KurotsukiCon?ref_src=twsrc%5Etfw">@KurotsukiCon</a>&#39;s virtual artist alley this weekend! please check it out and join the discord! &lt;:<br><br>for 7/4-7/5 only, a lot of my items will be on sale, some at limited quantity. shop will open on 7/4 on 12pm CST! <a href="https://t.co/Lu4VKDx7dT">https://t.co/Lu4VKDx7dT</a> <a href="https://t.co/kgrNqExofx">pic.twitter.com/kgrNqExofx</a></p>&mdash; sai&#39;s comms ✧ next batch: 7/15 (@rskillust) <a href="https://twitter.com/rskillust/status/1279117467118419968?ref_src=twsrc%5Etfw">July 3, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:200px;width:130px;height:25px;'>12 radiostarkiller</div><div class='box' style='left:498px;top:198px;width:130px;height:25px;'></div>
+</div><div class='booth' id='13' onclick='link_click(this)'><div class='desc' style='left:630px;top:275px;'><h2>13 shunao</h2><ul>
+<li></li><li><a href='http://shunao.moe'>shunao.moe</a></li><li>
+<a href='http://shunao.myshopify.com' class='spf'></a><a href='http://twitter.com/_shunao' class='twt'></a><a href='http://twitch.tv/shunao' class='twc'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">LINKS:<br><br>✨<a href="https://t.co/a5SngKpTdd">https://t.co/a5SngKpTdd</a>［twitch］<br>✨<a href="https://t.co/CoZcAG4DhM">https://t.co/CoZcAG4DhM</a> ［portfolio］<br>✨<a href="https://twitter.com/shunaostore?ref_src=twsrc%5Etfw">@shunaostore</a>［merch store］<br>✨<a href="https://t.co/LtNwT082Yx">https://t.co/LtNwT082Yx</a> ［art archive］<br>✨<a href="https://t.co/TYskZsobEc">https://t.co/TYskZsobEc</a> ［commissions］<br>✨<a href="https://t.co/QlJIdDbynk">https://t.co/QlJIdDbynk</a> ［donations］<br>✨<a href="https://twitter.com/hashtag/lyn_art?src=hash&amp;ref_src=twsrc%5Etfw">#lyn_art</a>［fan art］ <a href="https://t.co/rbD9RyqHgJ">pic.twitter.com/rbD9RyqHgJ</a></p>&mdash; lyn【EN/廣東Vstreamer】 (@_shunao) <a href="https://twitter.com/_shunao/status/1275493718888288257?ref_src=twsrc%5Etfw">June 23, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:250px;width:130px;height:25px;'>13 shunao</div><div class='box' style='left:498px;top:248px;width:130px;height:25px;'></div>
+</div><div class='booth' id='14' onclick='link_click(this)'><div class='desc' style='left:630px;top:325px;'><h2>14 Tamari</h2><ul>
+<li><a href='http://loresaberking.carrd.co' class='crd'></a><a href='http://twitter.com/saberkingart' class='twt'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">✨Hello, I’m Tamari, aka Lore Saberking!<br><br>🐕 I specialize in: animal/fantasy/D&amp;D characters, monsters, expressions, SFW, NSFW (18+)<br><br>💛 COMMISSIONS <a href="https://t.co/MAbZPfuEQy">https://t.co/MAbZPfuEQy</a><br>💛 FA <a href="https://t.co/XTun06sHAO">https://t.co/XTun06sHAO</a>…<br>💛 TG <a href="https://t.co/D1R9RAqbTU">https://t.co/D1R9RAqbTU</a><br>💛 TIPS/SUPPORT ME <a href="https://t.co/5ZUecqMgAN">https://t.co/5ZUecqMgAN</a> <a href="https://t.co/NLlP1qt96U">pic.twitter.com/NLlP1qt96U</a></p>&mdash; Tamari @ Team Spice 🐕🏴🏳️‍🌈 (@SaberkingArt) <a href="https://twitter.com/SaberkingArt/status/1262218007155077120?ref_src=twsrc%5Etfw">May 18, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:300px;width:130px;height:25px;'>14 Tamari</div><div class='box' style='left:498px;top:298px;width:130px;height:25px;'></div>
+</div><div class='booth' id='15' onclick='link_click(this)'><div class='desc' style='left:630px;top:375px;'><h2>15 Tsunau</h2><ul>
+<li></li><li><a href='http://tsunau.moe'>tsunau.moe</a></li><li>
+<a href='http://tsunauarts.storenvy.com' class='sen'></a><a href='http://twitter.com/TsunauArts' class='twt'></a><a href='http://instagram.com/TsunauArts' class='ins'></a><a href='http://twitch.tv/tsunau' class='twc'></a></li><li><p><blockquote class="twitter-tweet" data-dnt="true"><p lang="lt" dir="ltr">✨Tsunau ✨<br>▻ ko-fi - <a href="https://t.co/UwNxZUoeGb">https://t.co/UwNxZUoeGb</a><br>▻ shop - <a href="https://t.co/9O4L221NVF">https://t.co/9O4L221NVF</a><br>▻ portfolio - <a href="https://t.co/DfpGJihx5P">https://t.co/DfpGJihx5P</a><br>▻ art moment - <a href="https://t.co/dyWWP8SVby">https://t.co/dyWWP8SVby</a><br>✨✨</p>&mdash; Tsunau @ KuroCon 2020 (@TsunauArts) <a href="https://twitter.com/TsunauArts/status/1217217228451373056?ref_src=twsrc%5Etfw">January 14, 2020</a></blockquote></p></li><li></li></ul></div><div class='area' style='left:500px;top:350px;width:130px;height:25px;'>15 Tsunau</div><div class='box' style='left:498px;top:348px;width:130px;height:25px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to kurocon artists and organizer.-->
