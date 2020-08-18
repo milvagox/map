@@ -5,10 +5,10 @@
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AMGO2020 Interactive Map">
-<meta property="og:description" content="AMGO2020 map with clickable artists' SNS links and search.">
+<meta property="og:description" content="Unofficial AMGO2020 virtual booth map with clickable aritsts' booth">
 <meta property="og:url" content="https://milvagox.cyou/AMGO2020">
 <meta property="og:image" content="https://milvagox.cyou/twt/AMGO2020.png">
-<meta name="description" content="AMGO2020 map with clickable artists' SNS links and search.">
+<meta name="description" content="Unofficial AMGO2020 virtual booth map with clickable aritsts' booth">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://milvagox.cyou/2020/AMGO2020.html">
  <title>AMGO2020 Map++</title>
@@ -333,7 +333,33 @@
 <div style='position: absolute; z-index: 1; height: 35px;' >
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMGO2020/AMGO2020.png' style='width:auto; height:1080px;' onerror="this.src = './AMGO2020/AMGO2020.jpg'">
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><div id="timer_main_stage_box" style="margin-left:500px; font-weight: bold;">A timer with vanilla javascript</div>
+<script>
+function countdownTimer(year, month, day, hour, container) { // Date according to GMT+8
+  const difference = +new Date(Date.UTC(year, month-1, day, hour-8, 00, 00)) - +new Date(new Date().getTime());
+  let remaining = "Event Started!";
+
+  if (difference > 0) {
+    const parts = {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60)
+    };
+
+    remaining = Object.keys(parts)
+      .map(part => {
+        if (!parts[part]) return;
+        return `${parts[part]} ${part}`;
+      })
+      .join(" ");
+  }
+  document.getElementById(container).innerHTML = remaining;
+}
+timer_main_stage = function(){ countdownTimer(2020, 8, 21, 9, "timer_main_stage_box"); }
+setInterval(timer_main_stage, 1000);
+</script>
+<img src='./AMGO2020/AMGO2020.png' style='width:auto; height:1080px;' onerror="this.src = './AMGO2020/AMGO2020.jpg'">
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
 <div class='booth' id='1' onclick='link_click(this)'><div class='desc' style='left:221px;top:551px;'><h2>1 Pyonyon</h2><ul>
 <li><a href='http://instagram.com/Pyonyon_' class='ins'></a><a href='http://pyonyon.deviantart.com' class='dar'></a><a href='http://pixiv.me/pyon_pi' class='pxv'></a><a href='http://fb.me/pyonyonyon' class='fbk'></a><a href='http://linktr.ee/pyonyon_' class='lkt'></a></li></ul></div><div class='area' style='display: none'>1 PYONYON</div><div class='box' style='left:114px;top:380px;width:105px;height:169px;'></div>
