@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AMGO2020 Interactive Map">
+<meta property="og:description" content="AMGO2020 map with clickable artists' SNS links and search.">
+<meta property="og:url" content="https://milvagox.netlify.com/AMGO2020">
+<meta property="og:image" content="http://milvagox.netlify.com/twt/AMGO2020.png">
+<meta name="description" content="AMGO2020 map with clickable artists' SNS links and search.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.netlify.com/2020/AMGO2020.html">
+ <title>AMGO2020 Map++</title>
+ <style>
+  .booth { 
+    opacity: 0;
+  }
+  .booth:hover { opacity: 1; }
+  .booth img { display: none; }
+  .booth:hover img { display: block;}
+  .area { 
+    border: 1px solid red; 
+    background-color: rgba(0, 255, 255, 0.3);
+    position: absolute;
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    opacity: inherit;
+    z-index:  20;
+    cursor: pointer;
+  }
+  .box {
+    border: 3px dotted aqua;
+    background-color: rgba(255, 0, 255, 0.3);
+    position: absolute;
+    z-index: 130;
+    opacity: inherit;
+    cursor: pointer;
+  }
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .desc {
+    padding: 10px 10px 10px 10px ;
+    min-width: 320px; 
+    max-width: 500px;
+    min-height: 250px; 
+    text-align: justify;
+    background-color: white;
+    position: absolute; 
+    display: none;
+    z-index: 150;
+    border-radius: 0 20px 20px 20px;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc > ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.and-club { background: url('../ico/and-club.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.bss { background: url('../ico/bss.png'); }
+.califlair { background: url('../ico/califlair.png'); }
+.cbm { background: url('../ico/cbm.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.dpt { background: url('../ico/dpt.png'); }
+.eby { background: url('../ico/eby.png'); }
+.ecw { background: url('../ico/ecw.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.esc { background: url('../ico/esc.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.fkr { background: url('../ico/fkr.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.gfl { background: url('../ico/gfl.png'); }
+.gmr { background: url('../ico/gmr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.ice-berry { background: url('../ico/ice-berry.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lnk { background: url('../ico/lnk.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.plk { background: url('../ico/plk.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pts { background: url('../ico/pts.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rachta { background: url('../ico/rachta.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.rdt { background: url('../ico/rdt.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sdc { background: url('../ico/sdc.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.spf { background: url('../ico/spf.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.uchuusummer { background: url('../ico/uchuusummer.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    var boothSelector = (decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi))
+    function highlight_by_anchor() {
+      if(!boothSelector) { return; }
+      else if (boothSelector.length == 1) {
+        booth = document.getElementById(boothSelector[0].toUpperCase());
+        if(!booth) { return; }
+        box = booth.getElementsByClassName("box")[0];
+        box.style.marginTop = "-3px";
+        box.style.marginLeft = "-3px";
+        box.style.border = '5px solid red';
+        link_click(booth);
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block'
+        }
+        location.hash = boothSelector[0];
+      }
+      else { booth_highlightByString(decodeURIComponent(window.location.hash)); }
+    }
+    
+    function highlight_booths(booths) {
+      booths.forEach(function(item, index, array) {
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function highlight_booths_off(booths) {
+      booths.forEach(function(item, index, array) { 
+        item.classList.add("booth_highlight");
+      });
+    }
+    
+    function booth_highlight_listing(tag) {
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function clickHotspotImage(event, obj) {
+      var xOffset = obj.offsetLeft;
+      var xCoordinate = event.pageX;
+      var yOffset = obj.offsetTop;
+      var yCoordinate = event.pageY;
+      console.log(xCoordinate + ', ' + yCoordinate + ', ' + xOffset + ', ' + yOffset);
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = xCoordinate + ', ' + yCoordinate;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+    
+    // very bad glob var
+    glob_box_selector = "";
+    function link_click(booth) {
+      if(document.getElementById("favBut").checked) {
+        booth_highlight_listing(booth.id);
+        booth_highlightByString(decodeURIComponent(window.location.hash));
+      } else {
+        glob_box_selector = booth;
+        booth.style.opacity = 1;
+        booth.getElementsByClassName('desc')[0].style.display = 'block';
+         
+         
+         
+        coverbox = document.getElementById('coverbox');
+        coverbox.style.opacity = 0.5;
+        coverbox.style.zIndex = 100;
+        if (booth.nextElementSibling.classList.contains("custimg")) {
+          booth.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+    
+    function coverbox_click() {
+      coverbox = document.getElementById('coverbox');
+      if(coverbox.style.opacity == 0) {return;}
+      
+      glob_box_selector.getElementsByClassName('desc')[0].style.display = '';
+      glob_box_selector.style.opacity = "";
+      coverbox.style.opacity = 0;
+      coverbox.style.zIndex = 0;
+      if (glob_box_selector.nextElementSibling.classList.contains("custimg")) { 
+        glob_box_selector.nextElementSibling.style.display = '';
+      }
+    }
+
+    document.onkeypress = function (event) {
+      event = event || window.event;
+      var key_pressed = event.keyCode || event.which;
+      temp_box = ""
+      if (document.getElementById('searchBox') !== document.activeElement) {
+        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
+        else { // switch box will be better...
+          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
+          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
+          else { temp_box = glob_box_selector; }
+          
+          // for custom image case skipping
+          if(temp_box.classList.contains("custimg")) {
+            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
+            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
+          }
+        }
+        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
+        if (temp_box.classList.contains("booth")) {
+          coverbox_click();
+          link_click(temp_box);
+        }
+      }
+    };
+ </script>
+</head>
+<body onload='highlight_by_anchor();' autofocus>
+<div style="position: absolute; padding: 8px;">
+
+<div style='position: absolute; z-index: 1; height: 35px;' >
+<input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
+<input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./AMGO2020/AMGO2020.png' style='width:auto; height:1080px;' onerror="this.src = './AMGO2020/AMGO2020.jpg'">
+<div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
+<div class='booth' id='1' onclick='link_click(this)'><div class='desc' style='left:221px;top:551px;'><h2>1 Pyonyon</h2><ul>
+<li><a href='http://instagram.com/Pyonyon_' class='ins'></a><a href='http://pyonyon.deviantart.com' class='dar'></a><a href='http://pixiv.me/pyon_pi' class='pxv'></a><a href='http://fb.me/pyonyonyon' class='fbk'></a><a href='http://linktr.ee/pyonyon_' class='lkt'></a></li></ul></div><div class='area' style='display: none'>1 PYONYON</div><div class='box' style='left:114px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='2' onclick='link_click(this)'><div class='desc' style='left:332px;top:551px;'><h2>2 RORO</h2><ul>
+<li><a href='http://instagram.com/chutororo' class='ins'></a><a href='https://chutororo.tumblr.com' class='tmb'></a></li></ul></div><div class='area' style='display: none'>2 RORO</div><div class='box' style='left:224px;top:380px;width:106px;height:169px;'></div>
+</div><div class='booth' id='3' onclick='link_click(this)'><div class='desc' style='left:442px;top:551px;'><h2>3 Commander Mittens</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Miaow'>Miaow</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/kyoupiruchi' class='twt'></a><a href='http://CommanderMittensCo.etsy.com' class='ets'></a><a href='http://fb.me/commandermitten' class='fbk'></a></li></ul></div><div class='area' style='display: none'>3 COMMANDER MITTENS</div><div class='box' style='left:335px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='4' onclick='link_click(this)'><div class='desc' style='left:553px;top:551px;'><h2>4 Anime Access + Nihoen</h2><ul>
+<li><a href='http://fb.me/animeaccess' class='fbk'></a></li></ul></div><div class='area' style='display: none'>4 ANIME ACCESS + NIHOEN</div><div class='box' style='left:445px;top:380px;width:106px;height:169px;'></div>
+</div><div class='booth' id='5' onclick='link_click(this)'><div class='desc' style='left:663px;top:551px;'><h2>5 Shota &amp; Lolita Shop</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Shota & Lolita Shop'>Shota & Lolita Shop</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/shotalolitashop' class='fbk'></a><a href='http://instagram.com/shotaandlolitashop' class='ins'></a></li><li><a href='mailto://shotaandlolitashop@gmail.com'>email: shotaandlolitashop@gmail.com</a></li><li></li></ul></div><div class='area' style='display: none'>5 SHOTA &AMP; LOLITA SHOP</div><div class='box' style='left:556px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='6' onclick='link_click(this)'><div class='desc' style='left:774px;top:551px;'><h2>6 找‘事’工作坊</h2><ul>
+<li><a href='http://fb.me/NZuoWDie' class='fbk'></a></li></ul></div><div class='area' style='display: none'>6 找‘事’工作坊</div><div class='box' style='left:666px;top:380px;width:106px;height:169px;'></div>
+</div><div class='booth' id='7' onclick='link_click(this)'><div class='desc' style='left:884px;top:551px;'><h2>7 KBP Lord Helix</h2><ul>
+<li><a href='http://fb.me/KBPLordHelix' class='fbk'></a></li></ul></div><div class='area' style='display: none'>7 KBP LORD HELIX</div><div class='box' style='left:777px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='8' onclick='link_click(this)'><div class='desc' style='left:995px;top:551px;'><h2>8 ChubbyCa</h2><ul>
+<li><a href='http://instagram.com/6_chubbs' class='ins'></a></li><li><a href='http://stickers.cloud/pack/chubbyca-vol-1'>stickers.cloud/pack/chubbyca-vol-1</a></li><li>
+</li></ul></div><div class='area' style='display: none'>8 CHUBBYCA</div><div class='box' style='left:887px;top:380px;width:106px;height:169px;'></div>
+</div><div class='booth' id='9' onclick='link_click(this)'><div class='desc' style='left:1105px;top:551px;'><h2>9 PeauTS!</h2><ul>
+<li><a href='http://fb.me/KaiXinxNuts' class='fbk'></a><a href='http://instagram.com/xin.peanuts' class='ins'></a><a href='http://worldcosplay.net/member/XinPeanuts' class='wcp'></a></li></ul></div><div class='area' style='display: none'>9 PEAUTS!</div><div class='box' style='left:998px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='10' onclick='link_click(this)'><div class='desc' style='left:1216px;top:551px;'><h2>10 Momochi Cosplayer</h2><a href='http://duckduckgo.com/?q=Momochi%20Cosplayer'>Search for Momochi Cosplayer</a></div><div class='area' style='display: none'>10 MOMOCHI COSPLAYER</div><div class='box' style='left:1108px;top:380px;width:106px;height:169px;'></div>
+</div><div class='booth' id='11' onclick='link_click(this)'><div class='desc' style='left:1326px;top:551px;'><h2>11 PenguinBigBro</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/PenguinBigBro'>PenguinBigBro</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/PenguinBigBro' class='twt'></a><a href='http://instagram.com/penguinbigbro' class='ins'></a><a href='http://ko-fi.com/penguinbigbro' class='kof'></a><a href='http://etsy.com/shop/PenguinBigBro' class='ets'></a></li><li><a href='http://penguinbigbro.ctcin.bio'>penguinbigbro.ctcin.bio</a></li><li>
+</li></ul></div><div class='area' style='display: none'>11 PENGUINBIGBRO</div><div class='box' style='left:1219px;top:380px;width:105px;height:169px;'></div>
+</div><div class='booth' id='12' onclick='link_click(this)'><div class='desc' style='left:221px;top:747px;'><h2>12 Crystal Creative Enterprise</h2><ul>
+<li><a href='http://fb.me/crystalcreativeent' class='fbk'></a></li></ul></div><div class='area' style='display: none'>12 CRYSTAL CREATIVE ENTERPRISE</div><div class='box' style='left:114px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='13' onclick='link_click(this)'><div class='desc' style='left:332px;top:747px;'><h2>13 Teh O Panda</h2><ul>
+<li><a href='http://instagram.com/tehopandaworks' class='ins'></a></li></ul></div><div class='area' style='display: none'>13 TEH O PANDA</div><div class='box' style='left:224px;top:576px;width:106px;height:169px;'></div>
+</div><div class='booth' id='14' onclick='link_click(this)'><div class='desc' style='left:442px;top:747px;'><h2>14 D*sign Underground</h2><ul>
+<li><a href='http://fb.me/dsignunderground' class='fbk'></a></li></ul></div><div class='area' style='display: none'>14 D*SIGN UNDERGROUND</div><div class='box' style='left:335px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='15' onclick='link_click(this)'><div class='desc' style='left:553px;top:747px;'><h2>15 Cat&#39;s Flower Garden</h2><ul>
+<li><a href='http://fb.me/catsflowergarden' class='fbk'></a></li></ul></div><div class='area' style='display: none'>15 CAT&#39;S FLOWER GARDEN</div><div class='box' style='left:445px;top:576px;width:106px;height:169px;'></div>
+</div><div class='booth' id='16' onclick='link_click(this)'><div class='desc' style='left:663px;top:747px;'><h2>16 NoaQi</h2><ul>
+<li><a href='http://instagram.com/noaqi77' class='ins'></a></li></ul></div><div class='area' style='display: none'>16 NOAQI</div><div class='box' style='left:556px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='17' onclick='link_click(this)'><div class='desc' style='left:774px;top:747px;'><h2>17 Casscada</h2><ul>
+<li><a href='https://kisetsukaze.tumblr.com' class='tmb'></a><a href='http://fb.me/ArtOfKisetsukaze' class='fbk'></a></li></ul></div><div class='area' style='display: none'>17 CASSCADA</div><div class='box' style='left:666px;top:576px;width:106px;height:169px;'></div>
+</div><div class='booth' id='18' onclick='link_click(this)'><div class='desc' style='left:884px;top:747px;'><h2>18 Baroquegothik</h2><ul>
+<li><a href='http://twitter.com/baroquegothik' class='twt'></a><a href='https://baroquegothik.tumblr.com' class='tmb'></a><a href='http://fb.me/baroquegothik' class='fbk'></a><a href='http://instagram.com/baroquegothik' class='ins'></a><a href='http://redbubble.com/people/baroquegothik' class='rbb'></a><a href='http://inprnt.com/gallery/baroquegothik' class='inp'></a></li></ul></div><div class='area' style='display: none'>18 BAROQUEGOTHIK</div><div class='box' style='left:777px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='19' onclick='link_click(this)'><div class='desc' style='left:995px;top:747px;'><h2>19 MarBles</h2><ul>
+<li></li><li>Marini4</li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/marini4art' class='ins'></a><a href='http://marini4.deviantart.com' class='dar'></a><a href='https://bendybeforeinkmachine.tumblr.com' class='tmb'></a><a href='http://marini4.carrd.co' class='crd'></a><a href='http://etsy.com/shop/Marini4Art' class='ets'></a><a href='http://webtoons.com/en/challenge/bendy-before-the-ink-machine/list?title_no=188451' class='wtn'></a><a href='http://youtube.com/channel/UCZ3zoo9E-SWxq6dprtMerWg' class='ytb'></a><a href='http://patreon.com/marini4' class='ptr'></a><a href='http://linktr.ee/Marini4' class='lkt'></a></li><li>Zabbles</li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/zabbles_art' class='twt'></a><a href='http://instagram.com/zabbles.art' class='ins'></a><a href='http://zee-zyp.deviantart.com' class='dar'></a><a href='https://zabblesart.tumblr.com' class='tmb'></a><a href='http://ko-fi.com/zabblesart' class='kof'></a><a href='http://pinterest.com/zabblesrefs' class='pts'></a><a href='http://fb.me/zabbles.art' class='fbk'></a><a href='http://linktr.ee/zabbles.art' class='lkt'></a></li></ul></div><div class='area' style='display: none'>19 MARBLES</div><div class='box' style='left:887px;top:576px;width:106px;height:169px;'></div>
+</div><div class='booth' id='20' onclick='link_click(this)'><div class='desc' style='left:1105px;top:747px;'><h2>20 onikki</h2><ul>
+<li></li><li>tyraryu.doll</li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/TYRARYU.DOLL' class='ins'></a><a href='http://fb.me/tyraryu.doll' class='fbk'></a></li><li>rakugaqis</li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/rakugaqis' class='twt'></a><a href='http://instagram.com/rakugaqis' class='ins'></a><a href='https://rakugaqis.tumblr.com' class='tmb'></a><a href='http://ko-fi.com/rakugaqis' class='kof'></a><a href='http://fb.me/rakugaqis' class='fbk'></a><a href='http://astralost.carrd.co' class='crd'></a></li><li>oishiicafe</li><li><span class='chevron'>&gt;</span></li></ul></div><div class='area' style='display: none'>20 ONIKKI</div><div class='box' style='left:998px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='21' onclick='link_click(this)'><div class='desc' style='left:1216px;top:747px;'><h2>21 Rachelhofs Art</h2><ul>
+<li><a href='http://twitter.com/rachelhofs' class='twt'></a><a href='http://instagram.com/rachelhofs' class='ins'></a><a href='http://behance.net/rachelhofs' class='bhc'></a><a href='http://artstation.com/rachelhofs' class='ast'></a></li></ul></div><div class='area' style='display: none'>21 RACHELHOFS ART</div><div class='box' style='left:1108px;top:576px;width:106px;height:169px;'></div>
+</div><div class='booth' id='22' onclick='link_click(this)'><div class='desc' style='left:1326px;top:747px;'><h2>22 Qiara Teor Illustrations</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Qiara Teor'>Qiara Teor</a></li><li><span class='chevron'>&gt;</span><a href='http://fb.me/qiarateor' class='fbk'></a><a href='http://instagram.com/qiarateor' class='ins'></a><a href='http://twitter.com/Qiara_T' class='twt'></a></li></ul></div><div class='area' style='display: none'>22 QIARA TEOR ILLUSTRATIONS</div><div class='box' style='left:1219px;top:576px;width:105px;height:169px;'></div>
+</div><div class='booth' id='23' onclick='link_click(this)'><div class='desc' style='left:221px;top:945px;'><h2>23 Whimsery</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Whimsery'>Whimsery</a></li><li><span class='chevron'>&gt;</span><a href='http://instagram.com/Whimsery.Shop' class='ins'></a><a href='http://fb.me/whimsery' class='fbk'></a><a href='http://whimsery.etsy.com' class='ets'></a></li></ul></div><div class='area' style='display: none'>23 WHIMSERY</div><div class='box' style='left:114px;top:774px;width:105px;height:169px;'></div>
+</div><div class='booth' id='24' onclick='link_click(this)'><div class='desc' style='left:332px;top:945px;'><h2>24 Azreenchan</h2><ul>
+<li><a href='http://instagram.com/azreenchan' class='ins'></a><a href='http://azreenchan.easy.co' class='esc'></a><a href='http://behance.net/azreenchan' class='bhc'></a><a href='http://doodle-from-me.blogspot.com' class='bsp'></a></li></ul></div><div class='area' style='display: none'>24 AZREENCHAN</div><div class='box' style='left:224px;top:774px;width:106px;height:169px;'></div>
+</div><div class='booth' id='25' onclick='link_click(this)'><div class='desc' style='left:442px;top:945px;'><h2>25 Erebun</h2><ul>
+<li><a href='http://erebun.deviantart.com' class='dar'></a><a href='http://twitter.com/erebun11' class='twt'></a><a href='http://facebook.com/erebun' class='fbk'></a><a href='http://erebun.etsy.com' class='ets'></a></li></ul></div><div class='area' style='display: none'>25 EREBUN</div><div class='box' style='left:335px;top:774px;width:105px;height:169px;'></div>
+</div><div class='booth' id='26' onclick='link_click(this)'><div class='desc' style='left:553px;top:945px;'><h2>26 Malaysia Touhou Brigade</h2><ul>
+<li><a href='http://fb.me/MalaysianTouhouBrigade' class='fbk'></a></li><li><a href='http://mtb.herokuapp.com'>mtb.herokuapp.com</a></li><li>
+</li></ul></div><div class='area' style='display: none'>26 MALAYSIA TOUHOU BRIGADE</div><div class='box' style='left:445px;top:774px;width:106px;height:169px;'></div>
+</div><div class='booth' id='27' onclick='link_click(this)'><div class='desc' style='left:663px;top:945px;'><h2>27 Saemidesu</h2><ul>
+<li><a href='http://instagram.com/saemidesu' class='ins'></a><a href='http://pixiv.net/en/users/26650302' class='pxv'></a><a href='http://saemidesu.deviantart.com' class='dar'></a><a href='https://saemidesu.tumblr.com' class='tmb'></a><a href='http://fb.me/Saemidesu' class='fbk'></a><a href='http://ko-fi.com/saemidesu' class='kof'></a><a href='http://linktr.ee/saemidesu' class='lkt'></a><a href='http://reddit.com/user/saemidesunya' class='rdt'></a></li></ul></div><div class='area' style='display: none'>27 SAEMIDESU</div><div class='box' style='left:556px;top:774px;width:105px;height:169px;'></div>
+</div><div class='booth' id='28' onclick='link_click(this)'><div class='desc' style='left:774px;top:945px;'><h2>28 Katsudonno</h2><ul>
+<li><a href='http://twitter.com/katsudonno' class='twt'></a><a href='http://instagram.com/katsudonno' class='ins'></a><a href='https://katsudonno.tumblr.com' class='tmb'></a><a href='http://fb.me/katsudonno' class='fbk'></a><a href='http://linktr.ee/katsudonno' class='lkt'></a></li><li><a href='http://buymeacoffee.com/IcGbMxR'>buymeacoffee.com/IcGbMxR</a></li><li>
+</li></ul></div><div class='area' style='display: none'>28 KATSUDONNO</div><div class='box' style='left:666px;top:774px;width:106px;height:169px;'></div>
+</div><div class='booth' id='29' onclick='link_click(this)'><div class='desc' style='left:884px;top:945px;'><h2>29 florencemomo</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Florence Momo'>Florence Momo</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/florencemomo' class='twt'></a><a href='http://instagram.com/florencemomo' class='ins'></a><a href='https://florencemomo.tumblr.com' class='tmb'></a><a href='http://pixiv.me/peach90' class='pxv'></a></li></ul></div><div class='area' style='display: none'>29 FLORENCEMOMO</div><div class='box' style='left:777px;top:774px;width:105px;height:169px;'></div>
+</div><div class='booth' id='30' onclick='link_click(this)'><div class='desc' style='left:995px;top:945px;'><h2>30 PawPrint</h2><ul>
+<li><a href='http://fb.me/chromaxfirst' class='fbk'></a></li></ul></div><div class='area' style='display: none'>30 PAWPRINT</div><div class='box' style='left:887px;top:774px;width:106px;height:169px;'></div>
+</div><div class='booth' id='31' onclick='link_click(this)'><div class='desc' style='left:1105px;top:945px;'><h2>31 Ryukku-K</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Ryukku-K'>Ryukku-K</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/ryukku_k' class='twt'></a><a href='http://instagram.com/ryukku_k' class='ins'></a><a href='http://fb.me/ryukku.k' class='fbk'></a></li></ul></div><div class='area' style='display: none'>31 RYUKKU-K</div><div class='box' style='left:998px;top:774px;width:105px;height:169px;'></div>
+</div><div class='booth' id='32' onclick='link_click(this)'><div class='desc' style='left:1216px;top:945px;'><h2>32 Vomit Thunder</h2><ul>
+<li><a href='https://carousell.com/vomit_thunder' class='crs'></a><a href='http://instagram.com/vomitthunder' class='ins'></a><a href='http://fb.me/artofvomitthunder' class='fbk'></a></li></ul></div><div class='area' style='display: none'>32 VOMIT THUNDER</div><div class='box' style='left:1108px;top:774px;width:106px;height:169px;'></div>
+</div><div class='booth' id='33' onclick='link_click(this)'><div class='desc' style='left:1326px;top:945px;'><h2>33 Maru</h2><ul>
+<li><a href='http://twitter.com/marudotcool' class='twt'></a><a href='http://instagram.com/marudotcool' class='ins'></a><a href='http://ko-fi.com/marudotcool' class='kof'></a><a href='https://marupocalypse.tumblr.com' class='tmb'></a><a href='http://fb.me/marudotcool' class='fbk'></a><a href='http://linktr.ee/marudotcool' class='lkt'></a></li><li><a href='http://marudotcool.itch.io'>marudotcool.itch.io</a></li><li>
+</li></ul></div><div class='area' style='display: none'>33 MARU</div><div class='box' style='left:1219px;top:774px;width:105px;height:169px;'></div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to AMGO2020 artists and organizer.-->
