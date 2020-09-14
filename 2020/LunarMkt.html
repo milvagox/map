@@ -5,39 +5,14 @@
 <meta name="twitter:site" content="@milvagox">
 <meta property="og:type" content="website">
 <meta property="og:title" content="LunarMkt Interactive Map">
-<meta property="og:description" content="Unofficial Kurocon virtual booth map with clickable aritsts' booth">
+<meta property="og:description" content="Unofficial LunarMkt virtual booth listing">
 <meta property="og:url" content="https://milvagox.cyou/LunarMkt">
 <meta property="og:image" content="https://milvagox.cyou/twt/LunarMkt.png">
-<meta name="description" content="Unofficial Kurocon virtual booth map with clickable aritsts' booth">
+<meta name="description" content="Unofficial LunarMkt virtual booth listing">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://milvagox.cyou/2020/LunarMkt.html">
  <title>LunarMkt Map++</title>
  <style>
-  .banner { position: absolute; z-index: 200; }
-  .booth { 
-    opacity: 0.6;
-  }
-  .booth:hover { opacity: 1; }
-  .booth img { display: none; }
-  .booth:hover img { display: block;}
-  .area { 
-    border: 1px solid red; 
-    background-color: rgba(200, 200, 200, 0.5);
-    position: absolute;
-    
-    color: black;
-    opacity: inherit;
-    z-index:  20;
-    cursor: pointer;
-  }
-  .box {
-    border: 3px dotted aqua;
-    background-color: rgba(0, 0, 0, 0);
-    position: absolute;
-    z-index: 130;
-    opacity: inherit;
-    cursor: pointer;
-  }
   .box_round { border-radius: 50%; }
   .booth_highlight { opacity: 1; }
   .toolBut { 
@@ -47,22 +22,30 @@
   }
   .toggle_checkbox { background-color: gainsboro; }
   input:checked + .toggle_checkbox { background-color: yellow; }
+  .booth {
+    margin: 10px;
+  }
   .desc {
-    padding: 10px 10px 10px 160px ;
-    min-width: 320px; 
+    padding: 10px;
+    min-width: 300px; 
     max-width: 500px;
-    min-height: 250px; 
-    text-align: justify;
+    min-height: 300px; 
+    text-align: center;
     background-color: white;
-    position: absolute; 
-    display: none;
+    display: block;
     z-index: 150;
-    border-radius: 0 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
+    border: 5px solid pink;
+  }
+  
+  .desc img {
+    min-height: 200px;
   }
   .desc h2 {
     margin: 1px;
     font-family: monospace;
     text-decoration: underline;
+    white-space: nowrap;
   }
   .custimg {
     position: absolute;
@@ -73,8 +56,8 @@
     display: none;
   }
   .booth:hover + .custimg { display: block; }
-.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
-.desc > ul { list-style: none }
+.desc ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc ul { list-style: none }
 .chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
@@ -301,31 +284,6 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='Lun
         glob_box_selector.nextElementSibling.style.display = '';
       }
     }
-
-    document.onkeypress = function (event) {
-      event = event || window.event;
-      var key_pressed = event.keyCode || event.which;
-      temp_box = ""
-      if (document.getElementById('searchBox') !== document.activeElement) {
-        if (glob_box_selector == "") { temp_box = document.getElementsByClassName("booth")[0]; } 
-        else { // switch box will be better...
-          if (key_pressed == 37) { temp_box = glob_box_selector.previousElementSibling; } 
-          else if (key_pressed == 39) { temp_box = glob_box_selector.nextElementSibling;}
-          else { temp_box = glob_box_selector; }
-          
-          // for custom image case skipping
-          if(temp_box.classList.contains("custimg")) {
-            if (key_pressed == 37) { temp_box = temp_box.previousElementSibling; } 
-            else if (key_pressed == 39) { temp_box = temp_box.nextElementSibling;}
-          }
-        }
-        if (temp_box == null) { temp_box = glob_box_selector } //prevent fallout
-        if (temp_box.classList.contains("booth")) {
-          coverbox_click();
-          link_click(temp_box);
-        }
-      }
-    };
  </script>
 </head>
 <body onload='highlight_by_anchor();' autofocus>
@@ -334,40 +292,42 @@ function booth_mover(booth) { booth.getElementsByClassName('banner')[0].src='Lun
 <div style='position: absolute; z-index: 1; height: 35px;display: none;' >
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
-<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><div>Click the box for more info.</div>
+<button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div>
 <div id='coverbox' onclick='coverbox_click()' style='position: fixed; width: 100%; height: 100%; background-color: black; opacity: 0; top: 0px; left: 0px;'></div>
-<div class='booth' id='01' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:75px;'><h2>01 Cattnib</h2><ul>
+
+<div style='display:flex; flex-wrap:wrap; justify-content: space-around;'><div class='booth' id='1'><div class='desc'><img class='banner' src='LunarMkt/artist/1.png'><div><h2>1 Cattnib</h2><ul>
 <li><a href='http://twitter.com/cattnib' class='twt'></a><a href='http://instagram.com/cattnib' class='ins'></a><a href='http://fb.me/cattnib' class='fbk'></a></li><li><a href='http://cattnib.com'>cattnib.com</a></li><li>
-</li></ul></div><img class='banner' style='left:520px;top:75px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:50px;width:220px;height:25px;'>01 Cattnib</div><div class='box' style='left:298px;top:48px;width:220px;height:25px;'></div>
-</div><div class='booth' id='02' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:125px;'><h2>02 Chuinny</h2><ul>
-<li><a href='http://twitter.com/chuinny' class='twt'></a><a href='http://instagram.com/yichuin' class='ins'></a><a href='https://chuinny.tumblr.com' class='tmb'></a><a href='http://ko-fi.com/chuinny' class='kof'></a><a href='http://fb.me/chuinny' class='fbk'></a></li></ul></div><img class='banner' style='left:520px;top:125px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:100px;width:220px;height:25px;'>02 Chuinny</div><div class='box' style='left:298px;top:98px;width:220px;height:25px;'></div>
-</div><div class='booth' id='03' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:175px;'><h2>03 Circus-usagi</h2><ul>
+</li></ul></div></div>
+</div><div class='booth' id='2'><div class='desc'><img class='banner' src='LunarMkt/artist/2.png'><div><h2>2 Chuinny</h2><ul>
+<li><a href='http://twitter.com/chuinny' class='twt'></a><a href='http://instagram.com/yichuin' class='ins'></a><a href='https://chuinny.tumblr.com' class='tmb'></a><a href='http://ko-fi.com/chuinny' class='kof'></a><a href='http://fb.me/chuinny' class='fbk'></a></li></ul></div></div>
+</div><div class='booth' id='3'><div class='desc'><img class='banner' src='LunarMkt/artist/3.png'><div><h2>3 Circus-usagi</h2><ul>
 <li><a href='http://twitter.com/circus_usagi' class='twt'></a><a href='http://instagram.com/circususagi' class='ins'></a><a href='https://girlwiththewhiterabbit.tumblr.com' class='tmb'></a><a href='http://fb.me/circus.usagi' class='fbk'></a></li><li><a href='http://circus-usagi.com'>circus-usagi.com</a></li><li>
-</li></ul></div><img class='banner' style='left:520px;top:175px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:150px;width:220px;height:25px;'>03 Circus-usagi</div><div class='box' style='left:298px;top:148px;width:220px;height:25px;'></div>
-</div><div class='booth' id='04' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:225px;'><h2>04 Daydreamer</h2><ul>
-<li><a href='http://twitter.com/manda_dayoyo' class='twt'></a><a href='http://mandachan.deviantart.com' class='dar'></a><a href='http://fb.me/mawarudream' class='fbk'></a></li></ul></div><img class='banner' style='left:520px;top:225px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:200px;width:220px;height:25px;'>04 Daydreamer</div><div class='box' style='left:298px;top:198px;width:220px;height:25px;'></div>
-</div><div class='booth' id='05' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:275px;'><h2>05 Etgoeshibaeee</h2><ul>
-<li><a href='http://instagram.com/etgoeshibaeee' class='ins'></a><a href='http://fb.me/etgoeshibaeee' class='fbk'></a><a href='http://etgoeshibaeee.etsy.com' class='ets'></a><a href='http://linktr.ee/etgoeshibaeee' class='lkt'></a></li></ul></div><img class='banner' style='left:520px;top:275px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:250px;width:220px;height:25px;'>05 Etgoeshibaeee</div><div class='box' style='left:298px;top:248px;width:220px;height:25px;'></div>
-</div><div class='booth' id='06' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:325px;'><h2>06 hero*MIX</h2><ul>
-<li><a href='http://twitter.com/jexiska' class='twt'></a><a href='http://instagram.com/jexiska_art' class='ins'></a><a href='https://jexiska.tumblr.com' class='tmb'></a><a href='http://fb.me/alexiussana' class='fbk'></a></li></ul></div><img class='banner' style='left:520px;top:325px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:300px;width:220px;height:25px;'>06 hero*MIX</div><div class='box' style='left:298px;top:298px;width:220px;height:25px;'></div>
-</div><div class='booth' id='07' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:375px;'><h2>07 Himeko&#39;s Harem</h2><ul>
-<li><a href='http://twitter.com/himekoharem' class='twt'></a><a href='http://instagram.com/himekoharem' class='ins'></a></li></ul></div><img class='banner' style='left:520px;top:375px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:350px;width:220px;height:25px;'>07 Himeko&#39;s Harem</div><div class='box' style='left:298px;top:348px;width:220px;height:25px;'></div>
-</div><div class='booth' id='08' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:520px;top:425px;'><h2>08 Missing24seven</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/Missing24seven'>Missing24seven</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/missing24seven' class='twt'></a><a href='http://instagram.com/missing24seven' class='ins'></a></li></ul></div><img class='banner' style='left:520px;top:425px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:300px;top:400px;width:220px;height:25px;'>08 Missing24seven</div><div class='box' style='left:298px;top:398px;width:220px;height:25px;'></div>
-</div><div class='booth' id='09' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:75px;'><h2>09 Mochibuddies</h2><ul>
-<li><a href='http://instagram.com/mochibuddies' class='ins'></a><a href='http://linktr.ee/mochibuddies' class='lkt'></a></li></ul></div><img class='banner' style='left:820px;top:75px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:50px;width:220px;height:25px;'>09 Mochibuddies</div><div class='box' style='left:598px;top:48px;width:220px;height:25px;'></div>
-</div><div class='booth' id='10' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:125px;'><h2>10 Nandecolle</h2><ul>
-<li></li><li><a href='https://milvagox.miraheze.org/wiki/nandecolle'>nandecolle</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/nandecolle' class='twt'></a><a href='http://instagram.com/nandecolle' class='ins'></a><a href='http://fb.me/nandecolle' class='fbk'></a><a href='http://nandecolle.com' class='unk'></a></li></ul></div><img class='banner' style='left:820px;top:125px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:100px;width:220px;height:25px;'>10 Nandecolle</div><div class='box' style='left:598px;top:98px;width:220px;height:25px;'></div>
-</div><div class='booth' id='11' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:175px;'><h2>11 Nandemopins</h2><ul>
-<li><a href='http://instagram.com/nandemopins' class='ins'></a><a href='http://nandemopins.bigcartel.com' class='bcl'></a></li></ul></div><img class='banner' style='left:820px;top:175px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:150px;width:220px;height:25px;'>11 Nandemopins</div><div class='box' style='left:598px;top:148px;width:220px;height:25px;'></div>
-</div><div class='booth' id='12' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:225px;'><h2>12 prinzcakexkilika</h2><ul>
-<li><a href='http://twitter.com/prinzcake' class='twt'></a><a href='http://prinzcake.bigcartel.com' class='bcl'></a></li></ul></div><img class='banner' style='left:820px;top:225px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:200px;width:220px;height:25px;'>12 prinzcakexkilika</div><div class='box' style='left:598px;top:198px;width:220px;height:25px;'></div>
-</div><div class='booth' id='13' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:275px;'><h2>13 rollround</h2><ul>
-<li><a href='http://twitter.com/rollround' class='twt'></a><a href='http://instagram.com/rollround' class='ins'></a><a href='http://cargocollective.com/chrylkk' class='cgc'></a><a href='http://rollmade.co' class='unk'></a></li></ul></div><img class='banner' style='left:820px;top:275px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:250px;width:220px;height:25px;'>13 rollround</div><div class='box' style='left:598px;top:248px;width:220px;height:25px;'></div>
-</div><div class='booth' id='14' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:325px;'><h2>14 Sherms no kamishibai ya</h2><ul>
-<li><a href='http://twitter.com/shermstan' class='twt'></a><a href='http://instagram.com/shermstan' class='ins'></a></li></ul></div><img class='banner' style='left:820px;top:325px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:300px;width:220px;height:25px;'>14 Sherms no kamishibai ya</div><div class='box' style='left:598px;top:298px;width:220px;height:25px;'></div>
-</div><div class='booth' id='15' onmouseover='booth_mover(this)' onclick='link_click(this)'><div class='desc' style='left:820px;top:375px;'><h2>15 Solydefy</h2><ul>
-<li><a href='http://instagram.com/solydefy' class='ins'></a></li></ul></div><img class='banner' style='left:820px;top:375px;' onerror='this.src="LunarMkt/artist/x.png"'><div class='area' style='left:600px;top:350px;width:220px;height:25px;'>15 Solydefy</div><div class='box' style='left:598px;top:348px;width:220px;height:25px;'></div>
+</li></ul></div></div>
+</div><div class='booth' id='4'><div class='desc'><img class='banner' src='LunarMkt/artist/4.png'><div><h2>4 Daydreamer</h2><ul>
+<li><a href='http://twitter.com/manda_dayoyo' class='twt'></a><a href='http://mandachan.deviantart.com' class='dar'></a><a href='http://fb.me/mawarudream' class='fbk'></a></li></ul></div></div>
+</div><div class='booth' id='5'><div class='desc'><img class='banner' src='LunarMkt/artist/5.png'><div><h2>5 Etgoeshibaeee</h2><ul>
+<li><a href='http://instagram.com/etgoeshibaeee' class='ins'></a><a href='http://fb.me/etgoeshibaeee' class='fbk'></a><a href='http://etgoeshibaeee.etsy.com' class='ets'></a><a href='http://linktr.ee/etgoeshibaeee' class='lkt'></a></li></ul></div></div>
+</div><div class='booth' id='6'><div class='desc'><img class='banner' src='LunarMkt/artist/6.png'><div><h2>6 hero*MIX</h2><ul>
+<li><a href='http://twitter.com/jexiska' class='twt'></a><a href='http://instagram.com/jexiska_art' class='ins'></a><a href='https://jexiska.tumblr.com' class='tmb'></a><a href='http://fb.me/alexiussana' class='fbk'></a></li></ul></div></div>
+</div><div class='booth' id='7'><div class='desc'><img class='banner' src='LunarMkt/artist/7.png'><div><h2>7 Himeko&#39;s Harem</h2><ul>
+<li><a href='http://twitter.com/himekoharem' class='twt'></a><a href='http://instagram.com/himekoharem' class='ins'></a></li></ul></div></div>
+</div><div class='booth' id='8'><div class='desc'><img class='banner' src='LunarMkt/artist/8.png'><div><h2>8 Missing24seven</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/Missing24seven'>Missing24seven</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/missing24seven' class='twt'></a><a href='http://instagram.com/missing24seven' class='ins'></a></li></ul></div></div>
+</div><div class='booth' id='9'><div class='desc'><img class='banner' src='LunarMkt/artist/9.png'><div><h2>9 Mochibuddies</h2><ul>
+<li><a href='http://instagram.com/mochibuddies' class='ins'></a><a href='http://linktr.ee/mochibuddies' class='lkt'></a></li></ul></div></div>
+</div><div class='booth' id='10'><div class='desc'><img class='banner' src='LunarMkt/artist/10.png'><div><h2>10 Nandecolle</h2><ul>
+<li></li><li><a href='https://milvagox.miraheze.org/wiki/nandecolle'>nandecolle</a></li><li><span class='chevron'>&gt;</span><a href='http://twitter.com/nandecolle' class='twt'></a><a href='http://instagram.com/nandecolle' class='ins'></a><a href='http://fb.me/nandecolle' class='fbk'></a><a href='http://nandecolle.com' class='unk'></a></li></ul></div></div>
+</div><div class='booth' id='11'><div class='desc'><img class='banner' src='LunarMkt/artist/11.png'><div><h2>11 Nandemopins</h2><ul>
+<li><a href='http://instagram.com/nandemopins' class='ins'></a><a href='http://nandemopins.bigcartel.com' class='bcl'></a></li></ul></div></div>
+</div><div class='booth' id='12'><div class='desc'><img class='banner' src='LunarMkt/artist/12.png'><div><h2>12 prinzcakexkilika</h2><ul>
+<li><a href='http://twitter.com/prinzcake' class='twt'></a><a href='http://prinzcake.bigcartel.com' class='bcl'></a></li></ul></div></div>
+</div><div class='booth' id='13'><div class='desc'><img class='banner' src='LunarMkt/artist/13.png'><div><h2>13 rollround</h2><ul>
+<li><a href='http://twitter.com/rollround' class='twt'></a><a href='http://instagram.com/rollround' class='ins'></a><a href='http://cargocollective.com/chrylkk' class='cgc'></a><a href='http://rollmade.co' class='unk'></a></li></ul></div></div>
+</div><div class='booth' id='14'><div class='desc'><img class='banner' src='LunarMkt/artist/14.png'><div><h2>14 Sherms no kamishibai ya</h2><ul>
+<li><a href='http://twitter.com/shermstan' class='twt'></a><a href='http://instagram.com/shermstan' class='ins'></a></li></ul></div></div>
+</div><div class='booth' id='15'><div class='desc'><img class='banner' src='LunarMkt/artist/15.png'><div><h2>15 Solydefy</h2><ul>
+<li><a href='http://instagram.com/solydefy' class='ins'></a></li></ul></div></div>
+</div>
 </div>
 </div></body></html>
 <!--Written and compiled by MilvagoX.-->
