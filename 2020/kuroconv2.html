@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@milvagox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="kuroconv2 Interactive Map">
+<meta property="og:description" content="Unofficial KuroCon vol.2 virtual booth listing">
+<meta property="og:url" content="https://milvagox.cyou/kuroconv2">
+<meta property="og:image" content="https://milvagox.cyou/twt/kuroconv2.png">
+<meta name="description" content="Unofficial KuroCon vol.2 virtual booth listing">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://milvagox.cyou/2020/kuroconv2.html">
+ <title>kuroconv2 Map++</title>
+ <style>
+  .box_round { border-radius: 50%; }
+  .booth_highlight { opacity: 1; }
+  .toolBut { 
+    border-radius: 4px; 
+    width: 120px;
+    padding: 0 10px 0 10px;
+  }
+  .toggle_checkbox { background-color: gainsboro; }
+  input:checked + .toggle_checkbox { background-color: yellow; }
+  .booth {
+    margin: 10px;
+  }
+  .desc {
+    padding: 10px;
+    width: 300px; 
+    min-height: 300px; 
+    text-align: center;
+    background-color: white;
+    display: block;
+    z-index: 150;
+    border-radius: 20px 20px 20px 20px;
+    border: 5px solid black;
+  }
+  
+  .desc img {
+    min-height: 200px;
+    border-radius: 10px;
+  }
+  .desc h2 {
+    margin: 1px;
+    font-family: monospace;
+    text-decoration: underline;
+    
+  }
+  .custimg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 1024px;
+    height: 1024px;
+    display: none;
+  }
+  .booth:hover + .custimg { display: block; }
+.desc ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc ul { list-style: none }
+.chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
+.abm { background: url('../ico/abm.png'); }
+.aks { background: url('../ico/aks.png'); }
+.and-club { background: url('../ico/and-club.png'); }
+.annuendo { background: url('../ico/annuendo.png'); }
+.ast { background: url('../ico/ast.png'); }
+.bcl { background: url('../ico/bcl.png'); }
+.bcy { background: url('../ico/bcy.png'); }
+.bhc { background: url('../ico/bhc.png'); }
+.bsp { background: url('../ico/bsp.png'); }
+.bss { background: url('../ico/bss.png'); }
+.califlair { background: url('../ico/califlair.png'); }
+.cbm { background: url('../ico/cbm.png'); }
+.cct { background: url('../ico/cct.png'); }
+.cgc { background: url('../ico/cgc.png'); }
+.charsiewspace { background: url('../ico/charsiewspace.png'); }
+.chz { background: url('../ico/chz.png'); }
+.cottonwings { background: url('../ico/cottonwings.png'); }
+.cpg { background: url('../ico/cpg.png'); }
+.crd { background: url('../ico/crd.png'); }
+.crs { background: url('../ico/crs.png'); }
+.dar { background: url('../ico/dar.png'); }
+.dpt { background: url('../ico/dpt.png'); }
+.eby { background: url('../ico/eby.png'); }
+.ecw { background: url('../ico/ecw.png'); }
+.elanorchuah { background: url('../ico/elanorchuah.png'); }
+.elonethart { background: url('../ico/elonethart.png'); }
+.esc { background: url('../ico/esc.png'); }
+.ets { background: url('../ico/ets.png'); }
+.fbk { background: url('../ico/fbk.png'); }
+.fc2 { background: url('../ico/fc2.png'); }
+.fkr { background: url('../ico/fkr.png'); }
+.gdr { background: url('../ico/gdr.png'); }
+.gfl { background: url('../ico/gfl.png'); }
+.gmr { background: url('../ico/gmr.png'); }
+.hibikipro { background: url('../ico/hibikipro.png'); }
+.ice-berry { background: url('../ico/ice-berry.png'); }
+.imtxm { background: url('../ico/imtxm.png'); }
+.inp { background: url('../ico/inp.png'); }
+.ins { background: url('../ico/ins.png'); }
+.jiwosophy { background: url('../ico/jiwosophy.png'); }
+.kof { background: url('../ico/kof.png'); }
+.lft { background: url('../ico/lft.png'); }
+.lkt { background: url('../ico/lkt.png'); }
+.llo { background: url('../ico/llo.png'); }
+.lnk { background: url('../ico/lnk.png'); }
+.lokamade { background: url('../ico/lokamade.png'); }
+.msp { background: url('../ico/msp.png'); }
+.nadhirnor { background: url('../ico/nadhirnor.png'); }
+.nieniekoto { background: url('../ico/nieniekoto.png'); }
+.otm { background: url('../ico/otm.png'); }
+.parallelparadisecos { background: url('../ico/parallelparadisecos.png'); }
+.pbd { background: url('../ico/pbd.png'); }
+.pki { background: url('../ico/pki.png'); }
+.pkn { background: url('../ico/pkn.png'); }
+.plk { background: url('../ico/plk.png'); }
+.ptr { background: url('../ico/ptr.png'); }
+.pts { background: url('../ico/pts.png'); }
+.pxv { background: url('../ico/pxv.png'); }
+.rachta { background: url('../ico/rachta.png'); }
+.rbb { background: url('../ico/rbb.png'); }
+.rdt { background: url('../ico/rdt.png'); }
+.reikomaru { background: url('../ico/reikomaru.png'); }
+.remaniac { background: url('../ico/remaniac.png'); }
+.rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
+.s12 { background: url('../ico/s12.png'); }
+.sdc { background: url('../ico/sdc.png'); }
+.sen { background: url('../ico/sen.png'); }
+.shp { background: url('../ico/shp.png'); }
+.spf { background: url('../ico/spf.png'); }
+.sqs { background: url('../ico/sqs.png'); }
+.susannelow { background: url('../ico/susannelow.png'); }
+.tcp { background: url('../ico/tcp.png'); }
+.tmb { background: url('../ico/tmb.png'); }
+.tps { background: url('../ico/tps.png'); }
+.twc { background: url('../ico/twc.png'); }
+.twt { background: url('../ico/twt.png'); }
+.tyh { background: url('../ico/tyh.png'); }
+.uchuusummer { background: url('../ico/uchuusummer.png'); }
+.unk { background: url('../ico/unk.png'); }
+.wbl { background: url('../ico/wbl.png'); }
+.wcp { background: url('../ico/wcp.png'); }
+.wdp { background: url('../ico/wdp.png'); }
+.wix { background: url('../ico/wix.png'); }
+.wtn { background: url('../ico/wtn.png'); }
+.yingtze { background: url('../ico/yingtze.png'); }
+.ytb { background: url('../ico/ytb.png'); }
+
+  .desc ul {
+    padding: 0;
+    margin: 0;
+  }
+ </style>
+ <script>  
+    function booth_highlight_listing(tag) {
+      hash_buff = decodeURIComponent(window.location.hash).match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!hash_buff) { hash_buff = [""]; }
+      if(hash_buff.indexOf(tag) != -1) {
+        hash_buff = hash_buff.filter(function(item) {return item != tag});
+      } else { hash_buff.push(tag); }
+      location.hash = hash_buff.join('|');
+    }
+    
+    function booth_highlightByString(keyword) { //parse str with '|' seperated
+      var highlighted = document.getElementsByClassName('booth_highlight');
+      while(highlighted[0]) { highlighted[0].classList.remove('booth_highlight'); }
+      
+      var keylist = keyword.match(/(?:([\w\s\d-]+)[^|]?)/gi);
+      if(!keylist) { return; }
+      keylist.forEach(function(item) {
+        booth = document.getElementById(item.toUpperCase());
+        if(booth) { booth.classList.add('booth_highlight'); }
+      });
+    }
+    
+    function search_booth(keyword) {
+      Array.prototype.forEach.call(document.getElementsByClassName('area'), function(item) {
+        if (keyword == "") { item.parentNode.classList.remove('booth_highlight') }
+        else { 
+          item.parentNode.classList.toggle('booth_highlight', item.innerHTML.toUpperCase().includes(keyword.toUpperCase()));
+        }
+      });
+      Array.prototype.forEach.call(document.getElementsByClassName('banner'), function(item) { item.src=''; });
+    }
+    
+    function copyText2clip(txt) {
+      if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = txt;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { return document.execCommand("copy");  // Security exception may be thrown by some browsers. 
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+        } finally { document.body.removeChild(textarea); }
+      }
+    }
+ 
+ </script>
+</head>
+<body>
+<div style="position: absolute; padding: 8px;">
+
+
+<div style='display:flex; flex-wrap:wrap; justify-content: space-around;'><div class='booth' id='1'><div class='desc'><img class='banner' src='kuroconv2/artist/1.png'><div><h2>Alexandria Howard and Phil Neihoff</h2><ul>
+<li><a href='http://fb.me/Lycheeshomepage' class='fbk'></a><a href='https://sewmurderous.tumblr.com' class='tmb'></a></li><li><a href='http://teespring.com/stores/sew-murderous-merch'>teespring.com/stores/sew-murderous-merch</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='2'><div class='desc'><img class='banner' src='kuroconv2/artist/2.png'><div><h2>Alice TriesToDraw</h2><ul>
+<li><a href='http://deviantart.com/alicetriestodraw' class='dar'></a><a href='http://instagram.com/alice_tries_to_draw' class='ins'></a><a href='http://twitch.tv/alice_triestodraw' class='twc'></a><a href='http://alicetriestodraw.artstation.com' class='ast'></a><a href='https://alicetriestodraw.tumblr.com' class='tmb'></a><a href='http://youtube.com/channel/UCODkwU0dQ0e1CLMLB3b7Jvw' class='ytb'></a></li></ul></div></div>
+</div><div class='booth' id='3'><div class='desc'><img class='banner' src='kuroconv2/artist/3.png'><div><h2>anwo-prinz</h2><ul>
+<li><a href='http://etsy.com/shop/anwoprinz' class='ets'></a><a href='http://twitter.com/anwoprinz' class='twt'></a><a href='http://instagram.com/anwoprinz' class='ins'></a><a href='http://twitch.tv/anwoprinz' class='twc'></a></li><li><a href='http://prinz.crevado.com'>prinz.crevado.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='4'><div class='desc'><img class='banner' src='kuroconv2/artist/4.png'><div><h2>ArtsyPosey</h2><ul>
+<li><a href='http://etsy.com/shop/ArtsyPosey' class='ets'></a><a href='http://twitter.com/ArtsyPoseyy' class='twt'></a><a href='http://instagram.com/artsyposey' class='ins'></a><a href='http://ko-fi.com/artsyposey' class='kof'></a></li></ul></div></div>
+</div><div class='booth' id='5'><div class='desc'><img class='banner' src='kuroconv2/artist/5.png'><div><h2>Arun Balmick</h2><ul>
+<li><a href='https://arundraws.tumblr.com/portfolio' class='tmb'></a><a href='http://twitter.com/arundraws' class='twt'></a></li></ul></div></div>
+</div><div class='booth' id='6'><div class='desc'><img class='banner' src='kuroconv2/artist/6.png'><div><h2>Blue Starbie</h2><ul>
+<li><a href='http://fb.me/StarbieArts' class='fbk'></a><a href='http://etsy.com/uk/shop/bluestarbieshop' class='ets'></a><a href='http://twitch.tv/bluestarbie' class='twc'></a></li></ul></div></div>
+</div><div class='booth' id='7'><div class='desc'><img class='banner' src='kuroconv2/artist/7.png'><div><h2>CathBiscuits</h2><ul>
+<li><a href='http://etsy.com/shop/CathBiscuits' class='ets'></a><a href='http://twitter.com/Cath_biscuits' class='twt'></a><a href='http://instagram.com/cath_biscuits' class='ins'></a></li><li><a href='http://www.catherinesuhart.com'>www.catherinesuhart.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='8'><div class='desc'><img class='banner' src='kuroconv2/artist/8.png'><div><h2>DEADRKGK</h2><ul>
+<li><a href='http://etsy.com/shop/deadww' class='ets'></a><a href='http://twitter.com/DEADRKGK' class='twt'></a><a href='http://instagram.com/deadrkgk' class='ins'></a><a href='http://twitch.tv/deadrkgk' class='twc'></a><a href='http://pixiv.net/en/users/10861057' class='pxv'></a><a href='http://deviantart.com/deadrkgk' class='dar'></a></li><li><a href='http://deadrkgk.com'>deadrkgk.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='9'><div class='desc'><img class='banner' src='kuroconv2/artist/9.png'><div><h2>DRAGO</h2><ul>
+<li><a href='http://twitter.com/Drago39R' class='twt'></a><a href='http://pixiv.net/en/users/17204899' class='pxv'></a></li></ul></div></div>
+</div><div class='booth' id='10'><div class='desc'><img class='banner' src='kuroconv2/artist/10.png'><div><h2>Hiodollz</h2><ul>
+<li><a href='http://twitter.com/hiodollz' class='twt'></a><a href='http://instagram.com/hiodollz' class='ins'></a><a href='http://fb.me/hiodollz' class='fbk'></a></li><li><a href='http://hiodollz.com'>hiodollz.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='11'><div class='desc'><img class='banner' src='kuroconv2/artist/11.png'><div><h2>Kessell</h2><ul>
+<li><a href='http://twitter.com/kessell_art' class='twt'></a><a href='http://instagram.com/kessell.art' class='ins'></a></li><li><a href='http://www.kateslam.art'>www.kateslam.art</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='12'><div class='desc'><img class='banner' src='kuroconv2/artist/12.png'><div><h2>Kim Vance</h2><ul>
+<li><a href='http://twitter.com/kimbox_jpeg' class='twt'></a><a href='http://instagram.com/kimbox.jpeg' class='ins'></a></li><li><a href='http://www.artofkimvance.com'>www.artofkimvance.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='13'><div class='desc'><img class='banner' src='kuroconv2/artist/13.png'><div><h2>Knistern</h2><ul>
+<li><a href='http://knisternportfolio.carrd.co' class='crd'></a><a href='http://twitter.com/_knistern' class='twt'></a><a href='http://instagram.com/_knistern' class='ins'></a><a href='http://ko-fi.com/theknistern' class='kof'></a><a href='http://redbubble.com/people/Knistern' class='rbb'></a><a href='http://linktr.ee/_knistern' class='lkt'></a></li></ul></div></div>
+</div><div class='booth' id='14'><div class='desc'><img class='banner' src='kuroconv2/artist/14.png'><div><h2>Lemony Lulu</h2><ul>
+<li><a href='http://etsy.com/shop/LuluChaCharms' class='ets'></a><a href='http://twitter.com/LemonyLuluDraws' class='twt'></a><a href='http://instagram.com/lemonylulu' class='ins'></a><a href='http://pixiv.net/en/users/28794555' class='pxv'></a></li><li><a href='http://lemonylulu.com'>lemonylulu.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='15'><div class='desc'><img class='banner' src='kuroconv2/artist/15.png'><div><h2>Pluvial Capricorn</h2><ul>
+<li><a href='http://pluvialcapricorn.storenvy.com' class='sen'></a><a href='http://twitter.com/Pluvial_Riot' class='twt'></a><a href='http://instagram.com/pluvialcapricorn' class='ins'></a><a href='http://linktr.ee/pluvialcapricorn' class='lkt'></a></li><li><a href='http://pluvialcapricorn.portfoliobox.net/moreart'>pluvialcapricorn.portfoliobox.net/moreart</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='16'><div class='desc'><img class='banner' src='kuroconv2/artist/16.png'><div><h2>Sayuui</h2><ul>
+<li><a href='http://pixiv.net/en/users/11660263' class='pxv'></a><a href='http://etsy.com/shop/Sayuuiartwork' class='ets'></a><a href='http://twitter.com/Sayuui' class='twt'></a><a href='http://instagram.com/sayuuiart' class='ins'></a><a href='http://twitch.tv/sayuuiart' class='twc'></a><a href='http://sayuui.artstation.com' class='ast'></a></li><li><a href='http://picarto.tv/Sayuui'>picarto.tv/Sayuui</a></li><li>
+</li><li><a href='http://medibang.com/u/Sayuui'>medibang.com/u/Sayuui</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='17'><div class='desc'><img class='banner' src='kuroconv2/artist/17.png'><div><h2>starjelly</h2><ul>
+<li><a href='http://starjelly.bigcartel.com' class='bcl'></a><a href='http://twitter.com/starjell_y' class='twt'></a><a href='http://instagram.com/starjell.y' class='ins'></a><a href='http://twitch.tv/starjellyart' class='twc'></a><a href='http://ko-fi.com/starjellly' class='kof'></a><a href='http://linktr.ee/starjelly' class='lkt'></a></li><li><a href='http://starjelly.myportfolio.com'>starjelly.myportfolio.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='18'><div class='desc'><img class='banner' src='kuroconv2/artist/18.png'><div><h2>That Sushi Shirt Kid</h2><ul>
+<li><a href='http://twitter.com/sushishirtkid' class='twt'></a><a href='http://instagram.com/thatsushishirtkid' class='ins'></a></li><li><a href='http://www.thatsushishirtkid.com'>www.thatsushishirtkid.com</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='19'><div class='desc'><img class='banner' src='kuroconv2/artist/19.png'><div><h2>Tsunau</h2><ul>
+<li><a href='http://tsunauarts.storenvy.com' class='sen'></a><a href='http://twitter.com/TsunauArts' class='twt'></a><a href='http://instagram.com/TsunauArts' class='ins'></a><a href='http://twitch.tv/tsunau' class='twc'></a><a href='http://fb.me/tsoonau' class='fbk'></a></li><li><a href='http://pillowfort.social/Tsunau'>pillowfort.social/Tsunau</a></li><li>
+</li><li><a href='http://tsunau.moe'>tsunau.moe</a></li><li>
+</li></ul></div></div>
+</div><div class='booth' id='20'><div class='desc'><img class='banner' src='kuroconv2/artist/20.png'><div><h2>XioArts</h2><ul>
+<li><a href='http://twitter.com/mxioarts' class='twt'></a><a href='http://instagram.com/xioarts' class='ins'></a><a href='http://fb.me/mxioarts' class='fbk'></a><a href='http://melaniexiongart.wordpress.com/gallery' class='wdp'></a></li></ul></div></div>
+</div><div class='booth' id='21'><div class='desc'><img class='banner' src='kuroconv2/artist/21.png'><div><h2>YoshiUnity</h2><ul>
+<li><a href='http://deviantart.com/yoshiunity' class='dar'></a><a href='http://twitter.com/YoshiUnity' class='twt'></a><a href='http://twitch.tv/yoshiunity' class='twc'></a><a href='https://yoshiunity.tumblr.com' class='tmb'></a><a href='http://yoshiunity.artstation.com' class='ast'></a></li></ul></div></div>
+</div>
+</div>
+</div></body></html>
+<!--Written and compiled by MilvagoX.-->
+<!--Map and banners are belong to kuroconv2 artists and organizer.-->
