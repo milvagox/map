@@ -8,6 +8,9 @@ Booth location can be highlight with hash('#') on the link.
 > (CAFKL6 A1) [milvagox.github.io/map/2019/CAFKL6#A1](https://milvagox.github.io/map/2019/CAFKL6#A1)
 
 
+# 2021
+- [makersmkt](https://milvagox.github.io/map/2021/makersmkt)
+
 # 2020
 - [AMGO2020](https://milvagox.github.io/map/2020/AMGO2020)
 - [Kurocon](https://milvagox.github.io/map/2020/kurocon)
