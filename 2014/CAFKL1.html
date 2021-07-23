@@ -6,11 +6,11 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="CAFKL1 Interactive Map">
 <meta property="og:description" content="CAFKL1 map with clickable artists' SNS links and search.">
-<meta property="og:url" content="https://milvagox.netlify.com/CAFKL1">
-<meta property="og:image" content="http://milvagox.netlify.com/twt/CAFKL1.png">
+<meta property="og:url" content="https://milvagox.cyou/CAFKL1">
+<meta property="og:image" content="https://milvagox.cyou/twt/CAFKL1.png">
 <meta name="description" content="CAFKL1 map with clickable artists' SNS links and search.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://milvagox.netlify.com/2014/CAFKL1.html">
+<link rel="canonical" href="https://milvagox.cyou/2014/CAFKL1.html">
  <title>CAFKL1 Map++</title>
  <style>
   .booth { 
@@ -56,6 +56,7 @@
     position: absolute; 
     display: none;
     z-index: 150;
+    border-radius: 0 20px 20px 20px;
   }
   .desc h2 {
     margin: 1px;
@@ -71,17 +72,21 @@
     display: none;
   }
   .booth:hover + .custimg { display: block; }
-.desc > ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; }
-.desc > ul { list-style: none }
+.desc ul > li > a[class] { min-width: 32px; height: 32px; display: inline-block; margin: 2px; background-size: contain;}
+.desc ul { list-style: none }
 .chevron {font-size: 34px; font-family: consolas; top: -8px; position: relative;}
 .abm { background: url('../ico/abm.png'); }
 .aks { background: url('../ico/aks.png'); }
+.and-club { background: url('../ico/and-club.png'); }
 .annuendo { background: url('../ico/annuendo.png'); }
 .ast { background: url('../ico/ast.png'); }
 .bcl { background: url('../ico/bcl.png'); }
 .bcy { background: url('../ico/bcy.png'); }
 .bhc { background: url('../ico/bhc.png'); }
 .bsp { background: url('../ico/bsp.png'); }
+.bss { background: url('../ico/bss.png'); }
+.califlair { background: url('../ico/califlair.png'); }
+.cbm { background: url('../ico/cbm.png'); }
 .cct { background: url('../ico/cct.png'); }
 .cgc { background: url('../ico/cgc.png'); }
 .charsiewspace { background: url('../ico/charsiewspace.png'); }
@@ -91,13 +96,21 @@
 .crd { background: url('../ico/crd.png'); }
 .crs { background: url('../ico/crs.png'); }
 .dar { background: url('../ico/dar.png'); }
+.dpt { background: url('../ico/dpt.png'); }
+.eby { background: url('../ico/eby.png'); }
+.ecw { background: url('../ico/ecw.png'); }
 .elanorchuah { background: url('../ico/elanorchuah.png'); }
 .elonethart { background: url('../ico/elonethart.png'); }
+.esc { background: url('../ico/esc.png'); }
 .ets { background: url('../ico/ets.png'); }
 .fbk { background: url('../ico/fbk.png'); }
 .fc2 { background: url('../ico/fc2.png'); }
+.fkr { background: url('../ico/fkr.png'); }
 .gdr { background: url('../ico/gdr.png'); }
+.gfl { background: url('../ico/gfl.png'); }
+.gmr { background: url('../ico/gmr.png'); }
 .hibikipro { background: url('../ico/hibikipro.png'); }
+.ice-berry { background: url('../ico/ice-berry.png'); }
 .imtxm { background: url('../ico/imtxm.png'); }
 .inp { background: url('../ico/inp.png'); }
 .ins { background: url('../ico/ins.png'); }
@@ -106,6 +119,7 @@
 .lft { background: url('../ico/lft.png'); }
 .lkt { background: url('../ico/lkt.png'); }
 .llo { background: url('../ico/llo.png'); }
+.lnk { background: url('../ico/lnk.png'); }
 .lokamade { background: url('../ico/lokamade.png'); }
 .msp { background: url('../ico/msp.png'); }
 .nadhirnor { background: url('../ico/nadhirnor.png'); }
@@ -115,15 +129,21 @@
 .pbd { background: url('../ico/pbd.png'); }
 .pki { background: url('../ico/pki.png'); }
 .pkn { background: url('../ico/pkn.png'); }
+.plk { background: url('../ico/plk.png'); }
 .ptr { background: url('../ico/ptr.png'); }
+.pts { background: url('../ico/pts.png'); }
 .pxv { background: url('../ico/pxv.png'); }
+.rachta { background: url('../ico/rachta.png'); }
 .rbb { background: url('../ico/rbb.png'); }
+.rdt { background: url('../ico/rdt.png'); }
 .reikomaru { background: url('../ico/reikomaru.png'); }
 .remaniac { background: url('../ico/remaniac.png'); }
 .rubyscosplayshop { background: url('../ico/rubyscosplayshop.png'); }
 .s12 { background: url('../ico/s12.png'); }
+.sdc { background: url('../ico/sdc.png'); }
 .sen { background: url('../ico/sen.png'); }
 .shp { background: url('../ico/shp.png'); }
+.spf { background: url('../ico/spf.png'); }
 .sqs { background: url('../ico/sqs.png'); }
 .susannelow { background: url('../ico/susannelow.png'); }
 .tcp { background: url('../ico/tcp.png'); }
@@ -132,6 +152,7 @@
 .twc { background: url('../ico/twc.png'); }
 .twt { background: url('../ico/twt.png'); }
 .tyh { background: url('../ico/tyh.png'); }
+.uchuusummer { background: url('../ico/uchuusummer.png'); }
 .unk { background: url('../ico/unk.png'); }
 .wbl { background: url('../ico/wbl.png'); }
 .wcp { background: url('../ico/wcp.png'); }
@@ -309,7 +330,7 @@
 <body onload='highlight_by_anchor();' autofocus>
 <div style="position: absolute; padding: 8px;">
 
-<div style='position: absolute; z-index: 1; height: 35px'>
+<div style='position: absolute; z-index: 1; height: 35px;' >
 <input type='text' id='searchBox' oninput='search_booth(this.value)' placeholder='Search'>
 <input type='checkbox' id='favBut' style='display: none;' /><label class='toolBut toggle_checkbox' for='favBut'>Highlight mode</label>
 <button class='toolBut' id='linkBut' onclick='copyText2clip(window.location + location.hash)'>Copy Link</button></div><img src='./CAFKL1/CAFKL1.png' style='' onerror="this.src = './CAFKL1/CAFKL1.jpg'">
@@ -333,7 +354,8 @@
 </div><div class='booth' id='B6' onclick='link_click(this)'><div class='desc' style='left:767px;top:933px;'><h2>B6 Ah Hua Workshop</h2><a href='http://duckduckgo.com/?q=Ah%20Hua%20Workshop'>Search for Ah Hua Workshop</a></div><div class='area' style='left:1343px;top:674px;width:320px;height:22px;'>B6 AH HUA WORKSHOP</div><div class='box' style='left:740px;top:909px;width:25px;height:22px;'></div>
 </div><div class='booth' id='B7' onclick='link_click(this)'><div class='desc' style='left:795px;top:930px;'><h2>B7 Gilamon Studio</h2><a href='http://duckduckgo.com/?q=Gilamon%20Studio'>Search for Gilamon Studio</a></div><div class='area' style='left:1343px;top:696px;width:320px;height:22px;'>B7 GILAMON STUDIO</div><div class='box' style='left:768px;top:906px;width:25px;height:22px;'></div>
 </div><div class='booth' id='B8' onclick='link_click(this)'><div class='desc' style='left:823px;top:927px;'><h2>B8 Drawlaahhh</h2><a href='http://duckduckgo.com/?q=Drawlaahhh'>Search for Drawlaahhh</a></div><div class='area' style='left:1343px;top:718px;width:320px;height:22px;'>B8 DRAWLAAHHH</div><div class='box' style='left:796px;top:903px;width:25px;height:22px;'></div>
-</div><div class='booth' id='B9' onclick='link_click(this)'><div class='desc' style='left:851px;top:924px;'><h2>B9 Ernest Ng</h2><a href='http://duckduckgo.com/?q=Ernest%20Ng'>Search for Ernest Ng</a></div><div class='area' style='left:1343px;top:740px;width:320px;height:22px;'>B9 ERNEST NG</div><div class='box' style='left:824px;top:900px;width:25px;height:22px;'></div>
+</div><div class='booth' id='B9' onclick='link_click(this)'><div class='desc' style='left:851px;top:924px;'><h2>B9 Ernest Ng</h2><ul>
+<li><a href='http://https://twitter.com/ernestngBRO' class='twt'></a><a href='http://https://fb.me/dontlikethatbro' class='fbk'></a></li></ul></div><div class='area' style='left:1343px;top:740px;width:320px;height:22px;'>B9 ERNEST NG</div><div class='box' style='left:824px;top:900px;width:25px;height:22px;'></div>
 </div><div class='booth' id='B10' onclick='link_click(this)'><div class='desc' style='left:879px;top:921px;'><h2>B10 Alan Quah</h2><a href='http://duckduckgo.com/?q=Alan%20Quah'>Search for Alan Quah</a></div><div class='area' style='left:1343px;top:762px;width:320px;height:22px;'>B10 ALAN QUAH</div><div class='box' style='left:852px;top:897px;width:25px;height:22px;'></div>
 </div><div class='booth' id='C1' onclick='link_click(this)'><div class='desc' style='left:756px;top:810px;'><h2>C1 GEMPAK STARZ</h2><a href='http://duckduckgo.com/?q=GEMPAK%20STARZ'>Search for GEMPAK STARZ</a></div><div class='area' style='left:1343px;top:846px;width:320px;height:22px;'>C1 GEMPAK STARZ</div><div class='box' style='left:594px;top:782px;width:160px;height:26px;'></div>
 </div><div class='booth' id='C7' onclick='link_click(this)'><div class='desc' style='left:929px;top:792px;'><h2>C7 PeKOMIK</h2><a href='http://duckduckgo.com/?q=PeKOMIK'>Search for PeKOMIK</a></div><div class='area' style='left:1343px;top:868px;width:320px;height:22px;'>C7 PEKOMIK</div><div class='box' style='left:767px;top:764px;width:160px;height:26px;'></div>
