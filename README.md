@@ -9,7 +9,7 @@ Booth location can be highlight with hash('#') on the link.
 
 
 # 2022
-- [jomcosplay](https://milvagox.github.io/map/2022/jomcosplay)
+- [jomcosplay](https://milvagox.github.io/map/2022/jomcosplay) ([Cosplay Alley](https://milvagox.github.io/map/2022/jomcosplayC))
 
 # 2021
 - [makersmkt](https://milvagox.github.io/map/2021/makersmkt)
